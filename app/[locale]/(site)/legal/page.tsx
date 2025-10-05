@@ -1,5 +1,6 @@
 import { Header } from '@/components/navigation/header'
 import { Footer } from '@/components/navigation/footer'
+import { Link } from '@/i18n/routing'
 
 export default function LegalPage() {
   return (
@@ -54,8 +55,8 @@ export default function LegalPage() {
               <section className="mb-12">
                 <h2 className="mb-4 text-2xl font-semibold">4. Propriété Intellectuelle</h2>
                 <p className="mb-4 text-muted-foreground">
-                  L'ensemble du contenu de ce site (textes, images, vidéos, structure, design)
-                  est protégé par le droit d'auteur et est la propriété exclusive de Health In Cloud,
+                  L&apos;ensemble du contenu de ce site (textes, images, vidéos, structure, design)
+                  est protégé par le droit d&apos;auteur et est la propriété exclusive de Health In Cloud,
                   sauf mention contraire.
                 </p>
                 <p className="mb-4 text-muted-foreground">
@@ -72,7 +73,7 @@ export default function LegalPage() {
                   au Règlement Général sur la Protection des Données (RGPD).
                 </p>
                 <p className="mb-4 text-muted-foreground">
-                  Pour plus d'informations, consultez notre <a href="/privacy" className="text-primary hover:underline">Politique de Confidentialité</a>.
+                  Pour plus d&apos;informations, consultez notre <Link href="/privacy" className="text-primary hover:underline">Politique de Confidentialité</Link>.
                 </p>
               </section>
 
@@ -81,11 +82,11 @@ export default function LegalPage() {
                 <p className="mb-4 text-muted-foreground">
                   Health In Cloud met tout en œuvre pour offrir aux utilisateurs des informations
                   et outils disponibles et vérifiés. Toutefois, nous ne pouvons être tenus responsables
-                  des erreurs, d'une absence de disponibilité des informations et/ou de la présence de virus.
+                  des erreurs, d&apos;une absence de disponibilité des informations et/ou de la présence de virus.
                 </p>
                 <p className="mb-4 text-muted-foreground">
                   Les exercices proposés ne remplacent pas un suivi médical professionnel et doivent
-                  être utilisés dans le cadre d'un protocole de soins supervisé par un professionnel
+                  être utilisés dans le cadre d&apos;un protocole de soins supervisé par un professionnel
                   de santé.
                 </p>
               </section>
@@ -93,7 +94,7 @@ export default function LegalPage() {
               <section className="mb-12">
                 <h2 className="mb-4 text-2xl font-semibold">7. Liens Hypertextes</h2>
                 <p className="mb-4 text-muted-foreground">
-                  Le site peut contenir des liens vers d'autres sites. Health In Cloud ne saurait
+                  Le site peut contenir des liens vers d&apos;autres sites. Health In Cloud ne saurait
                   être responsable du contenu de ces sites externes.
                 </p>
               </section>

@@ -31,7 +31,7 @@ export function SignupForm() {
       })
 
       router.push('/dashboard')
-    } catch (err) {
+    } catch {
       setError('Erreur lors de la création du compte')
     } finally {
       setIsLoading(false)

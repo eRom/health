@@ -18,7 +18,7 @@ export default function PrivacyPage() {
               <section className="mb-12">
                 <h2 className="mb-4 text-2xl font-semibold">1. Introduction</h2>
                 <p className="mb-4 text-muted-foreground">
-                  Health In Cloud ("nous", "notre", "nos") s'engage à protéger la confidentialité
+                  Health In Cloud (&ldquo;nous&rdquo;, &ldquo;notre&rdquo;, &ldquo;nos&rdquo;) s&apos;engage à protéger la confidentialité
                   de vos données personnelles. Cette politique de confidentialité explique comment
                   nous collectons, utilisons et protégeons vos informations.
                 </p>
@@ -30,10 +30,10 @@ export default function PrivacyPage() {
                   Nous collectons les données suivantes :
                 </p>
                 <ul className="mb-4 ml-6 list-disc space-y-2 text-muted-foreground">
-                  <li><strong>Données d'identification :</strong> nom, prénom, adresse email</li>
+                  <li><strong>Données d&apos;identification :</strong> nom, prénom, adresse email</li>
                   <li><strong>Données de santé :</strong> résultats des exercices, progression thérapeutique</li>
                   <li><strong>Données techniques :</strong> adresse IP, type de navigateur, données de connexion</li>
-                  <li><strong>Données d'utilisation :</strong> interactions avec la plateforme, temps passé sur les exercices</li>
+                  <li><strong>Données d&apos;utilisation :</strong> interactions avec la plateforme, temps passé sur les exercices</li>
                 </ul>
               </section>
 
@@ -58,7 +58,7 @@ export default function PrivacyPage() {
                 </p>
                 <ul className="mb-4 ml-6 list-disc space-y-2 text-muted-foreground">
                   <li>Votre consentement explicite pour les données de santé</li>
-                  <li>L'exécution du contrat de service</li>
+                  <li>L&apos;exécution du contrat de service</li>
                   <li>Le respect de nos obligations légales</li>
                   <li>Notre intérêt légitime à améliorer nos services</li>
                 </ul>
@@ -72,7 +72,7 @@ export default function PrivacyPage() {
                 <ul className="mb-4 ml-6 list-disc space-y-2 text-muted-foreground">
                   <li>Les professionnels de santé du département MPR de Nantes qui vous suivent</li>
                   <li>Nos prestataires techniques (hébergement sécurisé)</li>
-                  <li>Les autorités compétentes en cas d'obligation légale</li>
+                  <li>Les autorités compétentes en cas d&apos;obligation légale</li>
                 </ul>
                 <p className="mb-4 text-muted-foreground">
                   Nous ne vendons jamais vos données personnelles à des tiers.
@@ -112,12 +112,12 @@ export default function PrivacyPage() {
                   Conformément au RGPD, vous disposez des droits suivants :
                 </p>
                 <ul className="mb-4 ml-6 list-disc space-y-2 text-muted-foreground">
-                  <li><strong>Droit d'accès :</strong> obtenir une copie de vos données</li>
+                  <li><strong>Droit d&apos;accès :</strong> obtenir une copie de vos données</li>
                   <li><strong>Droit de rectification :</strong> corriger vos données inexactes</li>
-                  <li><strong>Droit à l'effacement :</strong> demander la suppression de vos données</li>
+                  <li><strong>Droit à l&apos;effacement :</strong> demander la suppression de vos données</li>
                   <li><strong>Droit à la limitation :</strong> limiter le traitement de vos données</li>
                   <li><strong>Droit à la portabilité :</strong> recevoir vos données dans un format structuré</li>
-                  <li><strong>Droit d'opposition :</strong> vous opposer au traitement de vos données</li>
+                  <li><strong>Droit d&apos;opposition :</strong> vous opposer au traitement de vos données</li>
                 </ul>
                 <p className="mb-4 text-muted-foreground">
                   Pour exercer vos droits, contactez-nous à : <a href="mailto:dpo@healthincloud.app" className="text-primary hover:underline">dpo@healthincloud.app</a>
@@ -129,7 +129,7 @@ export default function PrivacyPage() {
                 <p className="mb-4 text-muted-foreground">
                   Nous utilisons des cookies strictement nécessaires au fonctionnement du service
                   (authentification, préférences de langue). Aucun cookie de tracking ou publicitaire
-                  n'est utilisé.
+                  n&apos;est utilisé.
                 </p>
               </section>
 

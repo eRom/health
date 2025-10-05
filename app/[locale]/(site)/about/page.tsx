@@ -1,10 +1,7 @@
-import { useTranslations } from 'next-intl'
 import { Header } from '@/components/navigation/header'
 import { Footer } from '@/components/navigation/footer'
 
 export default function AboutPage() {
-  const t = useTranslations()
-
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
@@ -59,7 +56,7 @@ export default function AboutPage() {
                   <div className="rounded-lg border bg-card p-6">
                     <h3 className="mb-2 text-lg font-semibold">Innovation</h3>
                     <p className="text-sm text-muted-foreground">
-                      Utilisation des dernières technologies pour améliorer l'expérience utilisateur.
+                      Utilisation des dernières technologies pour améliorer l&apos;expérience utilisateur.
                     </p>
                   </div>
                   <div className="rounded-lg border bg-card p-6">
@@ -83,7 +80,7 @@ export default function AboutPage() {
               <section className="rounded-lg border bg-primary/5 p-8">
                 <h2 className="mb-4 text-2xl font-semibold">Nous Contacter</h2>
                 <p className="mb-4 text-muted-foreground">
-                  Pour toute question ou suggestion, n'hésitez pas à nous contacter :
+                  Pour toute question ou suggestion, n&apos;hésitez pas à nous contacter :
                 </p>
                 <p className="text-muted-foreground">
                   Email : <a href="mailto:contact@healthincloud.app" className="text-primary hover:underline">contact@healthincloud.app</a>

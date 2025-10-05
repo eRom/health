@@ -161,7 +161,7 @@ export default function HomePage() {
                       <ul className="space-y-2 text-sm text-primary">
                         <li className="flex items-start gap-2">
                           <CheckCircle className="mt-0.5 h-4 w-4 shrink-0" />
-                          <span>Tableau de bord résumant l'adhérence</span>
+                          <span>Tableau de bord résumant l&apos;adhérence</span>
                         </li>
                         <li className="flex items-start gap-2">
                           <CheckCircle className="mt-0.5 h-4 w-4 shrink-0" />
@@ -274,8 +274,8 @@ export default function HomePage() {
                   </p>
                 </div>
                 <blockquote className="border-l-4 border-primary pl-4 italic">
-                  "Je veux continuer à pratiquer à la maison comme je le fais avec mon thérapeute et
-                  voir si je progresse."
+                  &ldquo;Je veux continuer à pratiquer à la maison comme je le fais avec mon thérapeute et
+                  voir si je progresse.&rdquo;
                 </blockquote>
               </div>
 
@@ -290,8 +290,8 @@ export default function HomePage() {
                   </p>
                 </div>
                 <blockquote className="border-l-4 border-primary pl-4 italic">
-                  "J'ai besoin de visibilité sur la pratique à domicile de mes patients pour ajuster
-                  mes recommandations de manière proactive."
+                  &ldquo;J&apos;ai besoin de visibilité sur la pratique à domicile de mes patients pour ajuster
+                  mes recommandations de manière proactive.&rdquo;
                 </blockquote>
               </div>
             </div>
@@ -306,7 +306,7 @@ export default function HomePage() {
                 Votre parcours en 4 étapes
               </h2>
               <p className="text-lg text-muted-foreground">
-                Un accompagnement personnalisé de l'inscription au suivi
+                Un accompagnement personnalisé de l&apos;inscription au suivi
               </p>
             </div>
 

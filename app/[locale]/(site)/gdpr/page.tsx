@@ -12,7 +12,7 @@ export default function GDPRPage() {
 
             <div className="prose prose-lg dark:prose-invert max-w-none">
               <p className="mb-6 text-muted-foreground">
-                Health In Cloud s'engage à respecter le Règlement Général sur la Protection des Données (RGPD).
+                Health In Cloud s&apos;engage à respecter le Règlement Général sur la Protection des Données (RGPD).
               </p>
 
               <section className="mb-12">
@@ -60,7 +60,7 @@ export default function GDPRPage() {
                   <div className="rounded-lg border bg-card p-6">
                     <h3 className="mb-2 font-semibold">Intérêt Légitime (Art. 6.1.f RGPD)</h3>
                     <p className="text-sm text-muted-foreground">
-                      Pour l'amélioration de nos services et la sécurité de la plateforme.
+                      Pour l&apos;amélioration de nos services et la sécurité de la plateforme.
                     </p>
                   </div>
                 </div>
@@ -73,7 +73,7 @@ export default function GDPRPage() {
                 </p>
                 <div className="space-y-4">
                   <div className="rounded-lg border-l-4 border-primary bg-card p-4">
-                    <h3 className="mb-2 font-semibold">Droit d'accès (Art. 15)</h3>
+                    <h3 className="mb-2 font-semibold">Droit d&apos;accès (Art. 15)</h3>
                     <p className="text-sm text-muted-foreground">
                       Vous pouvez obtenir une copie de toutes vos données personnelles.
                     </p>
@@ -85,7 +85,7 @@ export default function GDPRPage() {
                     </p>
                   </div>
                   <div className="rounded-lg border-l-4 border-primary bg-card p-4">
-                    <h3 className="mb-2 font-semibold">Droit à l'effacement (Art. 17)</h3>
+                    <h3 className="mb-2 font-semibold">Droit à l&apos;effacement (Art. 17)</h3>
                     <p className="text-sm text-muted-foreground">
                       Vous pouvez demander la suppression de vos données dans certaines conditions.
                     </p>
@@ -103,7 +103,7 @@ export default function GDPRPage() {
                     </p>
                   </div>
                   <div className="rounded-lg border-l-4 border-primary bg-card p-4">
-                    <h3 className="mb-2 font-semibold">Droit d'opposition (Art. 21)</h3>
+                    <h3 className="mb-2 font-semibold">Droit d&apos;opposition (Art. 21)</h3>
                     <p className="text-sm text-muted-foreground">
                       Vous pouvez vous opposer au traitement de vos données pour des raisons tenant à votre situation particulière.
                     </p>
@@ -120,7 +120,7 @@ export default function GDPRPage() {
               <section className="mb-12">
                 <h2 className="mb-4 text-2xl font-semibold">5. Exercer vos Droits</h2>
                 <p className="mb-4 text-muted-foreground">
-                  Pour exercer l'un de ces droits, vous pouvez :
+                  Pour exercer l&apos;un de ces droits, vous pouvez :
                 </p>
                 <ul className="mb-4 ml-6 list-disc space-y-2 text-muted-foreground">
                   <li>Envoyer un email à : <a href="mailto:dpo@healthincloud.app" className="text-primary hover:underline">dpo@healthincloud.app</a></li>
@@ -129,8 +129,8 @@ export default function GDPRPage() {
                 <div className="rounded-lg border bg-primary/5 p-6">
                   <p className="mb-2 font-semibold">Délai de réponse :</p>
                   <p className="text-sm text-muted-foreground">
-                    Nous nous engageons à vous répondre dans un délai maximum d'un mois suivant
-                    la réception de votre demande, conformément à l'article 12.3 du RGPD.
+                    Nous nous engageons à vous répondre dans un délai maximum d&apos;un mois suivant
+                    la réception de votre demande, conformément à l&apos;article 12.3 du RGPD.
                   </p>
                 </div>
               </section>
@@ -138,14 +138,14 @@ export default function GDPRPage() {
               <section className="mb-12">
                 <h2 className="mb-4 text-2xl font-semibold">6. Sécurité des Données</h2>
                 <p className="mb-4 text-muted-foreground">
-                  Conformément à l'article 32 du RGPD, nous mettons en œuvre les mesures techniques
+                  Conformément à l&apos;article 32 du RGPD, nous mettons en œuvre les mesures techniques
                   et organisationnelles appropriées :
                 </p>
                 <ul className="mb-4 ml-6 list-disc space-y-2 text-muted-foreground">
                   <li>Chiffrement des données (en transit et au repos)</li>
                   <li>Authentification forte</li>
                   <li>Hébergement certifié HDS</li>
-                  <li>Contrôle d'accès strict</li>
+                  <li>Contrôle d&apos;accès strict</li>
                   <li>Journalisation des accès</li>
                   <li>Sauvegardes régulières</li>
                   <li>Tests de sécurité périodiques</li>
@@ -155,15 +155,15 @@ export default function GDPRPage() {
               <section className="mb-12">
                 <h2 className="mb-4 text-2xl font-semibold">7. Transferts de Données</h2>
                 <p className="mb-4 text-muted-foreground">
-                  Vos données sont hébergées au sein de l'Union Européenne. Aucun transfert hors UE
-                  n'est effectué sans garanties appropriées conformément à l'article 44 du RGPD.
+                  Vos données sont hébergées au sein de l&apos;Union Européenne. Aucun transfert hors UE
+                  n&apos;est effectué sans garanties appropriées conformément à l&apos;article 44 du RGPD.
                 </p>
               </section>
 
               <section className="mb-12">
                 <h2 className="mb-4 text-2xl font-semibold">8. Réclamation</h2>
                 <p className="mb-4 text-muted-foreground">
-                  Si vous estimez que vos droits ne sont pas respectés, vous avez le droit d'introduire
+                  Si vous estimez que vos droits ne sont pas respectés, vous avez le droit d&apos;introduire
                   une réclamation auprès de la CNIL :
                 </p>
                 <div className="rounded-lg border bg-card p-6">

@@ -29,7 +29,7 @@ export function LoginForm() {
       })
 
       router.push('/dashboard')
-    } catch (err) {
+    } catch {
       setError('Email ou mot de passe incorrect')
     } finally {
       setIsLoading(false)
