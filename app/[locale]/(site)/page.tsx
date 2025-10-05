@@ -476,7 +476,7 @@ export default function HomePage() {
                   <Link href="/auth/signup">Créer mon compte</Link>
                 </Button>
                 <Button asChild variant="outline" size="lg" className="w-full text-base sm:w-56">
-                  <Link href="#apropos">En savoir plus</Link>
+                  <Link href="/about">En savoir plus</Link>
                 </Button>
               </div>
             </div>
