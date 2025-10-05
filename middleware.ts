@@ -1,7 +1,6 @@
 import createMiddleware from 'next-intl/middleware'
 import { NextRequest, NextResponse } from 'next/server'
 import { routing } from './i18n/routing'
-import { auth } from './lib/auth'
 
 const intlMiddleware = createMiddleware(routing)
 
@@ -17,11 +16,10 @@ export default async function middleware(request: NextRequest) {
   )
 
   if (isProtectedRoute) {
-    const session = await auth.api.getSession({
-      headers: request.headers,
-    })
+    // Check for session cookie
+    const sessionCookie = request.cookies.get('better-auth.session_token')
 
-    if (!session) {
+    if (!sessionCookie) {
       // Redirect to login, preserving locale
       const locale = pathname.split('/')[1] || routing.defaultLocale
       return NextResponse.redirect(
