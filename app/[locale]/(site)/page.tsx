@@ -482,6 +482,103 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+
+        {/* Mobile App Section */}
+        <section className="py-16 md:py-24">
+          <div className="container px-4">
+            <div className="mx-auto max-w-5xl">
+              <div className="grid gap-12 md:grid-cols-2 md:items-center">
+                <div>
+                  <h2 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">
+                    Toujours à portée de main
+                  </h2>
+                  <p className="mb-6 text-lg text-muted-foreground">
+                    Accédez à vos exercices de rééducation où que vous soyez. Notre plateforme est
+                    optimisée pour mobile et tablette, vous offrant une expérience fluide et intuitive.
+                  </p>
+                  <ul className="mb-8 space-y-3">
+                    <li className="flex items-start gap-3">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="mt-0.5 h-5 w-5 shrink-0 text-primary"
+                        aria-hidden="true"
+                      >
+                        <path d="M21.801 10A10 10 0 1 1 17 3.335"></path>
+                        <path d="m9 11 3 3L22 4"></path>
+                      </svg>
+                      <span className="text-muted-foreground">
+                        Interface responsive adaptée à tous les écrans
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="mt-0.5 h-5 w-5 shrink-0 text-primary"
+                        aria-hidden="true"
+                      >
+                        <path d="M21.801 10A10 10 0 1 1 17 3.335"></path>
+                        <path d="m9 11 3 3L22 4"></path>
+                      </svg>
+                      <span className="text-muted-foreground">
+                        Mode hors ligne pour pratiquer sans connexion
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="mt-0.5 h-5 w-5 shrink-0 text-primary"
+                        aria-hidden="true"
+                      >
+                        <path d="M21.801 10A10 10 0 1 1 17 3.335"></path>
+                        <path d="m9 11 3 3L22 4"></path>
+                      </svg>
+                      <span className="text-muted-foreground">
+                        Synchronisation automatique de vos progrès
+                      </span>
+                    </li>
+                  </ul>
+                  <p className="text-sm text-muted-foreground">
+                    Scannez le QR code pour accéder directement à la plateforme depuis votre mobile
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-center">
+                  <div className="rounded-xl bg-white p-4">
+                    <img
+                      src="/qr-code.png"
+                      alt="QR Code pour accéder à Health In Cloud"
+                      className="h-auto w-64"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
       <Footer />
     </div>
