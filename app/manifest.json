@@ -1,0 +1,22 @@
+{
+  "name": "Health In Cloud",
+  "short_name": "Health In Cloud",
+  "description": "Plateforme de rééducation orthophonique et neuropsychologique",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2da6b2",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

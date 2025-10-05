@@ -49,10 +49,9 @@ export default function AboutPage() {
                   Nous croyons en une approche centrée sur le patient, combinant :
                 </p>
                 <ul className="mb-4 ml-6 list-disc space-y-2 text-muted-foreground">
-                  <li>Des exercices validés scientifiquement</li>
+                  <li>Des exercices issus d&apos;une expérience personnelle de rééducation</li>
                   <li>Une interface accessible et intuitive</li>
                   <li>Un suivi en temps réel des performances</li>
-                  <li>Une collaboration étroite avec les professionnels de santé</li>
                 </ul>
               </section>
 
@@ -86,13 +85,25 @@ export default function AboutPage() {
                 </div>
               </section>
 
-              <section className="mb-12">
-                <h2 className="mb-4 text-2xl font-semibold">Approche Clinique</h2>
-                <p className="mb-4 text-muted-foreground">
-                  Health In Cloud est développé en collaboration avec des professionnels de la
-                  rééducation, garantissant une approche clinique rigoureuse et adaptée aux besoins
-                  réels des patients.
+              <section className="mb-12 rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/5 to-primary/10 p-8 text-center shadow-lg">
+                <div className="mb-4 text-4xl">💙</div>
+                <h2 className="mb-3 text-2xl font-bold tracking-tight">
+                  Soutenez ce projet
+                </h2>
+                <p className="mb-6 text-muted-foreground">
+                  Ce projet est développé avec passion pour aider les patients en rééducation.
+                  Si vous souhaitez soutenir son développement et partager mon parcours de renaissance
+                  après un AVC, vous pouvez contribuer via Tipeee.
                 </p>
+                <a
+                  href="https://fr.tipeee.com/rebondir-apres-lavc-ma-carriere-dans-la-tech"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-base font-medium text-primary-foreground hover:bg-primary/90"
+                >
+                  <span>☕</span>
+                  <span>Soutenir sur Tipeee</span>
+                </a>
               </section>
 
               <section className="rounded-lg border bg-primary/5 p-8">
