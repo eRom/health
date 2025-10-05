@@ -98,7 +98,7 @@ export default function HomePage() {
                   <div className="grid gap-6 sm:grid-cols-3">
                     <div className="flex flex-col items-center text-center">
                       <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-                        <Brain className="h-6 w-6" />
+                        <Brain className="h-6 w-6" aria-hidden="true" />
                       </span>
                       <h3 className="mb-2 text-base font-semibold">
                         {t('home.hero.highlightGuidedTitle')}
@@ -109,7 +109,7 @@ export default function HomePage() {
                     </div>
                     <div className="flex flex-col items-center text-center">
                       <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-                        <Mic className="h-6 w-6" />
+                        <Mic className="h-6 w-6" aria-hidden="true" />
                       </span>
                       <h3 className="mb-2 text-base font-semibold">
                         {t('home.hero.highlightFeedbackTitle')}
@@ -120,7 +120,7 @@ export default function HomePage() {
                     </div>
                     <div className="flex flex-col items-center text-center">
                       <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-                        <Smartphone className="h-6 w-6" />
+                        <Smartphone className="h-6 w-6" aria-hidden="true" />
                       </span>
                       <h3 className="mb-2 text-base font-semibold">
                         {t('home.hero.highlightDevicesTitle')}
@@ -152,7 +152,7 @@ export default function HomePage() {
               <div className="card-hover overflow-hidden rounded-xl border bg-card shadow-sm">
                 <div className="border-b bg-[var(--color-bg-3)] p-6">
                   <h3 className="flex items-center gap-2 text-xl font-semibold">
-                    <User className="h-6 w-6" />
+                    <User className="h-6 w-6" aria-hidden="true" />
                     Pour les patients
                   </h3>
                 </div>
@@ -170,15 +170,15 @@ export default function HomePage() {
                       <h4 className="mb-3 text-sm font-semibold text-primary">Notre solution :</h4>
                       <ul className="space-y-2 text-sm text-primary">
                         <li className="flex items-start gap-2">
-                          <CheckCircle className="mt-0.5 h-4 w-4 shrink-0" />
+                          <CheckCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
                           <span>Accès permanent aux exercices guidés</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <CheckCircle className="mt-0.5 h-4 w-4 shrink-0" />
+                          <CheckCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
                           <span>Feedback instantané sur les performances</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <CheckCircle className="mt-0.5 h-4 w-4 shrink-0" />
+                          <CheckCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
                           <span>Encouragements motivationnels</span>
                         </li>
                       </ul>
@@ -191,7 +191,7 @@ export default function HomePage() {
               <div className="card-hover overflow-hidden rounded-xl border bg-card shadow-sm">
                 <div className="border-b bg-[var(--color-bg-3)] p-6">
                   <h3 className="flex items-center gap-2 text-xl font-semibold">
-                    <Stethoscope className="h-6 w-6" />
+                    <Stethoscope className="h-6 w-6" aria-hidden="true" />
                     Pour les cliniciens
                   </h3>
                 </div>
@@ -208,11 +208,11 @@ export default function HomePage() {
                       <h4 className="mb-3 text-sm font-semibold text-primary">Notre solution :</h4>
                       <ul className="space-y-2 text-sm text-primary">
                         <li className="flex items-start gap-2">
-                          <CheckCircle className="mt-0.5 h-4 w-4 shrink-0" />
+                          <CheckCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
                           <span>Tableau de bord résumant l&apos;adhérence</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <CheckCircle className="mt-0.5 h-4 w-4 shrink-0" />
+                          <CheckCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
                           <span>Tendances de performance et insights actionnables</span>
                         </li>
                       </ul>
@@ -239,7 +239,7 @@ export default function HomePage() {
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               <div className="card-hover rounded-xl border bg-card p-6 text-center shadow-sm">
                 <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10">
-                  <Target className="h-8 w-8 text-primary" />
+                  <Target className="h-8 w-8 text-primary" aria-hidden="true" />
                 </div>
                 <h3 className="mb-2 text-lg font-semibold">Exercices guidés 24/7</h3>
                 <p className="text-sm text-muted-foreground">
@@ -249,7 +249,7 @@ export default function HomePage() {
 
               <div className="card-hover rounded-xl border bg-card p-6 text-center shadow-sm">
                 <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10">
-                  <Zap className="h-8 w-8 text-primary" />
+                  <Zap className="h-8 w-8 text-primary" aria-hidden="true" />
                 </div>
                 <h3 className="mb-2 text-lg font-semibold">Feedback instantané</h3>
                 <p className="text-sm text-muted-foreground">
@@ -259,7 +259,7 @@ export default function HomePage() {
 
               <div className="card-hover rounded-xl border bg-card p-6 text-center shadow-sm">
                 <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10">
-                  <BarChart3 className="h-8 w-8 text-primary" />
+                  <BarChart3 className="h-8 w-8 text-primary" aria-hidden="true" />
                 </div>
                 <h3 className="mb-2 text-lg font-semibold">Suivi des progrès</h3>
                 <p className="text-sm text-muted-foreground">
@@ -269,7 +269,7 @@ export default function HomePage() {
 
               <div className="card-hover rounded-xl border bg-card p-6 text-center shadow-sm">
                 <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10">
-                  <Smartphone className="h-8 w-8 text-primary" />
+                  <Smartphone className="h-8 w-8 text-primary" aria-hidden="true" />
                 </div>
                 <h3 className="mb-2 text-lg font-semibold">Design mobile-first</h3>
                 <p className="text-sm text-muted-foreground">
@@ -279,7 +279,7 @@ export default function HomePage() {
 
               <div className="card-hover rounded-xl border bg-card p-6 text-center shadow-sm">
                 <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10">
-                  <Moon className="h-8 w-8 text-primary" />
+                  <Moon className="h-8 w-8 text-primary" aria-hidden="true" />
                 </div>
                 <h3 className="mb-2 text-lg font-semibold">Mode sombre</h3>
                 <p className="text-sm text-muted-foreground">
@@ -289,7 +289,7 @@ export default function HomePage() {
 
               <div className="card-hover rounded-xl border bg-card p-6 text-center shadow-sm">
                 <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10">
-                  <Shield className="h-8 w-8 text-primary" />
+                  <Shield className="h-8 w-8 text-primary" aria-hidden="true" />
                 </div>
                 <h3 className="mb-2 text-lg font-semibold">Conformité RGPD</h3>
                 <p className="text-sm text-muted-foreground">

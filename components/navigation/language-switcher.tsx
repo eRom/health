@@ -34,8 +34,13 @@ export function LanguageSwitcher() {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="ghost" size="sm" className="gap-2">
-          <span>{currentLanguage?.flag}</span>
+        <Button
+          variant="ghost"
+          size="sm"
+          className="gap-2"
+          aria-label={`Langue actuelle : ${currentLanguage?.name}. Cliquer pour changer de langue`}
+        >
+          <span aria-hidden="true">{currentLanguage?.flag}</span>
           <span className="hidden sm:inline">{currentLanguage?.code.toUpperCase()}</span>
         </Button>
       </DialogTrigger>

@@ -39,7 +39,11 @@ export function LoginForm() {
   return (
     <form onSubmit={onSubmit} className="space-y-4">
       {error && (
-        <div className="rounded-md bg-destructive/15 p-3 text-sm text-destructive">
+        <div
+          role="alert"
+          aria-live="polite"
+          className="rounded-md bg-destructive/15 p-3 text-sm text-destructive"
+        >
           {error}
         </div>
       )}

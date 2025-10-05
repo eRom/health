@@ -8,6 +8,9 @@ import { DeleteAccountDialog } from '@/components/profile/delete-account-dialog'
 import { ChangePasswordDialog } from '@/components/profile/change-password-dialog'
 import { ActiveSessions } from '@/components/profile/active-sessions'
 import { SecurityInfo } from '@/components/profile/security-info'
+import { LocalePreference } from '@/components/profile/locale-preference'
+import { ThemePreference } from '@/components/profile/theme-preference'
+import { NotificationPreference } from '@/components/profile/notification-preference'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 
 export default async function ProfilePage() {
@@ -21,15 +24,21 @@ export default async function ProfilePage() {
 
   const { user } = session
 
-  // Fetch user data with createdAt
+  // Fetch user data with preferences
   const userData = await prisma.user.findUnique({
     where: { id: user.id },
     select: {
       createdAt: true,
+      locale: true,
+      theme: true,
+      emailNotifications: true,
     },
   })
 
   const createdAt = userData?.createdAt || new Date()
+  const locale = userData?.locale || 'fr'
+  const theme = userData?.theme || 'system'
+  const emailNotifications = userData?.emailNotifications ?? true
 
   // Fetch user account (for provider info)
   const account = await prisma.account.findFirst({
@@ -110,12 +119,16 @@ export default async function ProfilePage() {
             <CardTitle>Préférences</CardTitle>
             <CardDescription>Personnalisez votre expérience</CardDescription>
           </CardHeader>
-          <CardContent>
-            <Alert>
-              <AlertDescription>
-                Les préférences de langue, notifications et thème seront disponibles prochainement.
-              </AlertDescription>
-            </Alert>
+          <CardContent className="space-y-6">
+            <LocalePreference currentLocale={locale} />
+
+            <div className="border-t pt-6">
+              <ThemePreference />
+            </div>
+
+            <div className="border-t pt-6">
+              <NotificationPreference currentEmailNotifications={emailNotifications} />
+            </div>
           </CardContent>
         </Card>
 

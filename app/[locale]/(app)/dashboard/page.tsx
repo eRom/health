@@ -1,8 +1,27 @@
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import type { Metadata } from 'next'
 
-export default function DashboardPage() {
-  const t = useTranslations()
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params
+  const t = await getTranslations({ locale })
+
+  return {
+    title: 'Tableau de bord',
+    description: 'Suivez votre progression et accédez à vos exercices de rééducation personnalisés',
+    robots: {
+      index: false,
+      follow: false,
+    },
+  }
+}
+
+export default async function DashboardPage() {
+  const t = await getTranslations()
 
   return (
     <div className="container py-8">

@@ -1,7 +1,7 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import { useRouter } from '@/i18n/routing'
+import { useRouter, Link } from '@/i18n/routing'
 import { authClient } from '@/lib/auth-client'
 import { Button } from '@/components/ui/button'
 import {
@@ -27,9 +27,12 @@ export function UserNav({ user }: { user: { name: string; email: string } }) {
 
   return (
     <div className="flex items-center gap-4">
-      <span className="text-sm">
+      <Link
+        href="/profile"
+        className="text-sm transition-colors hover:text-primary cursor-pointer"
+      >
         {user.name}
-      </span>
+      </Link>
 
       <Dialog open={isSignOutOpen} onOpenChange={setIsSignOutOpen}>
         <DialogTrigger asChild>
