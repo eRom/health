@@ -1,33 +1,33 @@
 # Quality Scorecard — Health In Cloud
 
-**Document type**: Product & engineering quality scorecard  
-**Status**: Draft  
-**Last reviewed**: October 2025
+**Document type**: Product & engineering quality scorecard
+**Status**: Draft
+**Last reviewed**: January 2025
 
 ---
 
 ## 1. Snapshot
-- **Overall score**: 9/10  
-- **Confidence**: Medium (manual audit)  
-- **Next review window**: Q1 2026 or after any major release
+- **Overall score**: 8.8/10
+- **Confidence**: Medium (manual audit)
+- **Next review window**: February 2025 or after lint fixes
 
 ---
 
 ## 2. Scorecard (current)
 | Category | Score /10 | Trend vs last review | Commentary |
 |----------|-----------|----------------------|------------|
-| Architecture | 10 | ↗️ +1 | App Router structure, RSC usage, clear separation of concerns. |
-| TypeScript | 10 | → | Strict mode enabled, strong typing across surface. |
-| Accessibility | 9 | → | WCAG AA baseline met; improvements pending for contrast audits. |
-| Security | 10 | ↗️ +1 | Hardened auth, secure headers, secrets management. |
-| Performance | 9 | → | Core Web Vitals within targets, room for LCP refinement. |
-| Internationalisation | 10 | → | FR/EN parity delivered with next-intl. |
-| SEO | 10 | → | Metadata, sitemap, robots, Open Graph configured. |
-| Tests | 7 | ↗️ +7 | Vitest + Playwright in place; coverage still low (~20%). |
-| Monitoring | 10 | ↗️ +10 | Sentry configured, analytics hooks ready. |
-| Documentation | 10 | ↗️ +4 | Comprehensive specs, guides, deployment docs. |
-| Error handling | 10 | ↗️ +5 | Error boundaries, fallback flows implemented. |
-| Infrastructure | 10 | ↗️ +10 | Vercel, Neon, Cloudflare (infra) configured; IaC pending. |
+| Architecture | 10 | → | App Router + route groups (site/auth/app), clean RSC/client boundary. |
+| TypeScript | 10 | → | Strict mode enabled, strong typing across codebase. |
+| Accessibility | 9 | → | WCAG AA baseline, semantic HTML in legal pages & landing. |
+| Security | 10 | → | Better Auth credential provider, secure session handling. |
+| Performance | 8 | ↘️ -1 | Build blocked by 60+ ESLint errors (unescaped quotes, HTML links). |
+| Internationalisation | 10 | → | FR/EN parity with next-intl, legal pages fully translated. |
+| SEO | 9 | ↘️ -1 | Internal links using `<a>` instead of `<Link />` in legal pages. |
+| Tests | 7 | → | 1 unit test (utils), 3 E2E specs (auth, home, language); low coverage. |
+| Monitoring | 10 | → | Sentry configured; analytics hooks ready. |
+| Documentation | 10 | → | Complete specs + legal pages (about, privacy, GDPR, legal notice). |
+| Error handling | 10 | → | Error boundaries implemented, fault-tolerant flows. |
+| Infrastructure | 10 | → | Vercel + Neon + domain healthincloud.app configured. |
 
 > **How to update**: adjust the score (0–10), update the trend arrow (`↗️`, `↘️`, `→`) with delta (e.g., `+1`, `-2`), and refresh the commentary with the rationale.
 
@@ -36,6 +36,8 @@
 ## 3. Change Log
 | Date | Category | Old → New | Driver |
 |------|----------|-----------|--------|
+| 2025-01-05 | Performance | 9 → 8 | Build fails with 60+ ESLint errors (unescaped quotes in legal/landing pages). |
+| 2025-01-05 | SEO | 10 → 9 | Legal pages use `<a>` instead of Next `<Link />`, ESLint violation. |
 | 2025-10 | Tests | 0 → 7 | Added Vitest + Playwright suites, baseline coverage. |
 | 2025-10 | Monitoring | 0 → 10 | Sentry rollout + analytics instrumentation. |
 | 2025-10 | Documentation | 6 → 10 | Completed product, technical, deployment guides. |
@@ -50,6 +52,8 @@
 ### Short term (next 4–6 weeks)
 | Category | Current | Target | Key actions |
 |----------|---------|--------|-------------|
+| Performance | 8 | 10 | **URGENT**: Fix 60+ ESLint errors blocking production build (escape quotes, replace `<a>` with `<Link />`). |
+| SEO | 9 | 10 | Convert all internal `<a>` links to Next.js `<Link />` in legal pages. |
 | Tests | 7 | 8 | Raise coverage to 50%+, add auth/navigation regression specs. |
 | PWA readiness | 6 | 8 | Implement service worker, offline shell. |
 | Analytics | 5 | 8 | Enable Vercel/Plausible analytics and track core events. |
