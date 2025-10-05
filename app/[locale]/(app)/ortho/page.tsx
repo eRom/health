@@ -33,6 +33,16 @@ const difficultyLevels = [
 // Exercices factices pour la démo
 const exercises = [
   {
+    id: 8,
+    title: 'Virelangues',
+    description: 'Phrases difficiles pour travailler la fluidité',
+    type: 'articulation',
+    difficulty: 'medium',
+    duration: '10 min',
+    icon: '🌪️',
+    available: true,
+  },
+  {
     id: 1,
     title: 'Sons et syllabes',
     description: 'Reconnaissance et production de syllabes simples',
@@ -100,16 +110,6 @@ const exercises = [
     difficulty: 'hard',
     duration: '25 min',
     icon: '💬',
-    available: false,
-  },
-  {
-    id: 8,
-    title: 'Virelangues',
-    description: 'Phrases difficiles pour travailler la fluidité',
-    type: 'articulation',
-    difficulty: 'hard',
-    duration: '10 min',
-    icon: '🌪️',
     available: false,
   },
 ]
