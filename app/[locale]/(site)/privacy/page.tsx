@@ -1,5 +1,12 @@
 import { Header } from '@/components/navigation/header'
 import { Footer } from '@/components/navigation/footer'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Politique de confidentialité',
+  description:
+    'Politique de confidentialité et protection des données personnelles de Health In Cloud. Traitement RGPD des données de santé.',
+}
 
 export default function PrivacyPage() {
   return (

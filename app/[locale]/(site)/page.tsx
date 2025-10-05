@@ -1,8 +1,37 @@
 import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import { Link } from '@/i18n/routing'
 import { Button } from '@/components/ui/button'
 import { Header } from '@/components/navigation/header'
 import { Footer } from '@/components/navigation/footer'
+import type { Metadata } from 'next'
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params
+  const t = await getTranslations({ locale })
+
+  const title = t('home.hero.title')
+  const description = t('home.hero.description')
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: 'website',
+    },
+    twitter: {
+      title,
+      description,
+    },
+  }
+}
+
 import {
   User,
   Stethoscope,

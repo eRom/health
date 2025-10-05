@@ -1,5 +1,12 @@
 import { Header } from '@/components/navigation/header'
 import { Footer } from '@/components/navigation/footer'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'À propos',
+  description:
+    'Health In Cloud - Plateforme de rééducation orthophonique et neuropsychologique développée en partenariat avec le service MPR de Nantes.',
+}
 
 export default function AboutPage() {
   return (

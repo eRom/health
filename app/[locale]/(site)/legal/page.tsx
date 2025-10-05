@@ -1,6 +1,13 @@
 import { Header } from '@/components/navigation/header'
 import { Footer } from '@/components/navigation/footer'
 import { Link } from '@/i18n/routing'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Mentions légales',
+  description:
+    'Mentions légales de Health In Cloud - Informations sur l\'éditeur, l\'hébergement et les conditions d\'utilisation de la plateforme.',
+}
 
 export default function LegalPage() {
   return (

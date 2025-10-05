@@ -1,5 +1,12 @@
 import { Header } from '@/components/navigation/header'
 import { Footer } from '@/components/navigation/footer'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'RGPD - Conformité et droits',
+  description:
+    'Conformité RGPD de Health In Cloud. Vos droits concernant vos données personnelles et de santé selon le règlement européen.',
+}
 
 export default function GDPRPage() {
   return (
