@@ -225,7 +225,7 @@ export default function HomePage() {
         </section>
 
         {/* Features Section */}
-        <section className="bg-[var(--color-bg-2)] py-16 md:py-24">
+        <section id="fonctionnalites" className="bg-[var(--color-bg-2)] py-16 md:py-24">
           <div className="container px-4">
             <div className="mx-auto mb-12 max-w-3xl text-center">
               <h2 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">

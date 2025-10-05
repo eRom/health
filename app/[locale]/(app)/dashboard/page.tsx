@@ -1,5 +1,7 @@
 import { getTranslations } from 'next-intl/server'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
+import { BarChart3, Dumbbell } from 'lucide-react'
 import type { Metadata } from 'next'
 
 export async function generateMetadata({
@@ -35,9 +37,11 @@ export default async function DashboardPage() {
             <CardTitle>{t('dashboard.yourProgress')}</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-muted-foreground">
-              Suivi de votre progression à venir...
-            </p>
+            <EmptyState
+              icon={BarChart3}
+              title="Aucune donnée de progression"
+              description="Commencez votre premier exercice pour suivre vos progrès et visualiser votre évolution."
+            />
           </CardContent>
         </Card>
 
@@ -46,9 +50,15 @@ export default async function DashboardPage() {
             <CardTitle>{t('dashboard.recentExercises')}</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-muted-foreground">
-              {t('dashboard.noExercises')}
-            </p>
+            <EmptyState
+              icon={Dumbbell}
+              title={t('dashboard.noExercises')}
+              description="Découvrez nos exercices de neuropsychologie et d'orthophonie pour commencer votre rééducation."
+              action={{
+                label: 'Explorer les exercices',
+                href: '/neuro',
+              }}
+            />
           </CardContent>
         </Card>
       </div>

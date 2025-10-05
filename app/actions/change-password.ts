@@ -79,7 +79,7 @@ export async function changePassword(data: {
     return { success: true }
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return { success: false, error: error.errors[0].message }
+      return { success: false, error: error.errors[0]?.message || 'Validation échouée' }
     }
     console.error('[CHANGE_PASSWORD] Error:', error)
     return { success: false, error: 'Erreur lors du changement de mot de passe' }

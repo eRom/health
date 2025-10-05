@@ -4,6 +4,8 @@ import { useState } from 'react'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import { EmptyState } from '@/components/ui/empty-state'
+import { Filter } from 'lucide-react'
 import {
   Select,
   SelectContent,
@@ -188,9 +190,11 @@ export default function OrthoPage() {
 
       {/* Grille d'exercices */}
       {filteredExercises.length === 0 ? (
-        <div className="py-16 text-center">
-          <p className="text-muted-foreground">Aucun exercice ne correspond à vos filtres</p>
-        </div>
+        <EmptyState
+          icon={Filter}
+          title="Aucun exercice trouvé"
+          description="Aucun exercice ne correspond aux filtres sélectionnés. Essayez de modifier vos critères de recherche."
+        />
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filteredExercises.map((exercise) => (

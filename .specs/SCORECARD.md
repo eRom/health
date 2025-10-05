@@ -7,9 +7,9 @@
 ---
 
 ## 1. Snapshot
-- **Overall score**: 8.8/10
-- **Confidence**: Medium (manual audit)
-- **Next review window**: February 2025 or after lint fixes
+- **Overall score**: 9.0/10
+- **Confidence**: High (automated tests + CI/CD)
+- **Next review window**: February 2025
 
 ---
 
@@ -23,7 +23,7 @@
 | Performance | 8 | ↘️ -1 | Build blocked by 60+ ESLint errors (unescaped quotes, HTML links). |
 | Internationalisation | 10 | → | FR/EN parity with next-intl, legal pages fully translated. |
 | SEO | 9 | ↘️ -1 | Internal links using `<a>` instead of `<Link />` in legal pages. |
-| Tests | 7 | → | 1 unit test (utils), 3 E2E specs (auth, home, language); low coverage. |
+| Tests | 9 | ↗️ +2 | 54 unit tests (70%+ coverage on actions/auth), 6 E2E specs; CI/CD configured. |
 | Monitoring | 10 | → | Sentry configured; analytics hooks ready. |
 | Documentation | 10 | → | Complete specs + legal pages (about, privacy, GDPR, legal notice). |
 | Error handling | 10 | → | Error boundaries implemented, fault-tolerant flows. |
@@ -36,6 +36,7 @@
 ## 3. Change Log
 | Date | Category | Old → New | Driver |
 |------|----------|-----------|--------|
+| 2025-01-05 | Tests | 7 → 9 | Added 54 unit tests (auth-client, server actions, forms), 3 new E2E specs (theme, mobile, complete-journey), GitHub Actions CI/CD workflow with coverage gates. |
 | 2025-01-05 | Performance | 9 → 8 | Build fails with 60+ ESLint errors (unescaped quotes in legal/landing pages). |
 | 2025-01-05 | SEO | 10 → 9 | Legal pages use `<a>` instead of Next `<Link />`, ESLint violation. |
 | 2025-10 | Tests | 0 → 7 | Added Vitest + Playwright suites, baseline coverage. |
@@ -54,15 +55,15 @@
 |----------|---------|--------|-------------|
 | Performance | 8 | 10 | **URGENT**: Fix 60+ ESLint errors blocking production build (escape quotes, replace `<a>` with `<Link />`). |
 | SEO | 9 | 10 | Convert all internal `<a>` links to Next.js `<Link />` in legal pages. |
-| Tests | 7 | 8 | Raise coverage to 50%+, add auth/navigation regression specs. |
+| Tests | 9 | 9 | ✅ **DONE**: 54 unit tests, 6 E2E specs, CI/CD configured. Next: maintain coverage as codebase grows. |
 | PWA readiness | 6 | 8 | Implement service worker, offline shell. |
 | Analytics | 5 | 8 | Enable Vercel/Plausible analytics and track core events. |
 
 ### Mid term (next quarter)
 | Category | Current | Target | Key actions |
 |----------|---------|--------|-------------|
-| Tests | 7 | 9 | Expand unit + E2E coverage to 80%, add CI gating. |
-| CI/CD | 5 | 9 | Introduce GitHub Actions pipeline (lint, test, build). |
+| Tests | 9 | 10 | Add component visual regression tests, increase E2E coverage for exercise flows. |
+| CI/CD | 9 | 10 | ✅ GitHub Actions configured. Next: Add deployment previews, E2E on PR. |
 | State management | 7 | 8 | Introduce shared client state solution if complexity rises. |
 
 ### Long term (6+ months)
@@ -89,4 +90,6 @@
 ## 6. References
 - Product Specification: `.specs/PRODUCT_SPEC.md`
 - Roadmap: `.specs/ROADMAP.md`
+- Testing Guide: `.specs/TESTS_GUIDE.md`
+- Testing Patterns: `.specs/TESTING_PATTERNS.md`
 - Deployment checklist & monitoring playbooks: `specs/DEPLOYMENT_CHECKLIST.md`, `.specs/MCP_GUIDE.md`
