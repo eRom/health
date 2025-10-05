@@ -30,14 +30,12 @@ export default async function ProfilePage() {
     select: {
       createdAt: true,
       locale: true,
-      theme: true,
       emailNotifications: true,
     },
   })
 
   const createdAt = userData?.createdAt || new Date()
   const locale = userData?.locale || 'fr'
-  const theme = userData?.theme || 'system'
   const emailNotifications = userData?.emailNotifications ?? true
 
   // Fetch user account (for provider info)

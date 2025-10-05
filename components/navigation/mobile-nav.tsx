@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Link } from '@/i18n/routing'
-import { Menu, X } from 'lucide-react'
+import { Menu } from 'lucide-react'
 import {
   Sheet,
   SheetContent,

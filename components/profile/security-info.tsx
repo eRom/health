@@ -1,5 +1,3 @@
-import { Badge } from '@/components/ui/badge'
-
 type Account = {
   id: string
   providerId: string

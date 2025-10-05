@@ -4,6 +4,7 @@ import { Link } from '@/i18n/routing'
 import { Button } from '@/components/ui/button'
 import { Header } from '@/components/navigation/header'
 import { Footer } from '@/components/navigation/footer'
+import Image from 'next/image'
 import type { Metadata } from 'next'
 
 export async function generateMetadata({
@@ -567,9 +568,11 @@ export default function HomePage() {
 
                 <div className="flex items-center justify-center">
                   <div className="rounded-xl bg-white p-4">
-                    <img
+                    <Image
                       src="/qr-code.png"
                       alt="QR Code pour accéder à Health In Cloud"
+                      width={256}
+                      height={256}
                       className="h-auto w-64"
                     />
                   </div>

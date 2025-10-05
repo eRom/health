@@ -32,7 +32,7 @@ export async function updateName(data: { name: string }) {
     return { success: true }
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return { success: false, error: error.errors[0]?.message || 'Validation échouée' }
+      return { success: false, error: error.issues[0]?.message || 'Validation échouée' }
     }
     console.error('[UPDATE_NAME] Error:', error)
     return { success: false, error: 'Erreur lors de la mise à jour' }

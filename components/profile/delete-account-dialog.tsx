@@ -45,7 +45,7 @@ export function DeleteAccountDialog() {
         setError(result.error || 'Une erreur est survenue')
         setIsDeleting(false)
       }
-    } catch (err) {
+    } catch {
       setError('Une erreur est survenue lors de la suppression')
       setIsDeleting(false)
     }

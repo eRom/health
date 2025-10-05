@@ -4,14 +4,7 @@ import { EmptyState } from '@/components/ui/empty-state'
 import { BarChart3, Dumbbell } from 'lucide-react'
 import type { Metadata } from 'next'
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>
-}): Promise<Metadata> {
-  const { locale } = await params
-  const t = await getTranslations({ locale })
-
+export async function generateMetadata(): Promise<Metadata> {
   return {
     title: 'Tableau de bord',
     description: 'Suivez votre progression et accédez à vos exercices de rééducation personnalisés',
