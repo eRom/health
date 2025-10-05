@@ -1,0 +1,99 @@
+{
+  "app": {
+    "title": "Health In Cloud",
+    "description": "Orthophonic and neuropsychological rehabilitation platform"
+  },
+  "navigation": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "neuro": "Neuropsychology",
+    "ortho": "Speech Therapy",
+    "profile": "Profile"
+  },
+  "auth": {
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "signUp": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "name": "Name"
+  },
+  "dashboard": {
+    "welcome": "Welcome, {name}",
+    "yourProgress": "Your Progress",
+    "recentExercises": "Recent Exercises",
+    "noExercises": "No exercises yet"
+  },
+  "home": {
+    "hero": {
+      "title": "MPR Rehabilitation",
+      "subtitle": "For the MPR department of Nantes",
+      "description": "Practice your rehabilitation exercises autonomously with personalized tracking and instant feedback.",
+      "cta": "Get Started",
+      "highlightGuidedTitle": "Guided coaching",
+      "highlightGuidedDescription": "Interactive sessions to stay autonomous between appointments.",
+      "highlightFeedbackTitle": "Live feedback",
+      "highlightFeedbackDescription": "Track metrics instantly and understand progress at a glance.",
+      "highlightDevicesTitle": "Works everywhere",
+      "highlightDevicesDescription": "Desktop, tablet, or phone: the experience adapts to you."
+    },
+    "features": {
+      "title": "A Platform Tailored to Your Needs",
+      "patients": {
+        "title": "For Patients",
+        "description": "Access your prescribed exercises anytime, receive instant feedback, and track your progress.",
+        "benefit1": "Guided exercises available 24/7",
+        "benefit2": "Immediate performance feedback",
+        "benefit3": "Track your progress"
+      },
+      "clinicians": {
+        "title": "For Therapists",
+        "description": "Monitor patient adherence and progress between sessions.",
+        "benefit1": "Monitoring dashboard",
+        "benefit2": "Trend analysis",
+        "benefit3": "Recommendation adjustments"
+      }
+    },
+    "exercises": {
+      "title": "Rehabilitation Exercises",
+      "description": "Adapted exercises for neuropsychology and speech therapy",
+      "neuro": {
+        "title": "Neuropsychology",
+        "description": "Cognitive exercises: letter span, working memory, sustained attention.",
+        "example1": "Audio letter span with configurable timing",
+        "example2": "Working memory exercises",
+        "example3": "Sustained attention tests"
+      },
+      "ortho": {
+        "title": "Speech Therapy",
+        "description": "Speech exercises: diadochokinesis, tongue twisters, verbal comprehension.",
+        "example1": "Diadochokinesia exercises",
+        "example2": "Progressive tongue twisters",
+        "example3": "Verbal comprehension"
+      }
+    },
+    "benefits": {
+      "title": "Why Health In Cloud?",
+      "accessible": {
+        "title": "Accessible",
+        "description": "Simple and intuitive interface, optimized for tablets and phones"
+      },
+      "bilingual": {
+        "title": "Bilingual",
+        "description": "Available in French and English with instant switching"
+      },
+      "secure": {
+        "title": "Secure",
+        "description": "GDPR compliant, your health data is protected"
+      },
+      "offline": {
+        "title": "Offline",
+        "description": "Coming soon: offline mode to practice anywhere"
+      }
+    },
+    "cta": {
+      "title": "Ready to Start Your Rehabilitation?",
+      "description": "Create your free account and access your exercises right now."
+    }
+  }
+}
