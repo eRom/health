@@ -49,8 +49,27 @@ import {
 export default function HomePage() {
   const t = useTranslations()
 
+  // WebPage structured data for landing page
+  const webPageSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: t('home.hero.title'),
+    description: t('home.hero.description'),
+    url: 'https://healthincloud.app',
+    inLanguage: 'fr-FR',
+    isPartOf: {
+      '@type': 'WebSite',
+      name: 'Health In Cloud',
+      url: 'https://healthincloud.app',
+    },
+  }
+
   return (
     <div className="flex min-h-screen flex-col">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
+      />
       <Header />
       <main className="flex-1">
         {/* Hero Section */}

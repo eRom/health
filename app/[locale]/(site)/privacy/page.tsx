@@ -1,5 +1,6 @@
 import { Header } from '@/components/navigation/header'
 import { Footer } from '@/components/navigation/footer'
+import { StructuredData, createWebPageSchema } from '@/components/seo/structured-data'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -9,8 +10,15 @@ export const metadata: Metadata = {
 }
 
 export default function PrivacyPage() {
+  const schema = createWebPageSchema(
+    'Politique de confidentialité',
+    'Politique de confidentialité et protection des données personnelles de Health In Cloud. Traitement RGPD des données de santé.',
+    'https://healthincloud.app/fr/privacy'
+  )
+
   return (
     <div className="flex min-h-screen flex-col">
+      <StructuredData data={schema} />
       <Header />
       <main className="flex-1 pt-20">
         <div className="container px-4 py-16">

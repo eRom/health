@@ -106,8 +106,48 @@ export default async function LocaleLayout({
 
   const messages = await getMessages()
 
+  // Organization structured data
+  const organizationSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'MedicalBusiness',
+    name: 'Health In Cloud',
+    url: 'https://healthincloud.app',
+    logo: 'https://healthincloud.app/logo.png',
+    description:
+      locale === 'fr'
+        ? 'Plateforme de rééducation orthophonique et neuropsychologique pour le service MPR de Nantes'
+        : 'Speech therapy and neuropsychological rehabilitation platform for Nantes MPR department',
+    email: 'contact@healthincloud.app',
+    areaServed: {
+      '@type': 'City',
+      name: 'Nantes',
+      '@id': 'https://www.wikidata.org/wiki/Q12191',
+    },
+    medicalSpecialty: [
+      'Speech-Language Pathology',
+      'Neuropsychology',
+      'Physical Medicine and Rehabilitation',
+    ],
+    availableService: [
+      {
+        '@type': 'MedicalTherapy',
+        name: locale === 'fr' ? 'Rééducation orthophonique' : 'Speech therapy rehabilitation',
+      },
+      {
+        '@type': 'MedicalTherapy',
+        name: locale === 'fr' ? 'Rééducation neuropsychologique' : 'Neuropsychological rehabilitation',
+      },
+    ],
+  }
+
   return (
     <html lang={locale} className="dark">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+      </head>
       <body className="antialiased">
         <NextIntlClientProvider messages={messages}>
           {children}
