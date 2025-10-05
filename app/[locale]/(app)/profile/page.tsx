@@ -1,9 +1,13 @@
 import { auth } from '@/lib/auth'
+import { prisma } from '@/lib/prisma'
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { EditNameForm } from '@/components/profile/edit-name-form'
 import { DeleteAccountDialog } from '@/components/profile/delete-account-dialog'
+import { ChangePasswordDialog } from '@/components/profile/change-password-dialog'
+import { ActiveSessions } from '@/components/profile/active-sessions'
+import { SecurityInfo } from '@/components/profile/security-info'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 
 export default async function ProfilePage() {
@@ -16,7 +20,34 @@ export default async function ProfilePage() {
   }
 
   const { user } = session
-  const createdAt = new Date(session.createdAt)
+
+  // Fetch user data with createdAt
+  const userData = await prisma.user.findUnique({
+    where: { id: user.id },
+    select: {
+      createdAt: true,
+    },
+  })
+
+  const createdAt = userData?.createdAt || new Date()
+
+  // Fetch user account (for provider info)
+  const account = await prisma.account.findFirst({
+    where: { userId: user.id },
+    select: {
+      id: true,
+      providerId: true,
+      accountId: true,
+    },
+  })
+
+  // Fetch all user sessions
+  const sessions = await prisma.session.findMany({
+    where: { userId: user.id },
+    orderBy: { updatedAt: 'desc' },
+  })
+
+  const isCredentialAuth = account?.providerId === 'credential'
 
   return (
     <div className="container py-8">
@@ -56,13 +87,20 @@ export default async function ProfilePage() {
             <CardTitle>Sécurité</CardTitle>
             <CardDescription>Paramètres de sécurité de votre compte</CardDescription>
           </CardHeader>
-          <CardContent>
-            <Alert>
-              <AlertDescription>
-                Les paramètres de sécurité avancés (changement de mot de passe, sessions actives)
-                seront disponibles prochainement.
-              </AlertDescription>
-            </Alert>
+          <CardContent className="space-y-6">
+            <SecurityInfo account={account} />
+
+            {isCredentialAuth && (
+              <div>
+                <p className="mb-2 text-sm font-medium text-muted-foreground">Mot de passe</p>
+                <ChangePasswordDialog />
+              </div>
+            )}
+
+            <div className="border-t pt-6">
+              <h3 className="mb-4 text-lg font-semibold">Sessions actives</h3>
+              <ActiveSessions sessions={sessions} currentSessionId={session.session.id} />
+            </div>
           </CardContent>
         </Card>
 
@@ -97,7 +135,7 @@ export default async function ProfilePage() {
                 seront supprimés immédiatement.
               </AlertDescription>
             </Alert>
-            <div>
+            <div className="mt-6">
               <DeleteAccountDialog />
             </div>
           </CardContent>
