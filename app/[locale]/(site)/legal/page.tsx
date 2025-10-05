@@ -4,6 +4,10 @@ import { Link } from '@/i18n/routing'
 import { StructuredData, createWebPageSchema } from '@/components/seo/structured-data'
 import type { Metadata } from 'next'
 
+// Optimize static generation
+export const dynamic = 'force-static'
+export const revalidate = 86400 // Revalidate once per day
+
 export const metadata: Metadata = {
   title: 'Mentions légales',
   description:

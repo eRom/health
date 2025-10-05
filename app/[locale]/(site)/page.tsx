@@ -7,6 +7,10 @@ import { Footer } from '@/components/navigation/footer'
 import Image from 'next/image'
 import type { Metadata } from 'next'
 
+// Optimize static generation
+export const dynamic = 'force-static'
+export const revalidate = 3600 // Revalidate every hour
+
 export async function generateMetadata({
   params,
 }: {
@@ -574,6 +578,8 @@ export default function HomePage() {
                       width={256}
                       height={256}
                       className="h-auto w-64"
+                      loading="lazy"
+                      sizes="(max-width: 768px) 256px, 256px"
                     />
                   </div>
                 </div>
