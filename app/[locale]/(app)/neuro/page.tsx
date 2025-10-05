@@ -32,6 +32,16 @@ const difficultyLevels = [
 // Exercices factices pour la démo
 const exercises = [
   {
+    id: 5,
+    title: 'Mémoire de travail',
+    description: 'Maintenir et manipuler des informations',
+    type: 'memory',
+    difficulty: 'medium',
+    duration: '15 min',
+    icon: '🧠',
+    available: true,
+  },
+  {
     id: 1,
     title: 'Séquences de nombres',
     description: 'Mémoriser et restituer des séquences de chiffres',
@@ -39,6 +49,7 @@ const exercises = [
     difficulty: 'easy',
     duration: '10 min',
     icon: '🔢',
+    available: false,
   },
   {
     id: 2,
@@ -48,6 +59,7 @@ const exercises = [
     difficulty: 'medium',
     duration: '15 min',
     icon: '🎯',
+    available: false,
   },
   {
     id: 3,
@@ -57,6 +69,7 @@ const exercises = [
     difficulty: 'hard',
     duration: '20 min',
     icon: '📋',
+    available: false,
   },
   {
     id: 4,
@@ -66,15 +79,7 @@ const exercises = [
     difficulty: 'medium',
     duration: '12 min',
     icon: '🔄',
-  },
-  {
-    id: 5,
-    title: 'Mémoire de travail',
-    description: 'Maintenir et manipuler des informations',
-    type: 'memory',
-    difficulty: 'medium',
-    duration: '15 min',
-    icon: '🧠',
+    available: false,
   },
   {
     id: 6,
@@ -84,6 +89,7 @@ const exercises = [
     difficulty: 'hard',
     duration: '18 min',
     icon: '⚡',
+    available: false,
   },
 ]
 
@@ -183,7 +189,13 @@ export default function NeuroPage() {
                 </div>
               </CardContent>
               <CardFooter>
-                <Button className="w-full">Commencer l&apos;exercice</Button>
+                {exercise.available ? (
+                  <Button className="w-full">Commencer l&apos;exercice</Button>
+                ) : (
+                  <Button variant="outline" className="w-full" disabled>
+                    À venir
+                  </Button>
+                )}
               </CardFooter>
             </Card>
           ))}

@@ -40,6 +40,7 @@ const exercises = [
     difficulty: 'easy',
     duration: '10 min',
     icon: '🗣️',
+    available: false,
   },
   {
     id: 2,
@@ -49,6 +50,7 @@ const exercises = [
     difficulty: 'easy',
     duration: '12 min',
     icon: '👄',
+    available: false,
   },
   {
     id: 3,
@@ -58,6 +60,7 @@ const exercises = [
     difficulty: 'medium',
     duration: '15 min',
     icon: '🖼️',
+    available: false,
   },
   {
     id: 4,
@@ -67,6 +70,7 @@ const exercises = [
     difficulty: 'medium',
     duration: '20 min',
     icon: '📖',
+    available: false,
   },
   {
     id: 5,
@@ -76,6 +80,7 @@ const exercises = [
     difficulty: 'medium',
     duration: '15 min',
     icon: '✍️',
+    available: false,
   },
   {
     id: 6,
@@ -85,6 +90,7 @@ const exercises = [
     difficulty: 'hard',
     duration: '18 min',
     icon: '👂',
+    available: false,
   },
   {
     id: 7,
@@ -94,6 +100,7 @@ const exercises = [
     difficulty: 'hard',
     duration: '25 min',
     icon: '💬',
+    available: false,
   },
   {
     id: 8,
@@ -103,6 +110,7 @@ const exercises = [
     difficulty: 'hard',
     duration: '10 min',
     icon: '🌪️',
+    available: false,
   },
 ]
 
@@ -202,7 +210,13 @@ export default function OrthoPage() {
                 </div>
               </CardContent>
               <CardFooter>
-                <Button className="w-full">Commencer l&apos;exercice</Button>
+                {exercise.available ? (
+                  <Button className="w-full">Commencer l&apos;exercice</Button>
+                ) : (
+                  <Button variant="outline" className="w-full" disabled>
+                    À venir
+                  </Button>
+                )}
               </CardFooter>
             </Card>
           ))}
