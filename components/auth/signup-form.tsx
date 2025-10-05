@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
-import { useRouter } from '@/i18n/routing'
+import { useRouter, Link } from '@/i18n/routing'
 import { authClient } from '@/lib/auth-client'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -39,7 +39,7 @@ export function SignupForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="space-y-4">
+    <form onSubmit={onSubmit} className="space-y-6">
       {error && (
         <div
           role="alert"
@@ -92,9 +92,14 @@ export function SignupForm() {
         />
       </div>
 
-      <Button type="submit" className="w-full" disabled={isLoading}>
-        {isLoading ? 'Création...' : t('auth.signUp')}
-      </Button>
+      <div className="flex gap-3 mt-2">
+        <Button asChild variant="outline" className="flex-1" disabled={isLoading}>
+          <Link href="/">Annuler</Link>
+        </Button>
+        <Button type="submit" className="flex-1" disabled={isLoading}>
+          {isLoading ? 'Création...' : t('auth.signUp')}
+        </Button>
+      </div>
     </form>
   )
 }

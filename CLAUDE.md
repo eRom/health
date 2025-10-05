@@ -54,17 +54,38 @@ Users → Cloudflare (CDN, DNS, WAF) → Vercel (Next.js) → Prisma → Neon Po
 
 ### Directory Structure
 ```
-src/
-├─ app/[locale]/(site)         # Public landing, thank-you pages
-├─ app/[locale]/(auth)         # Better Auth flows
-├─ app/[locale]/(app)          # Protected routes: dashboard, neuro, ortho, profile
-├─ app/api/                    # API handlers (auth, sentry)
-├─ components/ui               # shadcn primitives
-├─ components/navigation       # SiteHeader, SiteFooter, UserMenu, SignOutButton
-├─ lib/                        # Auth, i18n, Prisma singleton, Sentry helpers, utils (cn)
-├─ locales/{fr,en}/common.json # Translations
-├─ __tests__/                  # Vitest specs
-└─ middleware.ts               # Locale + auth guards
+app/
+├─ [locale]/(site)/         # Public: landing, about, privacy, legal, gdpr
+├─ [locale]/(auth)/         # Auth flows: login, signup (with layouts for metadata)
+├─ [locale]/(app)/          # Protected: dashboard, neuro, ortho, profile (with layouts)
+├─ actions/                 # Server actions: profile, password, sessions, preferences
+├─ api/                     # API routes: auth, sentry
+├─ theme-script.tsx         # Blocking script for theme (FOUC prevention)
+├─ sitemap.ts               # Dynamic sitemap
+└─ robots.ts                # Robots.txt configuration
+
+components/
+├─ ui/                      # shadcn primitives + Logo component
+├─ navigation/              # Header, Footer, LanguageSwitcher
+├─ auth/                    # LoginForm, SignupForm, UserNav
+├─ profile/                 # 9 profile components (security, preferences, delete)
+├─ providers/               # ThemeProvider wrapper (next-themes)
+└─ seo/                     # StructuredData component (JSON-LD)
+
+lib/
+├─ auth.ts                  # Better Auth server config
+├─ auth-client.ts           # Better Auth client helper
+├─ prisma.ts                # Prisma singleton
+├─ sentry.ts                # Sentry helpers
+└─ utils.ts                 # cn() + other utilities
+
+Other key directories:
+├─ locales/{fr,en}/         # i18n translations
+├─ prisma/                  # Schema + migrations
+├─ public/                  # Static assets (logo.svg, qr-code.png)
+├─ __tests__/               # Vitest unit tests
+├─ e2e/                     # Playwright E2E tests
+└─ .specs/                  # Product/technical documentation
 ```
 
 ### Key Patterns
@@ -92,10 +113,12 @@ src/
 - Language switcher preserves pathname/query via `<Link href={pathname} locale="en">`
 
 **Styling**:
-- Tailwind theme tokens in `globals.css`
+- Tailwind theme tokens in `globals.css` (custom design system)
 - `cn()` utility merges `clsx` + `tailwind-merge`
-- shadcn/ui components in `src/components/ui`
-- Dark mode class strategy
+- shadcn/ui components in `components/ui`
+- Dark mode via next-themes with class strategy (`.dark`)
+- ThemeScript in `<head>` to prevent FOUC
+- Theme persistence: localStorage + DB (user preferences)
 
 ---
 
