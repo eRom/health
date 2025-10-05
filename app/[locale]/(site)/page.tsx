@@ -334,7 +334,7 @@ export default function HomePage() {
                   <h3 className="mb-1 text-lg font-semibold">Dr. Typhaine, 43 ans</h3>
                   <p className="mb-1 text-sm font-medium text-primary">Orthophoniste</p>
                   <p className="text-sm text-muted-foreground">
-                    Clinicienne au MPR de Nantes, 20-30 patients actifs
+                    Clinicienne en médecine de réadaptation, 20-30 patients actifs
                   </p>
                 </div>
                 <blockquote className="border-l-4 border-primary pl-4 italic">
@@ -468,8 +468,7 @@ export default function HomePage() {
                 Prêt à commencer votre rééducation ?
               </h2>
               <p className="mb-8 text-lg text-muted-foreground">
-                Rejoignez dès maintenant les patients du département MPR de Nantes qui font
-                confiance à Health In Cloud
+                Rejoignez dès maintenant les patients qui font confiance à Health In Cloud pour leur rééducation
               </p>
               <div className="flex flex-col justify-center gap-4 sm:flex-row">
                 <Button asChild size="lg" className="w-full text-base sm:w-56">

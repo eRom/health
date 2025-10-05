@@ -85,7 +85,7 @@ export default function PrivacyPage() {
                   Vos données peuvent être partagées avec :
                 </p>
                 <ul className="mb-4 ml-6 list-disc space-y-2 text-muted-foreground">
-                  <li>Les professionnels de santé du département MPR de Nantes qui vous suivent</li>
+                  <li>Les professionnels de santé autorisés qui vous suivent</li>
                   <li>Nos prestataires techniques (hébergement sécurisé)</li>
                   <li>Les autorités compétentes en cas d&apos;obligation légale</li>
                 </ul>

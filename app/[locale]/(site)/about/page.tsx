@@ -6,13 +6,13 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'À propos',
   description:
-    'Health In Cloud - Plateforme de rééducation orthophonique et neuropsychologique développée en partenariat avec le service MPR de Nantes.',
+    'Health In Cloud - Plateforme de rééducation orthophonique et neuropsychologique pour accompagner les patients en réadaptation.',
 }
 
 export default function AboutPage() {
   const schema = createWebPageSchema(
     'À propos de Health In Cloud',
-    'Health In Cloud - Plateforme de rééducation orthophonique et neuropsychologique développée en partenariat avec le service MPR de Nantes.',
+    'Health In Cloud - Plateforme de rééducation orthophonique et neuropsychologique pour accompagner les patients en réadaptation.',
     'https://healthincloud.app/fr/about'
   )
 
@@ -30,8 +30,7 @@ export default function AboutPage() {
                 <h2 className="mb-4 text-2xl font-semibold">Notre Mission</h2>
                 <p className="mb-4 text-muted-foreground">
                   Health In Cloud est une plateforme web dédiée à la rééducation orthophonique et
-                  neuropsychologique, développée en partenariat avec le département de Médecine Physique
-                  et de Réadaptation (MPR) de Nantes.
+                  neuropsychologique, conçue pour accompagner les patients en réadaptation.
                 </p>
                 <p className="mb-4 text-muted-foreground">
                   Notre mission est de fournir aux patients en rééducation un accès permanent à des
@@ -84,11 +83,11 @@ export default function AboutPage() {
               </section>
 
               <section className="mb-12">
-                <h2 className="mb-4 text-2xl font-semibold">Partenariat MPR Nantes</h2>
+                <h2 className="mb-4 text-2xl font-semibold">Approche Clinique</h2>
                 <p className="mb-4 text-muted-foreground">
-                  Health In Cloud est développé en étroite collaboration avec le département de Médecine
-                  Physique et de Réadaptation du CHU de Nantes, garantissant une approche clinique
-                  rigoureuse et adaptée aux besoins réels des patients.
+                  Health In Cloud est développé en collaboration avec des professionnels de la
+                  rééducation, garantissant une approche clinique rigoureuse et adaptée aux besoins
+                  réels des patients.
                 </p>
               </section>
 
