@@ -8,7 +8,8 @@
     "dashboard": "Tableau de bord",
     "neuro": "Neuropsychologie",
     "ortho": "Orthophonie",
-    "profile": "Profil"
+    "profile": "Profil",
+    "back": "Retour"
   },
   "auth": {
     "signIn": "Se connecter",

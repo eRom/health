@@ -8,7 +8,8 @@
     "dashboard": "Dashboard",
     "neuro": "Neuropsychology",
     "ortho": "Speech Therapy",
-    "profile": "Profile"
+    "profile": "Profile",
+    "back": "Back"
   },
   "auth": {
     "signIn": "Sign In",

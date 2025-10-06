@@ -3,6 +3,8 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import { Card, CardContent } from '@/components/ui/card'
 import { Heart } from 'lucide-react'
+import { Header } from '@/components/navigation/header'
+import { Footer } from '@/components/navigation/footer'
 
 export async function generateMetadata({
   params,
@@ -50,9 +52,11 @@ export default async function ThanksPage({
   ]
 
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="border-b bg-gradient-to-b from-background to-muted/20">
+    <div className="flex min-h-screen flex-col">
+      <Header />
+      <main className="flex-1 pt-20">
+        {/* Hero Section */}
+        <section className="border-b bg-gradient-to-b from-background to-muted/20">
         <div className="container mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center text-center">
             {/* Avatar */}
@@ -170,6 +174,8 @@ export default async function ThanksPage({
           </Card>
         </div>
       </section>
+      </main>
+      <Footer />
     </div>
   )
 }
