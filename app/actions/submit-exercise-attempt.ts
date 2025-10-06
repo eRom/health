@@ -4,6 +4,8 @@ import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { SubmitExerciseAttemptSchema } from '@/lib/schemas/exercise'
 import { revalidatePath } from 'next/cache'
+import { headers } from 'next/headers'
+import type { Prisma } from '@prisma/client'
 
 export async function submitExerciseAttempt(input: unknown) {
   try {
@@ -11,7 +13,10 @@ export async function submitExerciseAttempt(input: unknown) {
     const validated = SubmitExerciseAttemptSchema.parse(input)
 
     // 2. Check authentication
-    const session = await auth()
+    const session = await auth.api.getSession({
+      headers: await headers(),
+    })
+
     if (!session?.user?.id) {
       return {
         success: false,
@@ -26,7 +31,7 @@ export async function submitExerciseAttempt(input: unknown) {
         userId: session.user.id,
         score: validated.score,
         duration: validated.duration,
-        data: validated.data || {},
+        data: validated.data as Prisma.InputJsonValue | undefined,
       },
     })
 

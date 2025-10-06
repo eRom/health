@@ -20,6 +20,11 @@ import {
 import { Filter } from "lucide-react";
 import { useState, useEffect } from "react";
 import type { LocalizedExercise } from "@/lib/types/exercise";
+import {
+  DIFFICULTY_LEVELS,
+  getDifficultyColor,
+  getDifficultyLabel,
+} from "@/lib/constants/exercise";
 
 // Types d'exercices neuropsychologiques
 const exerciseTypes = [
@@ -28,14 +33,6 @@ const exerciseTypes = [
   { value: "attention", label: "Attention" },
   { value: "executive", label: "Fonctions exécutives" },
   { value: "spatial", label: "Capacités visuo-spatiales" },
-];
-
-// Niveaux de difficulté
-const difficultyLevels = [
-  { value: "all", label: "Tous les niveaux" },
-  { value: "easy", label: "Facile", color: "bg-green-500" },
-  { value: "medium", label: "Moyen", color: "bg-yellow-500" },
-  { value: "hard", label: "Difficile", color: "bg-red-500" },
 ];
 
 export default function NeuroPage() {
@@ -66,16 +63,6 @@ export default function NeuroPage() {
       selectedDifficulty === 'all' || exercise.difficulty === selectedDifficulty
     return typeMatch && difficultyMatch
   })
-
-  const getDifficultyColor = (difficulty: string) => {
-    const level = difficultyLevels.find((d) => d.value === difficulty)
-    return level?.color || 'bg-gray-500'
-  }
-
-  const getDifficultyLabel = (difficulty: string) => {
-    const level = difficultyLevels.find((d) => d.value === difficulty)
-    return level?.label || difficulty
-  }
 
   const getTypeLabel = (type: string) => {
     const exerciseType = exerciseTypes.find((t) => t.value === type)
@@ -128,7 +115,7 @@ export default function NeuroPage() {
               <SelectValue placeholder="Niveau de difficulté" />
             </SelectTrigger>
             <SelectContent>
-              {difficultyLevels.map((level) => (
+              {DIFFICULTY_LEVELS.map((level) => (
                 <SelectItem key={level.value} value={level.value}>
                   {level.label}
                 </SelectItem>

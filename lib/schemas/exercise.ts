@@ -8,7 +8,7 @@ export const ExerciseContentSchema = z.object({
   instructions: z.string().min(1),
 })
 
-export const ExerciseConfigSchema = z.record(z.unknown()).optional()
+export const ExerciseConfigSchema = z.record(z.string(), z.unknown()).optional()
 
 export const ExerciseSchema = z.object({
   slug: z.string().min(1),
@@ -36,5 +36,5 @@ export const SubmitExerciseAttemptSchema = z.object({
   exerciseSlug: z.string().min(1),
   score: z.number().min(0).max(100).optional(),
   duration: z.number().int().positive().optional(), // seconds
-  data: z.record(z.unknown()).optional(),
+  data: z.record(z.string(), z.unknown()).optional(),
 })
