@@ -1,15 +1,15 @@
 'use client'
 
 import { useState } from 'react'
-import { useTranslations, useLocale } from 'next-intl'
-import { Link } from '@/i18n/routing'
+import { useTranslations } from 'next-intl'
+import { useRouter, Link } from '@/i18n/routing'
 import { authClient } from '@/lib/auth-client'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
 export function LoginForm() {
   const t = useTranslations()
-  const locale = useLocale()
+  const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -23,26 +23,19 @@ export function LoginForm() {
     const password = formData.get('password') as string
 
     try {
-      console.log('Attempting login with:', email)
       const response = await authClient.signIn.email({
         email,
         password,
       })
 
-      console.log('Login response:', response)
-
       if (response.error) {
-        console.error('Login error from response:', response.error)
         setError(response.error.message || 'Email ou mot de passe incorrect')
         return
       }
 
-      console.log('Login successful, redirecting to dashboard')
-      // Force hard redirect to ensure cookies are properly set
-      // Include locale prefix in the redirect URL
-      window.location.href = `/${locale}/dashboard`
+      // Redirect to dashboard after successful login
+      router.push('/dashboard')
     } catch (err) {
-      console.error('Login exception:', err)
       setError('Email ou mot de passe incorrect')
     } finally {
       setIsLoading(false)
