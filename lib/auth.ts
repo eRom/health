@@ -30,5 +30,12 @@ export const auth = betterAuth({
     getBaseURL(),
     "https://dev.healthincloud.app",
     "https://healthincloud.app",
+    "https://*.healthincloud.app", // Wildcard for all subdomains
   ],
+  advanced: {
+    crossSubDomainCookies: {
+      enabled: true,
+      domain: ".healthincloud.app", // Leading dot for all subdomains
+    },
+  },
 })
