@@ -1,0 +1,7 @@
+# Storybook files and directories
+**/*.stories.tsx
+**/*.stories.ts
+**/*.stories.jsx
+**/*.stories.js
+.storybook/
+storybook-static/
