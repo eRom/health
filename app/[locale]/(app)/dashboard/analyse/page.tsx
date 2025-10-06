@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useTranslations, useLocale } from 'next-intl'
 import { getAnalysisData } from '@/app/actions/get-analysis-data'
 import type { AnalysisData } from '@/app/actions/get-analysis-data'
@@ -21,13 +21,15 @@ export default function AnalysePage() {
   const [data, setData] = useState<AnalysisData | null>(null)
   const [loading, setLoading] = useState(true)
   const [isRefreshing, setIsRefreshing] = useState(false)
+  const isFirstLoad = useRef(true)
 
   useEffect(() => {
     async function loadData() {
       // Premier chargement : loading complet
       // Changement de filtre : juste isRefreshing (garde l'affichage)
-      if (data === null) {
+      if (isFirstLoad.current) {
         setLoading(true)
+        isFirstLoad.current = false
       } else {
         setIsRefreshing(true)
       }

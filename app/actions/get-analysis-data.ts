@@ -89,7 +89,11 @@ export async function getAnalysisData(
   }
 
   // 3. Build where clause
-  const whereClause: any = {
+  const whereClause: {
+    userId: string
+    completedAt: { gte: Date; lt?: Date }
+    exerciseSlug?: { in: string[] }
+  } = {
     userId,
     completedAt: {
       gte: startDate,
@@ -259,9 +263,10 @@ export async function getAnalysisData(
       })
 
       // Get most common difficulty
-      let difficulty = exercise?.difficulty || 'medium'
+      let difficulty: string = exercise?.difficulty || 'medium'
       if (difficultyCounts.size > 0) {
-        difficulty = Array.from(difficultyCounts.entries()).sort((a, b) => b[1] - a[1])[0][0]
+        const mostCommon = Array.from(difficultyCounts.entries()).sort((a, b) => b[1] - a[1])[0][0]
+        difficulty = mostCommon
       }
       // Don't use 'all' as difficulty
       if (difficulty === 'all') {

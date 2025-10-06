@@ -58,8 +58,9 @@ export function DifficultyDistributionChart({
                   outerRadius={90}
                   paddingAngle={2}
                   dataKey="count"
-                  label={(props) => {
+                  label={(props: { x?: number; y?: number; percent?: number }) => {
                     const { x, y, percent } = props
+                    if (x === undefined || y === undefined || percent === undefined) return null
                     return (
                       <text
                         x={x}

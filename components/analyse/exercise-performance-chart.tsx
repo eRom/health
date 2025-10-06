@@ -71,9 +71,9 @@ export function ExercisePerformanceChart({ data, title }: ExercisePerformanceCha
                 }}
                 labelStyle={{ color: 'hsl(var(--popover-foreground))' }}
                 cursor={false}
-                formatter={(value: number, name: string, props: any) => [
+                formatter={(value: number, _name: string, props: unknown) => [
                   `${value.toFixed(1)}%`,
-                  `Score (${props.payload.count} tentatives)`,
+                  `Score (${(props as { payload: { count: number } }).payload.count} tentatives)`,
                 ]}
                 labelFormatter={(label, payload) => {
                   if (payload && payload[0]) {
