@@ -21,6 +21,7 @@ export async function generateMetadata({
 
   const title = t('home.hero.title')
   const description = t('home.hero.description')
+  const url = 'https://healthincloud.app'
 
   return {
     title,
@@ -29,10 +30,30 @@ export async function generateMetadata({
       title,
       description,
       type: 'website',
+      locale: locale === 'fr' ? 'fr_FR' : 'en_US',
+      url: `${url}/${locale}`,
+      siteName: 'Health In Cloud',
+      images: [
+        {
+          url: '/og-image.png',
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
     },
     twitter: {
+      card: 'summary_large_image',
       title,
       description,
+      images: ['/og-image.png'],
+    },
+    alternates: {
+      canonical: `${url}/${locale}`,
+      languages: {
+        fr: `${url}/fr`,
+        en: `${url}/en`,
+      },
     },
   }
 }
