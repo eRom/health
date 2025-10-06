@@ -38,7 +38,8 @@ export function LoginForm() {
       }
 
       console.log('Login successful, redirecting to dashboard')
-      router.push('/dashboard')
+      // Force hard redirect to ensure cookies are properly set
+      window.location.href = '/dashboard'
     } catch (err) {
       console.error('Login exception:', err)
       setError('Email ou mot de passe incorrect')
