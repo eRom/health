@@ -1,5 +1,6 @@
 import type { Preview } from '@storybook/nextjs'
 import '../app/globals.css'
+import { NextIntlDecorator } from './next-intl'
 
 const preview: Preview = {
   parameters: {
@@ -46,6 +47,7 @@ const preview: Preview = {
     },
   },
   decorators: [
+    NextIntlDecorator,
     (Story, context) => {
       const theme = context.globals.theme || 'light'
 
