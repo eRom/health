@@ -26,5 +26,22 @@ export const auth = betterAuth({
     enabled: true,
   },
   baseURL: getBaseURL(),
-  trustedOrigins: [getBaseURL()],
+  trustedOrigins: [
+    getBaseURL(),
+    "https://dev.healthincloud.app",
+    "https://healthincloud.app",
+  ],
+  advanced: {
+    cookieOptions: {
+      // Configure cookies to work with Cloudflare proxy
+      sameSite: "lax",
+      secure: true,
+      httpOnly: true,
+      path: "/",
+      // Add domain for Cloudflare
+      ...(process.env.NODE_ENV === "production" && {
+        domain: ".healthincloud.app",
+      }),
+    },
+  },
 })
