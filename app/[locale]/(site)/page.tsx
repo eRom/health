@@ -47,6 +47,8 @@ export async function generateMetadata({
       title,
       description,
       images: ['/og-image.png'],
+      creator: '@healthincloud',
+      site: '@healthincloud',
     },
     alternates: {
       canonical: `${url}/${locale}`,
