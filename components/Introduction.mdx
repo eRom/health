@@ -1,0 +1,95 @@
+import { Meta } from '@storybook/blocks'
+
+<Meta title="Introduction" />
+
+# Health In Cloud - Storybook
+
+Bienvenue dans le Storybook de **Health In Cloud**, la plateforme de rééducation orthophonique et neuropsychologique.
+
+## 📚 À propos de ce Storybook
+
+Ce Storybook documente l'ensemble des composants UI utilisés dans l'application Health In Cloud. Il sert de :
+
+- **Catalogue de composants** : Visualisez tous les composants disponibles
+- **Documentation interactive** : Testez les différentes variantes et props
+- **Guide de référence** : Pour les développeurs et designers
+- **Outil de test** : Vérifiez l'accessibilité et les états des composants
+
+## 🎨 Design System
+
+Notre design system est basé sur :
+
+- **shadcn/ui** - Components primitifs accessibles
+- **Tailwind CSS v4** - Utility-first CSS
+- **Radix UI** - Primitives UI accessibles
+- **Lucide React** - Icônes SVG
+
+### Thèmes
+
+L'application supporte deux thèmes :
+- **Light** (Clair)
+- **Dark** (Sombre) - par défaut
+
+Utilisez le sélecteur de thème dans la barre d'outils Storybook pour basculer entre les thèmes.
+
+## 🧩 Catégories de Composants
+
+### UI Components
+Composants de base réutilisables :
+- **Button** - Boutons avec variantes (default, destructive, outline, etc.)
+- **Card** - Cartes pour afficher du contenu structuré
+- **Input** - Champs de saisie avec labels
+- **Skeleton** - États de chargement
+- **Logo** - Logo Health In Cloud
+
+### Auth Components
+Composants d'authentification :
+- **LoginForm** - Formulaire de connexion
+- **SignupForm** - Formulaire d'inscription
+
+### Navigation Components
+- **Header** - En-tête avec navigation
+- **Footer** - Pied de page
+- **LanguageSwitcher** - Changement FR/EN
+
+## ♿ Accessibilité
+
+Tous nos composants respectent les standards WCAG 2.1 AA minimum :
+
+- ✅ Navigation au clavier
+- ✅ Support lecteur d'écran
+- ✅ Contrastes suffisants
+- ✅ Labels ARIA appropriés
+
+Utilisez l'addon **a11y** dans Storybook pour vérifier l'accessibilité de chaque composant.
+
+## 📱 Responsive Design
+
+Les composants sont testés sur 3 breakpoints :
+
+- **Mobile** : 375px (iPhone SE)
+- **Tablet** : 768px (iPad)
+- **Desktop** : 1440px
+
+Utilisez le sélecteur de viewport pour tester la responsivité.
+
+## 🚀 Commandes
+
+```bash
+# Lancer Storybook
+npm run storybook
+
+# Build Storybook pour production
+npm run build-storybook
+```
+
+## 📖 Ressources
+
+- [shadcn/ui Documentation](https://ui.shadcn.com)
+- [Tailwind CSS](https://tailwindcss.com)
+- [Radix UI](https://radix-ui.com)
+- [Storybook](https://storybook.js.org)
+
+---
+
+**Développé avec ❤️ pour les patients en rééducation**

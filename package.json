@@ -12,7 +12,9 @@
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui"
+    "test:e2e:ui": "playwright test --ui",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -60,6 +62,14 @@
     "qrcode": "^1.5.4",
     "tailwindcss": "^4",
     "typescript": "^5",
-    "vitest": "^3.2.4"
+    "vitest": "^3.2.4",
+    "storybook": "^9.1.10",
+    "@storybook/nextjs": "^9.1.10",
+    "@chromatic-com/storybook": "^4.1.1",
+    "@storybook/addon-docs": "^9.1.10",
+    "@storybook/addon-onboarding": "^9.1.10",
+    "eslint-plugin-storybook": "^9.1.10",
+    "@storybook/addon-a11y": "^9.1.10",
+    "@storybook/addon-vitest": "^9.1.10"
   }
 }
