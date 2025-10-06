@@ -1,99 +1,67 @@
 'use client'
 
-import { useState } from 'react'
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { EmptyState } from '@/components/ui/empty-state'
-import { Filter } from 'lucide-react'
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { EmptyState } from "@/components/ui/empty-state";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from "@/components/ui/select";
+import { Filter } from "lucide-react";
+import { useState } from "react";
 
 // Types d'exercices neuropsychologiques
 const exerciseTypes = [
-  { value: 'all', label: 'Tous les exercices' },
-  { value: 'memory', label: 'Mémoire' },
-  { value: 'attention', label: 'Attention' },
-  { value: 'executive', label: 'Fonctions exécutives' },
-  { value: 'spatial', label: 'Capacités visuo-spatiales' },
-]
+  { value: "all", label: "Tous les exercices" },
+  { value: "memory", label: "Mémoire" },
+  { value: "attention", label: "Attention" },
+  { value: "executive", label: "Fonctions exécutives" },
+  { value: "spatial", label: "Capacités visuo-spatiales" },
+];
 
 // Niveaux de difficulté
 const difficultyLevels = [
-  { value: 'all', label: 'Tous les niveaux' },
-  { value: 'easy', label: 'Facile', color: 'bg-green-500' },
-  { value: 'medium', label: 'Moyen', color: 'bg-yellow-500' },
-  { value: 'hard', label: 'Difficile', color: 'bg-red-500' },
-]
+  { value: "all", label: "Tous les niveaux" },
+  { value: "easy", label: "Facile", color: "bg-green-500" },
+  { value: "medium", label: "Moyen", color: "bg-yellow-500" },
+  { value: "hard", label: "Difficile", color: "bg-red-500" },
+];
 
 // Exercices factices pour la démo
 const exercises = [
   {
-    id: 5,
-    title: 'Mémoire de travail',
-    description: 'Maintenir et manipuler des informations',
-    type: 'memory',
-    difficulty: 'medium',
-    duration: '15 min',
-    icon: '🧠',
+    id: 1,
+    title: "Empans de lettres",
+    description:
+      "Entraînez la capacité de mémorisation grâce à des séries de lettres. ",
+    type: "memory",
+    difficulty: "all",
+    duration: "10 min",
+    icon: "🧠",
     available: true,
   },
   {
-    id: 1,
-    title: 'Séquences de nombres',
-    description: 'Mémoriser et restituer des séquences de chiffres',
-    type: 'memory',
-    difficulty: 'easy',
-    duration: '10 min',
-    icon: '🔢',
-    available: false,
-  },
-  {
     id: 2,
-    title: 'Attention sélective',
-    description: 'Identifier des cibles parmi des distracteurs',
-    type: 'attention',
-    difficulty: 'medium',
-    duration: '15 min',
-    icon: '🎯',
+    title: "Test de Corsi",
+    description:
+      "Entraînez votre mémoire spatiale en reproduisant une séquence de blocs.",
+    type: "spatial",
+    difficulty: "medium",
+    duration: "15 min",
+    icon: "🧩",
     available: false,
   },
-  {
-    id: 3,
-    title: 'Planning de tâches',
-    description: 'Organiser et séquencer des actions complexes',
-    type: 'executive',
-    difficulty: 'hard',
-    duration: '20 min',
-    icon: '📋',
-    available: false,
-  },
-  {
-    id: 4,
-    title: 'Rotation mentale',
-    description: 'Manipuler mentalement des objets en 3D',
-    type: 'spatial',
-    difficulty: 'medium',
-    duration: '12 min',
-    icon: '🔄',
-    available: false,
-  },
-  {
-    id: 6,
-    title: 'Attention divisée',
-    description: 'Gérer plusieurs tâches simultanément',
-    type: 'attention',
-    difficulty: 'hard',
-    duration: '18 min',
-    icon: '⚡',
-    available: false,
-  },
-]
+];
 
 export default function NeuroPage() {
   const [selectedType, setSelectedType] = useState('all')
