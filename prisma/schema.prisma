@@ -1,0 +1,86 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id                 String            @id @default(cuid())
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+  email              String            @unique
+  emailVerified      Boolean           @default(false)
+  name               String
+  image              String?
+  locale             String?           @default("fr")
+  theme              String?           @default("system")
+  emailNotifications Boolean           @default(true)
+  accounts           Account[]
+  sessions           Session[]
+  exerciseAttempts   ExerciseAttempt[]
+}
+
+model Account {
+  id                    String    @id @default(cuid())
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+  providerId            String
+  accountId             String
+  userId                String
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([providerId, accountId])
+  @@index([userId])
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String
+  expiresAt DateTime
+  token     String   @unique
+  ipAddress String?
+  userAgent String?
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Verification {
+  id         String   @id @default(cuid())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  value      String
+  expiresAt  DateTime
+  identifier String
+
+  @@unique([identifier, value])
+  @@index([identifier])
+}
+
+model ExerciseAttempt {
+  id           String   @id @default(cuid())
+  exerciseSlug String
+  userId       String
+  score        Float?
+  duration     Int?
+  data         Json?
+  completedAt  DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, completedAt])
+  @@index([exerciseSlug])
+}

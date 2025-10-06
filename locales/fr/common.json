@@ -1,0 +1,117 @@
+{
+  "app": {
+    "title": "Health In Cloud",
+    "description": "Plateforme de rééducation orthophonique et neuropsychologique"
+  },
+  "navigation": {
+    "home": "Accueil",
+    "dashboard": "Tableau de bord",
+    "neuro": "Neuropsychologie",
+    "ortho": "Orthophonie",
+    "profile": "Profil"
+  },
+  "auth": {
+    "signIn": "Se connecter",
+    "signOut": "Se déconnecter",
+    "signUp": "S'inscrire",
+    "email": "Email",
+    "password": "Mot de passe",
+    "name": "Nom"
+  },
+  "dashboard": {
+    "welcome": "Bienvenue, {name}",
+    "yourProgress": "Votre progression",
+    "recentExercises": "Exercices récents",
+    "noExercises": "Aucun exercice pour le moment",
+    "noExercisesDescription": "Découvrez nos exercices de neuropsychologie et d'orthophonie pour commencer votre rééducation.",
+    "stats": {
+      "totalExercises": "Exercices complétés",
+      "totalDuration": "Temps total",
+      "averageScore": "Score moyen",
+      "streak": "Série en cours"
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "Rééducation MPR",
+      "subtitle": "Pour le service MPR de Nantes",
+      "description": "Pratiquez vos exercices de rééducation en autonomie avec un suivi personnalisé et des retours instantanés.",
+      "cta": "Commencer maintenant",
+      "highlightGuidedTitle": "Guidage intelligent",
+      "highlightGuidedDescription": "Séances interactives pour travailler en autonomie.",
+      "highlightFeedbackTitle": "Suivi en direct",
+      "highlightFeedbackDescription": "Analyse vos résultats et fournit des retours instantanés.",
+      "highlightDevicesTitle": "Disponible partout",
+      "highlightDevicesDescription": "Compatible ordinateur, tablette et smartphone."
+    },
+    "features": {
+      "title": "Une plateforme adaptée à vos besoins",
+      "patients": {
+        "title": "Pour les patients",
+        "description": "Accédez à vos exercices prescrits à tout moment, recevez des retours instantanés et suivez votre progression.",
+        "benefit1": "Exercices guidés disponibles 24/7",
+        "benefit2": "Retours immédiats sur vos performances",
+        "benefit3": "Suivi de votre progression"
+      },
+      "clinicians": {
+        "title": "Pour les thérapeutes",
+        "description": "Suivez l'assiduité et les progrès de vos patients entre les séances.",
+        "benefit1": "Tableau de bord de suivi",
+        "benefit2": "Analyse des tendances",
+        "benefit3": "Ajustement des recommandations"
+      }
+    },
+    "exercises": {
+      "title": "Exercices de rééducation",
+      "description": "Des exercices adaptés pour la neuropsychologie et l'orthophonie",
+      "neuro": {
+        "title": "Neuropsychologie",
+        "description": "Exercices cognitifs : empan de lettres, mémoire de travail, attention soutenue.",
+        "example1": "Empan de lettres audio avec timing configurable",
+        "example2": "Exercices de mémoire de travail",
+        "example3": "Tests d'attention soutenue"
+      },
+      "ortho": {
+        "title": "Orthophonie",
+        "description": "Exercices de parole : diadococinésie, virelangues, compréhension verbale.",
+        "example1": "Exercices de diadococinésie",
+        "example2": "Virelangues progressifs",
+        "example3": "Compréhension verbale"
+      }
+    },
+    "benefits": {
+      "title": "Pourquoi Health In Cloud ?",
+      "accessible": {
+        "title": "Accessible",
+        "description": "Interface simple et intuitive, optimisée pour tablettes et téléphones"
+      },
+      "bilingual": {
+        "title": "Bilingue",
+        "description": "Disponible en français et anglais avec changement instantané"
+      },
+      "secure": {
+        "title": "Sécurisé",
+        "description": "Conforme RGPD, vos données de santé sont protégées"
+      },
+      "offline": {
+        "title": "Hors ligne",
+        "description": "Bientôt disponible : mode hors ligne pour pratiquer partout"
+      }
+    },
+    "cta": {
+      "title": "Prêt à commencer votre rééducation ?",
+      "description": "Créez votre compte gratuitement et accédez à vos exercices dès maintenant."
+    }
+  },
+  "offline": {
+    "title": "Vous êtes hors ligne",
+    "description": "Il semble que vous ayez perdu votre connexion internet. Veuillez vous reconnecter pour accéder à Health In Cloud.",
+    "instructions": {
+      "title": "Pour vous reconnecter :",
+      "step1": "Vérifiez votre connexion WiFi ou vos données mobiles",
+      "step2": "Assurez-vous d'être dans une zone avec du réseau",
+      "step3": "Essayez de recharger la page"
+    },
+    "retry": "Réessayer"
+  }
+}

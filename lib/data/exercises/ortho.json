@@ -1,0 +1,78 @@
+{
+  "exercises": [
+    {
+      "slug": "virelangues",
+      "type": "ortho",
+      "category": "articulation",
+      "difficulty": "all",
+      "duration": 10,
+      "icon": "🌪️",
+      "available": true,
+      "position": 1,
+      "content": {
+        "fr": {
+          "title": "Virelangues",
+          "description": "Phrases pour travailler la fluidité",
+          "instructions": "Répétez les virelangues de plus en plus rapidement en articulant clairement."
+        },
+        "en": {
+          "title": "Tongue Twisters",
+          "description": "Phrases to work on fluency",
+          "instructions": "Repeat the tongue twisters faster and faster while articulating clearly."
+        }
+      },
+      "config": {
+        "difficulty Levels": ["easy", "medium", "hard"]
+      }
+    },
+    {
+      "slug": "diadococinesie_medium",
+      "type": "ortho",
+      "category": "articulation",
+      "difficulty": "medium",
+      "duration": 15,
+      "icon": "👄",
+      "available": true,
+      "position": 2,
+      "content": {
+        "fr": {
+          "title": "Diadococinesie",
+          "description": "Chronomètre d'une minute pour répéter des séquences syllabiques.",
+          "instructions": "Répétez chaque mot en articulant distinctement."
+        },
+        "en": {
+          "title": "Diadococinesie",
+          "description": "One-minute timer to repeat syllabic sequences.",
+          "instructions": "Repeat each word while articulating distinctly."
+        }
+      },
+      "config": {}
+    },
+    {
+      "slug": "mots-melanges-3l",
+      "type": "ortho",
+      "category": "language",
+      "difficulty": "all",
+      "duration": 15,
+      "icon": "🔤",
+      "available": false,
+      "position": 3,
+      "content": {
+        "fr": {
+          "title": "Mots mélangés - 3 lettres",
+          "description": "Reconstituer des mots de 3 lettres dont les lettres sont mélangées",
+          "instructions": "Observez les lettres mélangées et reconstituez le mot correct en les remettant dans le bon ordre."
+        },
+        "en": {
+          "title": "Scrambled Words - 3 letters",
+          "description": "Reconstruct 3-letter words with scrambled letters",
+          "instructions": "Look at the scrambled letters and reconstruct the correct word by putting them in the right order."
+        }
+      },
+      "config": {
+        "numberOfWords": 10,
+        "timeLimitSeconds": 30
+      }
+    }
+  ]
+}
