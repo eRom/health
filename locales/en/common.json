@@ -22,7 +22,14 @@
     "welcome": "Welcome, {name}",
     "yourProgress": "Your Progress",
     "recentExercises": "Recent Exercises",
-    "noExercises": "No exercises yet"
+    "noExercises": "No exercises yet",
+    "noExercisesDescription": "Discover our neuropsychology and speech therapy exercises to start your rehabilitation.",
+    "stats": {
+      "totalExercises": "Completed Exercises",
+      "totalDuration": "Total Time",
+      "averageScore": "Average Score",
+      "streak": "Current Streak"
+    }
   },
   "home": {
     "hero": {

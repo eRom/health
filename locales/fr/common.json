@@ -22,7 +22,14 @@
     "welcome": "Bienvenue, {name}",
     "yourProgress": "Votre progression",
     "recentExercises": "Exercices récents",
-    "noExercises": "Aucun exercice pour le moment"
+    "noExercises": "Aucun exercice pour le moment",
+    "noExercisesDescription": "Découvrez nos exercices de neuropsychologie et d'orthophonie pour commencer votre rééducation.",
+    "stats": {
+      "totalExercises": "Exercices complétés",
+      "totalDuration": "Temps total",
+      "averageScore": "Score moyen",
+      "streak": "Série en cours"
+    }
   },
   "home": {
     "hero": {

@@ -1,7 +1,10 @@
 import { getTranslations } from 'next-intl/server'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { EmptyState } from '@/components/ui/empty-state'
-import { BarChart3, Dumbbell } from 'lucide-react'
+import { getDashboardStats } from '@/app/actions/get-dashboard-stats'
+import { StatsCards } from '@/components/dashboard/stats-cards'
+import { RecentExercisesList } from '@/components/dashboard/recent-exercises-list'
+import { auth } from '@/lib/auth'
+import { headers } from 'next/headers'
+import { redirect } from 'next/navigation'
 import type { Metadata } from 'next'
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -16,44 +19,47 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function DashboardPage() {
-  const t = await getTranslations()
+  const t = await getTranslations('dashboard')
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  })
+
+  if (!session) {
+    redirect('/auth/login')
+  }
+
+  const userName = session.user.name?.split(' ')[0] || 'Marie'
+
+  // Fetch dashboard data
+  const { stats, recentExercises } = await getDashboardStats()
 
   return (
     <div className="container py-8">
       <h1 className="mb-8 text-3xl font-bold">
-        {t('dashboard.welcome', { name: 'Marie' })}
+        {t('welcome', { name: userName })}
       </h1>
 
-      <div className="grid gap-6 md:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle>{t('dashboard.yourProgress')}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <EmptyState
-              icon={BarChart3}
-              title="Aucune donnée de progression"
-              description="Commencez votre premier exercice pour suivre vos progrès et visualiser votre évolution."
-            />
-          </CardContent>
-        </Card>
+      <div className="space-y-8">
+        {/* Stats Cards */}
+        <StatsCards
+          stats={stats}
+          translations={{
+            totalExercises: t('stats.totalExercises'),
+            totalDuration: t('stats.totalDuration'),
+            averageScore: t('stats.averageScore'),
+            streak: t('stats.streak'),
+          }}
+        />
 
-        <Card>
-          <CardHeader>
-            <CardTitle>{t('dashboard.recentExercises')}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <EmptyState
-              icon={Dumbbell}
-              title={t('dashboard.noExercises')}
-              description="Découvrez nos exercices de neuropsychologie et d'orthophonie pour commencer votre rééducation."
-              action={{
-                label: 'Explorer les exercices',
-                href: '/neuro',
-              }}
-            />
-          </CardContent>
-        </Card>
+        {/* Recent Exercises */}
+        <RecentExercisesList
+          exercises={recentExercises}
+          translations={{
+            title: t('recentExercises'),
+            noExercises: t('noExercises'),
+            noExercisesDescription: t('noExercisesDescription'),
+          }}
+        />
       </div>
     </div>
   )
