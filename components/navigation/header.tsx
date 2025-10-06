@@ -8,6 +8,15 @@ import { LanguageSwitcher } from '@/components/navigation/language-switcher'
 import { MobileNav } from '@/components/navigation/mobile-nav'
 import { Logo } from '@/components/ui/logo'
 import { authClient } from '@/lib/auth-client'
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from '@/components/ui/navigation-menu'
+import { cn } from '@/lib/utils'
 
 export function Header() {
   const t = useTranslations()
@@ -38,18 +47,88 @@ export function Header() {
               >
                 {t('navigation.dashboard')}
               </Link>
-              <Link
-                href="/neuro"
-                className="text-sm font-medium transition-colors hover:text-primary"
-              >
-                {t('navigation.neuro')}
-              </Link>
-              <Link
-                href="/ortho"
-                className="text-sm font-medium transition-colors hover:text-primary"
-              >
-                {t('navigation.ortho')}
-              </Link>
+
+              <NavigationMenu>
+                <NavigationMenuList>
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger className="text-sm font-medium">
+                      {t('navigation.exercises')}
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2">
+                        <li>
+                          <NavigationMenuLink asChild>
+                            <Link
+                              href="/neuro"
+                              className={cn(
+                                'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground'
+                              )}
+                            >
+                              <div className="text-sm font-medium leading-none">
+                                {t('navigation.neuro')}
+                              </div>
+                              <p className="line-clamp-2 text-sm leading-snug opacity-70">
+                                Exercices cognitifs et mémoire
+                              </p>
+                            </Link>
+                          </NavigationMenuLink>
+                        </li>
+                        <li>
+                          <NavigationMenuLink asChild>
+                            <Link
+                              href="/ortho"
+                              className={cn(
+                                'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground'
+                              )}
+                            >
+                              <div className="text-sm font-medium leading-none">
+                                {t('navigation.ortho')}
+                              </div>
+                              <p className="line-clamp-2 text-sm leading-snug opacity-70">
+                                Rééducation du langage
+                              </p>
+                            </Link>
+                          </NavigationMenuLink>
+                        </li>
+                        <li>
+                          <NavigationMenuLink asChild>
+                            <Link
+                              href="/kine"
+                              className={cn(
+                                'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground'
+                              )}
+                            >
+                              <div className="text-sm font-medium leading-none">
+                                {t('navigation.kine')}
+                              </div>
+                              <p className="line-clamp-2 text-sm leading-snug opacity-70">
+                                Rééducation motrice
+                              </p>
+                            </Link>
+                          </NavigationMenuLink>
+                        </li>
+                        <li>
+                          <NavigationMenuLink asChild>
+                            <Link
+                              href="/ergo"
+                              className={cn(
+                                'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground'
+                              )}
+                            >
+                              <div className="text-sm font-medium leading-none">
+                                {t('navigation.ergo')}
+                              </div>
+                              <p className="line-clamp-2 text-sm leading-snug opacity-70">
+                                Autonomie et activités
+                              </p>
+                            </Link>
+                          </NavigationMenuLink>
+                        </li>
+                      </ul>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                </NavigationMenuList>
+              </NavigationMenu>
             </>
           )}
 

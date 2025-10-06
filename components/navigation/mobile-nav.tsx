@@ -71,6 +71,22 @@ export function MobileNav({ isAuthenticated, userName }: MobileNavProps) {
               </Link>
 
               <Link
+                href="/kine"
+                onClick={closeSheet}
+                className="flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition-colors hover:bg-accent"
+              >
+                <span>{t('navigation.kine')}</span>
+              </Link>
+
+              <Link
+                href="/ergo"
+                onClick={closeSheet}
+                className="flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition-colors hover:bg-accent"
+              >
+                <span>{t('navigation.ergo')}</span>
+              </Link>
+
+              <Link
                 href="/profile"
                 onClick={closeSheet}
                 className="flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition-colors hover:bg-accent"

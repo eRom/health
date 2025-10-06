@@ -6,8 +6,11 @@
   "navigation": {
     "home": "Accueil",
     "dashboard": "Tableau de bord",
+    "exercises": "Exercices",
     "neuro": "Neuropsychologie",
     "ortho": "Orthophonie",
+    "kine": "Kinésithérapie",
+    "ergo": "Ergothérapie",
     "profile": "Profil",
     "back": "Retour"
   },
