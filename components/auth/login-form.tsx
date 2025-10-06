@@ -1,15 +1,15 @@
 'use client'
 
 import { useState } from 'react'
-import { useTranslations, useLocale } from 'next-intl'
-import { Link } from '@/i18n/routing'
+import { useTranslations } from 'next-intl'
+import { useRouter, Link } from '@/i18n/routing'
 import { authClient } from '@/lib/auth-client'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
 export function LoginForm() {
   const t = useTranslations()
-  const locale = useLocale()
+  const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -33,8 +33,8 @@ export function LoginForm() {
         return
       }
 
-      // Hard redirect with locale prefix
-      window.location.href = `/${locale}/dashboard`
+      // Redirect to dashboard
+      router.push('/dashboard')
     } catch (err) {
       setError('Email ou mot de passe incorrect')
     } finally {
