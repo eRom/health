@@ -95,5 +95,16 @@
       "title": "Prêt à commencer votre rééducation ?",
       "description": "Créez votre compte gratuitement et accédez à vos exercices dès maintenant."
     }
+  },
+  "offline": {
+    "title": "Vous êtes hors ligne",
+    "description": "Il semble que vous ayez perdu votre connexion internet. Veuillez vous reconnecter pour accéder à Health In Cloud.",
+    "instructions": {
+      "title": "Pour vous reconnecter :",
+      "step1": "Vérifiez votre connexion WiFi ou vos données mobiles",
+      "step2": "Assurez-vous d'être dans une zone avec du réseau",
+      "step3": "Essayez de recharger la page"
+    },
+    "retry": "Réessayer"
   }
 }

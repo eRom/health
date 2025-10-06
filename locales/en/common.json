@@ -95,5 +95,16 @@
       "title": "Ready to Start Your Rehabilitation?",
       "description": "Create your free account and access your exercises right now."
     }
+  },
+  "offline": {
+    "title": "You are offline",
+    "description": "It seems you've lost your internet connection. Please reconnect to access Health In Cloud.",
+    "instructions": {
+      "title": "To reconnect:",
+      "step1": "Check your WiFi or mobile data connection",
+      "step2": "Make sure you're in an area with network coverage",
+      "step3": "Try reloading the page"
+    },
+    "retry": "Try Again"
   }
 }
