@@ -113,5 +113,32 @@
       "step3": "Try reloading the page"
     },
     "retry": "Try Again"
+  },
+  "thanks": {
+    "title": "Thank You",
+    "subtitle": "For my post-stroke rehabilitation, from February to November 2025, at MPR Nantes - St Jacques",
+    "hero": {
+      "message1": "Thanks to you, I regained confidence in my abilities and found my independence.",
+      "message2": "Like in the video game of life, you offered me a cheat code for a second chance.",
+      "gratitude": "Thank you for your expertise, your listening, and your invaluable presence ♥"
+    },
+    "practitioners": {
+      "title": "Special Thanks",
+      "nurses": {
+        "title": "The entire nursing team (and Greg 😄)",
+        "subtitle": "For their constant attention"
+      }
+    },
+    "motto": {
+      "title": "The MPR Nantes Motto",
+      "quote": "Fragility, Fraternity, Renaissance"
+    },
+    "closing": "For all these skills and commitment, thank you.",
+    "signature": "Philippe Pozzo di Borgo",
+    "cta": {
+      "title": "A Journey of Rebirth",
+      "subtitle": "Discover my rehabilitation story at MPR Nantes",
+      "button": "Read my story"
+    }
   }
 }

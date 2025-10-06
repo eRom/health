@@ -93,6 +93,14 @@ export function Footer() {
                   healthincloud.app
                 </a>
               </li>
+              <li>
+                <Link
+                  href="/thanks"
+                  className="text-sm text-primary font-medium transition-colors hover:text-primary/80 flex items-center gap-1"
+                >
+                  ♥ {t('thanks.title')}
+                </Link>
+              </li>
             </ul>
           </div>
         </div>

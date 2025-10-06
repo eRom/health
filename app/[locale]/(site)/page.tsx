@@ -4,6 +4,7 @@ import { Link } from '@/i18n/routing'
 import { Button } from '@/components/ui/button'
 import { Header } from '@/components/navigation/header'
 import { Footer } from '@/components/navigation/footer'
+import { ThanksCTACard } from '@/components/site/thanks-cta-card'
 import Image from 'next/image'
 import type { Metadata } from 'next'
 
@@ -607,6 +608,15 @@ export default function HomePage() {
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Thanks CTA Section */}
+        <section className="py-12 md:py-16 bg-muted/30">
+          <div className="container px-4">
+            <div className="mx-auto max-w-3xl">
+              <ThanksCTACard />
             </div>
           </div>
         </section>

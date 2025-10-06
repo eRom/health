@@ -113,5 +113,32 @@
       "step3": "Essayez de recharger la page"
     },
     "retry": "Réessayer"
+  },
+  "thanks": {
+    "title": "Merci",
+    "subtitle": "Pour ma rééducation post-AVC, de Février à Novembre 2025, au MPR de Nantes - St Jacques",
+    "hero": {
+      "message1": "Grâce à vous, j'ai repris confiance en mes capacités et retrouve mon autonomie.",
+      "message2": "Comme dans le jeu vidéo de la vie, vous m'avez offert un cheat code pour une seconde chance.",
+      "gratitude": "Merci pour votre expertise, votre écoute et votre présence inestimable ♥"
+    },
+    "practitioners": {
+      "title": "Remerciements particuliers",
+      "nurses": {
+        "title": "Toute l'équipe infirmière (et Greg 😄)",
+        "subtitle": "Pour leur attention de chaque instant"
+      }
+    },
+    "motto": {
+      "title": "La devise du MPR de Nantes",
+      "quote": "Fragilité, Fraternité, Renaissance"
+    },
+    "closing": "Pour toutes ces compétences et cet engagement, merci.",
+    "signature": "Philippe Pozzo di Borgo",
+    "cta": {
+      "title": "Un parcours de renaissance",
+      "subtitle": "Découvrez mon histoire de rééducation au MPR de Nantes",
+      "button": "Lire mon histoire"
+    }
   }
 }
