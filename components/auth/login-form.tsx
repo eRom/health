@@ -23,13 +23,24 @@ export function LoginForm() {
     const password = formData.get('password') as string
 
     try {
-      await authClient.signIn.email({
+      console.log('Attempting login with:', email)
+      const response = await authClient.signIn.email({
         email,
         password,
       })
 
+      console.log('Login response:', response)
+
+      if (response.error) {
+        console.error('Login error from response:', response.error)
+        setError(response.error.message || 'Email ou mot de passe incorrect')
+        return
+      }
+
+      console.log('Login successful, redirecting to dashboard')
       router.push('/dashboard')
-    } catch {
+    } catch (err) {
+      console.error('Login exception:', err)
       setError('Email ou mot de passe incorrect')
     } finally {
       setIsLoading(false)
