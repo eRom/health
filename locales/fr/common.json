@@ -28,11 +28,55 @@
     "recentExercises": "Exercices récents",
     "noExercises": "Aucun exercice pour le moment",
     "noExercisesDescription": "Découvrez nos exercices de neuropsychologie et d'orthophonie pour commencer votre rééducation.",
+    "analyse": "Analyse",
+    "detailedAnalysis": "Analyse détaillée",
     "stats": {
       "totalExercises": "Exercices complétés",
       "totalDuration": "Temps total",
       "averageScore": "Score moyen",
       "streak": "Série en cours"
+    }
+  },
+  "analyse": {
+    "title": "Analyse détaillée",
+    "description": "Visualisez vos performances et votre progression dans le temps",
+    "filters": {
+      "timeRange": "Période",
+      "7d": "7 jours",
+      "30d": "30 jours",
+      "90d": "3 mois",
+      "all": "Tout",
+      "exerciseType": "Type d'exercice",
+      "allTypes": "Tous les types",
+      "neuro": "Neuropsychologie",
+      "ortho": "Orthophonie",
+      "category": "Catégorie",
+      "allCategories": "Toutes les catégories"
+    },
+    "kpis": {
+      "totalAttempts": "Tentatives",
+      "totalDuration": "Temps total",
+      "averageScore": "Score moyen",
+      "consistency": "Régularité"
+    },
+    "charts": {
+      "scoreEvolution": "Évolution des scores",
+      "exercisePerformance": "Performance par exercice",
+      "difficultyDistribution": "Répartition par difficulté"
+    },
+    "difficulty": {
+      "easy": "Facile",
+      "medium": "Moyen",
+      "hard": "Difficile",
+      "all": "Tous les niveaux"
+    },
+    "noData": "Aucune donnée disponible",
+    "noDataDescription": "Complétez des exercices pour voir vos statistiques d'analyse.",
+    "loading": "Chargement des données...",
+    "trend": {
+      "increase": "+{value}% vs période précédente",
+      "decrease": "{value}% vs période précédente",
+      "stable": "Stable"
     }
   },
   "home": {

@@ -5,6 +5,9 @@ import { RecentExercisesList } from '@/components/dashboard/recent-exercises-lis
 import { auth } from '@/lib/auth'
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
+import { Button } from '@/components/ui/button'
+import { Link } from '@/i18n/routing'
+import { BarChart3 } from 'lucide-react'
 import type { Metadata } from 'next'
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -35,9 +38,17 @@ export default async function DashboardPage() {
 
   return (
     <div className="container py-8">
-      <h1 className="mb-8 text-3xl font-bold">
-        {t('welcome', { name: userName })}
-      </h1>
+      <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <h1 className="text-3xl font-bold">
+          {t('welcome', { name: userName })}
+        </h1>
+        <Button asChild>
+          <Link href="/dashboard/analyse">
+            <BarChart3 className="mr-2 h-4 w-4" />
+            {t('analyse')}
+          </Link>
+        </Button>
+      </div>
 
       <div className="space-y-8">
         {/* Stats Cards */}

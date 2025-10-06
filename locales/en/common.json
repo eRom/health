@@ -28,11 +28,55 @@
     "recentExercises": "Recent Exercises",
     "noExercises": "No exercises yet",
     "noExercisesDescription": "Discover our neuropsychology and speech therapy exercises to start your rehabilitation.",
+    "analyse": "Analysis",
+    "detailedAnalysis": "Detailed Analysis",
     "stats": {
       "totalExercises": "Completed Exercises",
       "totalDuration": "Total Time",
       "averageScore": "Average Score",
       "streak": "Current Streak"
+    }
+  },
+  "analyse": {
+    "title": "Detailed Analysis",
+    "description": "Visualize your performance and progress over time",
+    "filters": {
+      "timeRange": "Time Range",
+      "7d": "7 days",
+      "30d": "30 days",
+      "90d": "3 months",
+      "all": "All",
+      "exerciseType": "Exercise Type",
+      "allTypes": "All types",
+      "neuro": "Neuropsychology",
+      "ortho": "Speech Therapy",
+      "category": "Category",
+      "allCategories": "All categories"
+    },
+    "kpis": {
+      "totalAttempts": "Attempts",
+      "totalDuration": "Total Time",
+      "averageScore": "Average Score",
+      "consistency": "Consistency"
+    },
+    "charts": {
+      "scoreEvolution": "Score Evolution",
+      "exercisePerformance": "Exercise Performance",
+      "difficultyDistribution": "Difficulty Distribution"
+    },
+    "difficulty": {
+      "easy": "Easy",
+      "medium": "Medium",
+      "hard": "Hard",
+      "all": "All levels"
+    },
+    "noData": "No data available",
+    "noDataDescription": "Complete exercises to see your analysis statistics.",
+    "loading": "Loading data...",
+    "trend": {
+      "increase": "+{value}% vs previous period",
+      "decrease": "{value}% vs previous period",
+      "stable": "Stable"
     }
   },
   "home": {

@@ -34,26 +34,33 @@ async function main() {
 
   console.log(`✅ User created/updated: ${user.email}`)
 
-  // 2. Generate fake exercise attempts (30 days of data)
-  const exerciseSlugs = [
+  // 2. Delete existing attempts for clean slate
+  await prisma.exerciseAttempt.deleteMany({
+    where: { userId: user.id },
+  })
+  console.log('🗑️  Deleted existing exercise attempts')
+
+  // 3. Generate fake exercise attempts (120 days of data for "Tout" and "3 mois")
+  const exercisesData = [
     // Neuro exercises
-    'empan-lettres-audio',
-    'empan-chiffres',
-    'memoire-travail',
-    'attention-soutenue',
+    { slug: 'empan-lettres', difficulty: 'easy' },
+    { slug: 'test-corsi', difficulty: 'medium' },
+    { slug: 'empan-chiffres', difficulty: 'easy' },
+    { slug: 'memoire-travail', difficulty: 'medium' },
+    { slug: 'attention-soutenue', difficulty: 'hard' },
     // Ortho exercises
-    'diadocociinesie',
-    'virelangues',
-    'comprehension-verbale',
-    'articulation',
+    { slug: 'diadocociinesie', difficulty: 'medium' },
+    { slug: 'virelangues', difficulty: 'hard' },
+    { slug: 'comprehension-verbale', difficulty: 'easy' },
+    { slug: 'articulation', difficulty: 'medium' },
   ]
 
   const now = new Date()
   const attempts = []
 
-  // Generate 3-5 attempts per day for the last 30 days
-  for (let daysAgo = 0; daysAgo < 30; daysAgo++) {
-    const attemptsPerDay = Math.floor(Math.random() * 3) + 3 // 3-5 attempts
+  // Generate 2-6 attempts per day for the last 120 days (4 months)
+  for (let daysAgo = 0; daysAgo < 120; daysAgo++) {
+    const attemptsPerDay = Math.floor(Math.random() * 5) + 2 // 2-6 attempts
 
     for (let i = 0; i < attemptsPerDay; i++) {
       const completedAt = new Date(now)
@@ -76,28 +83,59 @@ async function main() {
         )
       }
 
-      const exerciseSlug =
-        exerciseSlugs[Math.floor(Math.random() * exerciseSlugs.length)]
+      // Pick random exercise with its difficulty
+      const exercise = exercisesData[Math.floor(Math.random() * exercisesData.length)]
+      const exerciseSlug = exercise.slug
+      const difficulty = exercise.difficulty
 
-      // Score: 60-100 with slight improvement over time
-      const baseScore = 60 + (30 - daysAgo) * 0.5 // Slight upward trend
-      const score =
-        Math.min(100, baseScore + Math.random() * 15 - 5) // Random variation
+      // Score varies based on difficulty and time (with progression over time)
+      let baseScore = 50
 
-      // Duration: 30s-5min
-      const duration = Math.floor(Math.random() * 270) + 30
+      // Difficulty adjustment
+      if (difficulty === 'easy') {
+        baseScore = 75
+      } else if (difficulty === 'medium') {
+        baseScore = 65
+      } else if (difficulty === 'hard') {
+        baseScore = 55
+      } else {
+        baseScore = 65 // 'all' difficulty
+      }
+
+      // Progressive improvement over time (newer = better)
+      const progressionBonus = (120 - daysAgo) * 0.15
+
+      // Add some variation for realism (sine wave + random)
+      const waveVariation = Math.sin(daysAgo / 7) * 5 // Weekly cycles
+      const randomVariation = Math.random() * 10 - 5
+
+      const score = Math.max(
+        30,
+        Math.min(100, baseScore + progressionBonus + waveVariation + randomVariation)
+      )
+
+      // Duration varies by difficulty: easy=2-5min, medium=5-8min, hard=8-12min
+      let durationRange = [300, 480] // medium default (5-8min)
+      if (difficulty === 'easy') {
+        durationRange = [120, 300] // 2-5min
+      } else if (difficulty === 'hard') {
+        durationRange = [480, 720] // 8-12min
+      }
+
+      const duration = Math.floor(
+        Math.random() * (durationRange[1] - durationRange[0]) + durationRange[0]
+      )
 
       attempts.push({
         exerciseSlug,
         userId: user.id,
-        score: Math.round(score * 10) / 10, // Round to 1 decimal
+        score: Math.round(score * 10) / 10,
         duration,
         completedAt,
         data: {
-          // Mock exercise-specific data
           attempts: Math.floor(Math.random() * 10) + 5,
           correctAnswers: Math.floor(score / 10),
-          difficulty: ['easy', 'medium', 'hard'][Math.floor(Math.random() * 3)],
+          difficulty,
         },
       })
     }
@@ -109,7 +147,21 @@ async function main() {
   })
 
   console.log(`✅ Created ${createdAttempts.count} exercise attempts`)
-  console.log(`📊 Date range: ${attempts[attempts.length - 1].completedAt.toLocaleDateString()} - ${attempts[0].completedAt.toLocaleDateString()}`)
+  console.log(
+    `📊 Date range: ${attempts[attempts.length - 1].completedAt.toLocaleDateString()} - ${attempts[0].completedAt.toLocaleDateString()}`
+  )
+
+  // Stats breakdown
+  const easyCount = attempts.filter((a) => a.data.difficulty === 'easy').length
+  const mediumCount = attempts.filter((a) => a.data.difficulty === 'medium').length
+  const hardCount = attempts.filter((a) => a.data.difficulty === 'hard').length
+
+  console.log(`📈 Difficulty breakdown:`)
+  console.log(`   Easy: ${easyCount} (${((easyCount / attempts.length) * 100).toFixed(1)}%)`)
+  console.log(
+    `   Medium: ${mediumCount} (${((mediumCount / attempts.length) * 100).toFixed(1)}%)`
+  )
+  console.log(`   Hard: ${hardCount} (${((hardCount / attempts.length) * 100).toFixed(1)}%)`)
 
   console.log('\n🎉 Seeding completed successfully!')
   console.log('\n📝 Demo credentials:')
