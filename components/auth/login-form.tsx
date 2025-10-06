@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useTranslations } from 'next-intl'
+import { useTranslations, useLocale } from 'next-intl'
 import { Link } from '@/i18n/routing'
 import { authClient } from '@/lib/auth-client'
 import { Button } from '@/components/ui/button'
@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input'
 
 export function LoginForm() {
   const t = useTranslations()
+  const locale = useLocale()
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -38,7 +39,8 @@ export function LoginForm() {
 
       console.log('Login successful, redirecting to dashboard')
       // Force hard redirect to ensure cookies are properly set
-      window.location.href = '/dashboard'
+      // Include locale prefix in the redirect URL
+      window.location.href = `/${locale}/dashboard`
     } catch (err) {
       console.error('Login exception:', err)
       setError('Email ou mot de passe incorrect')
