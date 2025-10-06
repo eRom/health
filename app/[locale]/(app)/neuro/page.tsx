@@ -18,7 +18,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Filter } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import type { LocalizedExercise } from "@/lib/types/exercise";
 
 // Types d'exercices neuropsychologiques
 const exerciseTypes = [
@@ -37,38 +38,30 @@ const difficultyLevels = [
   { value: "hard", label: "Difficile", color: "bg-red-500" },
 ];
 
-// Exercices factices pour la démo
-const exercises = [
-  {
-    id: 1,
-    title: "Empans de lettres",
-    description:
-      "Entraînez la capacité de mémorisation grâce à des séries de lettres. ",
-    type: "memory",
-    difficulty: "all",
-    duration: "10 min",
-    icon: "🧠",
-    available: true,
-  },
-  {
-    id: 2,
-    title: "Test de Corsi",
-    description:
-      "Entraînez votre mémoire spatiale en reproduisant une séquence de blocs.",
-    type: "spatial",
-    difficulty: "medium",
-    duration: "15 min",
-    icon: "🧩",
-    available: false,
-  },
-];
-
 export default function NeuroPage() {
   const [selectedType, setSelectedType] = useState('all')
   const [selectedDifficulty, setSelectedDifficulty] = useState('all')
+  const [exercises, setExercises] = useState<LocalizedExercise[]>([])
+  const [loading, setLoading] = useState(true)
+
+  // Fetch exercises from API
+  useEffect(() => {
+    async function loadExercises() {
+      try {
+        const response = await fetch('/api/exercises/neuro')
+        const data = await response.json()
+        setExercises(data.exercises || [])
+      } catch (error) {
+        console.error('Error loading exercises:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+    loadExercises()
+  }, [])
 
   const filteredExercises = exercises.filter((exercise) => {
-    const typeMatch = selectedType === 'all' || exercise.type === selectedType
+    const typeMatch = selectedType === 'all' || exercise.category === selectedType
     const difficultyMatch =
       selectedDifficulty === 'all' || exercise.difficulty === selectedDifficulty
     return typeMatch && difficultyMatch
@@ -87,6 +80,20 @@ export default function NeuroPage() {
   const getTypeLabel = (type: string) => {
     const exerciseType = exerciseTypes.find((t) => t.value === type)
     return exerciseType?.label || type
+  }
+
+  if (loading) {
+    return (
+      <div className="container py-8">
+        <div className="mb-8">
+          <h1 className="mb-2 text-3xl font-bold">Exercices Neuropsychologiques</h1>
+          <p className="text-muted-foreground">
+            Entraînez vos capacités cognitives avec des exercices ciblés
+          </p>
+        </div>
+        <div className="text-center text-muted-foreground">Chargement...</div>
+      </div>
+    )
   }
 
   return (
@@ -145,7 +152,7 @@ export default function NeuroPage() {
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filteredExercises.map((exercise) => (
-            <Card key={exercise.id} className="flex flex-col">
+            <Card key={exercise.slug} className="flex flex-col">
               <CardHeader>
                 <div className="mb-4 text-5xl">{exercise.icon}</div>
                 <CardTitle className="text-xl">{exercise.title}</CardTitle>
@@ -153,11 +160,11 @@ export default function NeuroPage() {
               <CardContent className="flex-1">
                 <p className="mb-4 text-sm text-muted-foreground">{exercise.description}</p>
                 <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">{getTypeLabel(exercise.type)}</Badge>
+                  <Badge variant="outline">{getTypeLabel(exercise.category)}</Badge>
                   <Badge className={getDifficultyColor(exercise.difficulty)}>
                     {getDifficultyLabel(exercise.difficulty)}
                   </Badge>
-                  <Badge variant="secondary">{exercise.duration}</Badge>
+                  <Badge variant="secondary">{exercise.duration} min</Badge>
                 </div>
               </CardContent>
               <CardFooter>

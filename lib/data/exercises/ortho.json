@@ -1,0 +1,190 @@
+{
+  "exercises": [
+    {
+      "slug": "virelangues",
+      "type": "ortho",
+      "category": "articulation",
+      "difficulty": "medium",
+      "duration": 10,
+      "icon": "🌪️",
+      "available": true,
+      "position": 1,
+      "content": {
+        "fr": {
+          "title": "Virelangues",
+          "description": "Phrases difficiles pour travailler la fluidité",
+          "instructions": "Répétez les virelangues de plus en plus rapidement en articulant clairement."
+        },
+        "en": {
+          "title": "Tongue Twisters",
+          "description": "Difficult phrases to work on fluency",
+          "instructions": "Repeat the tongue twisters faster and faster while articulating clearly."
+        }
+      },
+      "config": {
+        "difficulty Levels": ["easy", "medium", "hard"]
+      }
+    },
+    {
+      "slug": "sons-syllabes",
+      "type": "ortho",
+      "category": "phonology",
+      "difficulty": "easy",
+      "duration": 10,
+      "icon": "🗣️",
+      "available": false,
+      "position": 2,
+      "content": {
+        "fr": {
+          "title": "Sons et syllabes",
+          "description": "Reconnaissance et production de syllabes simples",
+          "instructions": "Écoutez et répétez les syllabes présentées."
+        },
+        "en": {
+          "title": "Sounds and Syllables",
+          "description": "Recognition and production of simple syllables",
+          "instructions": "Listen and repeat the presented syllables."
+        }
+      },
+      "config": {}
+    },
+    {
+      "slug": "repetition-mots",
+      "type": "ortho",
+      "category": "articulation",
+      "difficulty": "easy",
+      "duration": 12,
+      "icon": "👄",
+      "available": false,
+      "position": 3,
+      "content": {
+        "fr": {
+          "title": "Répétition de mots",
+          "description": "Exercices de répétition pour améliorer l'articulation",
+          "instructions": "Répétez chaque mot en articulant distinctement."
+        },
+        "en": {
+          "title": "Word Repetition",
+          "description": "Repetition exercises to improve articulation",
+          "instructions": "Repeat each word while articulating distinctly."
+        }
+      },
+      "config": {}
+    },
+    {
+      "slug": "denomination-images",
+      "type": "ortho",
+      "category": "language",
+      "difficulty": "medium",
+      "duration": 15,
+      "icon": "🖼️",
+      "available": false,
+      "position": 4,
+      "content": {
+        "fr": {
+          "title": "Dénomination d'images",
+          "description": "Nommer des objets et des actions",
+          "instructions": "Observez chaque image et nommez ce que vous voyez."
+        },
+        "en": {
+          "title": "Picture Naming",
+          "description": "Name objects and actions",
+          "instructions": "Observe each image and name what you see."
+        }
+      },
+      "config": {}
+    },
+    {
+      "slug": "comprehension-texte",
+      "type": "ortho",
+      "category": "reading",
+      "difficulty": "medium",
+      "duration": 20,
+      "icon": "📖",
+      "available": false,
+      "position": 5,
+      "content": {
+        "fr": {
+          "title": "Compréhension de texte",
+          "description": "Lire et comprendre des passages courts",
+          "instructions": "Lisez le texte attentivement puis répondez aux questions de compréhension."
+        },
+        "en": {
+          "title": "Reading Comprehension",
+          "description": "Read and understand short passages",
+          "instructions": "Read the text carefully then answer the comprehension questions."
+        }
+      },
+      "config": {}
+    },
+    {
+      "slug": "dictee-phrases",
+      "type": "ortho",
+      "category": "writing",
+      "difficulty": "medium",
+      "duration": 15,
+      "icon": "✍️",
+      "available": false,
+      "position": 6,
+      "content": {
+        "fr": {
+          "title": "Dictée de phrases",
+          "description": "Écouter et écrire des phrases simples",
+          "instructions": "Écoutez la phrase et écrivez-la correctement."
+        },
+        "en": {
+          "title": "Sentence Dictation",
+          "description": "Listen and write simple sentences",
+          "instructions": "Listen to the sentence and write it correctly."
+        }
+      },
+      "config": {}
+    },
+    {
+      "slug": "discrimination-phonemique",
+      "type": "ortho",
+      "category": "phonology",
+      "difficulty": "hard",
+      "duration": 18,
+      "icon": "👂",
+      "available": false,
+      "position": 7,
+      "content": {
+        "fr": {
+          "title": "Discrimination phonémique",
+          "description": "Différencier des sons proches",
+          "instructions": "Écoutez les deux sons et indiquez s'ils sont identiques ou différents."
+        },
+        "en": {
+          "title": "Phonemic Discrimination",
+          "description": "Differentiate similar sounds",
+          "instructions": "Listen to the two sounds and indicate if they are the same or different."
+        }
+      },
+      "config": {}
+    },
+    {
+      "slug": "construction-phrases",
+      "type": "ortho",
+      "category": "language",
+      "difficulty": "hard",
+      "duration": 25,
+      "icon": "💬",
+      "available": false,
+      "position": 8,
+      "content": {
+        "fr": {
+          "title": "Construction de phrases",
+          "description": "Structurer des phrases complexes",
+          "instructions": "Construisez des phrases correctes à partir des mots proposés."
+        },
+        "en": {
+          "title": "Sentence Construction",
+          "description": "Structure complex sentences",
+          "instructions": "Build correct sentences from the given words."
+        }
+      },
+      "config": {}
+    }
+  ]
+}

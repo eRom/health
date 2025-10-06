@@ -1,0 +1,59 @@
+{
+  "exercises": [
+    {
+      "slug": "empan-lettres",
+      "type": "neuro",
+      "category": "memory",
+      "difficulty": "all",
+      "duration": 10,
+      "icon": "🧠",
+      "available": true,
+      "position": 1,
+      "content": {
+        "fr": {
+          "title": "Empans de lettres",
+          "description": "Entraînez la capacité de mémorisation grâce à des séries de lettres.",
+          "instructions": "Des séries de lettres vont vous être présentées. Mémorisez-les et reproduisez-les dans l'ordre."
+        },
+        "en": {
+          "title": "Letter Span",
+          "description": "Train your memory capacity with letter sequences.",
+          "instructions": "Letter sequences will be presented to you. Memorize them and reproduce them in order."
+        }
+      },
+      "config": {
+        "minLetters": 3,
+        "maxLetters": 9,
+        "delayMs": 1000,
+        "audioEnabled": true
+      }
+    },
+    {
+      "slug": "test-corsi",
+      "type": "neuro",
+      "category": "spatial",
+      "difficulty": "medium",
+      "duration": 15,
+      "icon": "🧩",
+      "available": false,
+      "position": 2,
+      "content": {
+        "fr": {
+          "title": "Test de Corsi",
+          "description": "Entraînez votre mémoire spatiale en reproduisant une séquence de blocs.",
+          "instructions": "Observez la séquence de blocs qui s'allument, puis reproduisez-la dans le même ordre."
+        },
+        "en": {
+          "title": "Corsi Block Test",
+          "description": "Train your spatial memory by reproducing a block sequence.",
+          "instructions": "Observe the sequence of blocks that light up, then reproduce it in the same order."
+        }
+      },
+      "config": {
+        "minBlocks": 3,
+        "maxBlocks": 9,
+        "delayMs": 800
+      }
+    }
+  ]
+}
