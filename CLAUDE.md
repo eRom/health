@@ -57,8 +57,8 @@ Users → Cloudflare (CDN, DNS, WAF) → Vercel (Next.js) → Prisma → Neon Po
 app/
 ├─ [locale]/(site)/         # Public: landing, about, privacy, legal, gdpr
 ├─ [locale]/(auth)/         # Auth flows: login, signup (with layouts for metadata)
-├─ [locale]/(app)/          # Protected: dashboard, neuro, ortho, profile (with layouts)
-├─ actions/                 # Server actions: profile, password, sessions, preferences
+├─ [locale]/(app)/          # Protected: dashboard, analyse, neuro, ortho, profile (with layouts)
+├─ actions/                 # Server actions: profile, password, sessions, preferences, analysis
 ├─ api/                     # API routes: auth, sentry
 ├─ theme-script.tsx         # Blocking script for theme (FOUC prevention)
 ├─ sitemap.ts               # Dynamic sitemap
@@ -69,6 +69,8 @@ components/
 ├─ navigation/              # Header, Footer, LanguageSwitcher
 ├─ auth/                    # LoginForm, SignupForm, UserNav
 ├─ profile/                 # 9 profile components (security, preferences, delete)
+├─ analyse/                 # 5 analysis components (KPIs, charts, filters)
+├─ dashboard/               # Dashboard components (stats cards, recent exercises)
 ├─ providers/               # ThemeProvider wrapper (next-themes)
 └─ seo/                     # StructuredData component (JSON-LD)
 
@@ -77,6 +79,9 @@ lib/
 ├─ auth-client.ts           # Better Auth client helper
 ├─ prisma.ts                # Prisma singleton
 ├─ sentry.ts                # Sentry helpers
+├─ exercises.ts             # Exercise catalogue loader
+├─ constants/               # Exercise constants (difficulty colors, etc.)
+├─ data/exercises/          # Exercise JSON catalogues (neuro, ortho)
 └─ utils.ts                 # cn() + other utilities
 
 Other key directories:
@@ -124,7 +129,12 @@ Other key directories:
 
 ## Database Schema Essentials
 
-**Key models**: User, Account, Session, Verification
+**Key models**: User, Account, Session, Verification, ExerciseAttempt
+
+**ExerciseAttempt model**:
+- Stores user exercise completions with score, duration, timestamps
+- `data` JSON field contains exercise-specific metadata (difficulty, attempts, etc.)
+- Indexed on `userId + completedAt` and `exerciseSlug` for efficient queries
 
 **Environment variables**:
 - `DATABASE_URL` = Neon pooled connection (for app)
@@ -133,6 +143,10 @@ Other key directories:
 **Neon workflow**:
 - Use branches for preview/feature work
 - Point different environments to different Neon branches
+
+**Seed data**:
+- Run `npm run db:seed` to generate demo user + 120 days of exercise attempts
+- Creates realistic test data with difficulty variation and score progression
 
 ---
 
@@ -258,3 +272,9 @@ See [.specs/MCP_GUIDE.md](.specs/MCP_GUIDE.md) for detailed usage examples.
 **Locales**: FR (primary), EN (secondary) with instant language switching
 
 **Mobile-first**: Responsive design, dark theme default, PWA planned for offline support
+
+**Key Dependencies**:
+- **Recharts** (v3.2.1): Data visualization library for analysis charts
+  - Line charts, bar charts, pie/donut charts
+  - Accessible, responsive, dark mode compatible
+  - Used in `/dashboard/analyse` page
