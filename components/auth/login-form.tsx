@@ -2,14 +2,13 @@
 
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
-import { useRouter, Link } from '@/i18n/routing'
+import { Link } from '@/i18n/routing'
 import { authClient } from '@/lib/auth-client'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
 export function LoginForm() {
   const t = useTranslations()
-  const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
