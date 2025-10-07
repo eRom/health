@@ -32,8 +32,9 @@ export function LoginForm() {
         return
       }
 
-      // Redirect to dashboard - using window.location for Better Auth compatibility
-      window.location.href = '/dashboard'
+      // Redirect to dashboard - get current locale from pathname
+      const locale = window.location.pathname.split('/')[1] || 'fr'
+      window.location.href = `/${locale}/dashboard`
     } catch (err) {
       setError('Email ou mot de passe incorrect')
     } finally {
