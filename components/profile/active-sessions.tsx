@@ -13,7 +13,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
-import { revokeSession } from '@/app/actions/revoke-session'
+import { revokeSession, revokeAllOtherSessions } from '@/app/actions/revoke-session'
 import { UAParser } from 'ua-parser-js'
 
 type Session = {
@@ -69,6 +69,7 @@ export function ActiveSessions({
 }) {
   const [localSessions, setLocalSessions] = useState(sessions)
   const [revokingId, setRevokingId] = useState<string | null>(null)
+  const [isRevokingAll, setIsRevokingAll] = useState(false)
 
   async function handleRevoke(sessionId: string) {
     setRevokingId(sessionId)
@@ -80,8 +81,50 @@ export function ActiveSessions({
     setRevokingId(null)
   }
 
+  async function handleRevokeAll() {
+    setIsRevokingAll(true)
+    const result = await revokeAllOtherSessions()
+
+    if (result.success) {
+      setLocalSessions((prev) => prev.filter((s) => s.id === currentSessionId))
+    }
+    setIsRevokingAll(false)
+  }
+
+  const otherSessionsCount = localSessions.filter((s) => s.id !== currentSessionId).length
+
   return (
     <div className="space-y-4">
+      {otherSessionsCount > 3 && (
+        <div className="flex justify-end">
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button
+                variant="destructive"
+                size="sm"
+                disabled={isRevokingAll}
+              >
+                {isRevokingAll ? 'Révocation en cours...' : 'Révoquer toutes les autres sessions'}
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Révoquer toutes les autres sessions ?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Cette action déconnectera tous vos autres appareils ({otherSessionsCount} sessions). Vous devrez vous reconnecter sur chaque appareil pour y accéder à nouveau.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Annuler</AlertDialogCancel>
+                <AlertDialogAction onClick={handleRevokeAll}>
+                  Tout révoquer
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </div>
+      )}
+
       {localSessions.map((session) => {
         const isCurrent = session.id === currentSessionId
         const { browser, os, device } = parseUserAgent(session.userAgent)
@@ -123,7 +166,7 @@ export function ActiveSessions({
                   <Button
                     variant="outline"
                     size="sm"
-                    disabled={revokingId === session.id}
+                    disabled={revokingId === session.id || isRevokingAll}
                   >
                     {revokingId === session.id ? 'Révocation...' : 'Révoquer'}
                   </Button>

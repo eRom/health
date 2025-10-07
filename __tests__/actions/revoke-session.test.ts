@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { revokeSession } from '@/app/actions/revoke-session'
+import { revokeSession, revokeAllOtherSessions } from '@/app/actions/revoke-session'
 
 // Mock dependencies
 vi.mock('@/lib/auth', () => ({
@@ -15,6 +15,7 @@ vi.mock('@/lib/prisma', () => ({
     session: {
       findUnique: vi.fn(),
       delete: vi.fn(),
+      deleteMany: vi.fn(),
     },
   },
 }))
@@ -144,6 +145,92 @@ describe('revokeSession', () => {
 
       expect(result.success).toBe(false)
       expect(result.error).toBe('Erreur lors de la révocation de la session')
+      expect(console.error).toHaveBeenCalled()
+    })
+  })
+})
+
+describe('revokeAllOtherSessions', () => {
+  beforeEach(() => {
+    vi.clearAllMocks()
+    console.log = vi.fn()
+    console.error = vi.fn()
+  })
+
+  describe('authentication checks', () => {
+    it('should return error when user is not authenticated', async () => {
+      vi.mocked(auth.api.getSession).mockResolvedValue(null)
+
+      const result = await revokeAllOtherSessions()
+
+      expect(result).toEqual({
+        success: false,
+        error: 'Non authentifié',
+      })
+      expect(prisma.session.deleteMany).not.toHaveBeenCalled()
+    })
+  })
+
+  describe('successful bulk revocation', () => {
+    it('should revoke all sessions except current one', async () => {
+      const mockSession = {
+        user: { id: 'user-123' },
+        session: { id: 'session-123' },
+      }
+      vi.mocked(auth.api.getSession).mockResolvedValue(mockSession)
+      vi.mocked(prisma.session.deleteMany).mockResolvedValue({ count: 3 })
+
+      const result = await revokeAllOtherSessions()
+
+      expect(result).toEqual({ success: true, count: 3 })
+      expect(prisma.session.deleteMany).toHaveBeenCalledWith({
+        where: {
+          userId: 'user-123',
+          NOT: {
+            id: 'session-123',
+          },
+        },
+      })
+      expect(console.log).toHaveBeenCalledWith(
+        expect.stringContaining('[SESSION_REVOKE_ALL]')
+      )
+    })
+
+    it('should handle case when no other sessions exist', async () => {
+      const mockSession = {
+        user: { id: 'user-123' },
+        session: { id: 'session-123' },
+      }
+      vi.mocked(auth.api.getSession).mockResolvedValue(mockSession)
+      vi.mocked(prisma.session.deleteMany).mockResolvedValue({ count: 0 })
+
+      const result = await revokeAllOtherSessions()
+
+      expect(result).toEqual({ success: true, count: 0 })
+      expect(prisma.session.deleteMany).toHaveBeenCalledWith({
+        where: {
+          userId: 'user-123',
+          NOT: {
+            id: 'session-123',
+          },
+        },
+      })
+    })
+  })
+
+  describe('error handling', () => {
+    it('should handle database errors gracefully', async () => {
+      const mockSession = {
+        user: { id: 'user-123' },
+        session: { id: 'session-123' },
+      }
+      vi.mocked(auth.api.getSession).mockResolvedValue(mockSession)
+      vi.mocked(prisma.session.deleteMany).mockRejectedValue(new Error('Database error'))
+
+      const result = await revokeAllOtherSessions()
+
+      expect(result.success).toBe(false)
+      expect(result.error).toBe('Erreur lors de la révocation des sessions')
       expect(console.error).toHaveBeenCalled()
     })
   })

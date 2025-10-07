@@ -47,3 +47,34 @@ export async function revokeSession(sessionId: string) {
     return { success: false, error: 'Erreur lors de la révocation de la session' }
   }
 }
+
+export async function revokeAllOtherSessions() {
+  try {
+    // Get current session
+    const session = await auth.api.getSession({
+      headers: await headers(),
+    })
+
+    if (!session?.user?.id) {
+      return { success: false, error: 'Non authentifié' }
+    }
+
+    // Delete all sessions except current one
+    const result = await prisma.session.deleteMany({
+      where: {
+        userId: session.user.id,
+        NOT: {
+          id: session.session.id,
+        },
+      },
+    })
+
+    // Log bulk revocation for audit
+    console.log(`[SESSION_REVOKE_ALL] User ${session.user.id} revoked ${result.count} sessions at ${new Date().toISOString()}`)
+
+    return { success: true, count: result.count }
+  } catch (error) {
+    console.error('[REVOKE_ALL_SESSIONS] Error:', error)
+    return { success: false, error: 'Erreur lors de la révocation des sessions' }
+  }
+}
