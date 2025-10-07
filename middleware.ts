@@ -27,7 +27,18 @@ export default async function middleware(request: NextRequest) {
       "__Secure-better-auth.session_token"
     );
 
+    console.log("[MIDDLEWARE DEBUG] Checking session cookies:", {
+      pathname,
+      locale,
+      sessionToken: !!sessionToken,
+      secureSessionLower: !!secureSessionLower,
+      secureSessionUpper: !!secureSessionUpper,
+      allCookies: request.cookies.getAll().map(c => c.name)
+    });
+
     if (!sessionToken && !secureSessionLower && !secureSessionUpper) {
+      console.log("[MIDDLEWARE DEBUG] No session found, redirecting to login");
+      
       // ✅ CORRECTIF : Redirection avec locale préservée et paramètres de requête
       const loginUrl = new URL(`/${locale}/auth/login`, request.url);
 
@@ -38,6 +49,8 @@ export default async function middleware(request: NextRequest) {
 
       debugLocale("REDIRECT_TO_LOGIN", locale, loginUrl.pathname);
       return NextResponse.redirect(loginUrl);
+    } else {
+      console.log("[MIDDLEWARE DEBUG] Session found, allowing access");
     }
   }
 

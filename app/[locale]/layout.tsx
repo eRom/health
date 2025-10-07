@@ -1,5 +1,6 @@
 import { ThemeScript } from "@/app/theme-script";
 import { LocaleDebugger } from "@/components/debug/locale-debugger";
+import { AuthDebugger } from "@/components/debug/auth-debugger";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { routing } from "@/i18n/routing";
@@ -182,6 +183,7 @@ export default async function LocaleLayout({
             {children}
             <Toaster />
             <LocaleDebugger />
+            <AuthDebugger />
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

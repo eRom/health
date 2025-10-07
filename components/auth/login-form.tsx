@@ -28,14 +28,19 @@ export function LoginForm() {
         password,
       });
 
+      console.log("[LOGIN DEBUG] Response:", response);
+
       if (response.error) {
         setError(response.error.message || "Email ou mot de passe incorrect");
         return;
       }
 
+      console.log("[LOGIN DEBUG] Login successful, redirecting to dashboard");
+      
       // ✅ CORRECTIF : Utiliser le router Next-Intl pour préserver la locale
       router.push("/dashboard");
-    } catch {
+    } catch (error) {
+      console.error("[LOGIN DEBUG] Login error:", error);
       setError("Email ou mot de passe incorrect");
     } finally {
       setIsLoading(false);

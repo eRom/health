@@ -82,14 +82,26 @@ const trustedOrigins = Array.from(
   )
 )
 
+// ✅ CORRECTIF : Configuration améliorée pour les cookies en preview/production
 const advancedConfig = isHealthInCloudDomain
   ? {
       crossSubDomainCookies: {
         enabled: true,
         domain: ".healthincloud.app", // Leading dot for all subdomains
       },
+      // Configuration explicite des cookies pour Vercel
+      cookies: {
+        sessionToken: {
+          name: "better-auth.session_token",
+          httpOnly: true,
+          secure: true,
+          sameSite: "lax",
+          path: "/",
+          maxAge: 60 * 60 * 24 * 7, // 7 days
+        },
+      },
     }
-  : undefined
+  : undefined;
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -100,5 +112,13 @@ export const auth = betterAuth({
   },
   baseURL,
   trustedOrigins,
+  session: {
+    cookieCache: {
+      enabled: true,
+      maxAge: 60 * 60 * 24 * 7, // 7 days
+    },
+    cookieName: "better-auth.session_token",
+    expiresIn: 60 * 60 * 24 * 7, // 7 days
+  },
   ...(advancedConfig ? { advanced: advancedConfig } : {}),
-})
+});
