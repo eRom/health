@@ -36,6 +36,19 @@ export interface AnalysisData {
     count: number
     percentage: number
   }>
+  typeDistribution: Array<{
+    type: string
+    count: number
+    percentage: number
+  }>
+  difficultyByType: Array<{
+    type: string
+    difficulties: Array<{
+      difficulty: string
+      count: number
+      percentage: number
+    }>
+  }>
 }
 
 type TimeRange = '7d' | '30d' | '90d' | 'all'
@@ -103,7 +116,9 @@ export async function getAnalysisData(
   // Load exercise metadata to filter by type/category
   const neuroExercises = getExercises('neuro', locale)
   const orthoExercises = getExercises('ortho', locale)
-  const allExercises = [...neuroExercises, ...orthoExercises]
+  const kineExercises = getExercises('kine', locale)
+  const ergoExercises = getExercises('ergo', locale)
+  const allExercises = [...neuroExercises, ...orthoExercises, ...kineExercises, ...ergoExercises]
 
   // Filter by type
   if (filters.exerciseType !== 'all') {
@@ -323,7 +338,84 @@ export async function getAnalysisData(
       return (order[a.difficulty as keyof typeof order] || 2) - (order[b.difficulty as keyof typeof order] || 2)
     })
 
-  // 10. Return aggregated data
+  // 10. Type distribution (group by exercise type)
+  const typeMap = new Map<string, number>()
+
+  attempts.forEach((attempt) => {
+    // Find exercise type from catalogue
+    const exercise = allExercises.find((ex) => ex.slug === attempt.exerciseSlug)
+    const type = exercise?.type || 'neuro' // default to neuro if not found
+
+    typeMap.set(type, (typeMap.get(type) || 0) + 1)
+  })
+
+  const typeDistribution = Array.from(typeMap.entries())
+    .map(([type, count]) => ({
+      type,
+      count,
+      percentage: totalAttempts > 0 ? (count / totalAttempts) * 100 : 0,
+    }))
+    .sort((a, b) => {
+      // Sort: neuro, ortho, kine, ergo
+      const order = { neuro: 1, ortho: 2, kine: 3, ergo: 4 }
+      return (order[a.type as keyof typeof order] || 5) - (order[b.type as keyof typeof order] || 5)
+    })
+
+  // 11. Difficulty distribution by type
+  const typeDifficultyMap = new Map<string, Map<string, number>>()
+
+  attempts.forEach((attempt) => {
+    // Find exercise type from catalogue
+    const exercise = allExercises.find((ex) => ex.slug === attempt.exerciseSlug)
+    const type = exercise?.type || 'neuro'
+
+    // Get difficulty from attempt data or fallback to exercise catalogue
+    let difficulty = 'medium'
+    if (attempt.data && typeof attempt.data === 'object') {
+      const attemptData = attempt.data as { difficulty?: string }
+      if (attemptData.difficulty) {
+        difficulty = attemptData.difficulty
+      }
+    } else if (exercise && exercise.difficulty !== 'all') {
+      difficulty = exercise.difficulty
+    }
+
+    // Initialize type map if needed
+    if (!typeDifficultyMap.has(type)) {
+      typeDifficultyMap.set(type, new Map<string, number>())
+    }
+
+    const diffMap = typeDifficultyMap.get(type)!
+    diffMap.set(difficulty, (diffMap.get(difficulty) || 0) + 1)
+  })
+
+  const difficultyByType = Array.from(typeDifficultyMap.entries())
+    .map(([type, diffMap]) => {
+      const typeTotal = Array.from(diffMap.values()).reduce((sum, count) => sum + count, 0)
+      const difficulties = Array.from(diffMap.entries())
+        .map(([difficulty, count]) => ({
+          difficulty,
+          count,
+          percentage: typeTotal > 0 ? (count / typeTotal) * 100 : 0,
+        }))
+        .sort((a, b) => {
+          // Sort: easy, medium, hard
+          const order = { easy: 1, medium: 2, hard: 3 }
+          return (order[a.difficulty as keyof typeof order] || 2) - (order[b.difficulty as keyof typeof order] || 2)
+        })
+
+      return {
+        type,
+        difficulties,
+      }
+    })
+    .sort((a, b) => {
+      // Sort: neuro, ortho, kine, ergo
+      const order = { neuro: 1, ortho: 2, kine: 3, ergo: 4 }
+      return (order[a.type as keyof typeof order] || 5) - (order[b.type as keyof typeof order] || 5)
+    })
+
+  // 12. Return aggregated data
   return {
     kpis: {
       totalAttempts,
@@ -335,5 +427,7 @@ export async function getAnalysisData(
     scoreEvolution,
     exercisePerformance,
     difficultyDistribution,
+    typeDistribution,
+    difficultyByType,
   }
 }

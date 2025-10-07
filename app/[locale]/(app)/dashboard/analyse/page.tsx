@@ -7,7 +7,7 @@ import type { AnalysisData } from '@/app/actions/get-analysis-data'
 import { TimeRangeFilter, type TimeRange, type ExerciseType } from '@/components/analyse/time-range-filter'
 import { AnalysisKpis } from '@/components/analyse/analysis-kpis'
 import { ScoreEvolutionChart } from '@/components/analyse/score-evolution-chart'
-import { ExercisePerformanceChart } from '@/components/analyse/exercise-performance-chart'
+import { ExerciseTypeDistributionChart } from '@/components/analyse/exercise-type-distribution-chart'
 import { DifficultyDistributionChart } from '@/components/analyse/difficulty-distribution-chart'
 import { EmptyState } from '@/components/ui/empty-state'
 import { BarChart3 } from 'lucide-react'
@@ -110,10 +110,16 @@ export default function AnalysePage() {
               />
             </div>
 
-            {/* Exercise Performance */}
-            <ExercisePerformanceChart
-              data={data.exercisePerformance}
-              title={t('charts.exercisePerformance')}
+            {/* Exercise Type Distribution */}
+            <ExerciseTypeDistributionChart
+              data={data.typeDistribution}
+              title={t('charts.typeDistribution')}
+              translations={{
+                neuro: t('filters.neuro'),
+                ortho: t('filters.ortho'),
+                kine: t('filters.kine'),
+                ergo: t('filters.ergo'),
+              }}
             />
 
             {/* Difficulty Distribution */}
@@ -128,6 +134,7 @@ export default function AnalysePage() {
               }}
             />
           </div>
+
         </div>
       )}
     </div>

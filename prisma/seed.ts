@@ -43,24 +43,24 @@ async function main() {
   // 3. Generate fake exercise attempts (120 days of data for "Tout" and "3 mois")
   const exercisesData = [
     // Neuro exercises
-    { slug: 'empan-lettres', difficulty: 'easy' },
-    { slug: 'test-corsi', difficulty: 'medium' },
-    { slug: 'empan-chiffres', difficulty: 'easy' },
-    { slug: 'memoire-travail', difficulty: 'medium' },
-    { slug: 'attention-soutenue', difficulty: 'hard' },
+    { slug: 'empan-lettres', difficulty: 'easy', type: 'neuro' },
+    { slug: 'test-corsi', difficulty: 'medium', type: 'neuro' },
+    { slug: 'empan-chiffres', difficulty: 'easy', type: 'neuro' },
+    { slug: 'memoire-travail', difficulty: 'medium', type: 'neuro' },
+    { slug: 'attention-soutenue', difficulty: 'hard', type: 'neuro' },
     // Ortho exercises
-    { slug: 'diadocociinesie', difficulty: 'medium' },
-    { slug: 'virelangues', difficulty: 'easy' },
-    { slug: 'comprehension-verbale', difficulty: 'easy' },
-    { slug: 'articulation', difficulty: 'medium' },
+    { slug: 'diadocociinesie', difficulty: 'medium', type: 'ortho' },
+    { slug: 'virelangues', difficulty: 'easy', type: 'ortho' },
+    { slug: 'comprehension-verbale', difficulty: 'easy', type: 'ortho' },
+    { slug: 'articulation', difficulty: 'medium', type: 'ortho' },
     // Ergo exercises
-    { slug: 'autonomie-quotidienne', difficulty: 'easy' },
-    { slug: 'motricite-fine', difficulty: 'easy' },
-    { slug: 'fonctions-cognitives', difficulty: 'easy' },
+    { slug: 'autonomie-quotidienne', difficulty: 'easy', type: 'ergo' },
+    { slug: 'motricite-fine', difficulty: 'easy', type: 'ergo' },
+    { slug: 'fonctions-cognitives', difficulty: 'easy', type: 'ergo' },
     // Kine exercises
-    { slug: 'mobilite-articulaire', difficulty: 'easy' },
-    { slug: 'renforcement-musculaire', difficulty: 'easy' },
-    { slug: 'equilibre', difficulty: 'easy' },
+    { slug: 'mobilite-articulaire', difficulty: 'easy', type: 'kine' },
+    { slug: 'renforcement-musculaire', difficulty: 'easy', type: 'kine' },
+    { slug: 'equilibre', difficulty: 'easy', type: 'kine' },
   ]
 
   const now = new Date()
@@ -91,10 +91,11 @@ async function main() {
         )
       }
 
-      // Pick random exercise with its difficulty
+      // Pick random exercise with its difficulty and type
       const exercise = exercisesData[Math.floor(Math.random() * exercisesData.length)]
       const exerciseSlug = exercise.slug
       const difficulty = exercise.difficulty
+      const type = exercise.type
 
       // Score varies based on difficulty and time (with progression over time)
       let baseScore = 50
@@ -144,6 +145,7 @@ async function main() {
           attempts: Math.floor(Math.random() * 10) + 5,
           correctAnswers: Math.floor(score / 10),
           difficulty,
+          type,
         },
       })
     }
@@ -170,6 +172,18 @@ async function main() {
     `   Medium: ${mediumCount} (${((mediumCount / attempts.length) * 100).toFixed(1)}%)`
   )
   console.log(`   Hard: ${hardCount} (${((hardCount / attempts.length) * 100).toFixed(1)}%)`)
+
+  // Type breakdown
+  const neuroCount = attempts.filter((a) => a.data.type === 'neuro').length
+  const orthoCount = attempts.filter((a) => a.data.type === 'ortho').length
+  const kineCount = attempts.filter((a) => a.data.type === 'kine').length
+  const ergoCount = attempts.filter((a) => a.data.type === 'ergo').length
+
+  console.log(`📊 Type breakdown:`)
+  console.log(`   Neuro: ${neuroCount} (${((neuroCount / attempts.length) * 100).toFixed(1)}%)`)
+  console.log(`   Ortho: ${orthoCount} (${((orthoCount / attempts.length) * 100).toFixed(1)}%)`)
+  console.log(`   Kine: ${kineCount} (${((kineCount / attempts.length) * 100).toFixed(1)}%)`)
+  console.log(`   Ergo: ${ergoCount} (${((ergoCount / attempts.length) * 100).toFixed(1)}%)`)
 
   console.log('\n🎉 Seeding completed successfully!')
   console.log('\n📝 Demo credentials:')

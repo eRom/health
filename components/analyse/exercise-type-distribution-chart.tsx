@@ -1,0 +1,121 @@
+'use client'
+
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts'
+import type { AnalysisData } from '@/app/actions/get-analysis-data'
+
+interface ExerciseTypeDistributionChartProps {
+  data: AnalysisData['typeDistribution']
+  title: string
+  translations: {
+    neuro: string
+    ortho: string
+    kine: string
+    ergo: string
+  }
+}
+
+const TYPE_COLORS = {
+  neuro: '#3b82f6', // blue-500
+  ortho: '#8b5cf6', // violet-500
+  kine: '#06b6d4', // cyan-500
+  ergo: '#f59e0b', // amber-500
+}
+
+export function ExerciseTypeDistributionChart({
+  data,
+  title,
+  translations,
+}: ExerciseTypeDistributionChartProps) {
+  // Format data with translated labels
+  const formattedData = data.map((item) => ({
+    ...item,
+    name: translations[item.type as keyof typeof translations] || item.type,
+    fill: TYPE_COLORS[item.type as keyof typeof TYPE_COLORS] || '#3b82f6',
+  }))
+
+  const total = data.reduce((sum, item) => sum + item.count, 0)
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>{title}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        {data.length === 0 ? (
+          <div className="flex h-[300px] items-center justify-center text-muted-foreground">
+            Aucune donnée disponible
+          </div>
+        ) : (
+          <div className="flex flex-col items-center">
+            <ResponsiveContainer width="100%" height={300}>
+              <PieChart>
+                <Pie
+                  data={formattedData}
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={60}
+                  outerRadius={90}
+                  paddingAngle={2}
+                  dataKey="count"
+                  label={(props: { x?: number; y?: number; percent?: number }) => {
+                    const { x, y, percent } = props
+                    if (x === undefined || y === undefined || percent === undefined) return null
+                    return (
+                      <text
+                        x={x}
+                        y={y}
+                        fill="white"
+                        textAnchor="middle"
+                        dominantBaseline="middle"
+                        className="text-sm font-bold"
+                        style={{
+                          textShadow: '0 1px 2px rgba(0,0,0,0.8)',
+                          paintOrder: 'stroke fill',
+                          stroke: 'rgba(0,0,0,0.5)',
+                          strokeWidth: '3px'
+                        }}
+                      >
+                        {`${(percent * 100).toFixed(0)}%`}
+                      </text>
+                    )
+                  }}
+                  labelLine={false}
+                >
+                  {formattedData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.fill} />
+                  ))}
+                </Pie>
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: 'hsl(var(--popover))',
+                    border: '1px solid hsl(var(--border))',
+                    borderRadius: '0.5rem',
+                    color: 'hsl(var(--popover-foreground))'
+                  }}
+                  formatter={(value: number) => [
+                    `${value} tentatives (${((value / total) * 100).toFixed(1)}%)`,
+                    'Nombre',
+                  ]}
+                />
+                <Legend
+                  verticalAlign="bottom"
+                  height={36}
+                  iconType="circle"
+                  wrapperStyle={{
+                    fontSize: '14px',
+                    color: 'hsl(var(--foreground))'
+                  }}
+                />
+              </PieChart>
+            </ResponsiveContainer>
+            <div className="mt-4 text-center">
+              <div className="text-2xl font-bold">{total}</div>
+              <div className="text-sm text-muted-foreground">Total tentatives</div>
+            </div>
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  )
+}

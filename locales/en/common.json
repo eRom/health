@@ -50,6 +50,8 @@
       "allTypes": "All types",
       "neuro": "Neuropsychology",
       "ortho": "Speech Therapy",
+      "kine": "Physiotherapy",
+      "ergo": "Occupational Therapy",
       "category": "Category",
       "allCategories": "All categories"
     },
@@ -62,7 +64,8 @@
     "charts": {
       "scoreEvolution": "Score Evolution",
       "exercisePerformance": "Exercise Performance",
-      "difficultyDistribution": "Difficulty Distribution"
+      "difficultyDistribution": "Difficulty Distribution",
+      "typeDistribution": "Type Distribution"
     },
     "difficulty": {
       "easy": "Easy",

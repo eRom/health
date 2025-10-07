@@ -50,6 +50,8 @@
       "allTypes": "Tous les types",
       "neuro": "Neuropsychologie",
       "ortho": "Orthophonie",
+      "kine": "Kinésithérapie",
+      "ergo": "Ergothérapie",
       "category": "Catégorie",
       "allCategories": "Toutes les catégories"
     },
@@ -62,7 +64,8 @@
     "charts": {
       "scoreEvolution": "Évolution des scores",
       "exercisePerformance": "Performance par exercice",
-      "difficultyDistribution": "Répartition par difficulté"
+      "difficultyDistribution": "Répartition par difficulté",
+      "typeDistribution": "Répartition par type"
     },
     "difficulty": {
       "easy": "Facile",
