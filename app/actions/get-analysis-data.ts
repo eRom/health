@@ -120,6 +120,18 @@ export async function getAnalysisData(
   const ergoExercises = getExercises('ergo', locale)
   const allExercises = [...neuroExercises, ...orthoExercises, ...kineExercises, ...ergoExercises]
 
+  // Debug: Log catalogue info
+  if (process.env.NODE_ENV === 'development') {
+    console.log('[getAnalysisData] Catalogue loaded:', {
+      neuro: neuroExercises.length,
+      ortho: orthoExercises.length,
+      kine: kineExercises.length,
+      ergo: ergoExercises.length,
+      total: allExercises.length,
+      slugs: allExercises.map(ex => ex.slug)
+    })
+  }
+
   // Filter by type
   if (filters.exerciseType !== 'all') {
     const exerciseSlugs = allExercises
@@ -149,6 +161,16 @@ export async function getAnalysisData(
       data: true,
     },
   })
+
+  // Debug: Log query results
+  if (process.env.NODE_ENV === 'development') {
+    console.log('[getAnalysisData] Filter:', JSON.stringify(filters))
+    console.log('[getAnalysisData] Where clause:', JSON.stringify(whereClause, null, 2))
+    console.log('[getAnalysisData] Attempts found:', attempts.length)
+    if (attempts.length > 0) {
+      console.log('[getAnalysisData] Sample attempt:', JSON.stringify(attempts[0], null, 2))
+    }
+  }
 
   // 5. Calculate previous period for trends
   const periodDuration = now.getTime() - startDate.getTime()
