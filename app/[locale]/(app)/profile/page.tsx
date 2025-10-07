@@ -1,7 +1,6 @@
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { headers } from 'next/headers'
-import { redirect } from 'next/navigation'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { EditNameForm } from '@/components/profile/edit-name-form'
 import { DeleteAccountDialog } from '@/components/profile/delete-account-dialog'
@@ -12,6 +11,7 @@ import { LocalePreference } from '@/components/profile/locale-preference'
 import { ThemePreference } from '@/components/profile/theme-preference'
 import { NotificationPreference } from '@/components/profile/notification-preference'
 import { Alert, AlertDescription } from '@/components/ui/alert'
+import { redirect } from '@/i18n/routing'
 
 export default async function ProfilePage() {
   const session = await auth.api.getSession({
