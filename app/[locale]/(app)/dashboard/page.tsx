@@ -27,7 +27,7 @@ export default async function DashboardPage() {
   })
 
   if (!session) {
-    redirect('/auth/login')
+    redirect({ href: '/auth/login' })
   }
 
   const userName = session.user.name?.split(' ')[0] || 'Marie'

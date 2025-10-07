@@ -19,7 +19,7 @@ export default async function ProfilePage() {
   })
 
   if (!session) {
-    redirect('/auth/login')
+    redirect({ href: '/auth/login' })
   }
 
   const { user } = session
