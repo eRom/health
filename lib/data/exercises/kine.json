@@ -1,0 +1,73 @@
+{
+  "exercises": [
+    {
+      "slug": "mobilite-articulaire",
+      "type": "kine",
+      "category": "mobility",
+      "difficulty": "easy",
+      "duration": 15,
+      "icon": "🦴",
+      "available": true,
+      "position": 1,
+      "content": {
+        "fr": {
+          "title": "Mobilité articulaire",
+          "description": "Exercices pour améliorer l'amplitude des mouvements",
+          "instructions": "Réalisez les mouvements lentement en respectant votre amplitude confortable."
+        },
+        "en": {
+          "title": "Joint Mobility",
+          "description": "Exercises to improve range of motion",
+          "instructions": "Perform movements slowly within your comfortable range."
+        }
+      },
+      "config": {}
+    },
+    {
+      "slug": "renforcement-musculaire",
+      "type": "kine",
+      "category": "strength",
+      "difficulty": "easy",
+      "duration": 20,
+      "icon": "💪",
+      "available": true,
+      "position": 2,
+      "content": {
+        "fr": {
+          "title": "Renforcement musculaire",
+          "description": "Exercices pour renforcer vos muscles progressivement",
+          "instructions": "Contractez les muscles ciblés en maintenant la position quelques secondes."
+        },
+        "en": {
+          "title": "Muscle Strengthening",
+          "description": "Exercises to gradually strengthen your muscles",
+          "instructions": "Contract the target muscles while holding the position for a few seconds."
+        }
+      },
+      "config": {}
+    },
+    {
+      "slug": "equilibre",
+      "type": "kine",
+      "category": "balance",
+      "difficulty": "easy",
+      "duration": 10,
+      "icon": "⚖️",
+      "available": false,
+      "position": 3,
+      "content": {
+        "fr": {
+          "title": "Équilibre",
+          "description": "Exercices pour améliorer votre stabilité et prévenir les chutes",
+          "instructions": "Tenez-vous près d'un support stable au début de l'exercice."
+        },
+        "en": {
+          "title": "Balance",
+          "description": "Exercises to improve your stability and prevent falls",
+          "instructions": "Stand near a stable support at the beginning of the exercise."
+        }
+      },
+      "config": {}
+    }
+  ]
+}

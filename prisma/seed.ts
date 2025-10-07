@@ -50,9 +50,17 @@ async function main() {
     { slug: 'attention-soutenue', difficulty: 'hard' },
     // Ortho exercises
     { slug: 'diadocociinesie', difficulty: 'medium' },
-    { slug: 'virelangues', difficulty: 'hard' },
+    { slug: 'virelangues', difficulty: 'easy' },
     { slug: 'comprehension-verbale', difficulty: 'easy' },
     { slug: 'articulation', difficulty: 'medium' },
+    // Ergo exercises
+    { slug: 'autonomie-quotidienne', difficulty: 'easy' },
+    { slug: 'motricite-fine', difficulty: 'easy' },
+    { slug: 'fonctions-cognitives', difficulty: 'easy' },
+    // Kine exercises
+    { slug: 'mobilite-articulaire', difficulty: 'easy' },
+    { slug: 'renforcement-musculaire', difficulty: 'easy' },
+    { slug: 'equilibre', difficulty: 'easy' },
   ]
 
   const now = new Date()

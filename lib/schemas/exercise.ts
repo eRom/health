@@ -12,7 +12,7 @@ export const ExerciseConfigSchema = z.record(z.string(), z.unknown()).optional()
 
 export const ExerciseSchema = z.object({
   slug: z.string().min(1),
-  type: z.enum(['neuro', 'ortho']),
+  type: z.enum(['neuro', 'ortho', 'ergo', 'kine']),
   category: z.string().min(1),
   difficulty: z.enum(['easy', 'medium', 'hard', 'all']),
   duration: z.number().int().positive(),

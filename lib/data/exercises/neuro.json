@@ -4,7 +4,7 @@
       "slug": "empan-lettres",
       "type": "neuro",
       "category": "memory",
-      "difficulty": "all",
+      "difficulty": "easy",
       "duration": 10,
       "icon": "🧠",
       "available": true,

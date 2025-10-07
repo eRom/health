@@ -1,0 +1,28 @@
+import { NextRequest, NextResponse } from 'next/server'
+import { getExercises } from '@/lib/exercises'
+
+export async function GET(request: NextRequest) {
+  try {
+    // Get locale from query params or default to 'fr'
+    const searchParams = request.nextUrl.searchParams
+    const locale = (searchParams.get('locale') as 'fr' | 'en') || 'fr'
+
+    // Load exercises from JSON
+    const exercises = getExercises('kine', locale)
+
+    return NextResponse.json({
+      success: true,
+      exercises,
+    })
+  } catch (error) {
+    console.error('Error loading kine exercises:', error)
+    return NextResponse.json(
+      {
+        success: false,
+        error: 'Failed to load exercises',
+        exercises: [],
+      },
+      { status: 500 }
+    )
+  }
+}

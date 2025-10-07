@@ -1,0 +1,73 @@
+{
+  "exercises": [
+    {
+      "slug": "autonomie-quotidienne",
+      "type": "ergo",
+      "category": "daily-activities",
+      "difficulty": "easy",
+      "duration": 15,
+      "icon": "🏠",
+      "available": true,
+      "position": 1,
+      "content": {
+        "fr": {
+          "title": "Autonomie quotidienne",
+          "description": "Exercices pour améliorer l'autonomie dans les gestes du quotidien",
+          "instructions": "Suivez les étapes pour pratiquer les gestes essentiels de la vie quotidienne."
+        },
+        "en": {
+          "title": "Daily Autonomy",
+          "description": "Exercises to improve autonomy in daily activities",
+          "instructions": "Follow the steps to practice essential daily living activities."
+        }
+      },
+      "config": {}
+    },
+    {
+      "slug": "motricite-fine",
+      "type": "ergo",
+      "category": "fine-motor",
+      "difficulty": "easy",
+      "duration": 10,
+      "icon": "✋",
+      "available": true,
+      "position": 2,
+      "content": {
+        "fr": {
+          "title": "Motricité fine",
+          "description": "Améliorez la précision et la coordination de vos mouvements",
+          "instructions": "Réalisez les exercices de préhension et manipulation d'objets."
+        },
+        "en": {
+          "title": "Fine Motor Skills",
+          "description": "Improve precision and coordination of your movements",
+          "instructions": "Perform grasping and object manipulation exercises."
+        }
+      },
+      "config": {}
+    },
+    {
+      "slug": "fonctions-cognitives",
+      "type": "ergo",
+      "category": "cognitive",
+      "difficulty": "easy",
+      "duration": 20,
+      "icon": "🧩",
+      "available": false,
+      "position": 3,
+      "content": {
+        "fr": {
+          "title": "Fonctions cognitives",
+          "description": "Exercices pour stimuler l'attention et la planification",
+          "instructions": "Travaillez votre concentration et votre capacité à organiser vos actions."
+        },
+        "en": {
+          "title": "Cognitive Functions",
+          "description": "Exercises to stimulate attention and planning",
+          "instructions": "Work on your concentration and ability to organize your actions."
+        }
+      },
+      "config": {}
+    }
+  ]
+}
