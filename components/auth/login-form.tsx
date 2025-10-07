@@ -1,15 +1,16 @@
 'use client'
 
-import { useState } from 'react'
-import { useTranslations, useLocale } from 'next-intl'
-import { Link } from '@/i18n/routing'
-import { authClient } from '@/lib/auth-client'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { Link, useRouter } from "@/i18n/routing";
+import { authClient } from "@/lib/auth-client";
+import { useLocale, useTranslations } from "next-intl";
+import { useState } from "react";
 
 export function LoginForm() {
   const t = useTranslations()
   const locale = useLocale()
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -26,15 +27,15 @@ export function LoginForm() {
       const response = await authClient.signIn.email({
         email,
         password,
-      })
+      });
 
       if (response.error) {
-        setError(response.error.message || 'Email ou mot de passe incorrect')
-        return
+        setError(response.error.message || "Email ou mot de passe incorrect");
+        return;
       }
 
-      // Redirect to dashboard with locale - use window.location after Better Auth completes
-      window.location.href = `/${locale}/dashboard`
+      // ✅ CORRECTIF : Utiliser le router Next-Intl pour préserver la locale
+      router.push("/dashboard");
     } catch (err) {
       setError('Email ou mot de passe incorrect')
     } finally {
