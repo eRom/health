@@ -44,6 +44,12 @@ export default function AnalysePage() {
         setData(result)
       } catch (error) {
         console.error('Error loading analysis data:', error)
+        // Log full error details
+        if (error instanceof Error) {
+          console.error('Error name:', error.name)
+          console.error('Error message:', error.message)
+          console.error('Error stack:', error.stack)
+        }
       } finally {
         setLoading(false)
         setIsRefreshing(false)
