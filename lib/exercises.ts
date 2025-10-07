@@ -1,5 +1,3 @@
-import { readFileSync } from 'fs'
-import { join } from 'path'
 import type {
   Exercise,
   LocalizedExercise,
@@ -7,30 +5,25 @@ import type {
   ExerciseDifficulty,
 } from './types/exercise'
 
-// Cache pour éviter de relire les fichiers JSON à chaque requête
-const catalogueCache = new Map<ExerciseType, Exercise[]>()
+// Import JSON catalogues directly (works better with Vercel bundling)
+import neuroData from './data/exercises/neuro.json'
+import orthoData from './data/exercises/ortho.json'
+import kineData from './data/exercises/kine.json'
+import ergoData from './data/exercises/ergo.json'
+
+// Static catalogue map (cast to proper types since JSON imports are not fully typed)
+const catalogues: Record<ExerciseType, { exercises: Exercise[] }> = {
+  neuro: neuroData as { exercises: Exercise[] },
+  ortho: orthoData as { exercises: Exercise[] },
+  kine: kineData as { exercises: Exercise[] },
+  ergo: ergoData as { exercises: Exercise[] },
+}
 
 /**
- * Load and parse exercise catalogue from JSON file
+ * Load and parse exercise catalogue from imported JSON
  */
 function loadCatalogue(type: ExerciseType): Exercise[] {
-  // Check cache first
-  if (catalogueCache.has(type)) {
-    return catalogueCache.get(type)!
-  }
-
-  // Load JSON file
-  const filePath = join(process.cwd(), 'lib', 'data', 'exercises', `${type}.json`)
-  const fileContent = readFileSync(filePath, 'utf-8')
-  const rawData = JSON.parse(fileContent)
-
-  // Parse exercises directly (type-cast for now, Zod validation causes runtime issues)
-  const exercises = rawData.exercises as Exercise[]
-
-  // Cache the result
-  catalogueCache.set(type, exercises)
-
-  return exercises
+  return catalogues[type].exercises
 }
 
 /**
@@ -134,9 +127,3 @@ export function getCategories(type: ExerciseType): string[] {
   return Array.from(new Set(categories))
 }
 
-/**
- * Clear the catalogue cache (useful for testing)
- */
-export function clearCatalogueCache(): void {
-  catalogueCache.clear()
-}
