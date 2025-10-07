@@ -1,32 +1,39 @@
-import { auth } from '@/lib/auth'
-import { prisma } from '@/lib/prisma'
-import { headers } from 'next/headers'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { EditNameForm } from '@/components/profile/edit-name-form'
-import { DeleteAccountDialog } from '@/components/profile/delete-account-dialog'
-import { ChangePasswordDialog } from '@/components/profile/change-password-dialog'
-import { ActiveSessions } from '@/components/profile/active-sessions'
-import { SecurityInfo } from '@/components/profile/security-info'
-import { LocalePreference } from '@/components/profile/locale-preference'
-import { ThemePreference } from '@/components/profile/theme-preference'
-import { NotificationPreference } from '@/components/profile/notification-preference'
-import { Alert, AlertDescription } from '@/components/ui/alert'
-import { redirect } from '@/i18n/routing'
+import { ActiveSessions } from "@/components/profile/active-sessions";
+import { ChangePasswordDialog } from "@/components/profile/change-password-dialog";
+import { DeleteAccountDialog } from "@/components/profile/delete-account-dialog";
+import { EditNameForm } from "@/components/profile/edit-name-form";
+import { LocalePreference } from "@/components/profile/locale-preference";
+import { NotificationPreference } from "@/components/profile/notification-preference";
+import { SecurityInfo } from "@/components/profile/security-info";
+import { ThemePreference } from "@/components/profile/theme-preference";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { redirect } from "@/i18n/routing";
+import { auth } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
+import { headers } from "next/headers";
 
 export default async function ProfilePage({
   params,
 }: {
-  params: { locale: string }
+  params: Promise<{ locale: string }>;
 }) {
+  const { locale } = await params;
   const session = await auth.api.getSession({
     headers: await headers(),
-  })
+  });
 
   if (!session) {
-    redirect({ href: '/auth/login', locale: params.locale })
+    redirect({ href: "/auth/login", locale });
   }
 
-  const { user } = session
+  const { user } = session!;
 
   // Fetch user data with preferences
   const userData = await prisma.user.findUnique({
@@ -36,11 +43,11 @@ export default async function ProfilePage({
       locale: true,
       emailNotifications: true,
     },
-  })
+  });
 
-  const createdAt = userData?.createdAt || new Date()
-  const locale = userData?.locale || 'fr'
-  const emailNotifications = userData?.emailNotifications ?? true
+  const createdAt = userData?.createdAt || new Date();
+  const userLocale = userData?.locale || "fr";
+  const emailNotifications = userData?.emailNotifications ?? true;
 
   // Fetch user account (for provider info)
   const account = await prisma.account.findFirst({
@@ -50,15 +57,15 @@ export default async function ProfilePage({
       providerId: true,
       accountId: true,
     },
-  })
+  });
 
   // Fetch all user sessions
   const sessions = await prisma.session.findMany({
     where: { userId: user.id },
-    orderBy: { updatedAt: 'desc' },
-  })
+    orderBy: { updatedAt: "desc" },
+  });
 
-  const isCredentialAuth = account?.providerId === 'credential'
+  const isCredentialAuth = account?.providerId === "credential";
 
   return (
     <div className="container py-8">
@@ -80,12 +87,14 @@ export default async function ProfilePage({
             </div>
 
             <div>
-              <p className="text-sm font-medium text-muted-foreground">Membre depuis</p>
+              <p className="text-sm font-medium text-muted-foreground">
+                Membre depuis
+              </p>
               <p className="text-lg">
-                {createdAt.toLocaleDateString('fr-FR', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
+                {createdAt.toLocaleDateString("fr-FR", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
                 })}
               </p>
             </div>
@@ -96,21 +105,28 @@ export default async function ProfilePage({
         <Card>
           <CardHeader>
             <CardTitle>Sécurité</CardTitle>
-            <CardDescription>Paramètres de sécurité de votre compte</CardDescription>
+            <CardDescription>
+              Paramètres de sécurité de votre compte
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <SecurityInfo account={account} />
 
             {isCredentialAuth && (
               <div>
-                <p className="mb-2 text-sm font-medium text-muted-foreground">Mot de passe</p>
+                <p className="mb-2 text-sm font-medium text-muted-foreground">
+                  Mot de passe
+                </p>
                 <ChangePasswordDialog />
               </div>
             )}
 
             <div className="border-t pt-6">
               <h3 className="mb-4 text-lg font-semibold">Sessions actives</h3>
-              <ActiveSessions sessions={sessions} currentSessionId={session.session.id} />
+              <ActiveSessions
+                sessions={sessions}
+                currentSessionId={session!.session.id}
+              />
             </div>
           </CardContent>
         </Card>
@@ -122,14 +138,16 @@ export default async function ProfilePage({
             <CardDescription>Personnalisez votre expérience</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
-            <LocalePreference currentLocale={locale} />
+            <LocalePreference currentLocale={userLocale} />
 
             <div className="border-t pt-6">
               <ThemePreference />
             </div>
 
             <div className="border-t pt-6">
-              <NotificationPreference currentEmailNotifications={emailNotifications} />
+              <NotificationPreference
+                currentEmailNotifications={emailNotifications}
+              />
             </div>
           </CardContent>
         </Card>
@@ -145,9 +163,10 @@ export default async function ProfilePage({
           <CardContent className="space-y-4">
             <Alert variant="destructive">
               <AlertDescription>
-                <strong>⚠️ Attention :</strong> La suppression de votre compte est définitive et
-                irréversible. Toutes vos données personnelles et votre historique d&apos;exercices
-                seront supprimés immédiatement.
+                <strong>⚠️ Attention :</strong> La suppression de votre compte
+                est définitive et irréversible. Toutes vos données personnelles
+                et votre historique d&apos;exercices seront supprimés
+                immédiatement.
               </AlertDescription>
             </Alert>
             <div className="mt-6">
@@ -157,5 +176,5 @@ export default async function ProfilePage({
         </Card>
       </div>
     </div>
-  )
+  );
 }

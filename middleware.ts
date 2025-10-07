@@ -1,16 +1,13 @@
-import createMiddleware from 'next-intl/middleware'
-import { NextRequest, NextResponse } from 'next/server'
-import { routing } from './i18n/routing'
+import createMiddleware from "next-intl/middleware";
+import { NextRequest, NextResponse } from "next/server";
+import { routing } from "./i18n/routing";
 import {
   debugLocale,
   extractLocaleFromPath,
   isProtectedRoute,
 } from "./lib/locale-utils";
 
-const intlMiddleware = createMiddleware(routing)
-
-// Routes that require authentication
-const protectedRoutes = ['/dashboard', '/neuro', '/ortho', '/profile']
+const intlMiddleware = createMiddleware(routing);
 
 export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -49,5 +46,5 @@ export default async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/(fr|en)/:path*'],
-}
+  matcher: ["/", "/(fr|en)/:path*"],
+};

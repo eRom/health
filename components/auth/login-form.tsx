@@ -1,27 +1,26 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Link, useRouter } from "@/i18n/routing";
 import { authClient } from "@/lib/auth-client";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 export function LoginForm() {
-  const t = useTranslations()
-  const locale = useLocale()
+  const t = useTranslations();
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    setIsLoading(true)
-    setError(null)
+    e.preventDefault();
+    setIsLoading(true);
+    setError(null);
 
-    const formData = new FormData(e.currentTarget)
-    const email = formData.get('email') as string
-    const password = formData.get('password') as string
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
 
     try {
       const response = await authClient.signIn.email({
@@ -36,10 +35,10 @@ export function LoginForm() {
 
       // ✅ CORRECTIF : Utiliser le router Next-Intl pour préserver la locale
       router.push("/dashboard");
-    } catch (err) {
-      setError('Email ou mot de passe incorrect')
+    } catch {
+      setError("Email ou mot de passe incorrect");
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   }
 
@@ -57,7 +56,7 @@ export function LoginForm() {
 
       <div className="space-y-2">
         <label htmlFor="email" className="text-sm font-medium">
-          {t('auth.email')}
+          {t("auth.email")}
         </label>
         <Input
           id="email"
@@ -71,7 +70,7 @@ export function LoginForm() {
 
       <div className="space-y-2">
         <label htmlFor="password" className="text-sm font-medium">
-          {t('auth.password')}
+          {t("auth.password")}
         </label>
         <Input
           id="password"
@@ -83,13 +82,18 @@ export function LoginForm() {
       </div>
 
       <div className="flex gap-3 mt-2">
-        <Button asChild variant="outline" className="flex-1" disabled={isLoading}>
+        <Button
+          asChild
+          variant="outline"
+          className="flex-1"
+          disabled={isLoading}
+        >
           <Link href="/">Annuler</Link>
         </Button>
         <Button type="submit" className="flex-1" disabled={isLoading}>
-          {isLoading ? 'Connexion...' : t('auth.signIn')}
+          {isLoading ? "Connexion..." : t("auth.signIn")}
         </Button>
       </div>
     </form>
-  )
+  );
 }

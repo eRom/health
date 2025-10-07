@@ -1,54 +1,56 @@
-import { getTranslations } from 'next-intl/server'
-import { getDashboardStats } from '@/app/actions/get-dashboard-stats'
-import { StatsCards } from '@/components/dashboard/stats-cards'
-import { RecentExercisesList } from '@/components/dashboard/recent-exercises-list'
-import { auth } from '@/lib/auth'
-import { headers } from 'next/headers'
-import { Button } from '@/components/ui/button'
-import { Link, redirect } from '@/i18n/routing'
-import { BarChart3 } from 'lucide-react'
-import type { Metadata } from 'next'
+import { getDashboardStats } from "@/app/actions/get-dashboard-stats";
+import { RecentExercisesList } from "@/components/dashboard/recent-exercises-list";
+import { StatsCards } from "@/components/dashboard/stats-cards";
+import { Button } from "@/components/ui/button";
+import { Link, redirect } from "@/i18n/routing";
+import { auth } from "@/lib/auth";
+import { BarChart3 } from "lucide-react";
+import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
+import { headers } from "next/headers";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'Tableau de bord',
-    description: 'Suivez votre progression et accédez à vos exercices de rééducation personnalisés',
+    title: "Tableau de bord",
+    description:
+      "Suivez votre progression et accédez à vos exercices de rééducation personnalisés",
     robots: {
       index: false,
       follow: false,
     },
-  }
+  };
 }
 
 export default async function DashboardPage({
   params,
 }: {
-  params: { locale: string }
+  params: Promise<{ locale: string }>;
 }) {
-  const t = await getTranslations('dashboard')
+  const { locale } = await params;
+  const t = await getTranslations("dashboard");
   const session = await auth.api.getSession({
     headers: await headers(),
-  })
+  });
 
   if (!session) {
-    redirect({ href: '/auth/login', locale: params.locale })
+    redirect({ href: "/auth/login", locale });
   }
 
-  const userName = session.user.name?.split(' ')[0] || 'Marie'
+  const userName = session!.user.name?.split(" ")[0] || "Marie";
 
   // Fetch dashboard data
-  const { stats, recentExercises } = await getDashboardStats()
+  const { stats, recentExercises } = await getDashboardStats();
 
   return (
     <div className="container py-8">
       <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <h1 className="text-3xl font-bold">
-          {t('welcome', { name: userName })}
+          {t("welcome", { name: userName })}
         </h1>
         <Button asChild>
           <Link href="/dashboard/analyse">
             <BarChart3 className="mr-2 h-4 w-4" />
-            {t('analyse')}
+            {t("analyse")}
           </Link>
         </Button>
       </div>
@@ -58,10 +60,10 @@ export default async function DashboardPage({
         <StatsCards
           stats={stats}
           translations={{
-            totalExercises: t('stats.totalExercises'),
-            totalDuration: t('stats.totalDuration'),
-            averageScore: t('stats.averageScore'),
-            streak: t('stats.streak'),
+            totalExercises: t("stats.totalExercises"),
+            totalDuration: t("stats.totalDuration"),
+            averageScore: t("stats.averageScore"),
+            streak: t("stats.streak"),
           }}
         />
 
@@ -69,12 +71,12 @@ export default async function DashboardPage({
         <RecentExercisesList
           exercises={recentExercises}
           translations={{
-            title: t('recentExercises'),
-            noExercises: t('noExercises'),
-            noExercisesDescription: t('noExercisesDescription'),
+            title: t("recentExercises"),
+            noExercises: t("noExercises"),
+            noExercisesDescription: t("noExercisesDescription"),
           }}
         />
       </div>
     </div>
-  )
+  );
 }
