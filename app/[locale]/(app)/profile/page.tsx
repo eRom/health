@@ -13,13 +13,17 @@ import { NotificationPreference } from '@/components/profile/notification-prefer
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { redirect } from '@/i18n/routing'
 
-export default async function ProfilePage() {
+export default async function ProfilePage({
+  params,
+}: {
+  params: { locale: string }
+}) {
   const session = await auth.api.getSession({
     headers: await headers(),
   })
 
   if (!session) {
-    redirect({ href: '/auth/login' })
+    redirect({ href: '/auth/login', locale: params.locale })
   }
 
   const { user } = session

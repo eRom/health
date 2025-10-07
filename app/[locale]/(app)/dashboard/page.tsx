@@ -20,14 +20,18 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default async function DashboardPage() {
+export default async function DashboardPage({
+  params,
+}: {
+  params: { locale: string }
+}) {
   const t = await getTranslations('dashboard')
   const session = await auth.api.getSession({
     headers: await headers(),
   })
 
   if (!session) {
-    redirect({ href: '/auth/login' })
+    redirect({ href: '/auth/login', locale: params.locale })
   }
 
   const userName = session.user.name?.split(' ')[0] || 'Marie'
