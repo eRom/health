@@ -33,8 +33,8 @@ export function LoginForm() {
         return
       }
 
-      // Redirect to dashboard
-      router.push('/dashboard')
+      // Redirect to dashboard - using window.location for Better Auth compatibility
+      window.location.href = '/dashboard'
     } catch (err) {
       setError('Email ou mot de passe incorrect')
     } finally {

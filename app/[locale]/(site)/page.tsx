@@ -1,4 +1,3 @@
-import { useTranslations } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import { Link } from '@/i18n/routing'
 import { Button } from '@/components/ui/button'
@@ -75,8 +74,13 @@ import {
   Shield,
 } from 'lucide-react'
 
-export default function HomePage() {
-  const t = useTranslations()
+export default async function HomePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params
+  const t = await getTranslations({ locale })
 
   // WebPage structured data for landing page
   const webPageSchema = {
