@@ -2,6 +2,7 @@ import type { NextConfig } from "next"
 import createNextIntlPlugin from 'next-intl/plugin'
 import withBundleAnalyzer from '@next/bundle-analyzer'
 import withSerwistInit from '@serwist/next'
+import { withSentryConfig } from '@sentry/nextjs'
 
 const withNextIntl = createNextIntlPlugin('./i18n/request.ts')
 
@@ -25,4 +26,19 @@ const nextConfig: NextConfig = {
   },
 }
 
-export default withSerwist(bundleAnalyzer(withNextIntl(nextConfig)))
+// Wrap with Sentry last to ensure it captures all errors
+export default withSentryConfig(
+  withSerwist(bundleAnalyzer(withNextIntl(nextConfig))),
+  {
+    // Sentry options
+    org: process.env.SENTRY_ORG,
+    project: process.env.SENTRY_PROJECT,
+    silent: !process.env.CI,
+    widenClientFileUpload: true,
+    tunnelRoute: '/monitoring',
+    sourcemaps: {
+      disable: true,
+    },
+    disableLogger: true,
+  }
+)
