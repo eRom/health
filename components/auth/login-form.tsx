@@ -2,13 +2,14 @@
 
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
-import { Link } from '@/i18n/routing'
+import { Link, useRouter } from '@/i18n/routing'
 import { authClient } from '@/lib/auth-client'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
 export function LoginForm() {
   const t = useTranslations()
+  const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -32,9 +33,8 @@ export function LoginForm() {
         return
       }
 
-      // Redirect to dashboard - get current locale from pathname
-      const locale = window.location.pathname.split('/')[1] || 'fr'
-      window.location.href = `/${locale}/dashboard`
+      // Redirect to dashboard using next-intl router
+      router.push('/dashboard')
     } catch (err) {
       setError('Email ou mot de passe incorrect')
     } finally {
