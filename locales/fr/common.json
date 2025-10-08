@@ -88,6 +88,7 @@
       "subtitle": "Pour le service MPR de Nantes",
       "description": "Pratiquez vos exercices de rééducation en autonomie avec un suivi personnalisé et des retours instantanés.",
       "cta": "Commencer maintenant",
+      "ctaAuthenticated": "Voir vos progrès",
       "highlightGuidedTitle": "Guidage intelligent",
       "highlightGuidedDescription": "Séances interactives pour travailler en autonomie.",
       "highlightFeedbackTitle": "Suivi en direct",

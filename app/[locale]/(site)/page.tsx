@@ -1,27 +1,29 @@
-import { getTranslations } from 'next-intl/server'
-import { Link } from '@/i18n/routing'
-import { Button } from '@/components/ui/button'
-import { Header } from '@/components/navigation/header'
-import { Footer } from '@/components/navigation/footer'
-import { ThanksCTACard } from '@/components/site/thanks-cta-card'
-import Image from 'next/image'
-import type { Metadata } from 'next'
+import { Footer } from "@/components/navigation/footer";
+import { Header } from "@/components/navigation/header";
+import { ThanksCTACard } from "@/components/site/thanks-cta-card";
+import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n/routing";
+import { auth } from "@/lib/auth";
+import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
+import { headers } from "next/headers";
+import Image from "next/image";
 
 // Optimize static generation
-export const dynamic = 'force-static'
-export const revalidate = 3600 // Revalidate every hour
+export const dynamic = "force-dynamic";
+export const revalidate = 0; // Disable caching to ensure fresh session data
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string }>
+  params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
-  const { locale } = await params
-  const t = await getTranslations({ locale })
+  const { locale } = await params;
+  const t = await getTranslations({ locale });
 
-  const title = t('home.hero.title')
-  const description = t('home.hero.description')
-  const url = 'https://healthincloud.app'
+  const title = t("home.hero.title");
+  const description = t("home.hero.description");
+  const url = "https://healthincloud.app";
 
   return {
     title,
@@ -29,13 +31,13 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      type: 'website',
-      locale: locale === 'fr' ? 'fr_FR' : 'en_US',
+      type: "website",
+      locale: locale === "fr" ? "fr_FR" : "en_US",
       url: `${url}/${locale}`,
-      siteName: 'Health In Cloud',
+      siteName: "Health In Cloud",
       images: [
         {
-          url: '/og-image.png',
+          url: "/og-image.png",
           width: 1200,
           height: 630,
           alt: title,
@@ -43,12 +45,12 @@ export async function generateMetadata({
       ],
     },
     twitter: {
-      card: 'summary_large_image',
+      card: "summary_large_image",
       title,
       description,
-      images: ['/og-image.png'],
-      creator: '@healthincloud',
-      site: '@healthincloud',
+      images: ["/og-image.png"],
+      creator: "@healthincloud",
+      site: "@healthincloud",
     },
     alternates: {
       canonical: `${url}/${locale}`,
@@ -57,45 +59,46 @@ export async function generateMetadata({
         en: `${url}/en`,
       },
     },
-  }
+  };
 }
 
 import {
-  User,
-  Stethoscope,
-  Brain,
-  Mic,
-  CheckCircle,
-  Target,
-  Zap,
   BarChart3,
-  Smartphone,
+  Brain,
+  CheckCircle,
+  Mic,
   Moon,
   Shield,
-} from 'lucide-react'
+  Smartphone,
+  Stethoscope,
+  Target,
+  User,
+  Zap,
+} from "lucide-react";
 
-export default async function HomePage({
-  params,
-}: {
-  params: Promise<{ locale: string }>
-}) {
-  const { locale } = await params
-  const t = await getTranslations({ locale })
+export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale });
+
+  // Check if user is authenticated
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
 
   // WebPage structured data for landing page
   const webPageSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'WebPage',
-    name: t('home.hero.title'),
-    description: t('home.hero.description'),
-    url: 'https://healthincloud.app',
-    inLanguage: 'fr-FR',
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: t("home.hero.title"),
+    description: t("home.hero.description"),
+    url: "https://healthincloud.app",
+    inLanguage: "fr-FR",
     isPartOf: {
-      '@type': 'WebSite',
-      name: 'Health In Cloud',
-      url: 'https://healthincloud.app',
+      "@type": "WebSite",
+      name: "Health In Cloud",
+      url: "https://healthincloud.app",
     },
-  }
+  };
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -108,64 +111,83 @@ export default async function HomePage({
         {/* Hero Section */}
         <section className="gradient-hero overflow-hidden">
           <div className="container flex min-h-[calc(100vh-5rem)] flex-col items-center justify-center gap-8 px-4 py-12 text-center md:py-16">
-              <div className="max-w-2xl space-y-4">
-                <h1 className="text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-6xl">
-                  {t('home.hero.title')}
-                </h1>
-                <p className="text-lg leading-relaxed text-muted-foreground md:text-xl">
-                  {t('home.hero.description')}
-                </p>
-              </div>
+            <div className="max-w-2xl space-y-4">
+              <h1 className="text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-6xl">
+                {t("home.hero.title")}
+              </h1>
+              <p className="text-lg leading-relaxed text-muted-foreground md:text-xl">
+                {t("home.hero.description")}
+              </p>
+            </div>
 
-              <div className="flex flex-col gap-4 sm:flex-row">
+            <div className="flex flex-col gap-4 sm:flex-row">
+              {session?.user ? (
                 <Button asChild size="lg" className="w-full text-base sm:w-56">
-                  <Link href="/auth/signup">{t('home.hero.cta')}</Link>
+                  <Link href="/dashboard">
+                    {t("home.hero.ctaAuthenticated")}
+                  </Link>
                 </Button>
-                <Button asChild variant="outline" size="lg" className="w-full text-base sm:w-56">
-                  <Link href="/auth/login">{t('auth.signIn')}</Link>
-                </Button>
-              </div>
+              ) : (
+                <>
+                  <Button
+                    asChild
+                    size="lg"
+                    className="w-full text-base sm:w-56"
+                  >
+                    <Link href="/auth/signup">{t("home.hero.cta")}</Link>
+                  </Button>
+                  <Button
+                    asChild
+                    variant="outline"
+                    size="lg"
+                    className="w-full text-base sm:w-56"
+                  >
+                    <Link href="/auth/login">{t("auth.signIn")}</Link>
+                  </Button>
+                </>
+              )}
+            </div>
 
-              <div className="w-full max-w-3xl mx-auto">
-                <div className="rounded-3xl border border-primary/20 bg-card/80 p-6 shadow-xl backdrop-blur md:p-8">
-                  <div className="grid gap-6 sm:grid-cols-3">
-                    <div className="flex flex-col items-center text-center">
-                      <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-                        <Brain className="h-6 w-6" aria-hidden="true" />
-                      </span>
-                      <h3 className="mb-2 text-base font-semibold">
-                        {t('home.hero.highlightGuidedTitle')}
-                      </h3>
-                      <p className="text-sm text-muted-foreground">
-                        {t('home.hero.highlightGuidedDescription')}
-                      </p>
-                    </div>
-                    <div className="flex flex-col items-center text-center">
-                      <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-                        <Mic className="h-6 w-6" aria-hidden="true" />
-                      </span>
-                      <h3 className="mb-2 text-base font-semibold">
-                        {t('home.hero.highlightFeedbackTitle')}
-                      </h3>
-                      <p className="text-sm text-muted-foreground">
-                        {t('home.hero.highlightFeedbackDescription')}
-                      </p>
-                    </div>
-                    <div className="flex flex-col items-center text-center">
-                      <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-                        <Smartphone className="h-6 w-6" aria-hidden="true" />
-                      </span>
-                      <h3 className="mb-2 text-base font-semibold">
-                        {t('home.hero.highlightDevicesTitle')}
-                      </h3>
-                      <p className="text-sm text-muted-foreground">
-                        {t('home.hero.highlightDevicesDescription')}
-                      </p>
-                    </div>
+            <div className="w-full max-w-3xl mx-auto">
+              <div className="rounded-3xl border border-primary/20 bg-card/80 p-6 shadow-xl backdrop-blur md:p-8">
+                <div className="grid gap-6 sm:grid-cols-3">
+                  <div className="flex flex-col items-center text-center">
+                    <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+                      <Brain className="h-6 w-6" aria-hidden="true" />
+                    </span>
+                    <h3 className="mb-2 text-base font-semibold">
+                      {t("home.hero.highlightGuidedTitle")}
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      {t("home.hero.highlightGuidedDescription")}
+                    </p>
+                  </div>
+                  <div className="flex flex-col items-center text-center">
+                    <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+                      <Mic className="h-6 w-6" aria-hidden="true" />
+                    </span>
+                    <h3 className="mb-2 text-base font-semibold">
+                      {t("home.hero.highlightFeedbackTitle")}
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      {t("home.hero.highlightFeedbackDescription")}
+                    </p>
+                  </div>
+                  <div className="flex flex-col items-center text-center">
+                    <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+                      <Smartphone className="h-6 w-6" aria-hidden="true" />
+                    </span>
+                    <h3 className="mb-2 text-base font-semibold">
+                      {t("home.hero.highlightDevicesTitle")}
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      {t("home.hero.highlightDevicesDescription")}
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
         </section>
 
         {/* Problems & Solutions Section */}
@@ -176,7 +198,8 @@ export default async function HomePage({
                 Nous résolvons vos défis quotidiens
               </h2>
               <p className="text-lg text-muted-foreground">
-                Notre plateforme répond aux besoins spécifiques des patients et des cliniciens
+                Notre plateforme répond aux besoins spécifiques des patients et
+                des cliniciens
               </p>
             </div>
 
@@ -192,7 +215,9 @@ export default async function HomePage({
                 <div className="p-6">
                   <div className="space-y-6">
                     <div>
-                      <h4 className="mb-3 text-sm font-semibold">Difficultés actuelles :</h4>
+                      <h4 className="mb-3 text-sm font-semibold">
+                        Difficultés actuelles :
+                      </h4>
                       <ul className="space-y-2 text-sm text-muted-foreground">
                         <li>• Difficile de retenir les exercices prescrits</li>
                         <li>• Pas de feedback entre les séances</li>
@@ -200,18 +225,29 @@ export default async function HomePage({
                       </ul>
                     </div>
                     <div>
-                      <h4 className="mb-3 text-sm font-semibold text-primary">Notre solution :</h4>
+                      <h4 className="mb-3 text-sm font-semibold text-primary">
+                        Notre solution :
+                      </h4>
                       <ul className="space-y-2 text-sm text-primary">
                         <li className="flex items-start gap-2">
-                          <CheckCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+                          <CheckCircle
+                            className="mt-0.5 h-4 w-4 shrink-0"
+                            aria-hidden="true"
+                          />
                           <span>Accès permanent aux exercices guidés</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <CheckCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+                          <CheckCircle
+                            className="mt-0.5 h-4 w-4 shrink-0"
+                            aria-hidden="true"
+                          />
                           <span>Feedback instantané sur les performances</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <CheckCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+                          <CheckCircle
+                            className="mt-0.5 h-4 w-4 shrink-0"
+                            aria-hidden="true"
+                          />
                           <span>Encouragements motivationnels</span>
                         </li>
                       </ul>
@@ -231,22 +267,34 @@ export default async function HomePage({
                 <div className="p-6">
                   <div className="space-y-6">
                     <div>
-                      <h4 className="mb-3 text-sm font-semibold">Difficultés actuelles :</h4>
+                      <h4 className="mb-3 text-sm font-semibold">
+                        Difficultés actuelles :
+                      </h4>
                       <ul className="space-y-2 text-sm text-muted-foreground">
                         <li>• Aucune visibilité sur la pratique à domicile</li>
                         <li>• Difficile de quantifier les progrès</li>
                       </ul>
                     </div>
                     <div>
-                      <h4 className="mb-3 text-sm font-semibold text-primary">Notre solution :</h4>
+                      <h4 className="mb-3 text-sm font-semibold text-primary">
+                        Notre solution :
+                      </h4>
                       <ul className="space-y-2 text-sm text-primary">
                         <li className="flex items-start gap-2">
-                          <CheckCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+                          <CheckCircle
+                            className="mt-0.5 h-4 w-4 shrink-0"
+                            aria-hidden="true"
+                          />
                           <span>Tableau de bord résumant l&apos;adhérence</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <CheckCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
-                          <span>Tendances de performance et insights actionnables</span>
+                          <CheckCircle
+                            className="mt-0.5 h-4 w-4 shrink-0"
+                            aria-hidden="true"
+                          />
+                          <span>
+                            Tendances de performance et insights actionnables
+                          </span>
                         </li>
                       </ul>
                     </div>
@@ -258,7 +306,10 @@ export default async function HomePage({
         </section>
 
         {/* Features Section */}
-        <section id="fonctionnalites" className="bg-[var(--color-bg-2)] py-16 md:py-24">
+        <section
+          id="fonctionnalites"
+          className="bg-[var(--color-bg-2)] py-16 md:py-24"
+        >
           <div className="container px-4">
             <div className="mx-auto mb-12 max-w-3xl text-center">
               <h2 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">
@@ -274,9 +325,12 @@ export default async function HomePage({
                 <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10">
                   <Target className="h-8 w-8 text-primary" aria-hidden="true" />
                 </div>
-                <h3 className="mb-2 text-lg font-semibold">Exercices guidés 24/7</h3>
+                <h3 className="mb-2 text-lg font-semibold">
+                  Exercices guidés 24/7
+                </h3>
                 <p className="text-sm text-muted-foreground">
-                  Accès permanent à vos exercices prescrits avec guidage vocal et visuel
+                  Accès permanent à vos exercices prescrits avec guidage vocal
+                  et visuel
                 </p>
               </div>
 
@@ -284,27 +338,41 @@ export default async function HomePage({
                 <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10">
                   <Zap className="h-8 w-8 text-primary" aria-hidden="true" />
                 </div>
-                <h3 className="mb-2 text-lg font-semibold">Feedback instantané</h3>
+                <h3 className="mb-2 text-lg font-semibold">
+                  Feedback instantané
+                </h3>
                 <p className="text-sm text-muted-foreground">
-                  Retours immédiats sur vos performances pour progresser efficacement
+                  Retours immédiats sur vos performances pour progresser
+                  efficacement
                 </p>
               </div>
 
               <div className="card-hover rounded-xl border bg-card p-6 text-center shadow-sm">
                 <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10">
-                  <BarChart3 className="h-8 w-8 text-primary" aria-hidden="true" />
+                  <BarChart3
+                    className="h-8 w-8 text-primary"
+                    aria-hidden="true"
+                  />
                 </div>
-                <h3 className="mb-2 text-lg font-semibold">Suivi des progrès</h3>
+                <h3 className="mb-2 text-lg font-semibold">
+                  Suivi des progrès
+                </h3>
                 <p className="text-sm text-muted-foreground">
-                  Visualisation claire de votre évolution avec graphiques et statistiques
+                  Visualisation claire de votre évolution avec graphiques et
+                  statistiques
                 </p>
               </div>
 
               <div className="card-hover rounded-xl border bg-card p-6 text-center shadow-sm">
                 <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10">
-                  <Smartphone className="h-8 w-8 text-primary" aria-hidden="true" />
+                  <Smartphone
+                    className="h-8 w-8 text-primary"
+                    aria-hidden="true"
+                  />
                 </div>
-                <h3 className="mb-2 text-lg font-semibold">Design mobile-first</h3>
+                <h3 className="mb-2 text-lg font-semibold">
+                  Design mobile-first
+                </h3>
                 <p className="text-sm text-muted-foreground">
                   Interface optimisée pour tablettes et smartphones
                 </p>
@@ -340,7 +408,9 @@ export default async function HomePage({
               <h2 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">
                 Ils nous font confiance
               </h2>
-              <p className="text-lg text-muted-foreground">Témoignages de nos utilisateurs</p>
+              <p className="text-lg text-muted-foreground">
+                Témoignages de nos utilisateurs
+              </p>
             </div>
 
             <div className="grid gap-8 md:grid-cols-2">
@@ -349,14 +419,16 @@ export default async function HomePage({
                 <div className="mb-6 text-center text-6xl">👩‍🦳</div>
                 <div className="mb-4">
                   <h3 className="mb-1 text-lg font-semibold">Marie, 48 ans</h3>
-                  <p className="mb-1 text-sm font-medium text-primary">Patiente en rééducation</p>
+                  <p className="mb-1 text-sm font-medium text-primary">
+                    Patiente en rééducation
+                  </p>
                   <p className="text-sm text-muted-foreground">
                     Post-AVC ischémique avec troubles cognitifs et de la parole
                   </p>
                 </div>
                 <blockquote className="border-l-4 border-primary pl-4 italic">
-                  &ldquo;Je veux continuer à pratiquer à la maison comme je le fais avec mon thérapeute et
-                  voir si je progresse.&rdquo;
+                  &ldquo;Je veux continuer à pratiquer à la maison comme je le
+                  fais avec mon thérapeute et voir si je progresse.&rdquo;
                 </blockquote>
               </div>
 
@@ -364,15 +436,21 @@ export default async function HomePage({
               <div className="rounded-xl border bg-card p-8 shadow-sm">
                 <div className="mb-6 text-center text-6xl">👩‍⚕️</div>
                 <div className="mb-4">
-                  <h3 className="mb-1 text-lg font-semibold">Dr. Typhaine, 43 ans</h3>
-                  <p className="mb-1 text-sm font-medium text-primary">Orthophoniste</p>
+                  <h3 className="mb-1 text-lg font-semibold">
+                    Dr. Typhaine, 43 ans
+                  </h3>
+                  <p className="mb-1 text-sm font-medium text-primary">
+                    Orthophoniste
+                  </p>
                   <p className="text-sm text-muted-foreground">
-                    Clinicienne en médecine de réadaptation, 20-30 patients actifs
+                    Clinicienne en médecine de réadaptation, 20-30 patients
+                    actifs
                   </p>
                 </div>
                 <blockquote className="border-l-4 border-primary pl-4 italic">
-                  &ldquo;J&apos;ai besoin de visibilité sur la pratique à domicile de mes patients pour ajuster
-                  mes recommandations de manière proactive.&rdquo;
+                  &ldquo;J&apos;ai besoin de visibilité sur la pratique à
+                  domicile de mes patients pour ajuster mes recommandations de
+                  manière proactive.&rdquo;
                 </blockquote>
               </div>
             </div>
@@ -397,7 +475,9 @@ export default async function HomePage({
                   1
                 </div>
                 <div>
-                  <h3 className="mb-2 font-semibold">Découverte et inscription</h3>
+                  <h3 className="mb-2 font-semibold">
+                    Découverte et inscription
+                  </h3>
                   <p className="text-sm text-muted-foreground">
                     Découvrez la plateforme et créez votre compte sécurisé
                   </p>
@@ -411,7 +491,8 @@ export default async function HomePage({
                 <div>
                   <h3 className="mb-2 font-semibold">Premier exercice</h3>
                   <p className="text-sm text-muted-foreground">
-                    Complétez votre premier exercice et recevez un feedback immédiat
+                    Complétez votre premier exercice et recevez un feedback
+                    immédiat
                   </p>
                 </div>
               </div>
@@ -423,7 +504,8 @@ export default async function HomePage({
                 <div>
                   <h3 className="mb-2 font-semibold">Entraînement quotidien</h3>
                   <p className="text-sm text-muted-foreground">
-                    Réalisez 2-3 exercices par session avec suivi des performances
+                    Réalisez 2-3 exercices par session avec suivi des
+                    performances
                   </p>
                 </div>
               </div>
@@ -435,7 +517,8 @@ export default async function HomePage({
                 <div>
                   <h3 className="mb-2 font-semibold">Suivi des progrès</h3>
                   <p className="text-sm text-muted-foreground">
-                    Consultez vos statistiques détaillées et exportez vos rapports PDF
+                    Consultez vos statistiques détaillées et exportez vos
+                    rapports PDF
                   </p>
                 </div>
               </div>
@@ -450,44 +533,58 @@ export default async function HomePage({
               <h2 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">
                 Technologie & Accessibilité
               </h2>
-              <p className="text-lg text-muted-foreground">Une plateforme moderne et inclusive</p>
+              <p className="text-lg text-muted-foreground">
+                Une plateforme moderne et inclusive
+              </p>
             </div>
 
             <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
               <div className="text-center">
                 <div className="mx-auto mb-3 text-4xl">📱</div>
                 <h3 className="mb-1 text-sm font-semibold">Mobile-first</h3>
-                <p className="text-xs text-muted-foreground">Expérience responsive optimisée</p>
+                <p className="text-xs text-muted-foreground">
+                  Expérience responsive optimisée
+                </p>
               </div>
 
               <div className="text-center">
                 <div className="mx-auto mb-3 text-4xl">♿</div>
                 <h3 className="mb-1 text-sm font-semibold">WCAG 2.1 AA</h3>
-                <p className="text-xs text-muted-foreground">Accessibilité garantie</p>
+                <p className="text-xs text-muted-foreground">
+                  Accessibilité garantie
+                </p>
               </div>
 
               <div className="text-center">
                 <div className="mx-auto mb-3 text-4xl">📶</div>
                 <h3 className="mb-1 text-sm font-semibold">PWA Hors ligne</h3>
-                <p className="text-xs text-muted-foreground">Utilisation sans connexion</p>
+                <p className="text-xs text-muted-foreground">
+                  Utilisation sans connexion
+                </p>
               </div>
 
               <div className="text-center">
                 <div className="mx-auto mb-3 text-4xl">🌐</div>
                 <h3 className="mb-1 text-sm font-semibold">Bilingue FR/EN</h3>
-                <p className="text-xs text-muted-foreground">Changement instantané</p>
+                <p className="text-xs text-muted-foreground">
+                  Changement instantané
+                </p>
               </div>
 
               <div className="text-center">
                 <div className="mx-auto mb-3 text-4xl">🔒</div>
                 <h3 className="mb-1 text-sm font-semibold">RGPD</h3>
-                <p className="text-xs text-muted-foreground">Données de santé protégées</p>
+                <p className="text-xs text-muted-foreground">
+                  Données de santé protégées
+                </p>
               </div>
 
               <div className="text-center">
                 <div className="mx-auto mb-3 text-4xl">⚡</div>
                 <h3 className="mb-1 text-sm font-semibold">Performance</h3>
-                <p className="text-xs text-muted-foreground">≥90/100 Lighthouse</p>
+                <p className="text-xs text-muted-foreground">
+                  ≥90/100 Lighthouse
+                </p>
               </div>
             </div>
           </div>
@@ -501,13 +598,35 @@ export default async function HomePage({
                 Prêt à commencer votre rééducation ?
               </h2>
               <p className="mb-8 text-lg text-muted-foreground">
-                Rejoignez dès maintenant les patients qui font confiance à Health In Cloud pour leur rééducation
+                Rejoignez dès maintenant les patients qui font confiance à
+                Health In Cloud pour leur rééducation
               </p>
               <div className="flex flex-col justify-center gap-4 sm:flex-row">
-                <Button asChild size="lg" className="w-full text-base sm:w-56">
-                  <Link href="/auth/signup">Créer mon compte</Link>
-                </Button>
-                <Button asChild variant="outline" size="lg" className="w-full text-base sm:w-56">
+                {session?.user ? (
+                  <Button
+                    asChild
+                    size="lg"
+                    className="w-full text-base sm:w-56"
+                  >
+                    <Link href="/dashboard">
+                      {t("home.hero.ctaAuthenticated")}
+                    </Link>
+                  </Button>
+                ) : (
+                  <Button
+                    asChild
+                    size="lg"
+                    className="w-full text-base sm:w-56"
+                  >
+                    <Link href="/auth/signup">Créer mon compte</Link>
+                  </Button>
+                )}
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className="w-full text-base sm:w-56"
+                >
                   <Link href="/about">En savoir plus</Link>
                 </Button>
               </div>
@@ -525,8 +644,9 @@ export default async function HomePage({
                     Toujours à portée de main
                   </h2>
                   <p className="mb-6 text-lg text-muted-foreground">
-                    Accédez à vos exercices de rééducation où que vous soyez. Notre plateforme est
-                    optimisée pour mobile et tablette, vous offrant une expérience fluide et intuitive.
+                    Accédez à vos exercices de rééducation où que vous soyez.
+                    Notre plateforme est optimisée pour mobile et tablette, vous
+                    offrant une expérience fluide et intuitive.
                   </p>
                   <ul className="mb-8 space-y-3">
                     <li className="flex items-start gap-3">
@@ -594,7 +714,8 @@ export default async function HomePage({
                     </li>
                   </ul>
                   <p className="text-sm text-muted-foreground">
-                    Scannez le QR code pour accéder directement à la plateforme depuis votre mobile
+                    Scannez le QR code pour accéder directement à la plateforme
+                    depuis votre mobile
                   </p>
                 </div>
 
@@ -635,9 +756,10 @@ export default async function HomePage({
                   Soutenez ce projet
                 </h2>
                 <p className="mb-6 text-muted-foreground">
-                  Ce projet est développé avec passion pour aider les patients en rééducation.
-                  Si vous souhaitez soutenir son développement et partager mon parcours de renaissance
-                  après un AVC, vous pouvez contribuer via Tipeee.
+                  Ce projet est développé avec passion pour aider les patients
+                  en rééducation. Si vous souhaitez soutenir son développement
+                  et partager mon parcours de renaissance après un AVC, vous
+                  pouvez contribuer via Tipeee.
                 </p>
                 <Button asChild size="lg" className="gap-2">
                   <a
@@ -656,5 +778,5 @@ export default async function HomePage({
       </main>
       <Footer />
     </div>
-  )
+  );
 }
