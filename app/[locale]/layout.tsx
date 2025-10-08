@@ -1,7 +1,8 @@
 import { ThemeScript } from "@/app/theme-script";
-import { LocaleDebugger } from "@/components/debug/locale-debugger";
 import { AuthDebugger } from "@/components/debug/auth-debugger";
+import { LocaleDebugger } from "@/components/debug/locale-debugger";
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import { PWAInstallPrompt } from "@/components/pwa/pwa-install-prompt";
 import { Toaster } from "@/components/ui/sonner";
 import { routing } from "@/i18n/routing";
 import type { Metadata } from "next";
@@ -182,6 +183,7 @@ export default async function LocaleLayout({
           >
             {children}
             <Toaster />
+            <PWAInstallPrompt />
             <LocaleDebugger />
             <AuthDebugger />
           </ThemeProvider>

@@ -7,12 +7,20 @@
       "url": [
         "http://localhost:3000/fr",
         "http://localhost:3000/fr/about",
-        "http://localhost:3000/en"
+        "http://localhost:3000/fr/dashboard",
+        "http://localhost:3000/en",
+        "http://localhost:3000/en/dashboard"
       ],
       "numberOfRuns": 3,
       "settings": {
         "preset": "desktop",
-        "onlyCategories": ["performance", "accessibility", "best-practices", "seo", "pwa"]
+        "onlyCategories": [
+          "performance",
+          "accessibility",
+          "best-practices",
+          "seo",
+          "pwa"
+        ]
       }
     },
     "assert": {
@@ -21,7 +29,7 @@
         "categories:accessibility": ["error", { "minScore": 0.9 }],
         "categories:best-practices": ["error", { "minScore": 0.95 }],
         "categories:seo": ["error", { "minScore": 1.0 }],
-        "categories:pwa": ["warn", { "minScore": 0.8 }]
+        "categories:pwa": ["error", { "minScore": 0.9 }]
       }
     },
     "upload": {

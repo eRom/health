@@ -23,13 +23,29 @@ const serwist = new Serwist({
   fallbacks: {
     entries: [
       {
-        url: '/offline',
+        url: "/fr/offline",
         matcher({ request }) {
-          return request.destination === 'document'
+          return (
+            request.destination === "document" && request.url.includes("/fr/")
+          );
+        },
+      },
+      {
+        url: "/en/offline",
+        matcher({ request }) {
+          return (
+            request.destination === "document" && request.url.includes("/en/")
+          );
+        },
+      },
+      {
+        url: "/offline",
+        matcher({ request }) {
+          return request.destination === "document";
         },
       },
     ],
   },
-})
+});
 
 serwist.addEventListeners()
