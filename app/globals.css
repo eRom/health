@@ -122,43 +122,150 @@
 
 /* Dark mode theme - explicit class */
 .dark {
-  @theme inline {
-    /* Dark mode semantic tokens */
-    --color-background: var(--color-charcoal-700);
-    --color-foreground: var(--color-gray-200);
-    --color-card: var(--color-charcoal-800);
-    --color-card-foreground: var(--color-gray-200);
-    --color-popover: var(--color-charcoal-800);
-    --color-popover-foreground: var(--color-gray-200);
-    --color-primary: var(--color-teal-300);
-    --color-primary-foreground: var(--color-slate-900);
-    --color-secondary: rgba(119, 124, 124, 0.15);
-    --color-secondary-foreground: var(--color-gray-200);
-    --color-muted: rgba(119, 124, 124, 0.15);
-    --color-muted-foreground: rgba(167, 169, 169, 0.85);
-    --color-accent: var(--color-teal-300);
-    --color-accent-foreground: var(--color-slate-900);
-    --color-destructive: #ff5459;
-    --color-destructive-foreground: var(--color-gray-200);
-    --color-border: rgba(119, 124, 124, 0.3);
-    --color-input: rgba(119, 124, 124, 0.3);
-    --color-ring: var(--color-teal-300);
+  /* Dark mode semantic tokens - Direct color values */
+  --color-background: #1f2121;
+  --color-foreground: #f5f5f5;
+  --color-card: #262828;
+  --color-card-foreground: #f5f5f5;
+  --color-popover: #262828;
+  --color-popover-foreground: #f5f5f5;
+  --color-primary: #32b8c6;
+  --color-primary-foreground: #13343b;
+  --color-secondary: rgba(119, 124, 124, 0.15);
+  --color-secondary-foreground: #f5f5f5;
+  --color-muted: rgba(119, 124, 124, 0.15);
+  --color-muted-foreground: rgba(167, 169, 169, 0.85);
+  --color-accent: #32b8c6;
+  --color-accent-foreground: #13343b;
+  --color-destructive: #ff5459;
+  --color-destructive-foreground: #f5f5f5;
+  --color-border: rgba(119, 124, 124, 0.3);
+  --color-input: rgba(119, 124, 124, 0.3);
+  --color-ring: #32b8c6;
 
-    /* Dark mode background palette */
-    --color-bg-1: rgba(29, 78, 216, 0.15);
-    --color-bg-2: rgba(180, 83, 9, 0.15);
-    --color-bg-3: rgba(21, 128, 61, 0.15);
-    --color-bg-4: rgba(185, 28, 28, 0.15);
-    --color-bg-5: rgba(107, 33, 168, 0.15);
-    --color-bg-6: rgba(194, 65, 12, 0.15);
-    --color-bg-7: rgba(190, 24, 93, 0.15);
-    --color-bg-8: rgba(8, 145, 178, 0.15);
+  /* Dark mode background palette */
+  --color-bg-1: rgba(29, 78, 216, 0.15);
+  --color-bg-2: rgba(180, 83, 9, 0.15);
+  --color-bg-3: rgba(21, 128, 61, 0.15);
+  --color-bg-4: rgba(185, 28, 28, 0.15);
+  --color-bg-5: rgba(107, 33, 168, 0.15);
+  --color-bg-6: rgba(194, 65, 12, 0.15);
+  --color-bg-7: rgba(190, 24, 93, 0.15);
+  --color-bg-8: rgba(8, 145, 178, 0.15);
 
-    /* Dark mode shadows */
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
-  }
+  /* Dark mode shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+}
+
+/* Force dark theme for specific components */
+.dark .bg-card {
+  background-color: #262828 !important;
+  color: #f5f5f5 !important;
+}
+
+.dark .bg-card\/95 {
+  background-color: rgba(38, 40, 40, 0.95) !important;
+}
+
+.dark .bg-card\/80 {
+  background-color: rgba(38, 40, 40, 0.8) !important;
+}
+
+.dark .text-card-foreground {
+  color: #f5f5f5 !important;
+}
+
+.dark .border {
+  border-color: rgba(119, 124, 124, 0.3) !important;
+}
+
+/* Force dark theme for buttons */
+.dark .bg-primary {
+  background-color: #32b8c6 !important;
+  color: #13343b !important;
+}
+
+.dark .text-primary {
+  color: #32b8c6 !important;
+}
+
+.dark .hover\:text-primary:hover {
+  color: #32b8c6 !important;
+}
+
+/* Force dark theme for ghost and outline buttons */
+.dark [data-variant="ghost"] {
+  background-color: transparent !important;
+  color: #f5f5f5 !important;
+}
+
+.dark [data-variant="ghost"]:hover {
+  background-color: rgba(119, 124, 124, 0.15) !important;
+  color: #f5f5f5 !important;
+}
+
+.dark [data-variant="outline"] {
+  background-color: transparent !important;
+  color: #f5f5f5 !important;
+  border-color: rgba(119, 124, 124, 0.3) !important;
+}
+
+.dark [data-variant="outline"]:hover {
+  background-color: rgba(119, 124, 124, 0.15) !important;
+  color: #f5f5f5 !important;
+}
+
+/* Force dark theme for navigation links */
+.dark nav a {
+  color: #f5f5f5 !important;
+}
+
+.dark nav a:hover {
+  color: #32b8c6 !important;
+}
+
+/* Force dark theme for ALL buttons with bg-background */
+.dark .bg-background {
+  background-color: #262828 !important;
+  color: #f5f5f5 !important;
+}
+
+.dark .bg-background:hover {
+  background-color: rgba(119, 124, 124, 0.15) !important;
+  color: #f5f5f5 !important;
+}
+
+/* Force dark theme for buttons with border-input */
+.dark .border-input {
+  border-color: rgba(119, 124, 124, 0.3) !important;
+}
+
+/* Force dark theme for buttons with shadow-sm */
+.dark .shadow-sm {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Force dark theme for group buttons */
+.dark .group {
+  color: #f5f5f5 !important;
+}
+
+.dark .group:hover {
+  background-color: rgba(119, 124, 124, 0.15) !important;
+  color: #f5f5f5 !important;
+}
+
+/* Force dark theme for data-state buttons */
+.dark [data-state="open"] {
+  background-color: rgba(119, 124, 124, 0.15) !important;
+  color: #f5f5f5 !important;
+}
+
+.dark [data-state="open"]:hover {
+  background-color: rgba(119, 124, 124, 0.25) !important;
+  color: #f5f5f5 !important;
 }
 
 /* Base styles */
