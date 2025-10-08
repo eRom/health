@@ -635,7 +635,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         </section>
 
         {/* Mobile App Section */}
-        <section className="py-16 md:py-24">
+        <section className="py-16 md:py-24 hidden md:block">
           <div className="container px-4">
             <div className="mx-auto max-w-5xl">
               <div className="grid gap-12 md:grid-cols-2 md:items-center">
