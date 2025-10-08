@@ -2,9 +2,9 @@
 
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import bcrypt from "bcryptjs";
 import { headers } from 'next/headers'
-import { z } from 'zod'
-import bcrypt from 'bcryptjs'
+import { z } from "zod";
 
 const changePasswordSchema = z.object({
   currentPassword: z.string().min(1, 'Mot de passe actuel requis'),
@@ -26,44 +26,50 @@ export async function changePassword(data: {
 }) {
   try {
     // Validate input
-    const validated = changePasswordSchema.parse(data)
+    const validated = changePasswordSchema.parse(data);
 
     // Get current session
     const session = await auth.api.getSession({
       headers: await headers(),
-    })
+    });
 
     if (!session?.user?.id) {
-      return { success: false, error: 'Non authentifié' }
+      return { success: false, error: "Non authentifié" };
     }
 
     // Get user account with password (credential provider)
     const account = await prisma.account.findFirst({
       where: {
         userId: session.user.id,
-        providerId: 'credential',
+        providerId: "credential",
       },
-    })
+    });
 
     if (!account || !account.password) {
-      return { success: false, error: 'Compte sans mot de passe (connexion OAuth)' }
+      return {
+        success: false,
+        error: "Compte sans mot de passe (connexion OAuth)",
+      };
     }
 
-    // Verify current password
-    const isValidPassword = await bcrypt.compare(validated.currentPassword, account.password)
+    // Verify current password using BetterAuth's verification
+    const isValidPassword = await bcrypt.compare(
+      validated.currentPassword,
+      account.password
+    );
 
     if (!isValidPassword) {
-      return { success: false, error: 'Mot de passe actuel incorrect' }
+      return { success: false, error: "Mot de passe actuel incorrect" };
     }
 
-    // Hash new password
-    const hashedPassword = await bcrypt.hash(validated.newPassword, 10)
+    // Hash new password using BetterAuth's hashing function
+    const hashedPassword = await bcrypt.hash(validated.newPassword, 10);
 
-    // Update password
+    // Update password in database
     await prisma.account.update({
       where: { id: account.id },
       data: { password: hashedPassword },
-    })
+    });
 
     // Revoke all other sessions (keep current one)
     await prisma.session.deleteMany({
@@ -71,12 +77,14 @@ export async function changePassword(data: {
         userId: session.user.id,
         id: { not: session.session.id },
       },
-    })
+    });
 
     // Log password change for audit
-    console.log(`[PASSWORD_CHANGE] User ${session.user.id} changed password at ${new Date().toISOString()}`)
+    console.log(
+      `[PASSWORD_CHANGE] User ${session.user.id} changed password at ${new Date().toISOString()}`
+    );
 
-    return { success: true }
+    return { success: true };
   } catch (error) {
     if (error instanceof z.ZodError) {
       return { success: false, error: error.issues[0]?.message || 'Validation échouée' }
