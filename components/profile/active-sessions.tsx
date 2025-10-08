@@ -1,7 +1,9 @@
 'use client'
 
-import { useState } from 'react'
-import { Button } from '@/components/ui/button'
+import {
+  revokeAllOtherSessions,
+  revokeSession,
+} from "@/app/actions/revoke-session";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -12,30 +14,21 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@/components/ui/alert-dialog'
-import { revokeSession, revokeAllOtherSessions } from '@/app/actions/revoke-session'
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
 import { UAParser } from 'ua-parser-js'
 
 type Session = {
-  id: string
-  createdAt: Date
-  updatedAt: Date
-  userId: string
-  expiresAt: Date
-  token: string
-  ipAddress: string | null
-  userAgent: string | null
-}
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+  userId: string;
+  expiresAt: Date;
+  token: string;
+  userAgent: string | null;
+};
 
-function maskIpAddress(ip: string | null): string {
-  if (!ip) return 'IP inconnue'
-  const parts = ip.split('.')
-  if (parts.length === 4) {
-    return `${parts[0]}.${parts[1]}.x.x`
-  }
-  // IPv6 or other format
-  return ip.substring(0, 10) + '...'
-}
 
 function parseUserAgent(userAgent: string | null) {
   if (!userAgent) {
@@ -133,7 +126,7 @@ export function ActiveSessions({
           <div
             key={session.id}
             className={`flex items-center justify-between rounded-lg border p-4 ${
-              isCurrent ? 'border-primary bg-primary/5' : ''
+              isCurrent ? "border-primary bg-primary/5" : ""
             }`}
           >
             <div className="flex-1">
@@ -149,12 +142,11 @@ export function ActiveSessions({
               </div>
               <div className="mt-1 flex flex-col gap-1 text-sm text-muted-foreground">
                 <p>{os}</p>
-                <p>IP: {maskIpAddress(session.ipAddress)}</p>
                 <p>
-                  Dernière activité:{' '}
-                  {new Date(session.updatedAt).toLocaleString('fr-FR', {
-                    dateStyle: 'short',
-                    timeStyle: 'short',
+                  Dernière activité:{" "}
+                  {new Date(session.updatedAt).toLocaleString("fr-FR", {
+                    dateStyle: "short",
+                    timeStyle: "short",
                   })}
                 </p>
               </div>
@@ -168,15 +160,17 @@ export function ActiveSessions({
                     size="sm"
                     disabled={revokingId === session.id || isRevokingAll}
                   >
-                    {revokingId === session.id ? 'Révocation...' : 'Révoquer'}
+                    {revokingId === session.id ? "Révocation..." : "Révoquer"}
                   </Button>
                 </AlertDialogTrigger>
                 <AlertDialogContent>
                   <AlertDialogHeader>
-                    <AlertDialogTitle>Révoquer cette session ?</AlertDialogTitle>
+                    <AlertDialogTitle>
+                      Révoquer cette session ?
+                    </AlertDialogTitle>
                     <AlertDialogDescription>
-                      Cette action déconnectera cet appareil. Vous devrez vous reconnecter
-                      pour y accéder à nouveau.
+                      Cette action déconnectera cet appareil. Vous devrez vous
+                      reconnecter pour y accéder à nouveau.
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>
@@ -189,7 +183,7 @@ export function ActiveSessions({
               </AlertDialog>
             )}
           </div>
-        )
+        );
       })}
 
       {localSessions.length === 0 && (
