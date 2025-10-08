@@ -57,9 +57,9 @@ Users → Cloudflare (CDN, DNS, WAF) → Vercel (Next.js) → Prisma → Neon Po
 app/
 ├─ [locale]/(site)/         # Public: landing, about, privacy, legal, gdpr
 ├─ [locale]/(auth)/         # Auth flows: login, signup (with layouts for metadata)
-├─ [locale]/(app)/          # Protected: dashboard, analyse, neuro, ortho, profile (with layouts)
+├─ [locale]/(app)/          # Protected: dashboard, analyse, neuro, ortho, ergo, kine, profile (with layouts)
 ├─ actions/                 # Server actions: profile, password, sessions, preferences, analysis
-├─ api/                     # API routes: auth, sentry
+├─ api/                     # API routes: auth, exercises/{neuro,ortho,ergo,kine}, sentry
 ├─ theme-script.tsx         # Blocking script for theme (FOUC prevention)
 ├─ sitemap.ts               # Dynamic sitemap
 └─ robots.ts                # Robots.txt configuration
@@ -68,10 +68,11 @@ components/
 ├─ ui/                      # shadcn primitives + Logo component
 ├─ navigation/              # Header, Footer, LanguageSwitcher
 ├─ auth/                    # LoginForm, SignupForm, UserNav
-├─ profile/                 # 9 profile components (security, preferences, delete)
-├─ analyse/                 # 5 analysis components (KPIs, charts, filters)
+├─ profile/                 # 9 profile components (security, preferences, delete, sessions)
+├─ analyse/                 # 7 analysis components (KPIs, charts, filters, type distribution, difficulty breakdown)
 ├─ dashboard/               # Dashboard components (stats cards, recent exercises)
 ├─ providers/               # ThemeProvider wrapper (next-themes)
+├─ debug/                   # Auth & locale debuggers (dev only)
 └─ seo/                     # StructuredData component (JSON-LD)
 
 lib/
@@ -79,9 +80,11 @@ lib/
 ├─ auth-client.ts           # Better Auth client helper
 ├─ prisma.ts                # Prisma singleton
 ├─ sentry.ts                # Sentry helpers
-├─ exercises.ts             # Exercise catalogue loader
-├─ constants/               # Exercise constants (difficulty colors, etc.)
-├─ data/exercises/          # Exercise JSON catalogues (neuro, ortho)
+├─ exercises.ts             # Exercise catalogue loader (4 types: neuro, ortho, ergo, kine)
+├─ locale-utils.ts          # Locale detection & validation helpers
+├─ constants/               # Exercise constants (difficulty colors, type colors, etc.)
+├─ data/exercises/          # Exercise JSON catalogues (neuro, ortho, ergo, kine)
+├─ schemas/                 # Zod schemas (exercise validation)
 └─ utils.ts                 # cn() + other utilities
 
 Other key directories:
@@ -273,8 +276,21 @@ See [.specs/MCP_GUIDE.md](.specs/MCP_GUIDE.md) for detailed usage examples.
 
 **Mobile-first**: Responsive design, dark theme default, PWA planned for offline support
 
+**Exercise Types** (4 total):
+- **Neuropsychologie** (neuro): Memory, attention, cognitive exercises
+- **Orthophonie** (ortho): Speech, language, phonology exercises
+- **Ergothérapie** (ergo): Daily activities, fine motor skills **[NEW]**
+- **Kinésithérapie** (kine): Mobility, balance, strength **[NEW]**
+
+Each type has:
+- JSON catalogue in `lib/data/exercises/{type}.json`
+- API route at `/api/exercises/{type}`
+- Dedicated page at `/[locale]/{type}`
+- Localized content (FR/EN)
+
 **Key Dependencies**:
 - **Recharts** (v3.2.1): Data visualization library for analysis charts
   - Line charts, bar charts, pie/donut charts
   - Accessible, responsive, dark mode compatible
   - Used in `/dashboard/analyse` page
+  - **Test setup**: Requires ResizeObserver mock in `test-setup.ts`

@@ -7,7 +7,7 @@
 ---
 
 ## 1. Snapshot
-- **Overall score**: 9.1/10
+- **Overall score**: 9.2/10
 - **Confidence**: High (automated tests + CI/CD)
 - **Next review window**: February 2025
 
@@ -16,17 +16,17 @@
 ## 2. Scorecard (current)
 | Category | Score /10 | Trend vs last review | Commentary |
 |----------|-----------|----------------------|------------|
-| Architecture | 10 | → | App Router + route groups (site/auth/app), clean RSC/client boundary. |
+| Architecture | 10 | → | App Router + route groups (site/auth/app), clean RSC/client boundary. 4 exercise types (neuro, ortho, ergo, kine). |
 | TypeScript | 10 | → | Strict mode enabled, strong typing across codebase. |
 | Accessibility | 9 | → | WCAG AA baseline, semantic HTML in legal pages & landing. |
-| Security | 10 | → | Better Auth credential provider, secure session handling. |
+| Security | 10 | → | Better Auth credential provider, secure session handling, bulk session revoke. |
 | Performance | 9 | ↗️ +1 | Static pages optimized (force-static, revalidation), QR code image optimized (51% size reduction), lazy loading configured. |
-| Internationalisation | 10 | → | FR/EN parity with next-intl, legal pages fully translated. |
-| SEO | 9 | ↘️ -1 | Internal links using `<a>` instead of `<Link />` in legal pages. |
-| Tests | 9 | ↗️ +2 | 54 unit tests (70%+ coverage on actions/auth), 6 E2E specs; CI/CD configured. |
-| Monitoring | 10 | → | Sentry configured; analytics hooks ready. |
+| Internationalisation | 10 | → | FR/EN parity with next-intl, legal pages fully translated, new exercise types localized. |
+| SEO | 10 | ↗️ +1 | All internal links use Next.js `<Link />`, external links properly use `<a>` with rel attributes. Sitemap/robots configured. |
+| Tests | 9 | → | 100 tests total (14 files), coverage maintained despite feature growth. ResizeObserver mock for Recharts. |
+| Monitoring | 10 | → | Sentry configured; analytics hooks ready, enhanced debugging components. |
 | Documentation | 10 | → | Complete specs + legal pages (about, privacy, GDPR, legal notice). |
-| Error handling | 10 | → | Error boundaries implemented, fault-tolerant flows. |
+| Error handling | 10 | → | Error boundaries implemented, fault-tolerant flows, improved analysis error handling. |
 | Infrastructure | 10 | → | Vercel + Neon + domain healthincloud.app configured. |
 
 > **How to update**: adjust the score (0–10), update the trend arrow (`↗️`, `↘️`, `→`) with delta (e.g., `+1`, `-2`), and refresh the commentary with the rationale.
@@ -36,6 +36,9 @@
 ## 3. Change Log
 | Date | Category | Old → New | Driver |
 |------|----------|-----------|--------|
+| 2025-10-08 | SEO | 9 → 10 | Audit confirmed: all internal links already use Next.js `<Link />`. Previous issue was misidentified - ESLint errors are in Storybook files (not production). |
+| 2025-10-08 | Tests | 9 → 9 | Added 5 test files: get-analysis-data action, ergo/kine API routes, 2 Analysis components (100 tests total). ResizeObserver mock for Recharts. Coverage maintained. |
+| 2025-10-08 | Features | N/A | New exercise types: ergothérapie (ergo), kinésithérapie (kine) with API routes, JSON catalogues, pages. Enhanced analysis with type distribution chart, difficulty breakdown. Bulk revoke sessions. |
 | 2025-10-05 | Performance | 8 → 9 | Phase 4 optimizations: static page generation (force-static + revalidation), QR code optimization (2.09KB→1.02KB, 51% reduction), lazy loading, proper image sizing. |
 | 2025-01-05 | Tests | 7 → 9 | Added 54 unit tests (auth-client, server actions, forms), 3 new E2E specs (theme, mobile, complete-journey), GitHub Actions CI/CD workflow with coverage gates. |
 | 2025-01-05 | Performance | 9 → 8 | Build fails with 60+ ESLint errors (unescaped quotes in legal/landing pages). |
@@ -54,10 +57,10 @@
 ### Short term (next 4–6 weeks)
 | Category | Current | Target | Key actions |
 |----------|---------|--------|-------------|
-| Performance | 9 | 10 | ✅ Static optimization done. Next: Fix ESLint errors, further image optimization if needed. |
-| SEO | 9 | 10 | Convert all internal `<a>` links to Next.js `<Link />` in legal pages. |
-| Tests | 9 | 9 | ✅ **DONE**: 54 unit tests, 6 E2E specs, CI/CD configured. Next: maintain coverage as codebase grows. |
-| PWA readiness | 6 | 8 | Implement service worker, offline shell. |
+| Performance | 9 | 10 | ✅ Static optimization done. Next: Further image optimization if needed. |
+| SEO | 10 | 10 | ✅ **DONE**: All internal links use `<Link />`, sitemap/robots configured. ESLint errors are in Storybook only (non-production). |
+| Tests | 9 | 9 | ✅ **DONE**: 100 tests (14 files), 6 E2E specs, CI/CD configured. Next: maintain coverage as codebase grows. |
+| PWA readiness | 6 | 8 | Service worker implemented. Next: test offline functionality, add background sync. |
 | Analytics | 5 | 8 | Enable Vercel/Plausible analytics and track core events. |
 
 ### Mid term (next quarter)
