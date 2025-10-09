@@ -5,22 +5,38 @@ import {
   createWebPageSchema,
 } from "@/components/seo/structured-data";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
 // Optimize static generation
 export const dynamic = "force-static";
 export const revalidate = 86400; // Revalidate once per day
 
-export const metadata: Metadata = {
-  title: "RGPD - Conformité et droits",
-  description:
-    "Conformité RGPD de Health In Cloud. Vos droits concernant vos données personnelles et de santé selon le règlement européen.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "pageGDPR" });
 
-export default function GDPRPage() {
+  return {
+    title: t("metadata.title"),
+    description: t("metadata.description"),
+  };
+}
+
+export default async function GDPRPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "pageGDPR" });
+
   const schema = createWebPageSchema(
-    "RGPD - Conformité et droits",
-    "Conformité RGPD de Health In Cloud. Vos droits concernant vos données personnelles et de santé selon le règlement européen.",
-    "https://healthincloud.app/fr/gdpr"
+    t("title"),
+    t("metadata.description"),
+    `https://healthincloud.app/${locale}/gdpr`
   );
 
   return (
@@ -30,78 +46,73 @@ export default function GDPRPage() {
       <main className="flex-1 pt-20">
         <div className="container px-4 py-16">
           <div className="mx-auto max-w-4xl">
-            <h1 className="mb-8 text-4xl font-bold">Conformité RGPD</h1>
+            <h1 className="mb-8 text-4xl font-bold">{t("title")}</h1>
 
             <div className="prose prose-lg dark:prose-invert max-w-none">
-              <p className="mb-6 text-muted-foreground">
-                Health In Cloud s&apos;engage à respecter le Règlement Général
-                sur la Protection des Données (RGPD).
-              </p>
+              <p className="mb-6 text-muted-foreground">{t("intro")}</p>
 
               <section className="mb-12">
                 <h2 className="mb-4 text-2xl font-semibold">
-                  1. Responsable du Traitement
+                  {t("controller.title")}
                 </h2>
                 <div className="rounded-lg border bg-card p-6">
                   <p className="mb-2">
-                    <strong>Responsable :</strong> Romain Ecarnot
+                    <strong>{t("controller.responsible")}</strong>{" "}
+                    {t("controller.name")}
                   </p>
                   <p className="mb-2">
-                    <strong>Email :</strong> dpo@healthincloud.app
+                    <strong>{t("controller.email")}</strong>{" "}
+                    {t("controller.emailValue")}
                   </p>
                 </div>
               </section>
 
               <section className="mb-12">
                 <h2 className="mb-4 text-2xl font-semibold">
-                  2. Finalités du Traitement
+                  {t("purposes.title")}
                 </h2>
                 <p className="mb-4 text-muted-foreground">
-                  Vos données sont traitées pour les finalités suivantes :
+                  {t("purposes.intro")}
                 </p>
                 <ul className="mb-4 ml-6 list-disc space-y-2 text-muted-foreground">
-                  <li>Gestion de votre compte utilisateur</li>
-                  <li>Fourniture des services de rééducation</li>
-                  <li>Suivi de votre progression thérapeutique</li>
-                  <li>Communication avec votre équipe soignante</li>
-                  <li>Amélioration de nos services</li>
-                  <li>Respect de nos obligations légales</li>
+                  {t
+                    .raw("purposes.items")
+                    .map((item: string, index: number) => (
+                      <li key={index}>{item}</li>
+                    ))}
                 </ul>
               </section>
 
               <section className="mb-12">
                 <h2 className="mb-4 text-2xl font-semibold">
-                  3. Bases Légales
+                  {t("legalBases.title")}
                 </h2>
                 <p className="mb-4 text-muted-foreground">
-                  Le traitement de vos données repose sur :
+                  {t("legalBases.intro")}
                 </p>
                 <div className="space-y-4">
                   <div className="rounded-lg border bg-card p-6">
                     <h3 className="mb-2 font-semibold">
-                      Consentement (Art. 6.1.a RGPD)
+                      {t("legalBases.consent.title")}
                     </h3>
                     <p className="text-sm text-muted-foreground">
-                      Pour le traitement de vos données de santé, nous
-                      recueillons votre consentement explicite et éclairé.
+                      {t("legalBases.consent.description")}
                     </p>
                   </div>
                   <div className="rounded-lg border bg-card p-6">
                     <h3 className="mb-2 font-semibold">
-                      Exécution du Contrat (Art. 6.1.b RGPD)
+                      {t("legalBases.contract.title")}
                     </h3>
                     <p className="text-sm text-muted-foreground">
-                      Pour la fourniture des services de rééducation que vous
-                      avez souscrits.
+                      {t("legalBases.contract.description")}
                     </p>
                   </div>
                   <div className="rounded-lg border bg-card p-6">
                     <h3 className="mb-2 font-semibold">
-                      Intérêt Légitime (Art. 6.1.f RGPD)
+                      {t("legalBases.legitimate.title")}
                     </h3>
                     <p className="text-sm text-muted-foreground">
-                      Pour l&apos;amélioration de nos services et la sécurité de
-                      la plateforme.
+                      {t("legalBases.legitimate.description")}
                     </p>
                   </div>
                 </div>
@@ -109,73 +120,66 @@ export default function GDPRPage() {
 
               <section className="mb-12">
                 <h2 className="mb-4 text-2xl font-semibold">
-                  4. Vos Droits RGPD
+                  {t("rights.title")}
                 </h2>
                 <p className="mb-4 text-muted-foreground">
-                  Conformément aux articles 15 à 22 du RGPD, vous disposez des
-                  droits suivants :
+                  {t("rights.intro")}
                 </p>
                 <div className="space-y-4">
                   <div className="rounded-lg border-l-4 border-primary bg-card p-4">
                     <h3 className="mb-2 font-semibold">
-                      Droit d&apos;accès (Art. 15)
+                      {t("rights.access.title")}
                     </h3>
                     <p className="text-sm text-muted-foreground">
-                      Vous pouvez obtenir une copie de toutes vos données
-                      personnelles.
+                      {t("rights.access.description")}
                     </p>
                   </div>
                   <div className="rounded-lg border-l-4 border-primary bg-card p-4">
                     <h3 className="mb-2 font-semibold">
-                      Droit de rectification (Art. 16)
+                      {t("rights.rectification.title")}
                     </h3>
                     <p className="text-sm text-muted-foreground">
-                      Vous pouvez demander la correction de données inexactes ou
-                      incomplètes.
+                      {t("rights.rectification.description")}
                     </p>
                   </div>
                   <div className="rounded-lg border-l-4 border-primary bg-card p-4">
                     <h3 className="mb-2 font-semibold">
-                      Droit à l&apos;effacement (Art. 17)
+                      {t("rights.erasure.title")}
                     </h3>
                     <p className="text-sm text-muted-foreground">
-                      Vous pouvez demander la suppression de vos données dans
-                      certaines conditions.
+                      {t("rights.erasure.description")}
                     </p>
                   </div>
                   <div className="rounded-lg border-l-4 border-primary bg-card p-4">
                     <h3 className="mb-2 font-semibold">
-                      Droit à la limitation (Art. 18)
+                      {t("rights.limitation.title")}
                     </h3>
                     <p className="text-sm text-muted-foreground">
-                      Vous pouvez demander la limitation du traitement de vos
-                      données.
+                      {t("rights.limitation.description")}
                     </p>
                   </div>
                   <div className="rounded-lg border-l-4 border-primary bg-card p-4">
                     <h3 className="mb-2 font-semibold">
-                      Droit à la portabilité (Art. 20)
+                      {t("rights.portability.title")}
                     </h3>
                     <p className="text-sm text-muted-foreground">
-                      Vous pouvez recevoir vos données dans un format structuré
-                      et couramment utilisé.
+                      {t("rights.portability.description")}
                     </p>
                   </div>
                   <div className="rounded-lg border-l-4 border-primary bg-card p-4">
                     <h3 className="mb-2 font-semibold">
-                      Droit d&apos;opposition (Art. 21)
+                      {t("rights.objection.title")}
                     </h3>
                     <p className="text-sm text-muted-foreground">
-                      Vous pouvez vous opposer au traitement de vos données pour
-                      des raisons tenant à votre situation particulière.
+                      {t("rights.objection.description")}
                     </p>
                   </div>
                   <div className="rounded-lg border-l-4 border-primary bg-card p-4">
                     <h3 className="mb-2 font-semibold">
-                      Retrait du consentement (Art. 7.3)
+                      {t("rights.withdraw.title")}
                     </h3>
                     <p className="text-sm text-muted-foreground">
-                      Vous pouvez retirer votre consentement à tout moment.
+                      {t("rights.withdraw.description")}
                     </p>
                   </div>
                 </div>
@@ -183,14 +187,14 @@ export default function GDPRPage() {
 
               <section className="mb-12">
                 <h2 className="mb-4 text-2xl font-semibold">
-                  5. Exercer vos Droits
+                  {t("exercise.title")}
                 </h2>
                 <p className="mb-4 text-muted-foreground">
-                  Pour exercer l&apos;un de ces droits, vous pouvez :
+                  {t("exercise.intro")}
                 </p>
                 <ul className="mb-4 ml-6 list-disc space-y-2 text-muted-foreground">
                   <li>
-                    Envoyer un email à :{" "}
+                    {t("exercise.email")}{" "}
                     <a
                       href="mailto:dpo@healthincloud.app"
                       className="text-primary hover:underline"
@@ -198,70 +202,70 @@ export default function GDPRPage() {
                       dpo@healthincloud.app
                     </a>
                   </li>
-                  <li>Utiliser le formulaire de contact sur votre profil</li>
+                  <li>{t("exercise.form")}</li>
                 </ul>
                 <div className="rounded-lg border bg-primary/5 p-6">
-                  <p className="mb-2 font-semibold">Délai de réponse :</p>
+                  <p className="mb-2 font-semibold">
+                    {t("exercise.responseTime.title")}
+                  </p>
                   <p className="text-sm text-muted-foreground">
-                    Nous nous engageons à vous répondre dans un délai maximum
-                    d&apos;un mois suivant la réception de votre demande,
-                    conformément à l&apos;article 12.3 du RGPD.
+                    {t("exercise.responseTime.description")}
                   </p>
                 </div>
               </section>
 
               <section className="mb-12">
                 <h2 className="mb-4 text-2xl font-semibold">
-                  6. Sécurité des Données
+                  {t("security.title")}
                 </h2>
                 <p className="mb-4 text-muted-foreground">
-                  Conformément à l&apos;article 32 du RGPD, nous mettons en
-                  œuvre les mesures techniques et organisationnelles appropriées
-                  :
+                  {t("security.intro")}
                 </p>
                 <ul className="mb-4 ml-6 list-disc space-y-2 text-muted-foreground">
-                  <li>Chiffrement des données (en transit et au repos)</li>
-                  <li>Authentification forte</li>
-                  <li>Hébergement certifié HDS</li>
-                  <li>Contrôle d&apos;accès strict</li>
-                  <li>Journalisation des accès</li>
-                  <li>Sauvegardes régulières</li>
-                  <li>Tests de sécurité périodiques</li>
+                  {t
+                    .raw("security.measures")
+                    .map((measure: string, index: number) => (
+                      <li key={index}>{measure}</li>
+                    ))}
                 </ul>
               </section>
 
               <section className="mb-12">
                 <h2 className="mb-4 text-2xl font-semibold">
-                  7. Transferts de Données
+                  {t("transfers.title")}
                 </h2>
                 <p className="mb-4 text-muted-foreground">
-                  Vos données sont hébergées au sein de l&apos;Union Européenne.
-                  Aucun transfert hors UE n&apos;est effectué sans garanties
-                  appropriées conformément à l&apos;article 44 du RGPD.
+                  {t("transfers.description")}
                 </p>
               </section>
 
               <section className="mb-12">
-                <h2 className="mb-4 text-2xl font-semibold">8. Réclamation</h2>
+                <h2 className="mb-4 text-2xl font-semibold">
+                  {t("complaints.title")}
+                </h2>
                 <p className="mb-4 text-muted-foreground">
-                  Si vous estimez que vos droits ne sont pas respectés, vous
-                  avez le droit d&apos;introduire une réclamation auprès de la
-                  CNIL :
+                  {t("complaints.intro")}
                 </p>
                 <div className="rounded-lg border bg-card p-6">
                   <p className="mb-2">
-                    <strong>CNIL</strong>
+                    <strong>{t("complaints.cnil.name")}</strong>
                   </p>
-                  <p className="mb-1 text-sm">3 Place de Fontenoy</p>
-                  <p className="mb-1 text-sm">TSA 80715</p>
-                  <p className="mb-1 text-sm">75334 PARIS CEDEX 07</p>
+                  <p className="mb-1 text-sm">
+                    {t("complaints.cnil.address1")}
+                  </p>
+                  <p className="mb-1 text-sm">
+                    {t("complaints.cnil.address2")}
+                  </p>
+                  <p className="mb-1 text-sm">
+                    {t("complaints.cnil.address3")}
+                  </p>
                   <p className="text-sm">
-                    Site :{" "}
+                    {t("complaints.cnil.website")}{" "}
                     <a
                       href="https://www.cnil.fr"
                       className="text-primary hover:underline"
                     >
-                      www.cnil.fr
+                      {t("complaints.cnil.url")}
                     </a>
                   </p>
                 </div>
@@ -269,13 +273,11 @@ export default function GDPRPage() {
 
               <section className="rounded-lg border bg-primary/5 p-8">
                 <h2 className="mb-4 text-2xl font-semibold">
-                  Délégué à la Protection des Données
+                  {t("dpo.title")}
                 </h2>
-                <p className="mb-2 text-muted-foreground">
-                  Pour toute question relative à la protection de vos données :
-                </p>
+                <p className="mb-2 text-muted-foreground">{t("dpo.intro")}</p>
                 <p className="text-muted-foreground">
-                  Email :{" "}
+                  {t("dpo.email")}{" "}
                   <a
                     href="mailto:dpo@healthincloud.app"
                     className="text-primary hover:underline"

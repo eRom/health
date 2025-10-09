@@ -243,7 +243,361 @@
     },
     "retry": "Réessayer"
   },
-  "thanks": {
+  "pageAbout": {
+    "metadata": {
+      "title": "À propos",
+      "description": "Health In Cloud - Plateforme de rééducation orthophonique et neuropsychologique pour accompagner les patients en réadaptation."
+    },
+    "title": "À propos de Health In Cloud",
+    "mission": {
+      "title": "Notre Mission",
+      "p1": "Health In Cloud est une plateforme web dédiée à la rééducation orthophonique et neuropsychologique, conçue pour accompagner les patients en réadaptation.",
+      "p2": "Notre mission est de fournir aux patients en rééducation un accès permanent à des exercices guidés, avec un suivi personnalisé et des retours instantanés, permettant une pratique autonome entre les séances avec les thérapeutes."
+    },
+    "approach": {
+      "title": "Notre Approche",
+      "intro": "Nous croyons en une approche centrée sur le patient, combinant :",
+      "item1": "Des exercices issus d'une expérience personnelle de rééducation",
+      "item2": "Une interface accessible et intuitive",
+      "item3": "Un suivi en temps réel des performances"
+    },
+    "values": {
+      "title": "Nos Valeurs",
+      "accessibility": {
+        "title": "Accessibilité",
+        "description": "Une plateforme utilisable par tous, optimisée pour les personnes en situation de handicap."
+      },
+      "security": {
+        "title": "Sécurité",
+        "description": "Protection maximale de vos données de santé, conforme RGPD."
+      },
+      "innovation": {
+        "title": "Innovation",
+        "description": "Utilisation des dernières technologies pour améliorer l'expérience utilisateur."
+      },
+      "collaboration": {
+        "title": "Collaboration",
+        "description": "Travail étroit avec les professionnels de santé pour garantir la qualité."
+      }
+    },
+    "support": {
+      "title": "Soutenez ce projet",
+      "description": "Ce projet est développé avec passion pour aider les patients en rééducation. Si vous souhaitez soutenir son développement et partager mon parcours de renaissance après un AVC, vous pouvez contribuer via Tipeee.",
+      "cta": "Soutenir sur Tipeee"
+    },
+    "contact": {
+      "title": "Nous Contacter",
+      "intro": "Pour toute question ou suggestion, n'hésitez pas à nous contacter :",
+      "emailLabel": "Email :"
+    }
+  },
+  "pageGDPR": {
+    "metadata": {
+      "title": "RGPD - Conformité et droits",
+      "description": "Conformité RGPD de Health In Cloud. Vos droits concernant vos données personnelles et de santé selon le règlement européen."
+    },
+    "title": "Conformité RGPD",
+    "intro": "Health In Cloud s'engage à respecter le Règlement Général sur la Protection des Données (RGPD).",
+    "controller": {
+      "title": "1. Responsable du Traitement",
+      "responsible": "Responsable :",
+      "name": "Romain Ecarnot",
+      "email": "Email :",
+      "emailValue": "dpo@healthincloud.app"
+    },
+    "purposes": {
+      "title": "2. Finalités du Traitement",
+      "intro": "Vos données sont traitées pour les finalités suivantes :",
+      "items": [
+        "Gestion de votre compte utilisateur",
+        "Fourniture des services de rééducation",
+        "Suivi de votre progression thérapeutique",
+        "Communication avec votre équipe soignante",
+        "Amélioration de nos services",
+        "Respect de nos obligations légales"
+      ]
+    },
+    "legalBases": {
+      "title": "3. Bases Légales",
+      "intro": "Le traitement de vos données repose sur :",
+      "consent": {
+        "title": "Consentement (Art. 6.1.a RGPD)",
+        "description": "Pour le traitement de vos données de santé, nous recueillons votre consentement explicite et éclairé."
+      },
+      "contract": {
+        "title": "Exécution du Contrat (Art. 6.1.b RGPD)",
+        "description": "Pour la fourniture des services de rééducation que vous avez souscrits."
+      },
+      "legitimate": {
+        "title": "Intérêt Légitime (Art. 6.1.f RGPD)",
+        "description": "Pour l'amélioration de nos services et la sécurité de la plateforme."
+      }
+    },
+    "rights": {
+      "title": "4. Vos Droits RGPD",
+      "intro": "Conformément aux articles 15 à 22 du RGPD, vous disposez des droits suivants :",
+      "access": {
+        "title": "Droit d'accès (Art. 15)",
+        "description": "Vous pouvez obtenir une copie de toutes vos données personnelles."
+      },
+      "rectification": {
+        "title": "Droit de rectification (Art. 16)",
+        "description": "Vous pouvez demander la correction de données inexactes ou incomplètes."
+      },
+      "erasure": {
+        "title": "Droit à l'effacement (Art. 17)",
+        "description": "Vous pouvez demander la suppression de vos données dans certaines conditions."
+      },
+      "limitation": {
+        "title": "Droit à la limitation (Art. 18)",
+        "description": "Vous pouvez demander la limitation du traitement de vos données."
+      },
+      "portability": {
+        "title": "Droit à la portabilité (Art. 20)",
+        "description": "Vous pouvez recevoir vos données dans un format structuré et couramment utilisé."
+      },
+      "objection": {
+        "title": "Droit d'opposition (Art. 21)",
+        "description": "Vous pouvez vous opposer au traitement de vos données pour des raisons tenant à votre situation particulière."
+      },
+      "withdraw": {
+        "title": "Retrait du consentement (Art. 7.3)",
+        "description": "Vous pouvez retirer votre consentement à tout moment."
+      }
+    },
+    "exercise": {
+      "title": "5. Exercer vos Droits",
+      "intro": "Pour exercer l'un de ces droits, vous pouvez :",
+      "email": "Envoyer un email à :",
+      "form": "Utiliser le formulaire de contact sur votre profil",
+      "responseTime": {
+        "title": "Délai de réponse :",
+        "description": "Nous nous engageons à vous répondre dans un délai maximum d'un mois suivant la réception de votre demande, conformément à l'article 12.3 du RGPD."
+      }
+    },
+    "security": {
+      "title": "6. Sécurité des Données",
+      "intro": "Conformément à l'article 32 du RGPD, nous mettons en œuvre les mesures techniques et organisationnelles appropriées :",
+      "measures": [
+        "Chiffrement des données (en transit et au repos)",
+        "Authentification forte",
+        "Hébergement certifié HDS",
+        "Contrôle d'accès strict",
+        "Journalisation des accès",
+        "Sauvegardes régulières",
+        "Tests de sécurité périodiques"
+      ]
+    },
+    "transfers": {
+      "title": "7. Transferts de Données",
+      "description": "Vos données sont hébergées au sein de l'Union Européenne. Aucun transfert hors UE n'est effectué sans garanties appropriées conformément à l'article 44 du RGPD."
+    },
+    "complaints": {
+      "title": "8. Réclamation",
+      "intro": "Si vous estimez que vos droits ne sont pas respectés, vous avez le droit d'introduire une réclamation auprès de la CNIL :",
+      "cnil": {
+        "name": "CNIL",
+        "address1": "3 Place de Fontenoy",
+        "address2": "TSA 80715",
+        "address3": "75334 PARIS CEDEX 07",
+        "website": "Site :",
+        "url": "www.cnil.fr"
+      }
+    },
+    "dpo": {
+      "title": "Délégué à la Protection des Données",
+      "intro": "Pour toute question relative à la protection de vos données :",
+      "email": "Email :"
+    }
+  },
+  "pageLegal": {
+    "metadata": {
+      "title": "Mentions légales",
+      "description": "Mentions légales de Health In Cloud - Informations sur l'éditeur, l'hébergement et les conditions d'utilisation de la plateforme."
+    },
+    "title": "Mentions Légales",
+    "publisher": {
+      "title": "1. Éditeur du Site",
+      "intro": "Le site Health In Cloud est édité par :",
+      "companyName": "Raison sociale :",
+      "legalForm": "Forme juridique :",
+      "headquarters": "Siège social :",
+      "email": "Email :",
+      "siret": "SIRET :",
+      "companyValue": "Romain Ecarnot",
+      "legalFormValue": "Micro-entreprise",
+      "headquartersValue": "44230 Nantes",
+      "emailValue": "contact@healthincloud.app",
+      "siretValue": "49884262400039"
+    },
+    "director": {
+      "title": "2. Directeur de Publication",
+      "description": "Le directeur de publication est : Romain Ecarnot"
+    },
+    "hosting": {
+      "title": "3. Hébergement",
+      "intro": "Le site est hébergé par :",
+      "host": "Hébergeur :",
+      "region": "Région :",
+      "website": "Site web :",
+      "vercel": {
+        "name": "Vercel Inc.",
+        "region": "Europe, France, Paris",
+        "url": "vercel.com"
+      },
+      "databaseIntro": "Base de données hébergée par :",
+      "neon": {
+        "name": "Neon",
+        "region": "Europe, Allemagne, Frankfurt",
+        "url": "neon.tech"
+      }
+    },
+    "intellectual": {
+      "title": "4. Propriété Intellectuelle",
+      "p1": "L'ensemble du contenu de ce site (textes, images, vidéos, structure, design) est protégé par le droit d'auteur et est la propriété exclusive de Health In Cloud, sauf mention contraire.",
+      "p2": "Toute reproduction, représentation, modification, publication, adaptation de tout ou partie des éléments du site, quel que soit le moyen ou le procédé utilisé, est interdite, sauf autorisation écrite préalable."
+    },
+    "dataProtection": {
+      "title": "5. Protection des Données",
+      "p1": "Les données à caractère personnel collectées sur ce site sont traitées conformément au Règlement Général sur la Protection des Données (RGPD).",
+      "p2": "Pour plus d'informations, consultez notre",
+      "privacyLink": "Politique de Confidentialité"
+    },
+    "responsibility": {
+      "title": "6. Responsabilité",
+      "p1": "Health In Cloud met tout en œuvre pour offrir aux utilisateurs des informations et outils disponibles et vérifiés. Toutefois, nous ne pouvons être tenus responsables des erreurs, d'une absence de disponibilité des informations et/ou de la présence de virus.",
+      "p2": "Les exercices proposés ne remplacent pas un suivi médical professionnel et doivent être utilisés dans le cadre d'un protocole de soins supervisé par un professionnel de santé."
+    },
+    "hyperlinks": {
+      "title": "7. Liens Hypertextes",
+      "description": "Le site peut contenir des liens vers d'autres sites. Health In Cloud ne saurait être responsable du contenu de ces sites externes."
+    },
+    "applicableLaw": {
+      "title": "8. Droit Applicable",
+      "description": "Les présentes mentions légales sont soumises au droit français. En cas de litige, les tribunaux français seront seuls compétents."
+    },
+    "contact": {
+      "title": "Contact",
+      "intro": "Pour toute question concernant les mentions légales :",
+      "email": "Email :"
+    }
+  },
+  "pagePrivacy": {
+    "metadata": {
+      "title": "Politique de confidentialité",
+      "description": "Politique de confidentialité et protection des données personnelles de Health In Cloud. Traitement RGPD des données de santé."
+    },
+    "title": "Politique de Confidentialité",
+    "lastUpdated": "Dernière mise à jour : Octobre 2025",
+    "introduction": {
+      "title": "1. Introduction",
+      "description": "Health In Cloud (« nous », « notre », « nos ») s'engage à protéger la confidentialité de vos données personnelles. Cette politique de confidentialité explique comment nous collectons, utilisons et protégeons vos informations."
+    },
+    "dataCollected": {
+      "title": "2. Données Collectées",
+      "intro": "Nous collectons les données suivantes :",
+      "identification": {
+        "title": "Données d'identification :",
+        "description": "adresse email"
+      },
+      "technical": {
+        "title": "Données techniques :",
+        "description": "type de navigateur, données de connexion"
+      },
+      "usage": {
+        "title": "Données d'utilisation :",
+        "description": "interactions avec la plateforme, temps passé sur les exercices"
+      }
+    },
+    "dataUsage": {
+      "title": "3. Utilisation des Données",
+      "intro": "Vos données sont utilisées pour :",
+      "items": [
+        "Fournir les services de rééducation",
+        "Suivre votre progression thérapeutique",
+        "Améliorer nos services",
+        "Communiquer avec vous concernant votre compte",
+        "Respecter nos obligations légales"
+      ]
+    },
+    "legalBasis": {
+      "title": "4. Base Légale du Traitement",
+      "intro": "Le traitement de vos données repose sur :",
+      "items": [
+        "L'exécution du contrat de service",
+        "Le respect de nos obligations légales",
+        "Notre intérêt légitime à améliorer nos services"
+      ]
+    },
+    "dataSharing": {
+      "title": "5. Partage des Données",
+      "intro": "Vos données peuvent être partagées avec :",
+      "items": [
+        "Les professionnels de santé autorisés qui vous suivent",
+        "Nos prestataires techniques (hébergement sécurisé)",
+        "Les autorités compétentes en cas d'obligation légale"
+      ],
+      "noSale": "Nous ne vendons jamais vos données personnelles à des tiers."
+    },
+    "dataSecurity": {
+      "title": "6. Sécurité des Données",
+      "intro": "Nous mettons en œuvre des mesures de sécurité techniques et organisationnelles appropriées pour protéger vos données contre tout accès non autorisé, perte, destruction ou altération :",
+      "measures": [
+        "Chiffrement des données en transit (HTTPS) et au repos",
+        "Authentification sécurisée",
+        "Hébergement sur des serveurs certifiés européens",
+        "Accès limité aux données par le personnel autorisé uniquement"
+      ]
+    },
+    "dataRetention": {
+      "title": "7. Durée de Conservation",
+      "intro": "Vos données sont conservées :",
+      "items": [
+        "Pendant la durée de votre suivi thérapeutique",
+        "20 ans après la dernière consultation (conformément à la réglementation sur les données de santé)",
+        "3 ans après la fin de la relation contractuelle pour les données non-médicales"
+      ]
+    },
+    "userRights": {
+      "title": "8. Vos Droits",
+      "intro": "Conformément au RGPD, vous disposez des droits suivants :",
+      "access": {
+        "title": "Droit d'accès :",
+        "description": "obtenir une copie de vos données"
+      },
+      "rectification": {
+        "title": "Droit de rectification :",
+        "description": "corriger vos données inexactes"
+      },
+      "erasure": {
+        "title": "Droit à l'effacement :",
+        "description": "demander la suppression de vos données"
+      },
+      "limitation": {
+        "title": "Droit à la limitation :",
+        "description": "limiter le traitement de vos données"
+      },
+      "portability": {
+        "title": "Droit à la portabilité :",
+        "description": "recevoir vos données dans un format structuré"
+      },
+      "objection": {
+        "title": "Droit d'opposition :",
+        "description": "vous opposer au traitement de vos données"
+      },
+      "contact": "Pour exercer vos droits, contactez-nous à :"
+    },
+    "cookies": {
+      "title": "9. Cookies",
+      "description": "Nous utilisons des cookies strictement nécessaires au fonctionnement du service (authentification, préférences de langue). Aucun cookie de tracking ou publicitaire n'est utilisé."
+    },
+    "contact": {
+      "title": "Contact",
+      "intro": "Pour toute question concernant cette politique de confidentialité :",
+      "email": "Email :"
+    }
+  },
+  "pageThanks": {
     "title": "Merci",
     "subtitle": "Pour ma rééducation post-AVC, de Février à Novembre 2025, au MPR de Nantes - St Jacques",
     "hero": {

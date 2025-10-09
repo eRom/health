@@ -6,22 +6,38 @@ import {
 } from "@/components/seo/structured-data";
 import { Link } from "@/i18n/routing";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
 // Optimize static generation
 export const dynamic = "force-static";
 export const revalidate = 86400; // Revalidate once per day
 
-export const metadata: Metadata = {
-  title: "Mentions légales",
-  description:
-    "Mentions légales de Health In Cloud - Informations sur l'éditeur, l'hébergement et les conditions d'utilisation de la plateforme.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "pageLegal" });
 
-export default function LegalPage() {
+  return {
+    title: t("metadata.title"),
+    description: t("metadata.description"),
+  };
+}
+
+export default async function LegalPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "pageLegal" });
+
   const schema = createWebPageSchema(
-    "Mentions légales",
-    "Mentions légales de Health In Cloud - Informations sur l'éditeur, l'hébergement et les conditions d'utilisation de la plateforme.",
-    "https://healthincloud.app/fr/legal"
+    t("title"),
+    t("metadata.description"),
+    `https://healthincloud.app/${locale}/legal`
   );
 
   return (
@@ -31,83 +47,94 @@ export default function LegalPage() {
       <main className="flex-1 pt-20">
         <div className="container px-4 py-16">
           <div className="mx-auto max-w-4xl">
-            <h1 className="mb-8 text-4xl font-bold">Mentions Légales</h1>
+            <h1 className="mb-8 text-4xl font-bold">{t("title")}</h1>
 
             <div className="prose prose-lg dark:prose-invert max-w-none">
               <section className="mb-12">
                 <h2 className="mb-4 text-2xl font-semibold">
-                  1. Éditeur du Site
+                  {t("publisher.title")}
                 </h2>
                 <p className="mb-4 text-muted-foreground">
-                  Le site Health In Cloud est édité par :
+                  {t("publisher.intro")}
                 </p>
                 <div className="rounded-lg border bg-card p-6">
                   <p className="mb-2">
-                    <strong>Raison sociale :</strong> Romain Ecarnot
+                    <strong>{t("publisher.companyName")}</strong>{" "}
+                    {t("publisher.companyValue")}
                   </p>
                   <p className="mb-2">
-                    <strong>Forme juridique :</strong> Micro-entreprise
+                    <strong>{t("publisher.legalForm")}</strong>{" "}
+                    {t("publisher.legalFormValue")}
                   </p>
                   <p className="mb-2">
-                    <strong>Siège social :</strong> 44230 Nantes
+                    <strong>{t("publisher.headquarters")}</strong>{" "}
+                    {t("publisher.headquartersValue")}
                   </p>
                   <p className="mb-2">
-                    <strong>Email :</strong> contact@healthincloud.app
+                    <strong>{t("publisher.email")}</strong>{" "}
+                    {t("publisher.emailValue")}
                   </p>
                   <p className="mb-2">
-                    <strong>SIRET :</strong> 49884262400039
+                    <strong>{t("publisher.siret")}</strong>{" "}
+                    {t("publisher.siretValue")}
                   </p>
                 </div>
               </section>
 
               <section className="mb-12">
                 <h2 className="mb-4 text-2xl font-semibold">
-                  2. Directeur de Publication
+                  {t("director.title")}
                 </h2>
                 <p className="mb-4 text-muted-foreground">
-                  Le directeur de publication est : Romain Ecarnot
+                  {t("director.description")}
                 </p>
               </section>
 
               <section className="mb-12">
-                <h2 className="mb-4 text-2xl font-semibold">3. Hébergement</h2>
+                <h2 className="mb-4 text-2xl font-semibold">
+                  {t("hosting.title")}
+                </h2>
                 <p className="mb-4 text-muted-foreground">
-                  Le site est hébergé par :
+                  {t("hosting.intro")}
                 </p>
                 <div className="rounded-lg border bg-card p-6">
                   <p className="mb-2">
-                    <strong>Hébergeur :</strong> Vercel Inc.
+                    <strong>{t("hosting.host")}</strong>{" "}
+                    {t("hosting.vercel.name")}
                   </p>
                   <p className="mb-2">
-                    <strong>Région :</strong> Europe, France, Paris
+                    <strong>{t("hosting.region")}</strong>{" "}
+                    {t("hosting.vercel.region")}
                   </p>
                   <p className="mb-2">
-                    <strong>Site web :</strong>{" "}
+                    <strong>{t("hosting.website")}</strong>{" "}
                     <a
                       href="https://vercel.com"
                       className="text-primary hover:underline"
                     >
-                      vercel.com
+                      {t("hosting.vercel.url")}
                     </a>
                   </p>
                 </div>
-                <p className="mt-4 mb-4  text-muted-foreground">
-                  Base de données hébergée par :
+                <p className="mt-4 mb-4 text-muted-foreground">
+                  {t("hosting.databaseIntro")}
                 </p>
                 <div className="rounded-lg border bg-card p-6">
                   <p className="mb-2">
-                    <strong>Hébergeur :</strong> Neon
+                    <strong>{t("hosting.host")}</strong>{" "}
+                    {t("hosting.neon.name")}
                   </p>
                   <p className="mb-2">
-                    <strong>Région :</strong> Europe, Allemagne, Frankfurt
+                    <strong>{t("hosting.region")}</strong>{" "}
+                    {t("hosting.neon.region")}
                   </p>
                   <p className="mb-2">
-                    <strong>Site web :</strong>{" "}
+                    <strong>{t("hosting.website")}</strong>{" "}
                     <a
                       href="https://neon.tech"
                       className="text-primary hover:underline"
                     >
-                      neon.tech
+                      {t("hosting.neon.url")}
                     </a>
                   </p>
                 </div>
@@ -115,38 +142,27 @@ export default function LegalPage() {
 
               <section className="mb-12">
                 <h2 className="mb-4 text-2xl font-semibold">
-                  4. Propriété Intellectuelle
+                  {t("intellectual.title")}
                 </h2>
                 <p className="mb-4 text-muted-foreground">
-                  L&apos;ensemble du contenu de ce site (textes, images, vidéos,
-                  structure, design) est protégé par le droit d&apos;auteur et
-                  est la propriété exclusive de Health In Cloud, sauf mention
-                  contraire.
+                  {t("intellectual.p1")}
                 </p>
                 <p className="mb-4 text-muted-foreground">
-                  Toute reproduction, représentation, modification, publication,
-                  adaptation de tout ou partie des éléments du site, quel que
-                  soit le moyen ou le procédé utilisé, est interdite, sauf
-                  autorisation écrite préalable.
+                  {t("intellectual.p2")}
                 </p>
               </section>
 
               <section className="mb-12">
                 <h2 className="mb-4 text-2xl font-semibold">
-                  5. Protection des Données
+                  {t("dataProtection.title")}
                 </h2>
                 <p className="mb-4 text-muted-foreground">
-                  Les données à caractère personnel collectées sur ce site sont
-                  traitées conformément au Règlement Général sur la Protection
-                  des Données (RGPD).
+                  {t("dataProtection.p1")}
                 </p>
                 <p className="mb-4 text-muted-foreground">
-                  Pour plus d&apos;informations, consultez notre{" "}
-                  <Link
-                    href="/privacy"
-                    className="text-primary hover:underline"
-                  >
-                    Politique de Confidentialité
+                  {t("dataProtection.p2")}{" "}
+                  <Link href="/gdpr" className="text-primary hover:underline">
+                    {t("dataProtection.privacyLink")}
                   </Link>
                   .
                 </p>
@@ -154,51 +170,43 @@ export default function LegalPage() {
 
               <section className="mb-12">
                 <h2 className="mb-4 text-2xl font-semibold">
-                  6. Responsabilité
+                  {t("responsibility.title")}
                 </h2>
                 <p className="mb-4 text-muted-foreground">
-                  Health In Cloud met tout en œuvre pour offrir aux utilisateurs
-                  des informations et outils disponibles et vérifiés. Toutefois,
-                  nous ne pouvons être tenus responsables des erreurs,
-                  d&apos;une absence de disponibilité des informations et/ou de
-                  la présence de virus.
+                  {t("responsibility.p1")}
                 </p>
                 <p className="mb-4 text-muted-foreground">
-                  Les exercices proposés ne remplacent pas un suivi médical
-                  professionnel et doivent être utilisés dans le cadre d&apos;un
-                  protocole de soins supervisé par un professionnel de santé.
+                  {t("responsibility.p2")}
                 </p>
               </section>
 
               <section className="mb-12">
                 <h2 className="mb-4 text-2xl font-semibold">
-                  7. Liens Hypertextes
+                  {t("hyperlinks.title")}
                 </h2>
                 <p className="mb-4 text-muted-foreground">
-                  Le site peut contenir des liens vers d&apos;autres sites.
-                  Health In Cloud ne saurait être responsable du contenu de ces
-                  sites externes.
+                  {t("hyperlinks.description")}
                 </p>
               </section>
 
               <section className="mb-12">
                 <h2 className="mb-4 text-2xl font-semibold">
-                  8. Droit Applicable
+                  {t("applicableLaw.title")}
                 </h2>
                 <p className="mb-4 text-muted-foreground">
-                  Les présentes mentions légales sont soumises au droit
-                  français. En cas de litige, les tribunaux français seront
-                  seuls compétents.
+                  {t("applicableLaw.description")}
                 </p>
               </section>
 
               <section className="rounded-lg border bg-primary/5 p-8">
-                <h2 className="mb-4 text-2xl font-semibold">Contact</h2>
+                <h2 className="mb-4 text-2xl font-semibold">
+                  {t("contact.title")}
+                </h2>
                 <p className="mb-2 text-muted-foreground">
-                  Pour toute question concernant les mentions légales :
+                  {t("contact.intro")}
                 </p>
                 <p className="text-muted-foreground">
-                  Email :{" "}
+                  {t("contact.email")}{" "}
                   <a
                     href="mailto:contact@healthincloud.app"
                     className="text-primary hover:underline"

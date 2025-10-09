@@ -243,7 +243,361 @@
     },
     "retry": "Try Again"
   },
-  "thanks": {
+  "pageAbout": {
+    "metadata": {
+      "title": "About",
+      "description": "Health In Cloud - Orthophonic and neuropsychological rehabilitation platform to support patients in rehabilitation."
+    },
+    "title": "About Health In Cloud",
+    "mission": {
+      "title": "Our Mission",
+      "p1": "Health In Cloud is a web platform dedicated to orthophonic and neuropsychological rehabilitation, designed to support patients in rehabilitation.",
+      "p2": "Our mission is to provide rehabilitation patients with permanent access to guided exercises, with personalized tracking and instant feedback, enabling autonomous practice between therapy sessions."
+    },
+    "approach": {
+      "title": "Our Approach",
+      "intro": "We believe in a patient-centered approach, combining:",
+      "item1": "Exercises derived from personal rehabilitation experience",
+      "item2": "An accessible and intuitive interface",
+      "item3": "Real-time performance tracking"
+    },
+    "values": {
+      "title": "Our Values",
+      "accessibility": {
+        "title": "Accessibility",
+        "description": "A platform usable by everyone, optimized for people with disabilities."
+      },
+      "security": {
+        "title": "Security",
+        "description": "Maximum protection of your health data, GDPR compliant."
+      },
+      "innovation": {
+        "title": "Innovation",
+        "description": "Use of the latest technologies to improve user experience."
+      },
+      "collaboration": {
+        "title": "Collaboration",
+        "description": "Close collaboration with healthcare professionals to ensure quality."
+      }
+    },
+    "support": {
+      "title": "Support this project",
+      "description": "This project is developed with passion to help rehabilitation patients. If you want to support its development and share my journey of rebirth after a stroke, you can contribute via Tipeee.",
+      "cta": "Support on Tipeee"
+    },
+    "contact": {
+      "title": "Contact Us",
+      "intro": "For any questions or suggestions, please don't hesitate to contact us:",
+      "emailLabel": "Email:"
+    }
+  },
+  "pageGDPR": {
+    "metadata": {
+      "title": "GDPR - Compliance and Rights",
+      "description": "Health In Cloud GDPR compliance. Your rights regarding your personal and health data under European regulation."
+    },
+    "title": "GDPR Compliance",
+    "intro": "Health In Cloud is committed to respecting the General Data Protection Regulation (GDPR).",
+    "controller": {
+      "title": "1. Data Controller",
+      "responsible": "Controller:",
+      "name": "Romain Ecarnot",
+      "email": "Email:",
+      "emailValue": "dpo@healthincloud.app"
+    },
+    "purposes": {
+      "title": "2. Processing Purposes",
+      "intro": "Your data is processed for the following purposes:",
+      "items": [
+        "Management of your user account",
+        "Provision of rehabilitation services",
+        "Tracking your therapeutic progress",
+        "Communication with your care team",
+        "Improvement of our services",
+        "Compliance with our legal obligations"
+      ]
+    },
+    "legalBases": {
+      "title": "3. Legal Bases",
+      "intro": "The processing of your data is based on:",
+      "consent": {
+        "title": "Consent (Art. 6.1.a GDPR)",
+        "description": "For the processing of your health data, we collect your explicit and informed consent."
+      },
+      "contract": {
+        "title": "Contract Performance (Art. 6.1.b GDPR)",
+        "description": "For the provision of rehabilitation services you have subscribed to."
+      },
+      "legitimate": {
+        "title": "Legitimate Interest (Art. 6.1.f GDPR)",
+        "description": "For the improvement of our services and platform security."
+      }
+    },
+    "rights": {
+      "title": "4. Your GDPR Rights",
+      "intro": "In accordance with articles 15 to 22 of the GDPR, you have the following rights:",
+      "access": {
+        "title": "Right of Access (Art. 15)",
+        "description": "You can obtain a copy of all your personal data."
+      },
+      "rectification": {
+        "title": "Right of Rectification (Art. 16)",
+        "description": "You can request the correction of inaccurate or incomplete data."
+      },
+      "erasure": {
+        "title": "Right to Erasure (Art. 17)",
+        "description": "You can request the deletion of your data under certain conditions."
+      },
+      "limitation": {
+        "title": "Right to Restriction (Art. 18)",
+        "description": "You can request the limitation of processing of your data."
+      },
+      "portability": {
+        "title": "Right to Data Portability (Art. 20)",
+        "description": "You can receive your data in a structured and commonly used format."
+      },
+      "objection": {
+        "title": "Right to Object (Art. 21)",
+        "description": "You can object to the processing of your data for reasons relating to your particular situation."
+      },
+      "withdraw": {
+        "title": "Withdrawal of Consent (Art. 7.3)",
+        "description": "You can withdraw your consent at any time."
+      }
+    },
+    "exercise": {
+      "title": "5. Exercise Your Rights",
+      "intro": "To exercise any of these rights, you can:",
+      "email": "Send an email to:",
+      "form": "Use the contact form on your profile",
+      "responseTime": {
+        "title": "Response time:",
+        "description": "We undertake to respond to you within a maximum period of one month following receipt of your request, in accordance with article 12.3 of the GDPR."
+      }
+    },
+    "security": {
+      "title": "6. Data Security",
+      "intro": "In accordance with article 32 of the GDPR, we implement appropriate technical and organizational measures:",
+      "measures": [
+        "Data encryption (in transit and at rest)",
+        "Strong authentication",
+        "HDS certified hosting",
+        "Strict access control",
+        "Access logging",
+        "Regular backups",
+        "Periodic security testing"
+      ]
+    },
+    "transfers": {
+      "title": "7. Data Transfers",
+      "description": "Your data is hosted within the European Union. No transfers outside the EU are made without appropriate safeguards in accordance with article 44 of the GDPR."
+    },
+    "complaints": {
+      "title": "8. Complaints",
+      "intro": "If you believe your rights are not being respected, you have the right to lodge a complaint with the CNIL:",
+      "cnil": {
+        "name": "CNIL",
+        "address1": "3 Place de Fontenoy",
+        "address2": "TSA 80715",
+        "address3": "75334 PARIS CEDEX 07",
+        "website": "Website:",
+        "url": "www.cnil.fr"
+      }
+    },
+    "dpo": {
+      "title": "Data Protection Officer",
+      "intro": "For any questions regarding the protection of your data:",
+      "email": "Email:"
+    }
+  },
+  "pageLegal": {
+    "metadata": {
+      "title": "Legal Notice",
+      "description": "Health In Cloud legal notice - Information about the publisher, hosting and terms of use of the platform."
+    },
+    "title": "Legal Notice",
+    "publisher": {
+      "title": "1. Site Publisher",
+      "intro": "The Health In Cloud site is published by:",
+      "companyName": "Company name:",
+      "legalForm": "Legal form:",
+      "headquarters": "Headquarters:",
+      "email": "Email:",
+      "siret": "SIRET:",
+      "companyValue": "Romain Ecarnot",
+      "legalFormValue": "Micro-enterprise",
+      "headquartersValue": "44230 Nantes",
+      "emailValue": "contact@healthincloud.app",
+      "siretValue": "49884262400039"
+    },
+    "director": {
+      "title": "2. Publication Director",
+      "description": "The publication director is: Romain Ecarnot"
+    },
+    "hosting": {
+      "title": "3. Hosting",
+      "intro": "The site is hosted by:",
+      "host": "Host:",
+      "region": "Region:",
+      "website": "Website:",
+      "vercel": {
+        "name": "Vercel Inc.",
+        "region": "Europe, France, Paris",
+        "url": "vercel.com"
+      },
+      "databaseIntro": "Database hosted by:",
+      "neon": {
+        "name": "Neon",
+        "region": "Europe, Germany, Frankfurt",
+        "url": "neon.tech"
+      }
+    },
+    "intellectual": {
+      "title": "4. Intellectual Property",
+      "p1": "All content on this site (texts, images, videos, structure, design) is protected by copyright and is the exclusive property of Health In Cloud, unless otherwise stated.",
+      "p2": "Any reproduction, representation, modification, publication, adaptation of all or part of the site elements, regardless of the means or process used, is prohibited, except with prior written authorization."
+    },
+    "dataProtection": {
+      "title": "5. Data Protection",
+      "p1": "Personal data collected on this site is processed in accordance with the General Data Protection Regulation (GDPR).",
+      "p2": "For more information, see our",
+      "privacyLink": "Privacy Policy"
+    },
+    "responsibility": {
+      "title": "6. Responsibility",
+      "p1": "Health In Cloud makes every effort to provide users with available and verified information and tools. However, we cannot be held responsible for errors, unavailability of information and/or the presence of viruses.",
+      "p2": "The exercises offered do not replace professional medical follow-up and must be used within the framework of a care protocol supervised by a healthcare professional."
+    },
+    "hyperlinks": {
+      "title": "7. Hyperlinks",
+      "description": "The site may contain links to other sites. Health In Cloud cannot be held responsible for the content of these external sites."
+    },
+    "applicableLaw": {
+      "title": "8. Applicable Law",
+      "description": "This legal notice is subject to French law. In case of dispute, French courts will have sole jurisdiction."
+    },
+    "contact": {
+      "title": "Contact",
+      "intro": "For any questions regarding the legal notice:",
+      "email": "Email:"
+    }
+  },
+  "pagePrivacy": {
+    "metadata": {
+      "title": "Privacy Policy",
+      "description": "Health In Cloud privacy policy and personal data protection. GDPR processing of health data."
+    },
+    "title": "Privacy Policy",
+    "lastUpdated": "Last updated: October 2025",
+    "introduction": {
+      "title": "1. Introduction",
+      "description": "Health In Cloud (\"we\", \"our\", \"us\") is committed to protecting the privacy of your personal data. This privacy policy explains how we collect, use and protect your information."
+    },
+    "dataCollected": {
+      "title": "2. Data Collected",
+      "intro": "We collect the following data:",
+      "identification": {
+        "title": "Identification data:",
+        "description": "email address"
+      },
+      "technical": {
+        "title": "Technical data:",
+        "description": "browser type, connection data"
+      },
+      "usage": {
+        "title": "Usage data:",
+        "description": "interactions with the platform, time spent on exercises"
+      }
+    },
+    "dataUsage": {
+      "title": "3. Data Usage",
+      "intro": "Your data is used for:",
+      "items": [
+        "Providing rehabilitation services",
+        "Tracking your therapeutic progress",
+        "Improving our services",
+        "Communicating with you about your account",
+        "Complying with our legal obligations"
+      ]
+    },
+    "legalBasis": {
+      "title": "4. Legal Basis for Processing",
+      "intro": "The processing of your data is based on:",
+      "items": [
+        "Performance of the service contract",
+        "Compliance with our legal obligations",
+        "Our legitimate interest in improving our services"
+      ]
+    },
+    "dataSharing": {
+      "title": "5. Data Sharing",
+      "intro": "Your data may be shared with:",
+      "items": [
+        "Authorized healthcare professionals who follow you",
+        "Our technical service providers (secure hosting)",
+        "Competent authorities in case of legal obligation"
+      ],
+      "noSale": "We never sell your personal data to third parties."
+    },
+    "dataSecurity": {
+      "title": "6. Data Security",
+      "intro": "We implement appropriate technical and organizational security measures to protect your data against unauthorized access, loss, destruction or alteration:",
+      "measures": [
+        "Data encryption in transit (HTTPS) and at rest",
+        "Secure authentication",
+        "Hosting on certified European servers",
+        "Limited data access by authorized personnel only"
+      ]
+    },
+    "dataRetention": {
+      "title": "7. Data Retention",
+      "intro": "Your data is retained:",
+      "items": [
+        "During the duration of your therapeutic follow-up",
+        "20 years after the last consultation (in accordance with health data regulations)",
+        "3 years after the end of the contractual relationship for non-medical data"
+      ]
+    },
+    "userRights": {
+      "title": "8. Your Rights",
+      "intro": "In accordance with GDPR, you have the following rights:",
+      "access": {
+        "title": "Right of access:",
+        "description": "obtain a copy of your data"
+      },
+      "rectification": {
+        "title": "Right of rectification:",
+        "description": "correct your inaccurate data"
+      },
+      "erasure": {
+        "title": "Right to erasure:",
+        "description": "request deletion of your data"
+      },
+      "limitation": {
+        "title": "Right to restriction:",
+        "description": "limit the processing of your data"
+      },
+      "portability": {
+        "title": "Right to portability:",
+        "description": "receive your data in a structured format"
+      },
+      "objection": {
+        "title": "Right to object:",
+        "description": "object to the processing of your data"
+      },
+      "contact": "To exercise your rights, contact us at:"
+    },
+    "cookies": {
+      "title": "9. Cookies",
+      "description": "We use strictly necessary cookies for the service operation (authentication, language preferences). No tracking or advertising cookies are used."
+    },
+    "contact": {
+      "title": "Contact",
+      "intro": "For any questions regarding this privacy policy:",
+      "email": "Email:"
+    }
+  },
+  "pageThanks": {
     "title": "Thank You",
     "subtitle": "For my post-stroke rehabilitation, from February to November 2025, at MPR Nantes - St Jacques",
     "hero": {

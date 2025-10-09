@@ -5,22 +5,38 @@ import {
   createWebPageSchema,
 } from "@/components/seo/structured-data";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
 // Optimize static generation
 export const dynamic = "force-static";
 export const revalidate = 86400; // Revalidate once per day
 
-export const metadata: Metadata = {
-  title: "Politique de confidentialité",
-  description:
-    "Politique de confidentialité et protection des données personnelles de Health In Cloud. Traitement RGPD des données de santé.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "pagePrivacy" });
 
-export default function PrivacyPage() {
+  return {
+    title: t("metadata.title"),
+    description: t("metadata.description"),
+  };
+}
+
+export default async function PrivacyPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "pagePrivacy" });
+
   const schema = createWebPageSchema(
-    "Politique de confidentialité",
-    "Politique de confidentialité et protection des données personnelles de Health In Cloud. Traitement RGPD des données de santé.",
-    "https://healthincloud.app/fr/privacy"
+    t("title"),
+    t("metadata.description"),
+    `https://healthincloud.app/${locale}/privacy`
   );
 
   return (
@@ -30,176 +46,163 @@ export default function PrivacyPage() {
       <main className="flex-1 pt-20">
         <div className="container px-4 py-16">
           <div className="mx-auto max-w-4xl">
-            <h1 className="mb-8 text-4xl font-bold">
-              Politique de Confidentialité
-            </h1>
+            <h1 className="mb-8 text-4xl font-bold">{t("title")}</h1>
 
             <div className="prose prose-lg dark:prose-invert max-w-none">
               <p className="mb-6 text-sm text-muted-foreground">
-                Dernière mise à jour : Octobre 2025
+                {t("lastUpdated")}
               </p>
 
               <section className="mb-12">
-                <h2 className="mb-4 text-2xl font-semibold">1. Introduction</h2>
+                <h2 className="mb-4 text-2xl font-semibold">
+                  {t("introduction.title")}
+                </h2>
                 <p className="mb-4 text-muted-foreground">
-                  Health In Cloud (&ldquo;nous&rdquo;, &ldquo;notre&rdquo;,
-                  &ldquo;nos&rdquo;) s&apos;engage à protéger la confidentialité
-                  de vos données personnelles. Cette politique de
-                  confidentialité explique comment nous collectons, utilisons et
-                  protégeons vos informations.
+                  {t("introduction.description")}
                 </p>
               </section>
 
               <section className="mb-12">
                 <h2 className="mb-4 text-2xl font-semibold">
-                  2. Données Collectées
+                  {t("dataCollected.title")}
                 </h2>
                 <p className="mb-4 text-muted-foreground">
-                  Nous collectons les données suivantes :
+                  {t("dataCollected.intro")}
                 </p>
                 <ul className="mb-4 ml-6 list-disc space-y-2 text-muted-foreground">
                   <li>
-                    <strong>Données d&apos;identification :</strong> adresse
-                    email
+                    <strong>{t("dataCollected.identification.title")}</strong>{" "}
+                    {t("dataCollected.identification.description")}
                   </li>
                   <li>
-                    <strong>Données techniques :</strong> type de navigateur,
-                    données de connexion
+                    <strong>{t("dataCollected.technical.title")}</strong>{" "}
+                    {t("dataCollected.technical.description")}
                   </li>
                   <li>
-                    <strong>Données d&apos;utilisation :</strong> interactions
-                    avec la plateforme, temps passé sur les exercices
+                    <strong>{t("dataCollected.usage.title")}</strong>{" "}
+                    {t("dataCollected.usage.description")}
                   </li>
                 </ul>
               </section>
 
               <section className="mb-12">
                 <h2 className="mb-4 text-2xl font-semibold">
-                  3. Utilisation des Données
+                  {t("dataUsage.title")}
                 </h2>
                 <p className="mb-4 text-muted-foreground">
-                  Vos données sont utilisées pour :
+                  {t("dataUsage.intro")}
                 </p>
                 <ul className="mb-4 ml-6 list-disc space-y-2 text-muted-foreground">
-                  <li>Fournir les services de rééducation</li>
-                  <li>Suivre votre progression thérapeutique</li>
-                  <li>Améliorer nos services</li>
-                  <li>Communiquer avec vous concernant votre compte</li>
-                  <li>Respecter nos obligations légales</li>
+                  {t
+                    .raw("dataUsage.items")
+                    .map((item: string, index: number) => (
+                      <li key={index}>{item}</li>
+                    ))}
                 </ul>
               </section>
 
               <section className="mb-12">
                 <h2 className="mb-4 text-2xl font-semibold">
-                  4. Base Légale du Traitement
+                  {t("legalBasis.title")}
                 </h2>
                 <p className="mb-4 text-muted-foreground">
-                  Le traitement de vos données repose sur :
+                  {t("legalBasis.intro")}
                 </p>
                 <ul className="mb-4 ml-6 list-disc space-y-2 text-muted-foreground">
-                  <li>L&apos;exécution du contrat de service</li>
-                  <li>Le respect de nos obligations légales</li>
-                  <li>Notre intérêt légitime à améliorer nos services</li>
+                  {t
+                    .raw("legalBasis.items")
+                    .map((item: string, index: number) => (
+                      <li key={index}>{item}</li>
+                    ))}
                 </ul>
               </section>
 
               <section className="mb-12">
                 <h2 className="mb-4 text-2xl font-semibold">
-                  5. Partage des Données
+                  {t("dataSharing.title")}
                 </h2>
                 <p className="mb-4 text-muted-foreground">
-                  Vos données peuvent être partagées avec :
+                  {t("dataSharing.intro")}
                 </p>
                 <ul className="mb-4 ml-6 list-disc space-y-2 text-muted-foreground">
-                  <li>
-                    Les professionnels de santé autorisés qui vous suivent
-                  </li>
-                  <li>Nos prestataires techniques (hébergement sécurisé)</li>
-                  <li>
-                    Les autorités compétentes en cas d&apos;obligation légale
-                  </li>
+                  {t
+                    .raw("dataSharing.items")
+                    .map((item: string, index: number) => (
+                      <li key={index}>{item}</li>
+                    ))}
                 </ul>
                 <p className="mb-4 text-muted-foreground">
-                  Nous ne vendons jamais vos données personnelles à des tiers.
+                  {t("dataSharing.noSale")}
                 </p>
               </section>
 
               <section className="mb-12">
                 <h2 className="mb-4 text-2xl font-semibold">
-                  6. Sécurité des Données
+                  {t("dataSecurity.title")}
                 </h2>
                 <p className="mb-4 text-muted-foreground">
-                  Nous mettons en œuvre des mesures de sécurité techniques et
-                  organisationnelles appropriées pour protéger vos données
-                  contre tout accès non autorisé, perte, destruction ou
-                  altération :
+                  {t("dataSecurity.intro")}
                 </p>
                 <ul className="mb-4 ml-6 list-disc space-y-2 text-muted-foreground">
-                  <li>
-                    Chiffrement des données en transit (HTTPS) et au repos
-                  </li>
-                  <li>Authentification sécurisée</li>
-                  <li>Hébergement sur des serveurs certifiés européens</li>
-                  <li>
-                    Accès limité aux données par le personnel autorisé
-                    uniquement
-                  </li>
+                  {t
+                    .raw("dataSecurity.measures")
+                    .map((item: string, index: number) => (
+                      <li key={index}>{item}</li>
+                    ))}
                 </ul>
               </section>
 
               <section className="mb-12">
                 <h2 className="mb-4 text-2xl font-semibold">
-                  7. Durée de Conservation
+                  {t("dataRetention.title")}
                 </h2>
                 <p className="mb-4 text-muted-foreground">
-                  Vos données sont conservées :
+                  {t("dataRetention.intro")}
                 </p>
                 <ul className="mb-4 ml-6 list-disc space-y-2 text-muted-foreground">
-                  <li>Pendant la durée de votre suivi thérapeutique</li>
-                  <li>
-                    20 ans après la dernière consultation (conformément à la
-                    réglementation sur les données de santé)
-                  </li>
-                  <li>
-                    3 ans après la fin de la relation contractuelle pour les
-                    données non-médicales
-                  </li>
+                  {t
+                    .raw("dataRetention.items")
+                    .map((item: string, index: number) => (
+                      <li key={index}>{item}</li>
+                    ))}
                 </ul>
               </section>
 
               <section className="mb-12">
-                <h2 className="mb-4 text-2xl font-semibold">8. Vos Droits</h2>
+                <h2 className="mb-4 text-2xl font-semibold">
+                  {t("userRights.title")}
+                </h2>
                 <p className="mb-4 text-muted-foreground">
-                  Conformément au RGPD, vous disposez des droits suivants :
+                  {t("userRights.intro")}
                 </p>
                 <ul className="mb-4 ml-6 list-disc space-y-2 text-muted-foreground">
                   <li>
-                    <strong>Droit d&apos;accès :</strong> obtenir une copie de
-                    vos données
+                    <strong>{t("userRights.access.title")}</strong>{" "}
+                    {t("userRights.access.description")}
                   </li>
                   <li>
-                    <strong>Droit de rectification :</strong> corriger vos
-                    données inexactes
+                    <strong>{t("userRights.rectification.title")}</strong>{" "}
+                    {t("userRights.rectification.description")}
                   </li>
                   <li>
-                    <strong>Droit à l&apos;effacement :</strong> demander la
-                    suppression de vos données
+                    <strong>{t("userRights.erasure.title")}</strong>{" "}
+                    {t("userRights.erasure.description")}
                   </li>
                   <li>
-                    <strong>Droit à la limitation :</strong> limiter le
-                    traitement de vos données
+                    <strong>{t("userRights.limitation.title")}</strong>{" "}
+                    {t("userRights.limitation.description")}
                   </li>
                   <li>
-                    <strong>Droit à la portabilité :</strong> recevoir vos
-                    données dans un format structuré
+                    <strong>{t("userRights.portability.title")}</strong>{" "}
+                    {t("userRights.portability.description")}
                   </li>
                   <li>
-                    <strong>Droit d&apos;opposition :</strong> vous opposer au
-                    traitement de vos données
+                    <strong>{t("userRights.objection.title")}</strong>{" "}
+                    {t("userRights.objection.description")}
                   </li>
                 </ul>
                 <p className="mb-4 text-muted-foreground">
-                  Pour exercer vos droits, contactez-nous à :{" "}
+                  {t("userRights.contact")}{" "}
                   <a
                     href="mailto:dpo@healthincloud.app"
                     className="text-primary hover:underline"
@@ -210,23 +213,23 @@ export default function PrivacyPage() {
               </section>
 
               <section className="mb-12">
-                <h2 className="mb-4 text-2xl font-semibold">9. Cookies</h2>
+                <h2 className="mb-4 text-2xl font-semibold">
+                  {t("cookies.title")}
+                </h2>
                 <p className="mb-4 text-muted-foreground">
-                  Nous utilisons des cookies strictement nécessaires au
-                  fonctionnement du service (authentification, préférences de
-                  langue). Aucun cookie de tracking ou publicitaire n&apos;est
-                  utilisé.
+                  {t("cookies.description")}
                 </p>
               </section>
 
               <section className="rounded-lg border bg-primary/5 p-8">
-                <h2 className="mb-4 text-2xl font-semibold">Contact</h2>
+                <h2 className="mb-4 text-2xl font-semibold">
+                  {t("contact.title")}
+                </h2>
                 <p className="mb-2 text-muted-foreground">
-                  Pour toute question concernant cette politique de
-                  confidentialité :
+                  {t("contact.intro")}
                 </p>
                 <p className="text-muted-foreground">
-                  Email :{" "}
+                  {t("contact.email")}{" "}
                   <a
                     href="mailto:dpo@healthincloud.app"
                     className="text-primary hover:underline"
