@@ -9,19 +9,22 @@ datasource db {
 }
 
 model User {
-  id                 String            @id @default(cuid())
-  createdAt          DateTime          @default(now())
-  updatedAt          DateTime          @updatedAt
-  email              String            @unique
-  emailVerified      Boolean           @default(false)
-  name               String
-  image              String?
-  locale             String?           @default("fr")
-  theme              String?           @default("system")
-  emailNotifications Boolean           @default(true)
-  accounts           Account[]
-  sessions           Session[]
-  exerciseAttempts   ExerciseAttempt[]
+  id                            String            @id @default(cuid())
+  createdAt                     DateTime          @default(now())
+  updatedAt                     DateTime          @updatedAt
+  email                         String            @unique
+  emailVerified                 Boolean           @default(false)
+  name                          String
+  image                         String?
+  locale                        String?           @default("fr")
+  theme                         String?           @default("system")
+  emailNotifications            Boolean           @default(true)
+  lastPasswordResetRequestAt    DateTime?
+  passwordResetRequestCount     Int               @default(0)
+  passwordResetRequestResetAt   DateTime?
+  accounts                      Account[]
+  sessions                      Session[]
+  exerciseAttempts              ExerciseAttempt[]
 }
 
 model Account {

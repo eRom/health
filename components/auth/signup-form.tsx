@@ -1,11 +1,11 @@
 'use client'
 
-import { useState } from 'react'
-import { useTranslations } from 'next-intl'
-import { useRouter, Link } from '@/i18n/routing'
-import { authClient } from '@/lib/auth-client'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { Link, useRouter } from "@/i18n/routing";
+import { authClient } from "@/lib/auth-client";
+import { useTranslations } from "next-intl";
+import { useState } from "react";
 
 export function SignupForm() {
   const t = useTranslations()
@@ -30,7 +30,7 @@ export function SignupForm() {
         name,
       })
 
-      router.push('/dashboard')
+      router.push("/verify-email");
     } catch {
       setError('Erreur lors de la création du compte')
     } finally {

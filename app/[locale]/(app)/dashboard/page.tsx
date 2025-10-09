@@ -1,4 +1,5 @@
 import { getDashboardStats } from "@/app/actions/get-dashboard-stats";
+import { EmailVerificationBanner } from "@/components/auth/EmailVerificationBanner";
 import { RecentExercisesList } from "@/components/dashboard/recent-exercises-list";
 import { StatsCards } from "@/components/dashboard/stats-cards";
 import { Button } from "@/components/ui/button";
@@ -43,6 +44,16 @@ export default async function DashboardPage({
 
   return (
     <div className="container py-8">
+      {/* Email verification banner */}
+      {!session.user.emailVerified && (
+        <div className="mb-6">
+          <EmailVerificationBanner
+            userEmail={session.user.email}
+            userLocale={session.user.locale || "fr"}
+          />
+        </div>
+      )}
+
       <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <h1 className="text-3xl font-bold">
           {t("welcome", { name: userName })}

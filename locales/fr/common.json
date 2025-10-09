@@ -20,7 +20,40 @@
     "signUp": "S'inscrire",
     "email": "Email",
     "password": "Mot de passe",
-    "name": "Nom"
+    "name": "Nom",
+    "forgotPassword": "Mot de passe oublié ?",
+    "verifyEmail": {
+      "title": "Vérification d'email",
+      "noToken": "Token manquant",
+      "noTokenDescription": "Le token de vérification est manquant ou invalide.",
+      "invalidToken": "Token invalide",
+      "invalidTokenDescription": "Le token de vérification a expiré ou est invalide.",
+      "invalidTokenMessage": "Ce lien de vérification n'est plus valide. Demandez un nouvel email de vérification.",
+      "userNotFound": "Utilisateur introuvable",
+      "userNotFoundMessage": "Aucun utilisateur trouvé avec cette adresse email.",
+      "success": "Email vérifié",
+      "successDescription": "Votre adresse email a été vérifiée avec succès.",
+      "successMessage": "Vous pouvez maintenant accéder à tous les exercices.",
+      "goToDashboard": "Aller au tableau de bord",
+      "error": "Erreur de vérification",
+      "errorMessage": "Une erreur est survenue lors de la vérification."
+    },
+    "resetPassword": {
+      "title": "Réinitialisation du mot de passe",
+      "noToken": "Token manquant",
+      "noTokenDescription": "Le token de réinitialisation est manquant ou invalide.",
+      "invalidToken": "Token invalide",
+      "invalidTokenDescription": "Le token de réinitialisation a expiré ou est invalide.",
+      "invalidTokenMessage": "Ce lien de réinitialisation n'est plus valide. Demandez un nouvel email.",
+      "userNotFound": "Utilisateur introuvable",
+      "userNotFoundMessage": "Aucun utilisateur trouvé avec cette adresse email.",
+      "validToken": "Token valide",
+      "validTokenDescription": "Votre token de réinitialisation est valide.",
+      "validTokenMessage": "Vous pouvez maintenant créer un nouveau mot de passe.",
+      "createNewPassword": "Créer un nouveau mot de passe",
+      "error": "Erreur de réinitialisation",
+      "errorMessage": "Une erreur est survenue lors de la réinitialisation."
+    }
   },
   "dashboard": {
     "welcome": "Bienvenue, {name}",

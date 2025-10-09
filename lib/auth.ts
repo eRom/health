@@ -110,6 +110,21 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
+  emailVerification: {
+    enabled: true,
+    sendOnSignUp: true,
+    sendVerificationEmail: async ({ user, token, url }) => {
+      const { sendVerificationEmail } = await import("./email/send");
+      await sendVerificationEmail(user.email, token, user.locale || "fr");
+    },
+  },
+  forgetPassword: {
+    enabled: true,
+    sendResetPassword: async ({ user, token, url }) => {
+      const { sendPasswordResetEmail } = await import("./email/send");
+      await sendPasswordResetEmail(user.email, token, user.locale || "fr");
+    },
+  },
   baseURL,
   trustedOrigins,
   session: {

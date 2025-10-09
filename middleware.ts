@@ -1,6 +1,7 @@
 import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
 import { routing } from "./i18n/routing";
+import { auth } from "./lib/auth";
 import {
   debugLocale,
   extractLocaleFromPath,
@@ -50,7 +51,36 @@ export default async function middleware(request: NextRequest) {
       debugLocale("REDIRECT_TO_LOGIN", locale, loginUrl.pathname);
       return NextResponse.redirect(loginUrl);
     } else {
-      console.log("[MIDDLEWARE DEBUG] Session found, allowing access");
+      console.log(
+        "[MIDDLEWARE DEBUG] Session found, checking email verification"
+      );
+
+      // Check if user's email is verified for exercise routes
+      if (
+        pathname.includes("/exercises") ||
+        pathname.includes("/neuro") ||
+        pathname.includes("/ortho")
+      ) {
+        try {
+          const session = await auth.api.getSession({
+            headers: request.headers,
+          });
+
+          if (session?.user && !session.user.emailVerified) {
+            console.log(
+              "[MIDDLEWARE DEBUG] Email not verified, redirecting to dashboard with banner"
+            );
+            const dashboardUrl = new URL(`/${locale}/dashboard`, request.url);
+            return NextResponse.redirect(dashboardUrl);
+          }
+        } catch (error) {
+          console.error(
+            "[MIDDLEWARE DEBUG] Error checking email verification:",
+            error
+          );
+          // Continue to allow access if check fails
+        }
+      }
     }
   }
 

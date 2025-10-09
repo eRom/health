@@ -86,6 +86,16 @@ export function LoginForm() {
         />
       </div>
 
+      {/* Mot de passe oublié - Lien explicite */}
+      <div className="flex justify-end">
+        <Link
+          href="/forgot-password"
+          className="text-sm text-teal-600 hover:text-teal-500 underline font-medium"
+        >
+          Mot de passe oublié ?
+        </Link>
+      </div>
+
       <div className="flex gap-3 mt-2">
         <Button
           asChild
