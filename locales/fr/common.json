@@ -700,6 +700,40 @@
       "button": "Lire mon histoire"
     }
   },
+  "errors": {
+    "notFound": {
+      "title": "Page introuvable",
+      "description": "Désolé, la page que vous recherchez n'existe pas ou a été déplacée.",
+      "code": "404",
+      "suggestions": {
+        "title": "Que pouvez-vous faire ?",
+        "checkUrl": "Vérifiez l'URL dans la barre d'adresse",
+        "goHome": "Retournez à la page d'accueil",
+        "contactSupport": "Contactez le support si le problème persiste"
+      },
+      "actions": {
+        "goHome": "Retour à l'accueil",
+        "goBack": "Retour",
+        "contact": "Contacter le support"
+      }
+    },
+    "serverError": {
+      "title": "Erreur du serveur",
+      "description": "Une erreur inattendue s'est produite. Notre équipe a été notifiée et travaille à résoudre le problème.",
+      "code": "500",
+      "suggestions": {
+        "title": "Que pouvez-vous faire ?",
+        "refresh": "Actualisez la page dans quelques minutes",
+        "goHome": "Retournez à la page d'accueil",
+        "contactSupport": "Contactez le support si le problème persiste"
+      },
+      "actions": {
+        "refresh": "Actualiser",
+        "goHome": "Retour à l'accueil",
+        "contact": "Contacter le support"
+      }
+    }
+  },
   "footer": {
     "platform": {
       "title": "Plateforme",

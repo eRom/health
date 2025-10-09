@@ -8,9 +8,15 @@ import { Link } from "@/i18n/routing";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
-// Optimize static generation
-export const dynamic = "force-static";
-export const revalidate = 86400; // Revalidate once per day
+// Use dynamic rendering for now
+export const dynamic = "force-dynamic";
+
+export async function generateStaticParams() {
+  return [
+    { locale: "fr" },
+    { locale: "en" },
+  ];
+}
 
 export async function generateMetadata({
   params,
@@ -23,6 +29,13 @@ export async function generateMetadata({
   return {
     title: t("metadata.title"),
     description: t("metadata.description"),
+    alternates: {
+      canonical: `https://healthincloud.app/${locale}/legal`,
+      languages: {
+        fr: "https://healthincloud.app/fr/legal",
+        en: "https://healthincloud.app/en/legal",
+      },
+    },
   };
 }
 

@@ -700,6 +700,40 @@
       "button": "Read my story"
     }
   },
+  "errors": {
+    "notFound": {
+      "title": "Page Not Found",
+      "description": "Sorry, the page you're looking for doesn't exist or has been moved.",
+      "code": "404",
+      "suggestions": {
+        "title": "What can you do?",
+        "checkUrl": "Check the URL in the address bar",
+        "goHome": "Go back to the home page",
+        "contactSupport": "Contact support if the problem persists"
+      },
+      "actions": {
+        "goHome": "Go Home",
+        "goBack": "Go Back",
+        "contact": "Contact Support"
+      }
+    },
+    "serverError": {
+      "title": "Server Error",
+      "description": "An unexpected error occurred. Our team has been notified and is working to resolve the issue.",
+      "code": "500",
+      "suggestions": {
+        "title": "What can you do?",
+        "refresh": "Refresh the page in a few minutes",
+        "goHome": "Go back to the home page",
+        "contactSupport": "Contact support if the problem persists"
+      },
+      "actions": {
+        "refresh": "Refresh",
+        "goHome": "Go Home",
+        "contact": "Contact Support"
+      }
+    }
+  },
   "footer": {
     "platform": {
       "title": "Platform",
