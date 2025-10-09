@@ -48,18 +48,18 @@ export function LoginForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="space-y-6">
+    <form onSubmit={onSubmit} className="space-y-10">
       {error && (
         <div
           role="alert"
           aria-live="polite"
-          className="rounded-md bg-destructive/15 p-3 text-sm text-destructive"
+          className="rounded-md bg-destructive/15 p-4 text-sm text-destructive"
         >
           {error}
         </div>
       )}
 
-      <div className="space-y-2">
+      <div className="space-y-3">
         <label htmlFor="email" className="text-sm font-medium">
           {t("auth.email")}
         </label>
@@ -70,10 +70,11 @@ export function LoginForm() {
           placeholder="nom@exemple.fr"
           required
           disabled={isLoading}
+          className="h-12"
         />
       </div>
 
-      <div className="space-y-2">
+      <div className="space-y-3">
         <label htmlFor="password" className="text-sm font-medium">
           {t("auth.password")}
         </label>
@@ -83,11 +84,12 @@ export function LoginForm() {
           type="password"
           required
           disabled={isLoading}
+          className="h-12"
         />
       </div>
 
       {/* Mot de passe oublié - Lien explicite */}
-      <div className="flex justify-end">
+      <div className="flex justify-end pt-2">
         <Link
           href="/forgot-password"
           className="text-sm text-teal-600 hover:text-teal-500 underline font-medium"
@@ -96,16 +98,16 @@ export function LoginForm() {
         </Link>
       </div>
 
-      <div className="flex gap-3 mt-2">
+      <div className="flex gap-4 pt-6">
         <Button
           asChild
           variant="outline"
-          className="flex-1"
+          className="flex-1 h-12"
           disabled={isLoading}
         >
           <Link href="/">Annuler</Link>
         </Button>
-        <Button type="submit" className="flex-1" disabled={isLoading}>
+        <Button type="submit" className="flex-1 h-12" disabled={isLoading}>
           {isLoading ? "Connexion..." : t("auth.signIn")}
         </Button>
       </div>

@@ -53,6 +53,33 @@
       "createNewPassword": "Créer un nouveau mot de passe",
       "error": "Erreur de réinitialisation",
       "errorMessage": "Une erreur est survenue lors de la réinitialisation."
+    },
+    "dialogSignout": {
+      "title": "Déconnexion",
+      "description": "Êtes-vous sûr de vouloir vous déconnecter ?",
+      "cancel": "Annuler",
+      "signOut": "Se déconnecter"
+    },
+    "dialogSignin": {
+      "title": "Création de compte",
+      "description": "Créez votre compte pour commencer vos exercices de rééducation",
+      "nameLabel": "Nom",
+      "namePlaceholder": "Votre nom",
+      "emailLabel": "Email",
+      "emailPlaceholder": "nom@exemple.fr",
+      "passwordLabel": "Mot de passe",
+      "passwordPlaceholder": "Votre mot de passe",
+      "cancel": "Annuler",
+      "signIn": "S'inscrire"
+    },
+    "dialogForgotPassword": {
+      "title": "Réinitialisation du mot de passe",
+      "description": "Nous vous enverrons un lien pour créer un nouveau mot de passe",
+      "emailPlaceholder": "nom@exemple.fr",
+      "wait": "Attendre",
+      "cancel": "Retour",
+      "signIn": "Envoyer le lien",
+      "success": "Email envoyé ! Vérifiez votre boîte de réception (et vos spams) pour réinitialiser votre mot de passe."
     }
   },
   "dashboard": {

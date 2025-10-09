@@ -1,9 +1,6 @@
 'use client'
 
-import { useTranslations } from 'next-intl'
-import { useRouter, Link } from '@/i18n/routing'
-import { authClient } from '@/lib/auth-client'
-import { Button } from '@/components/ui/button'
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -12,17 +9,20 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog'
-import { useState } from 'react'
+} from "@/components/ui/dialog";
+import { Link, useRouter } from "@/i18n/routing";
+import { authClient } from "@/lib/auth-client";
+import { useTranslations } from "next-intl";
+import { useState } from "react";
 
 export function UserNav({ user }: { user: { name: string; email: string } }) {
-  const t = useTranslations()
-  const router = useRouter()
-  const [isSignOutOpen, setIsSignOutOpen] = useState(false)
+  const t = useTranslations();
+  const router = useRouter();
+  const [isSignOutOpen, setIsSignOutOpen] = useState(false);
 
   async function handleSignOut() {
-    await authClient.signOut()
-    router.push('/')
+    await authClient.signOut();
+    router.push("/");
   }
 
   return (
@@ -37,26 +37,24 @@ export function UserNav({ user }: { user: { name: string; email: string } }) {
       <Dialog open={isSignOutOpen} onOpenChange={setIsSignOutOpen}>
         <DialogTrigger asChild>
           <Button variant="outline" size="sm">
-            {t('auth.signOut')}
+            {t("auth.signOut")}
           </Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Déconnexion</DialogTitle>
+            <DialogTitle>{t("auth.dialogSignout.title")}</DialogTitle>
             <DialogDescription>
-              Êtes-vous sûr de vouloir vous déconnecter ?
+              {t("auth.dialogSignout.description")}
             </DialogDescription>
           </DialogHeader>
-          <DialogFooter>
+          <DialogFooter className="flex justify-end gap-2">
             <Button variant="outline" onClick={() => setIsSignOutOpen(false)}>
-              Annuler
+              {t("auth.dialogSignout.cancel")}
             </Button>
-            <Button onClick={handleSignOut}>
-              {t('auth.signOut')}
-            </Button>
+            <Button onClick={handleSignOut}>{t("auth.signOut")}</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
     </div>
-  )
+  );
 }

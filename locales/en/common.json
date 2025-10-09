@@ -53,6 +53,33 @@
       "createNewPassword": "Create new password",
       "error": "Reset error",
       "errorMessage": "An error occurred during reset."
+    },
+    "dialogSignout": {
+      "title": "Sign Out",
+      "description": "Are you sure you want to sign out?",
+      "cancel": "Cancel",
+      "signOut": "Sign Out"
+    },
+    "dialogSignin": {
+      "title": "Create Account",
+      "description": "Create your account to start your rehabilitation exercises",
+      "nameLabel": "Name",
+      "namePlaceholder": "Your name",
+      "emailLabel": "Email",
+      "emailPlaceholder": "name@example.fr",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Your password",
+      "cancel": "Cancel",
+      "signIn": "Sign In"
+    },
+    "dialogForgotPassword": {
+      "title": "Password Reset",
+      "description": "We will send you a link to create a new password",
+      "emailPlaceholder": "name@example.fr",
+      "wait": "Wait",
+      "cancel": "Back",
+      "signIn": "Send link",
+      "success": "Email sent! Check your inbox (and your spam) to reset your password."
     }
   },
   "dashboard": {

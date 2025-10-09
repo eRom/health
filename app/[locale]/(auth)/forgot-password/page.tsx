@@ -4,7 +4,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
-import { useRouter } from '@/i18n/routing'
+import { Link, useRouter } from "@/i18n/routing";
 import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
 
@@ -104,16 +104,18 @@ export default function ForgotPasswordPage() {
       <div className="max-w-md w-full space-y-12">
         <Card>
           <CardHeader className="space-y-4">
-            <CardTitle className="text-xl">Réinitialiser le mot de passe</CardTitle>
+            <CardTitle className="text-xl">
+              {t("auth.dialogForgotPassword.title")}
+            </CardTitle>
             <CardDescription className="text-base">
-              Nous vous enverrons un lien pour créer un nouveau mot de passe
+              {t("auth.dialogForgotPassword.description")}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-8">
             {success && (
               <Alert>
                 <AlertDescription>
-                  Email envoyé ! Vérifiez votre boîte de réception (et vos spams) pour réinitialiser votre mot de passe.
+                  {t("auth.dialogForgotPassword.success")}
                 </AlertDescription>
               </Alert>
             )}
@@ -132,13 +134,16 @@ export default function ForgotPasswordPage() {
 
             <form onSubmit={onSubmit} className="space-y-8">
               <div className="space-y-4">
-                <label htmlFor="email" className="text-sm font-medium text-foreground">
-                  Adresse email
+                <label
+                  htmlFor="email"
+                  className="text-sm font-medium text-foreground"
+                >
+                  {t("auth.email")}
                 </label>
                 <Input
                   id="email"
                   type="email"
-                  placeholder="nom@exemple.fr"
+                  placeholder={t("auth.dialogForgotPassword.emailPlaceholder")}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
@@ -148,11 +153,26 @@ export default function ForgotPasswordPage() {
               </div>
 
               <div className="flex gap-4 pt-4">
-                <Button asChild variant="outline" className="flex-1 h-12" disabled={isLoading || cooldown > 0}>
-                  <a href="/auth/login">Retour</a>
+                <Button
+                  asChild
+                  variant="outline"
+                  className="flex-1 h-12"
+                  disabled={isLoading || cooldown > 0}
+                >
+                  <Link href="/auth/login">
+                    {t("auth.dialogForgotPassword.cancel")}
+                  </Link>
                 </Button>
-                <Button type="submit" className="flex-1 h-12" disabled={isLoading || cooldown > 0}>
-                  {isLoading ? 'Envoi...' : cooldown > 0 ? `Attendre ${cooldown}s` : 'Envoyer le lien'}
+                <Button
+                  type="submit"
+                  className="flex-1 h-12"
+                  disabled={isLoading || cooldown > 0}
+                >
+                  {isLoading
+                    ? "Envoi..."
+                    : cooldown > 0
+                      ? `${t("auth.dialogForgotPassword.wait")} ${cooldown}s`
+                      : t("auth.dialogForgotPassword.signIn")}
                 </Button>
               </div>
             </form>
@@ -160,5 +180,5 @@ export default function ForgotPasswordPage() {
         </Card>
       </div>
     </div>
-  )
+  );
 }
