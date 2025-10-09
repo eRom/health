@@ -22,6 +22,9 @@ export async function generateMetadata({
   return {
     title: t("metadata.title"),
     description: t("metadata.description"),
+    alternates: {
+      canonical: `https://healthincloud.app/${locale}/about`,
+    },
   };
 }
 

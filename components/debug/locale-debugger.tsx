@@ -35,7 +35,7 @@ export function LocaleDebugger() {
     <div className="fixed bottom-4 right-4 z-50">
       <button
         onClick={() => setIsVisible(!isVisible)}
-        className="bg-blue-500 text-white px-3 py-2 rounded text-sm font-mono"
+        className="bg-blue-600 text-white px-3 py-2 rounded text-sm font-mono shadow-lg"
       >
         Locale Debug {isVisible ? '▼' : '▲'}
       </button>

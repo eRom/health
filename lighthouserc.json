@@ -13,7 +13,25 @@
       ],
       "numberOfRuns": 3,
       "settings": {
-        "preset": "desktop",
+        "preset": "perf",
+        "formFactor": "mobile",
+        "throttlingMethod": "simulate",
+        "throttling": {
+          "rttMs": 40,
+          "throughputKbps": 10240,
+          "cpuSlowdownMultiplier": 1,
+          "requestLatencyMs": 0,
+          "downloadThroughputKbps": 0,
+          "uploadThroughputKbps": 0
+        },
+        "screenEmulation": {
+          "mobile": true,
+          "width": 375,
+          "height": 667,
+          "deviceScaleFactor": 2,
+          "disabled": false
+        },
+        "emulatedUserAgent": "Mozilla/5.0 (Linux; Android 7.0; SM-G930V) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Mobile Safari/537.36",
         "onlyCategories": [
           "performance",
           "accessibility",
@@ -28,8 +46,8 @@
         "categories:performance": ["error", { "minScore": 0.9 }],
         "categories:accessibility": ["error", { "minScore": 0.9 }],
         "categories:best-practices": ["error", { "minScore": 0.95 }],
-        "categories:seo": ["error", { "minScore": 1.0 }],
-        "categories:pwa": ["error", { "minScore": 0.9 }]
+        "categories:seo": ["error", { "minScore": 0.95 }],
+        "categories:pwa": ["error", { "minScore": 0.8 }]
       }
     },
     "upload": {

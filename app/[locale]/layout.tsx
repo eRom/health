@@ -2,6 +2,7 @@ import { AuthDebugger } from "@/components/debug/auth-debugger";
 import { LocaleDebugger } from "@/components/debug/locale-debugger";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { PWAInstallPrompt } from "@/components/pwa/pwa-install-prompt";
+import { ServiceWorkerRegistration } from "@/components/pwa/service-worker-registration";
 import { Toaster } from "@/components/ui/sonner";
 import { routing } from "@/i18n/routing";
 import type { Metadata } from "next";
@@ -181,6 +182,7 @@ export default async function LocaleLayout({
           >
             {children}
             <Toaster />
+            <ServiceWorkerRegistration />
             <PWAInstallPrompt />
             <LocaleDebugger />
             <AuthDebugger />

@@ -42,6 +42,9 @@ next-env.d.ts
 
 /lib/generated/prisma
 
+# lighthouse ci
+.lighthouseci/
+
 exported-assets/
 *storybook.log
 storybook-static

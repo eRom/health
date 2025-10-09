@@ -55,7 +55,7 @@ export function AuthDebugger() {
     <div className="fixed bottom-4 left-4 z-50">
       <button
         onClick={() => setIsVisible(!isVisible)}
-        className="bg-red-500 text-white px-3 py-2 rounded text-sm font-mono"
+        className="bg-red-600 text-white px-3 py-2 rounded text-sm font-mono shadow-lg"
       >
         Auth Debug {isVisible ? '▼' : '▲'}
       </button>
