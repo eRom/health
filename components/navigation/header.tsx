@@ -1,13 +1,10 @@
 'use client'
 
-import { useTranslations } from 'next-intl'
-import { Link } from '@/i18n/routing'
-import { Button } from '@/components/ui/button'
 import { UserNav } from '@/components/auth/user-nav'
 import { LanguageSwitcher } from '@/components/navigation/language-switcher'
 import { MobileNav } from '@/components/navigation/mobile-nav'
-import { Logo } from '@/components/ui/logo'
-import { authClient } from '@/lib/auth-client'
+import { Button } from "@/components/ui/button";
+import { Logo } from "@/components/ui/logo";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -16,7 +13,10 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu'
+import { Link } from "@/i18n/routing";
+import { authClient } from "@/lib/auth-client";
 import { cn } from '@/lib/utils'
+import { useTranslations } from "next-intl";
 
 export function Header() {
   const t = useTranslations()
@@ -34,7 +34,6 @@ export function Header() {
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-3">
           <Logo className="h-8 w-8 text-primary" />
-          <span className="text-xl font-bold text-primary">{t('app.title')}</span>
         </Link>
 
         {/* Desktop navigation */}
@@ -45,14 +44,14 @@ export function Header() {
                 href="/dashboard"
                 className="text-sm font-medium transition-colors hover:text-primary"
               >
-                {t('navigation.dashboard')}
+                {t("navigation.dashboard")}
               </Link>
 
               <NavigationMenu>
                 <NavigationMenuList>
                   <NavigationMenuItem>
                     <NavigationMenuTrigger className="text-sm font-medium">
-                      {t('navigation.exercises')}
+                      {t("navigation.exercises")}
                     </NavigationMenuTrigger>
                     <NavigationMenuContent>
                       <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2">
@@ -61,11 +60,11 @@ export function Header() {
                             <Link
                               href="/neuro"
                               className={cn(
-                                'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground'
+                                "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                               )}
                             >
                               <div className="text-sm font-medium leading-none">
-                                {t('navigation.neuro')}
+                                {t("navigation.neuro")}
                               </div>
                               <p className="line-clamp-2 text-sm leading-snug opacity-70">
                                 Exercices cognitifs et mémoire
@@ -78,11 +77,11 @@ export function Header() {
                             <Link
                               href="/ortho"
                               className={cn(
-                                'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground'
+                                "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                               )}
                             >
                               <div className="text-sm font-medium leading-none">
-                                {t('navigation.ortho')}
+                                {t("navigation.ortho")}
                               </div>
                               <p className="line-clamp-2 text-sm leading-snug opacity-70">
                                 Rééducation du langage
@@ -95,11 +94,11 @@ export function Header() {
                             <Link
                               href="/kine"
                               className={cn(
-                                'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground'
+                                "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                               )}
                             >
                               <div className="text-sm font-medium leading-none">
-                                {t('navigation.kine')}
+                                {t("navigation.kine")}
                               </div>
                               <p className="line-clamp-2 text-sm leading-snug opacity-70">
                                 Rééducation motrice
@@ -112,11 +111,11 @@ export function Header() {
                             <Link
                               href="/ergo"
                               className={cn(
-                                'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground'
+                                "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                               )}
                             >
                               <div className="text-sm font-medium leading-none">
-                                {t('navigation.ergo')}
+                                {t("navigation.ergo")}
                               </div>
                               <p className="line-clamp-2 text-sm leading-snug opacity-70">
                                 Autonomie et activités
@@ -138,11 +137,11 @@ export function Header() {
             <UserNav user={session.user} />
           ) : (
             <Button asChild variant="default" size="sm">
-              <Link href="/auth/login">{t('auth.signIn')}</Link>
+              <Link href="/auth/login">{t("auth.signIn")}</Link>
             </Button>
           )}
         </nav>
       </div>
     </header>
-  )
+  );
 }

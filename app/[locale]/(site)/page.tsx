@@ -117,9 +117,10 @@ export default async function HomePage({
         <section className="gradient-hero overflow-hidden">
           <div className="container flex min-h-[calc(100vh-5rem)] flex-col items-center justify-center gap-8 px-4 py-12 text-center md:py-16">
             <div className="max-w-2xl space-y-4">
-              <h1 className="text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-6xl">
+              <h1 className="text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-6xl shadow-lg mb-2">
                 {t("hero.title")}
               </h1>
+
               <p className="text-lg leading-relaxed text-muted-foreground md:text-xl">
                 {t("hero.description")}
               </p>
