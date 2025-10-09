@@ -1,9 +1,11 @@
 'use client'
 
+import { signUpWithConsent } from "@/app/actions/signup-with-consent";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Link, useRouter } from "@/i18n/routing";
-import { authClient } from "@/lib/auth-client";
+import { SignupSchema } from "@/lib/schemas/auth";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
@@ -12,6 +14,7 @@ export function SignupForm() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [consentChecked, setConsentChecked] = useState(false);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -23,16 +26,37 @@ export function SignupForm() {
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
 
+    // Validation côté client avec Zod
+    const validationResult = SignupSchema.safeParse({
+      name,
+      email,
+      password,
+      healthDataConsent: consentChecked,
+    });
+
+    if (!validationResult.success) {
+      setError(
+        validationResult.error.issues[0]?.message || "Erreur de validation"
+      );
+      setIsLoading(false);
+      return;
+    }
+
     try {
-      await authClient.signUp.email({
+      await signUpWithConsent({
+        name,
         email,
         password,
-        name,
+        healthDataConsent: consentChecked,
       });
 
       router.push("/verify-email");
-    } catch {
-      setError("Erreur lors de la création du compte");
+    } catch (error) {
+      setError(
+        error instanceof Error
+          ? error.message
+          : "Erreur lors de la création du compte"
+      );
     } finally {
       setIsLoading(false);
     }
@@ -96,6 +120,26 @@ export function SignupForm() {
         />
       </div>
 
+      <div className="space-y-3">
+        <div className="flex items-start space-x-3">
+          <Checkbox
+            id="consent"
+            checked={consentChecked}
+            onCheckedChange={(checked) => setConsentChecked(checked === true)}
+            disabled={isLoading}
+            className="mt-1"
+          />
+          <label htmlFor="consent" className="text-sm leading-relaxed">
+            {t("auth.consent.label")}
+          </label>
+        </div>
+        {!consentChecked && (
+          <p className="text-sm text-destructive">
+            {t("auth.consent.required")}
+          </p>
+        )}
+      </div>
+
       <div className="flex gap-4 pt-2">
         <Button
           asChild
@@ -105,7 +149,11 @@ export function SignupForm() {
         >
           <Link href="/">{t("auth.dialogSignin.cancel")}</Link>
         </Button>
-        <Button type="submit" className="flex-1 h-11" disabled={isLoading}>
+        <Button
+          type="submit"
+          className="flex-1 h-11"
+          disabled={isLoading || !consentChecked}
+        >
           {isLoading ? t("common.loading") : t("auth.dialogSignin.signIn")}
         </Button>
       </div>

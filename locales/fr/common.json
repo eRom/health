@@ -81,7 +81,8 @@
       "passwordLabel": "Mot de passe",
       "passwordPlaceholder": "Votre mot de passe",
       "cancel": "Annuler",
-      "signIn": "S'inscrire"
+      "signIn": "S'inscrire",
+      "loading": "Création..."
     },
     "dialogForgotPassword": {
       "title": "Réinitialisation du mot de passe",
@@ -91,6 +92,11 @@
       "cancel": "Retour",
       "signIn": "Envoyer le lien",
       "success": "Email envoyé ! Vérifiez votre boîte de réception (et vos spams) pour réinitialiser votre mot de passe."
+    },
+    "consent": {
+      "label": "J'accepte que mes données de santé (résultats d'exercices, progrès de rééducation, performances cognitives) soient collectées et traitées dans le cadre de mon suivi personnalisé.",
+      "required": "Vous devez accepter le traitement de vos données de santé pour créer un compte.",
+      "learnMore": "En savoir plus"
     }
   },
   "dashboard": {

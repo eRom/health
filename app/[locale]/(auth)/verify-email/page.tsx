@@ -2,9 +2,9 @@
 
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { ArrowLeft, Mail } from 'lucide-react'
-import { useTranslations } from 'next-intl'
-import Link from 'next/link'
+import { Link } from "@/i18n/routing";
+import { ArrowLeft, Mail } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export default function VerifyEmailPage() {
   const t = useTranslations()
@@ -49,7 +49,7 @@ export default function VerifyEmailPage() {
                 </Link>
               </Button>
               <Button asChild className="flex-1 h-11">
-                <Link href="/dashboard">{t("auth.verifyEmail.continue")}</Link>
+                <Link href="/">{t("auth.verifyEmail.continue")}</Link>
               </Button>
             </div>
           </CardContent>

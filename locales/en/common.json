@@ -81,7 +81,8 @@
       "passwordLabel": "Password",
       "passwordPlaceholder": "Your password",
       "cancel": "Cancel",
-      "signIn": "Sign In"
+      "signIn": "Sign In",
+      "loading": "Creating..."
     },
     "dialogForgotPassword": {
       "title": "Password Reset",
@@ -91,6 +92,11 @@
       "cancel": "Back",
       "signIn": "Send link",
       "success": "Email sent! Check your inbox (and your spam) to reset your password."
+    },
+    "consent": {
+      "label": "I accept that my health data (exercise results, rehabilitation progress, cognitive performance) be collected and processed as part of my personalized follow-up.",
+      "required": "You must accept the processing of your health data to create an account.",
+      "learnMore": "Learn more"
     }
   },
   "dashboard": {
