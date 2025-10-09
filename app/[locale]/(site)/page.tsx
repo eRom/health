@@ -19,10 +19,10 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale });
+  const t = await getTranslations({ locale, namespace: "pageHome" });
 
-  const title = t("home.hero.title");
-  const description = t("home.hero.description");
+  const title = t("hero.title");
+  const description = t("hero.description");
   const url = "https://healthincloud.app";
 
   return {
@@ -76,9 +76,14 @@ import {
   Zap,
 } from "lucide-react";
 
-export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function HomePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
   const { locale } = await params;
-  const t = await getTranslations({ locale });
+  const t = await getTranslations({ locale, namespace: "pageHome" });
+  const authT = await getTranslations({ locale, namespace: "auth" });
 
   // Check if user is authenticated
   const session = await auth.api.getSession({
@@ -89,10 +94,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   const webPageSchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    name: t("home.hero.title"),
-    description: t("home.hero.description"),
+    name: t("hero.title"),
+    description: t("hero.description"),
     url: "https://healthincloud.app",
-    inLanguage: "fr-FR",
+    inLanguage: locale === "fr" ? "fr-FR" : "en-US",
     isPartOf: {
       "@type": "WebSite",
       name: "Health In Cloud",
@@ -113,19 +118,17 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           <div className="container flex min-h-[calc(100vh-5rem)] flex-col items-center justify-center gap-8 px-4 py-12 text-center md:py-16">
             <div className="max-w-2xl space-y-4">
               <h1 className="text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-6xl">
-                {t("home.hero.title")}
+                {t("hero.title")}
               </h1>
               <p className="text-lg leading-relaxed text-muted-foreground md:text-xl">
-                {t("home.hero.description")}
+                {t("hero.description")}
               </p>
             </div>
 
             <div className="flex flex-col gap-4 sm:flex-row">
               {session?.user ? (
                 <Button asChild size="lg" className="w-full text-base sm:w-56">
-                  <Link href="/dashboard">
-                    {t("home.hero.ctaAuthenticated")}
-                  </Link>
+                  <Link href="/dashboard">{t("hero.ctaAuthenticated")}</Link>
                 </Button>
               ) : (
                 <>
@@ -134,7 +137,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                     size="lg"
                     className="w-full text-base sm:w-56"
                   >
-                    <Link href="/auth/signup">{t("home.hero.cta")}</Link>
+                    <Link href="/auth/signup">{t("hero.cta")}</Link>
                   </Button>
                   <Button
                     asChild
@@ -142,7 +145,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                     size="lg"
                     className="w-full text-base sm:w-56"
                   >
-                    <Link href="/auth/login">{t("auth.signIn")}</Link>
+                    <Link href="/auth/login">{authT("signIn")}</Link>
                   </Button>
                 </>
               )}
@@ -156,10 +159,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                       <Brain className="h-6 w-6" aria-hidden="true" />
                     </span>
                     <h3 className="mb-2 text-base font-semibold">
-                      {t("home.hero.highlightGuidedTitle")}
+                      {t("hero.highlightGuidedTitle")}
                     </h3>
                     <p className="text-sm text-muted-foreground">
-                      {t("home.hero.highlightGuidedDescription")}
+                      {t("hero.highlightGuidedDescription")}
                     </p>
                   </div>
                   <div className="flex flex-col items-center text-center">
@@ -167,10 +170,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                       <Mic className="h-6 w-6" aria-hidden="true" />
                     </span>
                     <h3 className="mb-2 text-base font-semibold">
-                      {t("home.hero.highlightFeedbackTitle")}
+                      {t("hero.highlightFeedbackTitle")}
                     </h3>
                     <p className="text-sm text-muted-foreground">
-                      {t("home.hero.highlightFeedbackDescription")}
+                      {t("hero.highlightFeedbackDescription")}
                     </p>
                   </div>
                   <div className="flex flex-col items-center text-center">
@@ -178,10 +181,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                       <Smartphone className="h-6 w-6" aria-hidden="true" />
                     </span>
                     <h3 className="mb-2 text-base font-semibold">
-                      {t("home.hero.highlightDevicesTitle")}
+                      {t("hero.highlightDevicesTitle")}
                     </h3>
                     <p className="text-sm text-muted-foreground">
-                      {t("home.hero.highlightDevicesDescription")}
+                      {t("hero.highlightDevicesDescription")}
                     </p>
                   </div>
                 </div>
@@ -195,11 +198,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           <div className="container px-4">
             <div className="mx-auto mb-12 max-w-3xl text-center">
               <h2 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">
-                Nous résolvons vos défis quotidiens
+                {t("problems.title")}
               </h2>
               <p className="text-lg text-muted-foreground">
-                Notre plateforme répond aux besoins spécifiques des patients et
-                des cliniciens
+                {t("problems.description")}
               </p>
             </div>
 
@@ -209,24 +211,24 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 <div className="border-b bg-[var(--color-bg-3)] p-6">
                   <h3 className="flex items-center gap-2 text-xl font-semibold">
                     <User className="h-6 w-6" aria-hidden="true" />
-                    Pour les patients
+                    {t("problems.patients.title")}
                   </h3>
                 </div>
                 <div className="p-6">
                   <div className="space-y-6">
                     <div>
                       <h4 className="mb-3 text-sm font-semibold">
-                        Difficultés actuelles :
+                        {t("problems.patients.currentDifficulties")}
                       </h4>
                       <ul className="space-y-2 text-sm text-muted-foreground">
-                        <li>• Difficile de retenir les exercices prescrits</li>
-                        <li>• Pas de feedback entre les séances</li>
-                        <li>• Motivation limitée</li>
+                        <li>• {t("problems.patients.difficulty1")}</li>
+                        <li>• {t("problems.patients.difficulty2")}</li>
+                        <li>• {t("problems.patients.difficulty3")}</li>
                       </ul>
                     </div>
                     <div>
                       <h4 className="mb-3 text-sm font-semibold text-primary">
-                        Notre solution :
+                        {t("problems.patients.ourSolution")}
                       </h4>
                       <ul className="space-y-2 text-sm text-primary">
                         <li className="flex items-start gap-2">
@@ -234,21 +236,21 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                             className="mt-0.5 h-4 w-4 shrink-0"
                             aria-hidden="true"
                           />
-                          <span>Accès permanent aux exercices guidés</span>
+                          <span>{t("problems.patients.solution1")}</span>
                         </li>
                         <li className="flex items-start gap-2">
                           <CheckCircle
                             className="mt-0.5 h-4 w-4 shrink-0"
                             aria-hidden="true"
                           />
-                          <span>Feedback instantané sur les performances</span>
+                          <span>{t("problems.patients.solution2")}</span>
                         </li>
                         <li className="flex items-start gap-2">
                           <CheckCircle
                             className="mt-0.5 h-4 w-4 shrink-0"
                             aria-hidden="true"
                           />
-                          <span>Encouragements motivationnels</span>
+                          <span>{t("problems.patients.solution3")}</span>
                         </li>
                       </ul>
                     </div>
@@ -261,23 +263,23 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 <div className="border-b bg-[var(--color-bg-3)] p-6">
                   <h3 className="flex items-center gap-2 text-xl font-semibold">
                     <Stethoscope className="h-6 w-6" aria-hidden="true" />
-                    Pour les cliniciens
+                    {t("problems.clinicians.title")}
                   </h3>
                 </div>
                 <div className="p-6">
                   <div className="space-y-6">
                     <div>
                       <h4 className="mb-3 text-sm font-semibold">
-                        Difficultés actuelles :
+                        {t("problems.clinicians.currentDifficulties")}
                       </h4>
                       <ul className="space-y-2 text-sm text-muted-foreground">
-                        <li>• Aucune visibilité sur la pratique à domicile</li>
-                        <li>• Difficile de quantifier les progrès</li>
+                        <li>• {t("problems.clinicians.difficulty1")}</li>
+                        <li>• {t("problems.clinicians.difficulty2")}</li>
                       </ul>
                     </div>
                     <div>
                       <h4 className="mb-3 text-sm font-semibold text-primary">
-                        Notre solution :
+                        {t("problems.clinicians.ourSolution")}
                       </h4>
                       <ul className="space-y-2 text-sm text-primary">
                         <li className="flex items-start gap-2">
@@ -285,16 +287,14 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                             className="mt-0.5 h-4 w-4 shrink-0"
                             aria-hidden="true"
                           />
-                          <span>Tableau de bord résumant l&apos;adhérence</span>
+                          <span>{t("problems.clinicians.solution1")}</span>
                         </li>
                         <li className="flex items-start gap-2">
                           <CheckCircle
                             className="mt-0.5 h-4 w-4 shrink-0"
                             aria-hidden="true"
                           />
-                          <span>
-                            Tendances de performance et insights actionnables
-                          </span>
+                          <span>{t("problems.clinicians.solution2")}</span>
                         </li>
                       </ul>
                     </div>
@@ -313,10 +313,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           <div className="container px-4">
             <div className="mx-auto mb-12 max-w-3xl text-center">
               <h2 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">
-                Fonctionnalités clés
+                {t("features.title")}
               </h2>
               <p className="text-lg text-muted-foreground">
-                Une plateforme complète pour votre rééducation
+                {t("features.description")}
               </p>
             </div>
 
@@ -326,11 +326,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                   <Target className="h-8 w-8 text-primary" aria-hidden="true" />
                 </div>
                 <h3 className="mb-2 text-lg font-semibold">
-                  Exercices guidés 24/7
+                  {t("features.guidedExercises.title")}
                 </h3>
                 <p className="text-sm text-muted-foreground">
-                  Accès permanent à vos exercices prescrits avec guidage vocal
-                  et visuel
+                  {t("features.guidedExercises.description")}
                 </p>
               </div>
 
@@ -339,11 +338,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                   <Zap className="h-8 w-8 text-primary" aria-hidden="true" />
                 </div>
                 <h3 className="mb-2 text-lg font-semibold">
-                  Feedback instantané
+                  {t("features.instantFeedback.title")}
                 </h3>
                 <p className="text-sm text-muted-foreground">
-                  Retours immédiats sur vos performances pour progresser
-                  efficacement
+                  {t("features.instantFeedback.description")}
                 </p>
               </div>
 
@@ -355,11 +353,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                   />
                 </div>
                 <h3 className="mb-2 text-lg font-semibold">
-                  Suivi des progrès
+                  {t("features.progressTracking.title")}
                 </h3>
                 <p className="text-sm text-muted-foreground">
-                  Visualisation claire de votre évolution avec graphiques et
-                  statistiques
+                  {t("features.progressTracking.description")}
                 </p>
               </div>
 
@@ -371,10 +368,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                   />
                 </div>
                 <h3 className="mb-2 text-lg font-semibold">
-                  Design mobile-first
+                  {t("features.mobileFirst.title")}
                 </h3>
                 <p className="text-sm text-muted-foreground">
-                  Interface optimisée pour tablettes et smartphones
+                  {t("features.mobileFirst.description")}
                 </p>
               </div>
 
@@ -382,9 +379,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10">
                   <Moon className="h-8 w-8 text-primary" aria-hidden="true" />
                 </div>
-                <h3 className="mb-2 text-lg font-semibold">Mode sombre</h3>
+                <h3 className="mb-2 text-lg font-semibold">
+                  {t("features.darkMode.title")}
+                </h3>
                 <p className="text-sm text-muted-foreground">
-                  Thème sombre par défaut pour réduire la fatigue oculaire
+                  {t("features.darkMode.description")}
                 </p>
               </div>
 
@@ -392,9 +391,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10">
                   <Shield className="h-8 w-8 text-primary" aria-hidden="true" />
                 </div>
-                <h3 className="mb-2 text-lg font-semibold">Conformité RGPD</h3>
+                <h3 className="mb-2 text-lg font-semibold">
+                  {t("features.gdprCompliant.title")}
+                </h3>
                 <p className="text-sm text-muted-foreground">
-                  Protection maximale de vos données de santé
+                  {t("features.gdprCompliant.description")}
                 </p>
               </div>
             </div>
@@ -406,10 +407,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           <div className="container px-4">
             <div className="mx-auto mb-12 max-w-3xl text-center">
               <h2 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">
-                Ils nous font confiance
+                {t("testimonials.title")}
               </h2>
               <p className="text-lg text-muted-foreground">
-                Témoignages de nos utilisateurs
+                {t("testimonials.description")}
               </p>
             </div>
 
@@ -418,17 +419,18 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               <div className="rounded-xl border bg-card p-8 shadow-sm">
                 <div className="mb-6 text-center text-6xl">👩‍🦳</div>
                 <div className="mb-4">
-                  <h3 className="mb-1 text-lg font-semibold">Marie, 48 ans</h3>
+                  <h3 className="mb-1 text-lg font-semibold">
+                    {t("testimonials.marie.name")}
+                  </h3>
                   <p className="mb-1 text-sm font-medium text-primary">
-                    Patiente en rééducation
+                    {t("testimonials.marie.role")}
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    Post-AVC ischémique avec troubles cognitifs et de la parole
+                    {t("testimonials.marie.condition")}
                   </p>
                 </div>
                 <blockquote className="border-l-4 border-primary pl-4 italic">
-                  &ldquo;Je veux continuer à pratiquer à la maison comme je le
-                  fais avec mon thérapeute et voir si je progresse.&rdquo;
+                  &ldquo;{t("testimonials.marie.quote")}&rdquo;
                 </blockquote>
               </div>
 
@@ -437,20 +439,17 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 <div className="mb-6 text-center text-6xl">👩‍⚕️</div>
                 <div className="mb-4">
                   <h3 className="mb-1 text-lg font-semibold">
-                    Dr. Typhaine, 43 ans
+                    {t("testimonials.drTyphaine.name")}
                   </h3>
                   <p className="mb-1 text-sm font-medium text-primary">
-                    Orthophoniste
+                    {t("testimonials.drTyphaine.role")}
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    Clinicienne en médecine de réadaptation, 20-30 patients
-                    actifs
+                    {t("testimonials.drTyphaine.condition")}
                   </p>
                 </div>
                 <blockquote className="border-l-4 border-primary pl-4 italic">
-                  &ldquo;J&apos;ai besoin de visibilité sur la pratique à
-                  domicile de mes patients pour ajuster mes recommandations de
-                  manière proactive.&rdquo;
+                  &ldquo;{t("testimonials.drTyphaine.quote")}&rdquo;
                 </blockquote>
               </div>
             </div>
@@ -462,10 +461,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           <div className="container px-4">
             <div className="mx-auto mb-12 max-w-3xl text-center">
               <h2 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">
-                Votre parcours en 4 étapes
+                {t("journey.title")}
               </h2>
               <p className="text-lg text-muted-foreground">
-                Un accompagnement personnalisé de l&apos;inscription au suivi
+                {t("journey.description")}
               </p>
             </div>
 
@@ -476,10 +475,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 </div>
                 <div>
                   <h3 className="mb-2 font-semibold">
-                    Découverte et inscription
+                    {t("journey.step1.title")}
                   </h3>
                   <p className="text-sm text-muted-foreground">
-                    Découvrez la plateforme et créez votre compte sécurisé
+                    {t("journey.step1.description")}
                   </p>
                 </div>
               </div>
@@ -489,10 +488,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                   2
                 </div>
                 <div>
-                  <h3 className="mb-2 font-semibold">Premier exercice</h3>
+                  <h3 className="mb-2 font-semibold">
+                    {t("journey.step2.title")}
+                  </h3>
                   <p className="text-sm text-muted-foreground">
-                    Complétez votre premier exercice et recevez un feedback
-                    immédiat
+                    {t("journey.step2.description")}
                   </p>
                 </div>
               </div>
@@ -502,10 +502,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                   3
                 </div>
                 <div>
-                  <h3 className="mb-2 font-semibold">Entraînement quotidien</h3>
+                  <h3 className="mb-2 font-semibold">
+                    {t("journey.step3.title")}
+                  </h3>
                   <p className="text-sm text-muted-foreground">
-                    Réalisez 2-3 exercices par session avec suivi des
-                    performances
+                    {t("journey.step3.description")}
                   </p>
                 </div>
               </div>
@@ -515,10 +516,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                   4
                 </div>
                 <div>
-                  <h3 className="mb-2 font-semibold">Suivi des progrès</h3>
+                  <h3 className="mb-2 font-semibold">
+                    {t("journey.step4.title")}
+                  </h3>
                   <p className="text-sm text-muted-foreground">
-                    Consultez vos statistiques détaillées et exportez vos
-                    rapports PDF
+                    {t("journey.step4.description")}
                   </p>
                 </div>
               </div>
@@ -531,59 +533,71 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           <div className="container px-4">
             <div className="mx-auto mb-12 max-w-3xl text-center">
               <h2 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">
-                Technologie & Accessibilité
+                {t("technology.title")}
               </h2>
               <p className="text-lg text-muted-foreground">
-                Une plateforme moderne et inclusive
+                {t("technology.description")}
               </p>
             </div>
 
             <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
               <div className="text-center">
                 <div className="mx-auto mb-3 text-4xl">📱</div>
-                <h3 className="mb-1 text-sm font-semibold">Mobile-first</h3>
+                <h3 className="mb-1 text-sm font-semibold">
+                  {t("technology.mobileFirst.title")}
+                </h3>
                 <p className="text-xs text-muted-foreground">
-                  Expérience responsive optimisée
+                  {t("technology.mobileFirst.description")}
                 </p>
               </div>
 
               <div className="text-center">
                 <div className="mx-auto mb-3 text-4xl">♿</div>
-                <h3 className="mb-1 text-sm font-semibold">WCAG 2.1 AA</h3>
+                <h3 className="mb-1 text-sm font-semibold">
+                  {t("technology.wcag.title")}
+                </h3>
                 <p className="text-xs text-muted-foreground">
-                  Accessibilité garantie
+                  {t("technology.wcag.description")}
                 </p>
               </div>
 
               <div className="text-center">
                 <div className="mx-auto mb-3 text-4xl">📶</div>
-                <h3 className="mb-1 text-sm font-semibold">PWA Hors ligne</h3>
+                <h3 className="mb-1 text-sm font-semibold">
+                  {t("technology.offline.title")}
+                </h3>
                 <p className="text-xs text-muted-foreground">
-                  Utilisation sans connexion
+                  {t("technology.offline.description")}
                 </p>
               </div>
 
               <div className="text-center">
                 <div className="mx-auto mb-3 text-4xl">🌐</div>
-                <h3 className="mb-1 text-sm font-semibold">Bilingue FR/EN</h3>
+                <h3 className="mb-1 text-sm font-semibold">
+                  {t("technology.bilingual.title")}
+                </h3>
                 <p className="text-xs text-muted-foreground">
-                  Changement instantané
+                  {t("technology.bilingual.description")}
                 </p>
               </div>
 
               <div className="text-center">
                 <div className="mx-auto mb-3 text-4xl">🔒</div>
-                <h3 className="mb-1 text-sm font-semibold">RGPD</h3>
+                <h3 className="mb-1 text-sm font-semibold">
+                  {t("technology.gdpr.title")}
+                </h3>
                 <p className="text-xs text-muted-foreground">
-                  Données de santé protégées
+                  {t("technology.gdpr.description")}
                 </p>
               </div>
 
               <div className="text-center">
                 <div className="mx-auto mb-3 text-4xl">⚡</div>
-                <h3 className="mb-1 text-sm font-semibold">Performance</h3>
+                <h3 className="mb-1 text-sm font-semibold">
+                  {t("technology.performance.title")}
+                </h3>
                 <p className="text-xs text-muted-foreground">
-                  ≥90/100 Lighthouse
+                  {t("technology.performance.description")}
                 </p>
               </div>
             </div>
@@ -595,11 +609,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           <div className="container px-4">
             <div className="mx-auto max-w-2xl text-center">
               <h2 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">
-                Prêt à commencer votre rééducation ?
+                {t("cta.title")}
               </h2>
               <p className="mb-8 text-lg text-muted-foreground">
-                Rejoignez dès maintenant les patients qui font confiance à
-                Health In Cloud pour leur rééducation
+                {t("cta.description")}
               </p>
               <div className="flex flex-col justify-center gap-4 sm:flex-row">
                 {session?.user ? (
@@ -608,9 +621,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                     size="lg"
                     className="w-full text-base sm:w-56"
                   >
-                    <Link href="/dashboard">
-                      {t("home.hero.ctaAuthenticated")}
-                    </Link>
+                    <Link href="/dashboard">{t("hero.ctaAuthenticated")}</Link>
                   </Button>
                 ) : (
                   <Button
@@ -618,7 +629,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                     size="lg"
                     className="w-full text-base sm:w-56"
                   >
-                    <Link href="/auth/signup">Créer mon compte</Link>
+                    <Link href="/auth/signup">{t("cta.createAccount")}</Link>
                   </Button>
                 )}
                 <Button
@@ -627,7 +638,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                   size="lg"
                   className="w-full text-base sm:w-56"
                 >
-                  <Link href="/about">En savoir plus</Link>
+                  <Link href="/about">{t("cta.learnMore")}</Link>
                 </Button>
               </div>
             </div>
@@ -641,12 +652,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               <div className="grid gap-12 md:grid-cols-2 md:items-center">
                 <div>
                   <h2 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">
-                    Toujours à portée de main
+                    {t("mobileApp.title")}
                   </h2>
                   <p className="mb-6 text-lg text-muted-foreground">
-                    Accédez à vos exercices de rééducation où que vous soyez.
-                    Notre plateforme est optimisée pour mobile et tablette, vous
-                    offrant une expérience fluide et intuitive.
+                    {t("mobileApp.description")}
                   </p>
                   <ul className="mb-8 space-y-3">
                     <li className="flex items-start gap-3">
@@ -667,7 +676,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                         <path d="m9 11 3 3L22 4"></path>
                       </svg>
                       <span className="text-muted-foreground">
-                        Interface responsive adaptée à tous les écrans
+                        {t("mobileApp.responsive")}
                       </span>
                     </li>
                     <li className="flex items-start gap-3">
@@ -688,7 +697,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                         <path d="m9 11 3 3L22 4"></path>
                       </svg>
                       <span className="text-muted-foreground">
-                        Mode hors ligne pour pratiquer sans connexion
+                        {t("mobileApp.offlineMode")}
                       </span>
                     </li>
                     <li className="flex items-start gap-3">
@@ -709,7 +718,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                         <path d="m9 11 3 3L22 4"></path>
                       </svg>
                       <span className="text-muted-foreground">
-                        Synchronisation automatique de vos progrès
+                        {t("mobileApp.intuitive")}
                       </span>
                     </li>
                   </ul>
@@ -753,13 +762,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               <div className="rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/5 to-primary/10 p-8 text-center shadow-lg">
                 <div className="mb-4 text-4xl">💙</div>
                 <h2 className="mb-3 text-2xl font-bold tracking-tight">
-                  Soutenez ce projet
+                  {t("support.title")}
                 </h2>
                 <p className="mb-6 text-muted-foreground">
-                  Ce projet est développé avec passion pour aider les patients
-                  en rééducation. Si vous souhaitez soutenir son développement
-                  et partager mon parcours de renaissance après un AVC, vous
-                  pouvez contribuer via Tipeee.
+                  {t("support.description")}
                 </p>
                 <Button asChild size="lg" className="gap-2">
                   <a
@@ -768,7 +774,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                     rel="noopener noreferrer"
                   >
                     <span>☕</span>
-                    <span>Soutenir sur Tipeee</span>
+                    <span>{t("support.button")}</span>
                   </a>
                 </Button>
               </div>

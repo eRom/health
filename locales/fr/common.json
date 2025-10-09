@@ -159,10 +159,9 @@
       "stable": "Stable"
     }
   },
-  "home": {
+  "pageHome": {
     "hero": {
       "title": "Rééducation MPR",
-      "subtitle": "Pour le service MPR de Nantes",
       "description": "Pratiquez vos exercices de rééducation en autonomie avec un suivi personnalisé et des retours instantanés.",
       "cta": "Commencer maintenant",
       "ctaAuthenticated": "Voir vos progrès",
@@ -173,63 +172,139 @@
       "highlightDevicesTitle": "Disponible partout",
       "highlightDevicesDescription": "Compatible ordinateur, tablette et smartphone."
     },
-    "features": {
-      "title": "Une plateforme adaptée à vos besoins",
+    "problems": {
+      "title": "Nous résolvons vos défis quotidiens",
+      "description": "Notre plateforme répond aux besoins spécifiques des patients et des cliniciens",
       "patients": {
         "title": "Pour les patients",
-        "description": "Accédez à vos exercices prescrits à tout moment, recevez des retours instantanés et suivez votre progression.",
-        "benefit1": "Exercices guidés disponibles 24/7",
-        "benefit2": "Retours immédiats sur vos performances",
-        "benefit3": "Suivi de votre progression"
+        "currentDifficulties": "Difficultés actuelles :",
+        "difficulty1": "Difficile de retenir les exercices prescrits",
+        "difficulty2": "Pas de feedback entre les séances",
+        "difficulty3": "Motivation limitée",
+        "ourSolution": "Notre solution :",
+        "solution1": "Accès permanent aux exercices guidés",
+        "solution2": "Feedback instantané sur les performances",
+        "solution3": "Encouragements motivationnels"
       },
       "clinicians": {
-        "title": "Pour les thérapeutes",
-        "description": "Suivez l'assiduité et les progrès de vos patients entre les séances.",
-        "benefit1": "Tableau de bord de suivi",
-        "benefit2": "Analyse des tendances",
-        "benefit3": "Ajustement des recommandations"
+        "title": "Pour les cliniciens",
+        "currentDifficulties": "Difficultés actuelles :",
+        "difficulty1": "Aucune visibilité sur la pratique à domicile",
+        "difficulty2": "Difficile de quantifier les progrès",
+        "ourSolution": "Notre solution :",
+        "solution1": "Tableau de bord résumant l'adhérence",
+        "solution2": "Tendances de performance et insights actionnables"
       }
     },
-    "exercises": {
-      "title": "Exercices de rééducation",
-      "description": "Des exercices adaptés pour la neuropsychologie et l'orthophonie",
-      "neuro": {
-        "title": "Neuropsychologie",
-        "description": "Exercices cognitifs : empan de lettres, mémoire de travail, attention soutenue.",
-        "example1": "Empan de lettres audio avec timing configurable",
-        "example2": "Exercices de mémoire de travail",
-        "example3": "Tests d'attention soutenue"
+    "features": {
+      "title": "Fonctionnalités clés",
+      "description": "Une plateforme complète pour votre rééducation",
+      "guidedExercises": {
+        "title": "Exercices guidés 24/7",
+        "description": "Accès permanent à vos exercices prescrits avec guidage vocal et visuel"
       },
-      "ortho": {
-        "title": "Orthophonie",
-        "description": "Exercices de parole : diadococinésie, virelangues, compréhension verbale.",
-        "example1": "Exercices de diadococinésie",
-        "example2": "Virelangues progressifs",
-        "example3": "Compréhension verbale"
+      "instantFeedback": {
+        "title": "Feedback instantané",
+        "description": "Retours immédiats sur vos performances pour progresser efficacement"
+      },
+      "progressTracking": {
+        "title": "Suivi des progrès",
+        "description": "Visualisation claire de votre évolution avec graphiques et statistiques"
+      },
+      "mobileFirst": {
+        "title": "Design mobile-first",
+        "description": "Interface optimisée pour tablettes et smartphones"
+      },
+      "darkMode": {
+        "title": "Mode sombre",
+        "description": "Thème sombre par défaut pour réduire la fatigue oculaire"
+      },
+      "gdprCompliant": {
+        "title": "Conformité RGPD",
+        "description": "Protection maximale de vos données de santé"
       }
     },
-    "benefits": {
-      "title": "Pourquoi Health In Cloud ?",
-      "accessible": {
-        "title": "Accessible",
-        "description": "Interface simple et intuitive, optimisée pour tablettes et téléphones"
+    "testimonials": {
+      "title": "Ils nous font confiance",
+      "description": "Témoignages de nos utilisateurs",
+      "marie": {
+        "name": "Marie, 48 ans",
+        "role": "Patiente en rééducation",
+        "condition": "Post-AVC ischémique avec troubles cognitifs et de la parole",
+        "quote": "Je veux continuer à pratiquer à la maison comme je le fais avec mon thérapeute et voir si je progresse."
       },
-      "bilingual": {
-        "title": "Bilingue",
-        "description": "Disponible en français et anglais avec changement instantané"
+      "drTyphaine": {
+        "name": "Dr. Typhaine, 43 ans",
+        "role": "Orthophoniste",
+        "condition": "Clinicienne en médecine de réadaptation, 20-30 patients actifs",
+        "quote": "J'ai besoin de visibilité sur la pratique à domicile de mes patients pour ajuster mes recommandations de manière proactive."
+      }
+    },
+    "journey": {
+      "title": "Votre parcours en 4 étapes",
+      "description": "Un accompagnement personnalisé de l'inscription au suivi",
+      "step1": {
+        "title": "Découverte et inscription",
+        "description": "Découvrez la plateforme et créez votre compte sécurisé"
       },
-      "secure": {
-        "title": "Sécurisé",
-        "description": "Conforme RGPD, vos données de santé sont protégées"
+      "step2": {
+        "title": "Premier exercice",
+        "description": "Complétez votre premier exercice et recevez un feedback immédiat"
+      },
+      "step3": {
+        "title": "Entraînement quotidien",
+        "description": "Réalisez 2-3 exercices par session avec suivi des performances"
+      },
+      "step4": {
+        "title": "Suivi des progrès",
+        "description": "Consultez vos statistiques détaillées et exportez vos rapports PDF"
+      }
+    },
+    "technology": {
+      "title": "Technologie & Accessibilité",
+      "description": "Une plateforme moderne et inclusive",
+      "mobileFirst": {
+        "title": "Mobile-first",
+        "description": "Expérience responsive optimisée"
+      },
+      "wcag": {
+        "title": "WCAG 2.1 AA",
+        "description": "Accessibilité garantie"
       },
       "offline": {
-        "title": "Hors ligne",
-        "description": "Bientôt disponible : mode hors ligne pour pratiquer partout"
+        "title": "PWA Hors ligne",
+        "description": "Utilisation sans connexion"
+      },
+      "bilingual": {
+        "title": "Bilingue FR/EN",
+        "description": "Changement instantané"
+      },
+      "gdpr": {
+        "title": "RGPD",
+        "description": "Données de santé protégées"
+      },
+      "performance": {
+        "title": "Performance",
+        "description": "≥90/100 Lighthouse"
       }
     },
     "cta": {
       "title": "Prêt à commencer votre rééducation ?",
-      "description": "Créez votre compte gratuitement et accédez à vos exercices dès maintenant."
+      "description": "Rejoignez dès maintenant les patients qui font confiance à Health In Cloud pour leur rééducation",
+      "createAccount": "Créer mon compte",
+      "learnMore": "En savoir plus"
+    },
+    "mobileApp": {
+      "title": "Toujours à portée de main",
+      "description": "Accédez à vos exercices de rééducation où que vous soyez. Notre plateforme est optimisée pour mobile et tablette, vous offrant une expérience fluide et intuitive.",
+      "responsive": "Interface responsive adaptée à tous les écrans",
+      "offlineMode": "Mode hors ligne pour pratiquer sans connexion",
+      "intuitive": "Interface intuitive conçue pour l'accessibilité"
+    },
+    "support": {
+      "title": "Soutenez ce projet",
+      "description": "Ce projet est développé avec passion pour aider les patients en rééducation. Si vous souhaitez soutenir son développement et partager mon parcours de renaissance après un AVC, vous pouvez contribuer via Tipeee.",
+      "button": "Soutenir sur Tipeee"
     }
   },
   "offline": {

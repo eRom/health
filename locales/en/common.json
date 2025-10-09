@@ -159,77 +159,152 @@
       "stable": "Stable"
     }
   },
-  "home": {
+  "pageHome": {
     "hero": {
       "title": "MPR Rehabilitation",
-      "subtitle": "For the MPR department of Nantes",
       "description": "Practice your rehabilitation exercises autonomously with personalized tracking and instant feedback.",
       "cta": "Get Started",
       "ctaAuthenticated": "View your progress",
-      "highlightGuidedTitle": "Guided coaching",
-      "highlightGuidedDescription": "Interactive sessions to stay autonomous between appointments.",
-      "highlightFeedbackTitle": "Live feedback",
-      "highlightFeedbackDescription": "Track metrics instantly and understand progress at a glance.",
-      "highlightDevicesTitle": "Works everywhere",
-      "highlightDevicesDescription": "Desktop, tablet, or phone: the experience adapts to you."
+      "highlightGuidedTitle": "Intelligent guidance",
+      "highlightGuidedDescription": "Interactive sessions to work autonomously.",
+      "highlightFeedbackTitle": "Live tracking",
+      "highlightFeedbackDescription": "Analyzes your results and provides instant feedback.",
+      "highlightDevicesTitle": "Available everywhere",
+      "highlightDevicesDescription": "Compatible with computer, tablet and smartphone."
     },
-    "features": {
-      "title": "A Platform Tailored to Your Needs",
+    "problems": {
+      "title": "We solve your daily challenges",
+      "description": "Our platform meets the specific needs of patients and clinicians",
       "patients": {
-        "title": "For Patients",
-        "description": "Access your prescribed exercises anytime, receive instant feedback, and track your progress.",
-        "benefit1": "Guided exercises available 24/7",
-        "benefit2": "Immediate performance feedback",
-        "benefit3": "Track your progress"
+        "title": "For patients",
+        "currentDifficulties": "Current difficulties:",
+        "difficulty1": "Difficult to remember prescribed exercises",
+        "difficulty2": "No feedback between sessions",
+        "difficulty3": "Limited motivation",
+        "ourSolution": "Our solution:",
+        "solution1": "Permanent access to guided exercises",
+        "solution2": "Instant feedback on performance",
+        "solution3": "Motivational encouragement"
       },
       "clinicians": {
-        "title": "For Therapists",
-        "description": "Monitor patient adherence and progress between sessions.",
-        "benefit1": "Monitoring dashboard",
-        "benefit2": "Trend analysis",
-        "benefit3": "Recommendation adjustments"
+        "title": "For clinicians",
+        "currentDifficulties": "Current difficulties:",
+        "difficulty1": "No visibility on home practice",
+        "difficulty2": "Difficult to quantify progress",
+        "ourSolution": "Our solution:",
+        "solution1": "Dashboard summarizing adherence",
+        "solution2": "Performance trends and actionable insights"
       }
     },
-    "exercises": {
-      "title": "Rehabilitation Exercises",
-      "description": "Adapted exercises for neuropsychology and speech therapy",
-      "neuro": {
-        "title": "Neuropsychology",
-        "description": "Cognitive exercises: letter span, working memory, sustained attention.",
-        "example1": "Audio letter span with configurable timing",
-        "example2": "Working memory exercises",
-        "example3": "Sustained attention tests"
+    "features": {
+      "title": "Key features",
+      "description": "A complete platform for your rehabilitation",
+      "guidedExercises": {
+        "title": "Guided exercises 24/7",
+        "description": "Permanent access to your prescribed exercises with vocal and visual guidance"
       },
-      "ortho": {
-        "title": "Speech Therapy",
-        "description": "Speech exercises: diadochokinesis, tongue twisters, verbal comprehension.",
-        "example1": "Diadochokinesia exercises",
-        "example2": "Progressive tongue twisters",
-        "example3": "Verbal comprehension"
+      "instantFeedback": {
+        "title": "Instant feedback",
+        "description": "Immediate feedback on your performance to progress efficiently"
+      },
+      "progressTracking": {
+        "title": "Progress tracking",
+        "description": "Clear visualization of your evolution with graphs and statistics"
+      },
+      "mobileFirst": {
+        "title": "Mobile-first design",
+        "description": "Interface optimized for tablets and smartphones"
+      },
+      "darkMode": {
+        "title": "Dark mode",
+        "description": "Dark theme by default to reduce eye strain"
+      },
+      "gdprCompliant": {
+        "title": "GDPR compliant",
+        "description": "Maximum protection of your health data"
       }
     },
-    "benefits": {
-      "title": "Why Health In Cloud?",
-      "accessible": {
-        "title": "Accessible",
-        "description": "Simple and intuitive interface, optimized for tablets and phones"
+    "testimonials": {
+      "title": "They trust us",
+      "description": "Testimonials from our users",
+      "marie": {
+        "name": "Marie, 48 years old",
+        "role": "Patient in rehabilitation",
+        "condition": "Post-ischemic stroke with cognitive and speech disorders",
+        "quote": "I want to continue practicing at home as I do with my therapist and see if I'm progressing."
       },
-      "bilingual": {
-        "title": "Bilingual",
-        "description": "Available in French and English with instant switching"
+      "drTyphaine": {
+        "name": "Dr. Typhaine, 43 years old",
+        "role": "Speech therapist",
+        "condition": "Rehabilitation medicine clinician, 20-30 active patients",
+        "quote": "I need visibility on my patients' home practice to proactively adjust my recommendations."
+      }
+    },
+    "journey": {
+      "title": "Your journey in 4 steps",
+      "description": "Personalized support from registration to follow-up",
+      "step1": {
+        "title": "Discovery and registration",
+        "description": "Discover the platform and create your secure account"
       },
-      "secure": {
-        "title": "Secure",
-        "description": "GDPR compliant, your health data is protected"
+      "step2": {
+        "title": "First exercise",
+        "description": "Complete your first exercise and receive immediate feedback"
+      },
+      "step3": {
+        "title": "Daily training",
+        "description": "Perform 2-3 exercises per session with performance tracking"
+      },
+      "step4": {
+        "title": "Progress tracking",
+        "description": "Consult your detailed statistics and export your PDF reports"
+      }
+    },
+    "technology": {
+      "title": "Technology & Accessibility",
+      "description": "A modern and inclusive platform",
+      "mobileFirst": {
+        "title": "Mobile-first",
+        "description": "Optimized responsive experience"
+      },
+      "wcag": {
+        "title": "WCAG 2.1 AA",
+        "description": "Guaranteed accessibility"
       },
       "offline": {
-        "title": "Offline",
-        "description": "Coming soon: offline mode to practice anywhere"
+        "title": "Offline PWA",
+        "description": "Use without connection"
+      },
+      "bilingual": {
+        "title": "Bilingual FR/EN",
+        "description": "Instant switching"
+      },
+      "gdpr": {
+        "title": "GDPR",
+        "description": "Protected health data"
+      },
+      "performance": {
+        "title": "Performance",
+        "description": "≥90/100 Lighthouse"
       }
     },
     "cta": {
-      "title": "Ready to Start Your Rehabilitation?",
-      "description": "Create your free account and access your exercises right now."
+      "title": "Ready to start your rehabilitation?",
+      "description": "Join now the patients who trust Health In Cloud for their rehabilitation",
+      "createAccount": "Create my account",
+      "learnMore": "Learn more"
+    },
+    "mobileApp": {
+      "title": "Always at hand",
+      "description": "Access your rehabilitation exercises wherever you are. Our platform is optimized for mobile and tablet, offering you a smooth and intuitive experience.",
+      "responsive": "Responsive interface adapted to all screens",
+      "offlineMode": "Offline mode to practice without connection",
+      "intuitive": "Intuitive interface designed for accessibility"
+    },
+    "support": {
+      "title": "Support this project",
+      "description": "This project is developed with passion to help rehabilitation patients. If you want to support its development and share my journey of rebirth after a stroke, you can contribute via Tipeee.",
+      "button": "Support on Tipeee"
     }
   },
   "offline": {
