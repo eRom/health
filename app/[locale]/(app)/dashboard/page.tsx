@@ -35,9 +35,11 @@ export default async function DashboardPage({
 
   if (!session) {
     redirect({ href: "/auth/login", locale });
+    return null;
   }
 
-  const userName = session!.user.name?.split(" ")[0] || "Marie";
+  const ensuredSession = session;
+  const userName = ensuredSession.user.name?.split(" ")[0] || "Marie";
 
   // Fetch dashboard data
   const { stats, recentExercises } = await getDashboardStats();
@@ -45,11 +47,11 @@ export default async function DashboardPage({
   return (
     <div className="container py-8">
       {/* Email verification banner */}
-      {!session.user.emailVerified && (
+      {!ensuredSession.user.emailVerified && (
         <div className="mb-6">
           <EmailVerificationBanner
-            userEmail={session.user.email}
-            userLocale={session.user.locale || "fr"}
+            userEmail={ensuredSession.user.email}
+            userLocale={locale}
           />
         </div>
       )}

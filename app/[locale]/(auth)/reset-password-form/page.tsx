@@ -1,24 +1,31 @@
-'use client'
+"use client"
 
-import { Alert, AlertDescription } from '@/components/ui/alert'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { Button } from "@/components/ui/button"
 import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { authClient } from '@/lib/auth-client'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useTranslations } from 'next-intl'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { authClient } from "@/lib/auth-client"
+import { Link, useRouter } from "@/i18n/routing"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useTranslations } from "next-intl"
+import { useSearchParams } from "next/navigation"
+import { useState } from "react"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
 
 const formSchema = z.object({
   password: z
@@ -35,48 +42,48 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>
 
 export default function ResetPasswordFormPage() {
-  const t = useTranslations()
+  const t = useTranslations("auth")
   const router = useRouter()
   const searchParams = useSearchParams()
-  const token = searchParams.get('token')
+  const token = searchParams.get("token")
   
   const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState('')
+  const [error, setError] = useState("")
   const [success, setSuccess] = useState(false)
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      password: '',
-      confirmPassword: '',
+      password: "",
+      confirmPassword: "",
     },
   })
 
   async function onSubmit(data: FormData) {
     if (!token) {
-      setError('Token de réinitialisation manquant')
+      setError(t("resetPassword.noTokenDescription"))
       return
     }
 
     setIsLoading(true)
-    setError('')
+    setError("")
     setSuccess(false)
 
     try {
-      await authClient.forgetPassword.updatePassword({
+      await authClient.resetPassword({
+        newPassword: data.password,
         token,
-        password: data.password,
       })
 
       setSuccess(true)
       form.reset()
       
       setTimeout(() => {
-        router.push('/dashboard')
+        router.push("/dashboard")
       }, 2000)
     } catch (error) {
-      console.error('[RESET_PASSWORD_FORM] Error:', error)
-      setError('Erreur lors de la réinitialisation du mot de passe')
+      console.error("[RESET_PASSWORD_FORM] Error:", error)
+      setError(t("resetPassword.errorMessage"))
     } finally {
       setIsLoading(false)
     }
@@ -88,16 +95,16 @@ export default function ResetPasswordFormPage() {
         <div className="max-w-md w-full">
           <Card>
             <CardHeader>
-              <CardTitle>Token manquant</CardTitle>
+              <CardTitle>{t("resetPassword.noToken")}</CardTitle>
               <CardDescription>
-                Le token de réinitialisation est manquant ou invalide.
+                {t("resetPassword.noTokenDescription")}
               </CardDescription>
             </CardHeader>
             <CardContent>
               <Button asChild className="w-full">
-                <a href="/forgot-password">
-                  Demander un nouveau lien
-                </a>
+                <Link href="/forgot-password">
+                  {t("dialogForgotPassword.signIn")}
+                </Link>
               </Button>
             </CardContent>
           </Card>
@@ -111,25 +118,25 @@ export default function ResetPasswordFormPage() {
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
           <h1 className="text-3xl font-bold text-gray-900">
-            Nouveau mot de passe
+            {t("resetPassword.createNewPassword")}
           </h1>
           <p className="mt-2 text-sm text-gray-600">
-            Créez un nouveau mot de passe pour votre compte
+            {t("resetPassword.validTokenMessage")}
           </p>
         </div>
 
         <Card>
           <CardHeader>
-            <CardTitle>Réinitialiser le mot de passe</CardTitle>
+            <CardTitle>{t("resetPassword.title")}</CardTitle>
             <CardDescription>
-              Entrez votre nouveau mot de passe ci-dessous
+              {t("resetPassword.validTokenDescription")}
             </CardDescription>
           </CardHeader>
           <CardContent>
             {success && (
               <Alert>
                 <AlertDescription>
-                  Mot de passe mis à jour avec succès ! Redirection en cours...
+                  {t("resetPassword.validTokenMessage")}
                 </AlertDescription>
               </Alert>
             )}
@@ -147,11 +154,11 @@ export default function ResetPasswordFormPage() {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Nouveau mot de passe</FormLabel>
+                      <FormLabel>{t("password")}</FormLabel>
                       <FormControl>
                         <Input
                           type="password"
-                          placeholder="Votre nouveau mot de passe"
+                          placeholder={t("resetPassword.createNewPassword")}
                           disabled={isLoading}
                           {...field}
                         />
@@ -166,11 +173,11 @@ export default function ResetPasswordFormPage() {
                   name="confirmPassword"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Confirmer le mot de passe</FormLabel>
+                      <FormLabel>{t("resetPassword.createNewPassword")}</FormLabel>
                       <FormControl>
                         <Input
                           type="password"
-                          placeholder="Confirmez votre nouveau mot de passe"
+                          placeholder={t("resetPassword.createNewPassword")}
                           disabled={isLoading}
                           {...field}
                         />
@@ -181,7 +188,7 @@ export default function ResetPasswordFormPage() {
                 />
 
                 <Button type="submit" className="w-full" disabled={isLoading}>
-                  {isLoading ? 'Mise à jour...' : 'Mettre à jour le mot de passe'}
+                  {isLoading ? t("dialogForgotPassword.wait") : t("resetPassword.createNewPassword")}
                 </Button>
               </form>
             </Form>

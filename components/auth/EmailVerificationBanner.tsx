@@ -1,41 +1,47 @@
-'use client'
+"use client"
 
-import { Alert, AlertDescription } from '@/components/ui/alert'
-import { Button } from '@/components/ui/button'
-import { authClient } from '@/lib/auth-client'
-import { Mail } from 'lucide-react'
-import { useTranslations } from 'next-intl'
-import { useState } from 'react'
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { Button } from "@/components/ui/button"
+import { authClient } from "@/lib/auth-client"
+import { Mail } from "lucide-react"
+import { useTranslations } from "next-intl"
+import { useState } from "react"
 
 interface EmailVerificationBannerProps {
   userEmail: string
   userLocale?: string
 }
 
-export function EmailVerificationBanner({ userEmail, userLocale = 'fr' }: EmailVerificationBannerProps) {
-  const t = useTranslations()
+export function EmailVerificationBanner({
+  userEmail,
+  userLocale = "fr",
+}: EmailVerificationBannerProps) {
+  const t = useTranslations("auth.verifyEmail")
   const [isLoading, setIsLoading] = useState(false)
-  const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null)
+  const [message, setMessage] = useState<{
+    type: "success" | "error"
+    text: string
+  } | null>(null)
 
   const handleResendEmail = async () => {
     setIsLoading(true)
     setMessage(null)
 
     try {
-      await authClient.forgetPassword.forgetPassword({
+      await authClient.forgetPassword({
         email: userEmail,
-        redirectTo: '/verify-email',
+        redirectTo: `/${userLocale}/verify-email`,
       })
       
       setMessage({
-        type: 'success',
-        text: 'Email de vérification renvoyé ! Vérifiez votre boîte de réception.'
+        type: "success",
+        text: t("successMessage"),
       })
     } catch (error) {
-      console.error('[RESEND_VERIFICATION] Error:', error)
+      console.error("[RESEND_VERIFICATION] Error:", error)
       setMessage({
-        type: 'error',
-        text: 'Erreur lors de l\'envoi de l\'email. Réessayez plus tard.'
+        type: "error",
+        text: t("errorMessage"),
       })
     } finally {
       setIsLoading(false)
@@ -49,14 +55,18 @@ export function EmailVerificationBanner({ userEmail, userLocale = 'fr' }: EmailV
         <div className="flex items-center justify-between">
           <div className="flex-1">
             <p className="font-medium">
-              Vérifiez votre adresse email
+              {t("title")}
             </p>
             <p className="text-sm mt-1">
-              Nous avons envoyé un lien de vérification à <strong>{userEmail}</strong>. 
-              Cliquez sur le lien pour activer votre compte et accéder aux exercices.
+              {t("subtitle")} <strong>{userEmail}</strong>.{" "}
+              {t("cardDescription")}
             </p>
             {message && (
-              <p className={`text-sm mt-2 ${message.type === 'success' ? 'text-green-700' : 'text-red-700'}`}>
+              <p
+                className={`text-sm mt-2 ${
+                  message.type === "success" ? "text-green-700" : "text-red-700"
+                }`}
+              >
                 {message.text}
               </p>
             )}
@@ -69,7 +79,7 @@ export function EmailVerificationBanner({ userEmail, userLocale = 'fr' }: EmailV
               disabled={isLoading}
               className="text-blue-600 border-blue-300 hover:bg-blue-100"
             >
-              {isLoading ? 'Envoi...' : 'Renvoyer'}
+              {isLoading ? t("sending") : t("resend")}
             </Button>
           </div>
         </div>

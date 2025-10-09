@@ -113,16 +113,30 @@ export const auth = betterAuth({
   emailVerification: {
     enabled: true,
     sendOnSignUp: true,
-    sendVerificationEmail: async ({ user, token, url }) => {
+    sendVerificationEmail: async ({
+      user,
+      token,
+    }: {
+      user: { email: string; locale?: string | null }
+      token: string
+    }) => {
       const { sendVerificationEmail } = await import("./email/send");
-      await sendVerificationEmail(user.email, token, user.locale || "fr");
+      const userLocale = (user as { locale?: string | null })?.locale ?? "fr";
+      await sendVerificationEmail(user.email, token, userLocale);
     },
   },
   forgetPassword: {
     enabled: true,
-    sendResetPassword: async ({ user, token, url }) => {
+    sendResetPassword: async ({
+      user,
+      token,
+    }: {
+      user: { email: string; locale?: string | null }
+      token: string
+    }) => {
       const { sendPasswordResetEmail } = await import("./email/send");
-      await sendPasswordResetEmail(user.email, token, user.locale || "fr");
+      const userLocale = (user as { locale?: string | null })?.locale ?? "fr";
+      await sendPasswordResetEmail(user.email, token, userLocale);
     },
   },
   baseURL,

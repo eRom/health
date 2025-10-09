@@ -4,13 +4,12 @@ import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
-import { Link, useRouter } from "@/i18n/routing";
+import { Link } from "@/i18n/routing";
 import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
 
 export default function ForgotPasswordPage() {
   const t = useTranslations()
-  const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
@@ -52,6 +51,8 @@ export default function ForgotPasswordPage() {
 
       return () => clearInterval(timer)
     }
+
+    return undefined
   }, [cooldown])
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {

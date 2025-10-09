@@ -25,10 +25,12 @@ export async function deleteAccount() {
     // Send confirmation email AFTER deletion (RGPD compliant)
     try {
       const { sendAccountDeletedEmail } = await import("@/lib/email/send");
+      const userLocale =
+        (session.user as { locale?: string | null })?.locale ?? "fr";
       await sendAccountDeletedEmail(
         session.user.email,
         session.user.name,
-        session.user.locale || "fr"
+        userLocale
       );
     } catch (emailError) {
       console.error("[ACCOUNT_DELETION] Email error:", emailError);

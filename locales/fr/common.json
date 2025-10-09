@@ -45,7 +45,9 @@
       "successMessage": "Vous pouvez maintenant accéder à tous les exercices.",
       "goToDashboard": "Aller au tableau de bord",
       "error": "Erreur de vérification",
-      "errorMessage": "Une erreur est survenue lors de la vérification."
+      "errorMessage": "Une erreur est survenue lors de la vérification.",
+      "resend": "Renvoyer",
+      "sending": "Envoi..."
     },
     "resetPassword": {
       "title": "Réinitialisation du mot de passe",

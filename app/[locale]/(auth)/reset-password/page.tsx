@@ -1,18 +1,31 @@
-import { Alert, AlertDescription } from '@/components/ui/alert'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { prisma } from '@/lib/prisma'
-import { CheckCircle, Clock, XCircle } from 'lucide-react'
-import { useTranslations } from 'next-intl'
-import { Suspense } from 'react'
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { Button } from "@/components/ui/button"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { Link } from "@/i18n/routing"
+import { prisma } from "@/lib/prisma"
+import { CheckCircle, Clock, XCircle } from "lucide-react"
+import { getTranslations } from "next-intl/server"
+import { Suspense } from "react"
 
 interface ResetPasswordPageProps {
   params: Promise<{ locale: string }>
   searchParams: Promise<{ token?: string }>
 }
 
-async function ResetPasswordContent({ token }: { token?: string }) {
-  const t = useTranslations()
+async function ResetPasswordContent({
+  token,
+  locale,
+}: {
+  token?: string
+  locale: string
+}) {
+  const t = await getTranslations({ locale, namespace: "auth" })
   
   if (!token) {
     return (
@@ -20,16 +33,16 @@ async function ResetPasswordContent({ token }: { token?: string }) {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <XCircle className="h-5 w-5 text-destructive" />
-            {t('auth.resetPassword.title')}
+            {t("resetPassword.title")}
           </CardTitle>
           <CardDescription>
-            {t('auth.resetPassword.noToken')}
+            {t("resetPassword.noToken")}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <Alert>
             <AlertDescription>
-              {t('auth.resetPassword.noTokenDescription')}
+              {t("resetPassword.noTokenDescription")}
             </AlertDescription>
           </Alert>
         </CardContent>
@@ -54,16 +67,16 @@ async function ResetPasswordContent({ token }: { token?: string }) {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <XCircle className="h-5 w-5 text-destructive" />
-              {t('auth.resetPassword.invalidToken')}
+              {t("resetPassword.invalidToken")}
             </CardTitle>
             <CardDescription>
-              {t('auth.resetPassword.invalidTokenDescription')}
+              {t("resetPassword.invalidTokenDescription")}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <Alert variant="destructive">
               <AlertDescription>
-                {t('auth.resetPassword.invalidTokenMessage')}
+                {t("resetPassword.invalidTokenMessage")}
               </AlertDescription>
             </Alert>
           </CardContent>
@@ -82,13 +95,13 @@ async function ResetPasswordContent({ token }: { token?: string }) {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <XCircle className="h-5 w-5 text-destructive" />
-              {t('auth.resetPassword.userNotFound')}
+              {t("resetPassword.userNotFound")}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <Alert variant="destructive">
               <AlertDescription>
-                {t('auth.resetPassword.userNotFoundMessage')}
+                {t("resetPassword.userNotFoundMessage")}
               </AlertDescription>
             </Alert>
           </CardContent>
@@ -101,23 +114,29 @@ async function ResetPasswordContent({ token }: { token?: string }) {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <CheckCircle className="h-5 w-5 text-green-500" />
-            {t('auth.resetPassword.validToken')}
+            {t("resetPassword.validToken")}
           </CardTitle>
           <CardDescription>
-            {t('auth.resetPassword.validTokenDescription')}
+            {t("resetPassword.validTokenDescription")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <Alert>
             <CheckCircle className="h-4 w-4" />
             <AlertDescription>
-              {t('auth.resetPassword.validTokenMessage')}
+              {t("resetPassword.validTokenMessage")}
             </AlertDescription>
           </Alert>
           <Button asChild className="w-full">
-            <a href={`/reset-password-form?token=${token}`}>
-              {t('auth.resetPassword.createNewPassword')}
-            </a>
+            <Link
+              href={{
+                pathname: "/reset-password-form",
+                query: { token },
+              }}
+              locale={locale}
+            >
+              {t("resetPassword.createNewPassword")}
+            </Link>
           </Button>
         </CardContent>
       </Card>
@@ -129,13 +148,13 @@ async function ResetPasswordContent({ token }: { token?: string }) {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <XCircle className="h-5 w-5 text-destructive" />
-            {t('auth.resetPassword.error')}
+            {t("resetPassword.error")}
           </CardTitle>
         </CardHeader>
         <CardContent>
           <Alert variant="destructive">
             <AlertDescription>
-              {t('auth.resetPassword.errorMessage')}
+              {t("resetPassword.errorMessage")}
             </AlertDescription>
           </Alert>
         </CardContent>
@@ -144,16 +163,20 @@ async function ResetPasswordContent({ token }: { token?: string }) {
   }
 }
 
-export default async function ResetPasswordPage({ params, searchParams }: ResetPasswordPageProps) {
+export default async function ResetPasswordPage({
+  params,
+  searchParams,
+}: ResetPasswordPageProps) {
   const { locale } = await params
   const { token } = await searchParams
-  
+  const t = await getTranslations({ locale, namespace: "auth" })
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
           <h1 className="text-3xl font-bold text-gray-900">
-            {locale === 'fr' ? 'Réinitialisation du mot de passe' : 'Password Reset'}
+            {t("resetPassword.title")}
           </h1>
         </div>
         
@@ -162,12 +185,12 @@ export default async function ResetPasswordPage({ params, searchParams }: ResetP
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Clock className="h-5 w-5 text-blue-500" />
-                {locale === 'fr' ? 'Vérification en cours...' : 'Verifying...'}
+                {t("resetPassword.validTokenDescription")}
               </CardTitle>
             </CardHeader>
           </Card>
         }>
-          <ResetPasswordContent token={token} />
+          <ResetPasswordContent token={token} locale={locale} />
         </Suspense>
       </div>
     </div>

@@ -45,7 +45,9 @@
       "successMessage": "You can now access all exercises.",
       "goToDashboard": "Go to dashboard",
       "error": "Verification error",
-      "errorMessage": "An error occurred during verification."
+      "errorMessage": "An error occurred during verification.",
+      "resend": "Resend",
+      "sending": "Sending..."
     },
     "resetPassword": {
       "title": "Password Reset",
