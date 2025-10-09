@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "analyze": "ANALYZE=true next build --turbopack",
     "start": "next start",
     "lint": "eslint",
@@ -17,7 +17,10 @@
     "build-storybook": "storybook build",
     "lighthouse": "lhci autorun",
     "lighthouse:mobile": "lhci autorun --collect.settings.preset=mobile",
-    "db:seed": "tsx prisma/seed.ts"
+    "db:seed": "tsx prisma/seed.ts",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:deploy": "prisma migrate deploy"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"

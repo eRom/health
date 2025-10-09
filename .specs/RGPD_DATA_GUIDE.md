@@ -249,6 +249,23 @@ WHERE u."healthDataConsentGrantedAt" IS NOT NULL;
 npx prisma migrate dev --name add_consent_tracking
 ```
 
+### Scripts de build mis à jour :
+
+Le script `build` dans `package.json` a été modifié pour s'assurer que le client Prisma est toujours à jour :
+
+```json
+{
+  "scripts": {
+    "build": "prisma generate && next build",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:deploy": "prisma migrate deploy"
+  }
+}
+```
+
+**Important** : Le script `build` exécute maintenant `prisma generate` avant `next build` pour s'assurer que le client Prisma est synchronisé avec le schéma de base de données.
+
 ### Vérifications post-déploiement :
 
 1. ✅ Vérifier que la table `ConsentHistory` existe
