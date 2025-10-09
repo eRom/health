@@ -1,7 +1,6 @@
 import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
 import { routing } from "./i18n/routing";
-import { auth } from "./lib/auth";
 import {
   debugLocale,
   extractLocaleFromPath,
@@ -9,6 +8,39 @@ import {
 } from "./lib/locale-utils";
 
 const intlMiddleware = createMiddleware(routing);
+
+type SessionResponse = {
+  session?: {
+    user?: {
+      emailVerified?: boolean | null;
+    };
+  } | null;
+};
+
+async function fetchSession(request: NextRequest) {
+  try {
+    const sessionUrl = new URL("/api/internal/session", request.url);
+    const cookieHeader = request.headers.get("cookie") ?? "";
+
+    const response = await fetch(sessionUrl, {
+      headers: {
+        cookie: cookieHeader,
+      },
+      cache: "no-store",
+    });
+
+    if (!response.ok) {
+      console.error("[MIDDLEWARE DEBUG] Session fetch failed:", response.status);
+      return null;
+    }
+
+    const data = (await response.json()) as SessionResponse;
+    return data.session ?? null;
+  } catch (error) {
+    console.error("[MIDDLEWARE DEBUG] Error fetching session:", error);
+    return null;
+  }
+}
 
 export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -62,9 +94,7 @@ export default async function middleware(request: NextRequest) {
         pathname.includes("/ortho")
       ) {
         try {
-          const session = await auth.api.getSession({
-            headers: request.headers,
-          });
+          const session = await fetchSession(request);
 
           if (session?.user && !session.user.emailVerified) {
             console.log(
