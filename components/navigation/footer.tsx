@@ -1,8 +1,9 @@
-import { useTranslations } from 'next-intl'
-import { Link } from '@/i18n/routing'
+import { Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 
 export function Footer() {
-  const t = useTranslations()
+  const t = useTranslations("footer");
+  const appT = useTranslations("app");
 
   return (
     <footer className="border-t bg-card">
@@ -11,14 +12,16 @@ export function Footer() {
         <div className="grid gap-12 sm:grid-cols-2 md:grid-cols-3">
           {/* Platform Section */}
           <div>
-            <h4 className="mb-4 text-sm font-semibold">Plateforme</h4>
+            <h4 className="mb-4 text-sm font-semibold">
+              {t("platform.title")}
+            </h4>
             <ul className="space-y-3">
               <li>
                 <Link
                   href="/#fonctionnalites"
                   className="text-sm text-muted-foreground transition-colors hover:text-primary"
                 >
-                  Fonctionnalités
+                  {t("platform.features")}
                 </Link>
               </li>
               <li>
@@ -26,7 +29,7 @@ export function Footer() {
                   href="/dashboard"
                   className="text-sm text-muted-foreground transition-colors hover:text-primary"
                 >
-                  Tableau de bord
+                  {t("platform.dashboard")}
                 </Link>
               </li>
               <li>
@@ -34,7 +37,7 @@ export function Footer() {
                   href="/about"
                   className="text-sm text-muted-foreground transition-colors hover:text-primary"
                 >
-                  À propos
+                  {t("platform.about")}
                 </Link>
               </li>
             </ul>
@@ -42,14 +45,14 @@ export function Footer() {
 
           {/* Legal Section */}
           <div>
-            <h4 className="mb-4 text-sm font-semibold">Légal</h4>
+            <h4 className="mb-4 text-sm font-semibold">{t("legal.title")}</h4>
             <ul className="space-y-3">
               <li>
                 <Link
                   href="/privacy"
                   className="text-sm text-muted-foreground transition-colors hover:text-primary"
                 >
-                  Politique de confidentialité
+                  {t("legal.privacy")}
                 </Link>
               </li>
               <li>
@@ -57,7 +60,7 @@ export function Footer() {
                   href="/legal"
                   className="text-sm text-muted-foreground transition-colors hover:text-primary"
                 >
-                  Mentions légales
+                  {t("legal.legal")}
                 </Link>
               </li>
               <li>
@@ -65,7 +68,7 @@ export function Footer() {
                   href="/gdpr"
                   className="text-sm text-muted-foreground transition-colors hover:text-primary"
                 >
-                  RGPD
+                  {t("legal.gdpr")}
                 </Link>
               </li>
             </ul>
@@ -73,14 +76,14 @@ export function Footer() {
 
           {/* Contact Section */}
           <div>
-            <h4 className="mb-4 text-sm font-semibold">Contact</h4>
+            <h4 className="mb-4 text-sm font-semibold">{t("contact.title")}</h4>
             <ul className="space-y-3">
               <li>
                 <a
                   href="mailto:contact@healthincloud.app"
                   className="text-sm text-muted-foreground transition-colors hover:text-primary"
                 >
-                  contact@healthincloud.app
+                  {t("contact.email")}
                 </a>
               </li>
               <li>
@@ -90,7 +93,7 @@ export function Footer() {
                   rel="noopener noreferrer"
                   className="text-sm text-muted-foreground transition-colors hover:text-primary"
                 >
-                  healthincloud.app
+                  {t("contact.website")}
                 </a>
               </li>
               <li>
@@ -98,7 +101,7 @@ export function Footer() {
                   href="/thanks"
                   className="text-sm text-primary font-medium transition-colors hover:text-primary/80 flex items-center gap-1"
                 >
-                  ♥ {t('thanks.title')}
+                  ♥ {t("contact.thanks")}
                 </Link>
               </li>
             </ul>
@@ -108,10 +111,10 @@ export function Footer() {
         {/* Bottom Footer */}
         <div className="mt-12 border-t pt-8 text-center">
           <p className="text-sm text-muted-foreground">
-            © 2025 {t('app.title')}. Tous droits réservés.
+            {t("copyright", { appTitle: appT("title") })}
           </p>
         </div>
       </div>
     </footer>
-  )
+  );
 }

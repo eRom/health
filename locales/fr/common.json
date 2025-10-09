@@ -623,5 +623,26 @@
       "subtitle": "Découvrez mon histoire de rééducation au MPR de Nantes",
       "button": "Lire mon histoire"
     }
+  },
+  "footer": {
+    "platform": {
+      "title": "Plateforme",
+      "features": "Fonctionnalités",
+      "dashboard": "Tableau de bord",
+      "about": "À propos"
+    },
+    "legal": {
+      "title": "Légal",
+      "privacy": "Politique de confidentialité",
+      "legal": "Mentions légales",
+      "gdpr": "RGPD"
+    },
+    "contact": {
+      "title": "Contact",
+      "email": "contact@healthincloud.app",
+      "website": "healthincloud.app",
+      "thanks": "Merci"
+    },
+    "copyright": "© 2025 {appTitle}. Tous droits réservés."
   }
 }

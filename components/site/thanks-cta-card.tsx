@@ -1,14 +1,14 @@
 'use client'
 
-import { useTranslations } from 'next-intl'
-import { Link } from '@/i18n/routing'
-import Image from 'next/image'
-import { Card, CardContent } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Heart, ArrowRight } from 'lucide-react'
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Link } from "@/i18n/routing";
+import { ArrowRight, Heart } from "lucide-react";
+import { useTranslations } from "next-intl";
+import Image from "next/image";
 
 export function ThanksCTACard() {
-  const t = useTranslations('thanks.cta')
+  const t = useTranslations("pageThanks.cta");
 
   return (
     <Card className="overflow-hidden border border-primary/20 bg-gradient-to-br from-primary/5 to-primary/10 hover:border-primary/30 transition-all hover:shadow-xl group">

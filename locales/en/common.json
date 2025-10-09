@@ -623,5 +623,26 @@
       "subtitle": "Discover my rehabilitation story at MPR Nantes",
       "button": "Read my story"
     }
+  },
+  "footer": {
+    "platform": {
+      "title": "Platform",
+      "features": "Features",
+      "dashboard": "Dashboard",
+      "about": "About"
+    },
+    "legal": {
+      "title": "Legal",
+      "privacy": "Privacy Policy",
+      "legal": "Legal Notice",
+      "gdpr": "GDPR"
+    },
+    "contact": {
+      "title": "Contact",
+      "email": "contact@healthincloud.app",
+      "website": "healthincloud.app",
+      "thanks": "Thank You"
+    },
+    "copyright": "© 2025 {appTitle}. All rights reserved."
   }
 }
