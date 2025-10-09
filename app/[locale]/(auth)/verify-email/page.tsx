@@ -10,51 +10,51 @@ export default function VerifyEmailPage() {
   const t = useTranslations()
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
+    <div className="flex min-h-screen items-center justify-center p-4">
+      <div className="w-full max-w-lg space-y-8">
         <div className="text-center">
-          <Mail className="mx-auto h-12 w-12 text-blue-500" />
-          <h1 className="text-3xl font-bold text-gray-900 mt-4">
-            Vérifiez votre email
+          <Mail className="mx-auto h-12 w-12 text-primary" />
+          <h1 className="text-3xl font-bold mt-4">
+            {t("auth.verifyEmail.title")}
           </h1>
-          <p className="mt-2 text-sm text-gray-600">
-            Nous avons envoyé un lien de vérification à votre adresse email
+          <p className="mt-2 text-sm text-muted-foreground">
+            {t("auth.verifyEmail.subtitle")}
           </p>
         </div>
 
         <Card>
-          <CardHeader>
-            <CardTitle>Email de vérification envoyé</CardTitle>
-            <CardDescription>
-              Consultez votre boîte de réception et cliquez sur le lien pour activer votre compte.
+          <CardHeader className="pb-6">
+            <CardTitle className="text-xl">
+              {t("auth.verifyEmail.cardTitle")}
+            </CardTitle>
+            <CardDescription className="text-base">
+              {t("auth.verifyEmail.cardDescription")}
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="text-sm text-gray-600">
-              <p>Si vous ne recevez pas l'email :</p>
-              <ul className="list-disc list-inside mt-2 space-y-1">
-                <li>Vérifiez vos spams/courriers indésirables</li>
-                <li>Attendez quelques minutes</li>
-                <li>Vérifiez que l'adresse email est correcte</li>
+          <CardContent className="space-y-6">
+            <div className="text-sm text-muted-foreground">
+              <p>{t("auth.verifyEmail.helpTitle")}</p>
+              <ul className="list-disc list-inside mt-3 space-y-2">
+                <li>{t("auth.verifyEmail.helpItem1")}</li>
+                <li>{t("auth.verifyEmail.helpItem2")}</li>
+                <li>{t("auth.verifyEmail.helpItem3")}</li>
               </ul>
             </div>
-            
-            <div className="flex gap-3">
-              <Button asChild variant="outline" className="flex-1">
+
+            <div className="flex gap-4 pt-2">
+              <Button asChild variant="outline" className="flex-1 h-11">
                 <Link href="/">
                   <ArrowLeft className="h-4 w-4 mr-2" />
-                  Retour à l'accueil
+                  {t("auth.verifyEmail.backToHome")}
                 </Link>
               </Button>
-              <Button asChild className="flex-1">
-                <Link href="/dashboard">
-                  Continuer
-                </Link>
+              <Button asChild className="flex-1 h-11">
+                <Link href="/dashboard">{t("auth.verifyEmail.continue")}</Link>
               </Button>
             </div>
           </CardContent>
         </Card>
       </div>
     </div>
-  )
+  );
 }
