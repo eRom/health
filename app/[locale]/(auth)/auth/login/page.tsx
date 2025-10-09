@@ -1,9 +1,15 @@
-import { useTranslations } from 'next-intl'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Link } from '@/i18n/routing'
-import { LoginForm } from '@/components/auth/login-form'
-import type { Metadata } from 'next'
-import { getTranslations } from 'next-intl/server'
+import { LoginForm } from "@/components/auth/login-form";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Link } from "@/i18n/routing";
+import type { Metadata } from "next";
+import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
 export async function generateMetadata({
   params,
@@ -12,12 +18,40 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale });
-  
+  const url = "https://healthincloud.app";
+
   return {
     title: t("auth.signIn"),
     description: t("auth.signInDescription"),
+    keywords: [
+      "connexion",
+      "authentification",
+      "rééducation",
+      "orthophonie",
+      "neuropsychologie",
+      "login",
+      "authentication",
+      "rehabilitation",
+    ],
     alternates: {
-      canonical: `https://healthincloud.app/${locale}/auth/login`,
+      canonical: `${url}/${locale}/auth/login`,
+      languages: {
+        fr: `${url}/fr/auth/login`,
+        en: `${url}/en/auth/login`,
+      },
+    },
+    openGraph: {
+      title: t("auth.signIn"),
+      description: t("auth.signInDescription"),
+      type: "website",
+      locale: locale === "fr" ? "fr_FR" : "en_US",
+      url: `${url}/${locale}/auth/login`,
+      siteName: "Health In Cloud",
+    },
+    twitter: {
+      card: "summary",
+      title: t("auth.signIn"),
+      description: t("auth.signInDescription"),
     },
     robots: {
       index: false,
@@ -27,28 +61,30 @@ export async function generateMetadata({
 }
 
 export default function LoginPage() {
-  const t = useTranslations()
+  const t = useTranslations();
 
   return (
     <div className="flex min-h-screen items-center justify-center p-4">
-      <Card className="w-full max-w-md">
-        <CardHeader>
-          <CardTitle>{t('auth.signIn')}</CardTitle>
-          <CardDescription>
-            Connectez-vous à votre compte pour accéder à vos exercices
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <LoginForm />
+      <main className="w-full max-w-md">
+        <Card>
+          <CardHeader>
+            <CardTitle as="h1">{t("auth.signIn")}</CardTitle>
+            <CardDescription>
+              Connectez-vous à votre compte pour accéder à vos exercices
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <LoginForm />
 
-          <div className="mt-4 text-center text-sm">
-            Pas encore de compte ?{' '}
-            <Link href="/auth/signup" className="underline">
-              {t('auth.signUp')}
-            </Link>
-          </div>
-        </CardContent>
-      </Card>
+            <div className="mt-4 text-center text-sm">
+              Pas encore de compte ?{" "}
+              <Link href="/auth/signup" className="underline">
+                {t("auth.signUp")}
+              </Link>
+            </div>
+          </CardContent>
+        </Card>
+      </main>
     </div>
-  )
+  );
 }

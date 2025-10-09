@@ -1,51 +1,75 @@
-import type { Metadata } from 'next'
+import type { Metadata } from "next";
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const url = "https://healthincloud.app";
+
   return {
-    title: 'Exercices Orthophoniques',
+    title: "Exercices Orthophoniques",
     description:
-      'Améliorez votre communication avec des exercices de rééducation orthophonique : articulation, phonologie, langage oral, lecture et écriture.',
+      "Améliorez votre communication avec des exercices de rééducation orthophonique : articulation, phonologie, langage oral, lecture et écriture.",
     keywords: [
-      'orthophonie',
-      'rééducation du langage',
-      'articulation',
-      'phonologie',
-      'langage oral',
-      'lecture',
-      'écriture',
-      'speech therapy',
-      'language rehabilitation',
+      "orthophonie",
+      "rééducation du langage",
+      "articulation",
+      "phonologie",
+      "langage oral",
+      "lecture",
+      "écriture",
+      "speech therapy",
+      "language rehabilitation",
     ],
+    alternates: {
+      canonical: `${url}/${locale}/ortho`,
+      languages: {
+        fr: `${url}/fr/ortho`,
+        en: `${url}/en/ortho`,
+      },
+    },
     robots: {
       index: false,
       follow: false,
     },
-  }
+  };
 }
 
-export default function OrthoLayout({ children }: { children: React.ReactNode }) {
+export default function OrthoLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const courseSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'Course',
-    name: 'Exercices Orthophoniques',
+    "@context": "https://schema.org",
+    "@type": "Course",
+    name: "Exercices Orthophoniques",
     description:
-      'Programme d\'exercices de rééducation orthophonique pour améliorer la communication et le langage',
+      "Programme d'exercices de rééducation orthophonique pour améliorer la communication et le langage",
     provider: {
-      '@type': 'Organization',
-      name: 'Health In Cloud',
-      url: 'https://healthincloud.app',
+      "@type": "Organization",
+      name: "Health In Cloud",
+      url: "https://healthincloud.app",
     },
-    courseCode: 'ORTHO',
+    courseCode: "ORTHO",
     hasCourseInstance: [
       {
-        '@type': 'CourseInstance',
-        courseMode: 'online',
-        courseWorkload: 'PT15M',
+        "@type": "CourseInstance",
+        courseMode: "online",
+        courseWorkload: "PT15M",
       },
     ],
-    educationalLevel: 'Beginner to Advanced',
-    teaches: ['Articulation', 'Phonologie', 'Langage oral', 'Lecture', 'Écriture'],
-  }
+    educationalLevel: "Beginner to Advanced",
+    teaches: [
+      "Articulation",
+      "Phonologie",
+      "Langage oral",
+      "Lecture",
+      "Écriture",
+    ],
+  };
 
   return (
     <>
@@ -55,5 +79,5 @@ export default function OrthoLayout({ children }: { children: React.ReactNode })
       />
       {children}
     </>
-  )
+  );
 }

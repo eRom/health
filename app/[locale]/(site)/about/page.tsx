@@ -19,11 +19,44 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "pageAbout" });
 
+  const url = "https://healthincloud.app";
+
   return {
     title: t("metadata.title"),
     description: t("metadata.description"),
+    keywords: [
+      "à propos",
+      "mission",
+      "rééducation",
+      "orthophonie",
+      "neuropsychologie",
+      "MPR",
+      "Nantes",
+      "about",
+      "mission",
+      "rehabilitation",
+      "speech therapy",
+      "neuropsychology",
+    ],
     alternates: {
-      canonical: `https://healthincloud.app/${locale}/about`,
+      canonical: `${url}/${locale}/about`,
+      languages: {
+        fr: `${url}/fr/about`,
+        en: `${url}/en/about`,
+      },
+    },
+    openGraph: {
+      title: t("metadata.title"),
+      description: t("metadata.description"),
+      type: "website",
+      locale: locale === "fr" ? "fr_FR" : "en_US",
+      url: `${url}/${locale}/about`,
+      siteName: "Health In Cloud",
+    },
+    twitter: {
+      card: "summary",
+      title: t("metadata.title"),
+      description: t("metadata.description"),
     },
   };
 }

@@ -53,10 +53,10 @@ export async function generateMetadata({
       site: "@healthincloud",
     },
     alternates: {
-      canonical: `${url}/${locale}`,
+      canonical: `${url}/${locale}/`,
       languages: {
-        fr: `${url}/fr`,
-        en: `${url}/en`,
+        fr: `${url}/fr/`,
+        en: `${url}/en/`,
       },
     },
   };
@@ -158,9 +158,9 @@ export default async function HomePage({
                     <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                       <Brain className="h-6 w-6" aria-hidden="true" />
                     </span>
-                    <h3 className="mb-2 text-base font-semibold">
+                    <h2 className="mb-2 text-base font-semibold">
                       {t("hero.highlightGuidedTitle")}
-                    </h3>
+                    </h2>
                     <p className="text-sm text-muted-foreground">
                       {t("hero.highlightGuidedDescription")}
                     </p>
@@ -169,9 +169,9 @@ export default async function HomePage({
                     <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                       <Mic className="h-6 w-6" aria-hidden="true" />
                     </span>
-                    <h3 className="mb-2 text-base font-semibold">
+                    <h2 className="mb-2 text-base font-semibold">
                       {t("hero.highlightFeedbackTitle")}
-                    </h3>
+                    </h2>
                     <p className="text-sm text-muted-foreground">
                       {t("hero.highlightFeedbackDescription")}
                     </p>
@@ -180,9 +180,9 @@ export default async function HomePage({
                     <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                       <Smartphone className="h-6 w-6" aria-hidden="true" />
                     </span>
-                    <h3 className="mb-2 text-base font-semibold">
+                    <h2 className="mb-2 text-base font-semibold">
                       {t("hero.highlightDevicesTitle")}
-                    </h3>
+                    </h2>
                     <p className="text-sm text-muted-foreground">
                       {t("hero.highlightDevicesDescription")}
                     </p>
@@ -209,10 +209,10 @@ export default async function HomePage({
               {/* Patients Card */}
               <div className="card-hover overflow-hidden rounded-xl border bg-card shadow-sm">
                 <div className="border-b bg-[var(--color-bg-3)] p-6">
-                  <h3 className="flex items-center gap-2 text-xl font-semibold">
+                  <h2 className="flex items-center gap-2 text-xl font-semibold">
                     <User className="h-6 w-6" aria-hidden="true" />
                     {t("problems.patients.title")}
-                  </h3>
+                  </h2>
                 </div>
                 <div className="p-6">
                   <div className="space-y-6">
@@ -261,10 +261,10 @@ export default async function HomePage({
               {/* Clinicians Card */}
               <div className="card-hover overflow-hidden rounded-xl border bg-card shadow-sm">
                 <div className="border-b bg-[var(--color-bg-3)] p-6">
-                  <h3 className="flex items-center gap-2 text-xl font-semibold">
+                  <h2 className="flex items-center gap-2 text-xl font-semibold">
                     <Stethoscope className="h-6 w-6" aria-hidden="true" />
                     {t("problems.clinicians.title")}
-                  </h3>
+                  </h2>
                 </div>
                 <div className="p-6">
                   <div className="space-y-6">
@@ -325,9 +325,9 @@ export default async function HomePage({
                 <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10">
                   <Target className="h-8 w-8 text-primary" aria-hidden="true" />
                 </div>
-                <h3 className="mb-2 text-lg font-semibold">
+                <h2 className="mb-2 text-lg font-semibold">
                   {t("features.guidedExercises.title")}
-                </h3>
+                </h2>
                 <p className="text-sm text-muted-foreground">
                   {t("features.guidedExercises.description")}
                 </p>
@@ -337,9 +337,9 @@ export default async function HomePage({
                 <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10">
                   <Zap className="h-8 w-8 text-primary" aria-hidden="true" />
                 </div>
-                <h3 className="mb-2 text-lg font-semibold">
+                <h2 className="mb-2 text-lg font-semibold">
                   {t("features.instantFeedback.title")}
-                </h3>
+                </h2>
                 <p className="text-sm text-muted-foreground">
                   {t("features.instantFeedback.description")}
                 </p>
@@ -352,9 +352,9 @@ export default async function HomePage({
                     aria-hidden="true"
                   />
                 </div>
-                <h3 className="mb-2 text-lg font-semibold">
+                <h2 className="mb-2 text-lg font-semibold">
                   {t("features.progressTracking.title")}
-                </h3>
+                </h2>
                 <p className="text-sm text-muted-foreground">
                   {t("features.progressTracking.description")}
                 </p>
@@ -367,9 +367,9 @@ export default async function HomePage({
                     aria-hidden="true"
                   />
                 </div>
-                <h3 className="mb-2 text-lg font-semibold">
+                <h2 className="mb-2 text-lg font-semibold">
                   {t("features.mobileFirst.title")}
-                </h3>
+                </h2>
                 <p className="text-sm text-muted-foreground">
                   {t("features.mobileFirst.description")}
                 </p>
@@ -379,9 +379,9 @@ export default async function HomePage({
                 <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10">
                   <Moon className="h-8 w-8 text-primary" aria-hidden="true" />
                 </div>
-                <h3 className="mb-2 text-lg font-semibold">
+                <h2 className="mb-2 text-lg font-semibold">
                   {t("features.darkMode.title")}
-                </h3>
+                </h2>
                 <p className="text-sm text-muted-foreground">
                   {t("features.darkMode.description")}
                 </p>
@@ -391,9 +391,9 @@ export default async function HomePage({
                 <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10">
                   <Shield className="h-8 w-8 text-primary" aria-hidden="true" />
                 </div>
-                <h3 className="mb-2 text-lg font-semibold">
+                <h2 className="mb-2 text-lg font-semibold">
                   {t("features.gdprCompliant.title")}
-                </h3>
+                </h2>
                 <p className="text-sm text-muted-foreground">
                   {t("features.gdprCompliant.description")}
                 </p>
@@ -419,9 +419,9 @@ export default async function HomePage({
               <div className="rounded-xl border bg-card p-8 shadow-sm">
                 <div className="mb-6 text-center text-6xl">👩‍🦳</div>
                 <div className="mb-4">
-                  <h3 className="mb-1 text-lg font-semibold">
+                  <h2 className="mb-1 text-lg font-semibold">
                     {t("testimonials.marie.name")}
-                  </h3>
+                  </h2>
                   <p className="mb-1 text-sm font-medium text-primary">
                     {t("testimonials.marie.role")}
                   </p>
@@ -438,9 +438,9 @@ export default async function HomePage({
               <div className="rounded-xl border bg-card p-8 shadow-sm">
                 <div className="mb-6 text-center text-6xl">👩‍⚕️</div>
                 <div className="mb-4">
-                  <h3 className="mb-1 text-lg font-semibold">
+                  <h2 className="mb-1 text-lg font-semibold">
                     {t("testimonials.drTyphaine.name")}
-                  </h3>
+                  </h2>
                   <p className="mb-1 text-sm font-medium text-primary">
                     {t("testimonials.drTyphaine.role")}
                   </p>
@@ -474,9 +474,9 @@ export default async function HomePage({
                   1
                 </div>
                 <div>
-                  <h3 className="mb-2 font-semibold">
+                  <h2 className="mb-2 font-semibold">
                     {t("journey.step1.title")}
-                  </h3>
+                  </h2>
                   <p className="text-sm text-muted-foreground">
                     {t("journey.step1.description")}
                   </p>
@@ -488,9 +488,9 @@ export default async function HomePage({
                   2
                 </div>
                 <div>
-                  <h3 className="mb-2 font-semibold">
+                  <h2 className="mb-2 font-semibold">
                     {t("journey.step2.title")}
-                  </h3>
+                  </h2>
                   <p className="text-sm text-muted-foreground">
                     {t("journey.step2.description")}
                   </p>
@@ -502,9 +502,9 @@ export default async function HomePage({
                   3
                 </div>
                 <div>
-                  <h3 className="mb-2 font-semibold">
+                  <h2 className="mb-2 font-semibold">
                     {t("journey.step3.title")}
-                  </h3>
+                  </h2>
                   <p className="text-sm text-muted-foreground">
                     {t("journey.step3.description")}
                   </p>
@@ -516,9 +516,9 @@ export default async function HomePage({
                   4
                 </div>
                 <div>
-                  <h3 className="mb-2 font-semibold">
+                  <h2 className="mb-2 font-semibold">
                     {t("journey.step4.title")}
-                  </h3>
+                  </h2>
                   <p className="text-sm text-muted-foreground">
                     {t("journey.step4.description")}
                   </p>
@@ -543,9 +543,9 @@ export default async function HomePage({
             <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
               <div className="text-center">
                 <div className="mx-auto mb-3 text-4xl">📱</div>
-                <h3 className="mb-1 text-sm font-semibold">
+                <h2 className="mb-1 text-sm font-semibold">
                   {t("technology.mobileFirst.title")}
-                </h3>
+                </h2>
                 <p className="text-xs text-muted-foreground">
                   {t("technology.mobileFirst.description")}
                 </p>

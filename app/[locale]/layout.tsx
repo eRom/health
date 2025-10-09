@@ -84,7 +84,6 @@ export async function generateMetadata({
       images: ["/og-image.png"],
     },
     alternates: {
-      canonical: `${url}/${locale}`,
       languages: {
         fr: `${url}/fr`,
         en: `${url}/en`,
