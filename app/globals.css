@@ -14,12 +14,17 @@
   --color-charcoal-700: #1f2121;
   --color-charcoal-800: #262828;
   --color-slate-900: #13343b;
-  --color-teal-300: #32b8c6;
+  --color-teal-200: #a7f3f0; /* léger, halos */
+  --color-teal-300: #32b8c6; /* secondaire logo */
   --color-teal-400: #2da6b2;
-  --color-teal-500: #21808d;
+  --color-teal-500: #21808d; /* primaire logo */
   --color-teal-600: #1d7480;
   --color-teal-700: #1a6873;
-  --color-teal-800: #2996a1;
+  --color-teal-800: #155e75;
+
+  --color-blue-400: #60a5fa;
+  --color-blue-500: #3b82f6;
+  --color-blue-600: #2563eb;
 
   /* Light mode semantic tokens */
   --color-background: var(--color-cream-50);
@@ -28,19 +33,19 @@
   --color-card-foreground: var(--color-slate-900);
   --color-popover: var(--color-cream-100);
   --color-popover-foreground: var(--color-slate-900);
-  --color-primary: var(--color-teal-500);
+  --color-primary: var(--color-blue-500);
   --color-primary-foreground: var(--color-cream-50);
   --color-secondary: rgba(94, 82, 64, 0.12);
   --color-secondary-foreground: var(--color-slate-900);
   --color-muted: rgba(94, 82, 64, 0.12);
   --color-muted-foreground: var(--color-slate-500);
-  --color-accent: var(--color-teal-500);
+  --color-accent: var(--color-blue-500);
   --color-accent-foreground: var(--color-cream-50);
   --color-destructive: #c0152f;
   --color-destructive-foreground: var(--color-cream-50);
   --color-border: rgba(94, 82, 64, 0.2);
   --color-input: rgba(94, 82, 64, 0.2);
-  --color-ring: var(--color-teal-500);
+  --color-ring: var(--color-blue-500);
 
   /* Background color palette */
   --color-bg-1: rgba(59, 130, 246, 0.08);
@@ -90,19 +95,19 @@
   --color-card-foreground: #0f172a;
   --color-popover: #ffffff;
   --color-popover-foreground: #0f172a;
-  --color-primary: var(--color-teal-500);
+  --color-primary: var(--color-blue-500);
   --color-primary-foreground: #ffffff;
   --color-secondary: #f1f5f9;
   --color-secondary-foreground: #0f172a;
   --color-muted: #f8fafc;
   --color-muted-foreground: #64748b;
-  --color-accent: var(--color-teal-500);
+  --color-accent: var(--color-blue-500);
   --color-accent-foreground: #ffffff;
   --color-destructive: #ef4444;
   --color-destructive-foreground: #ffffff;
   --color-border: #e2e8f0;
   --color-input: #e2e8f0;
-  --color-ring: var(--color-teal-500);
+  --color-ring: var(--color-blue-500);
 
   /* Light mode background palette - More vibrant */
   --color-bg-1: rgba(59, 130, 246, 0.1);
@@ -129,19 +134,19 @@
   --color-card-foreground: #f5f5f5;
   --color-popover: #262828;
   --color-popover-foreground: #f5f5f5;
-  --color-primary: #32b8c6;
+  --color-primary: #2563eb;
   --color-primary-foreground: #13343b;
   --color-secondary: rgba(119, 124, 124, 0.15);
   --color-secondary-foreground: #f5f5f5;
   --color-muted: rgba(119, 124, 124, 0.15);
   --color-muted-foreground: rgba(167, 169, 169, 0.85);
-  --color-accent: #32b8c6;
+  --color-accent: #2563eb;
   --color-accent-foreground: #13343b;
   --color-destructive: #ff5459;
   --color-destructive-foreground: #f5f5f5;
   --color-border: rgba(119, 124, 124, 0.3);
   --color-input: rgba(119, 124, 124, 0.3);
-  --color-ring: #32b8c6;
+  --color-ring: #2563eb;
 
   /* Dark mode background palette */
   --color-bg-1: rgba(29, 78, 216, 0.15);
@@ -183,16 +188,16 @@
 
 /* Force dark theme for buttons */
 .dark .bg-primary {
-  background-color: #32b8c6 !important;
+  background-color: #2563eb !important;
   color: #13343b !important;
 }
 
 .dark .text-primary {
-  color: #32b8c6 !important;
+  color: #2563eb !important;
 }
 
 .dark .hover\:text-primary:hover {
-  color: #32b8c6 !important;
+  color: #2563eb !important;
 }
 
 /* Force dark theme for ghost and outline buttons */
@@ -223,7 +228,7 @@
 }
 
 .dark nav a:hover {
-  color: #32b8c6 !important;
+  color: #2563eb !important;
 }
 
 /* Force dark theme for ALL buttons with bg-background */

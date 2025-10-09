@@ -1,10 +1,9 @@
 'use client'
 
-import { UserNav } from '@/components/auth/user-nav'
-import { LanguageSwitcher } from '@/components/navigation/language-switcher'
-import { MobileNav } from '@/components/navigation/mobile-nav'
+import { UserNav } from "@/components/auth/user-nav";
+import { LanguageSwitcher } from "@/components/navigation/language-switcher";
+import { MobileNav } from "@/components/navigation/mobile-nav";
 import { Button } from "@/components/ui/button";
-import { Logo } from "@/components/ui/logo";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -12,11 +11,12 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from '@/components/ui/navigation-menu'
+} from "@/components/ui/navigation-menu";
 import { Link } from "@/i18n/routing";
 import { authClient } from "@/lib/auth-client";
-import { cn } from '@/lib/utils'
+import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
+import { Logo } from "../ui/logo";
 
 export function Header() {
   const t = useTranslations()
