@@ -16,6 +16,7 @@
   },
   "auth": {
     "signIn": "Sign In",
+    "signInDescription": "Sign in to your account to access your rehabilitation exercises",
     "signOut": "Sign Out",
     "signUp": "Sign Up",
     "email": "Email",

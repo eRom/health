@@ -16,6 +16,7 @@
   },
   "auth": {
     "signIn": "Se connecter",
+    "signInDescription": "Connectez-vous à votre compte pour accéder à vos exercices de rééducation",
     "signOut": "Se déconnecter",
     "signUp": "S'inscrire",
     "email": "Email",

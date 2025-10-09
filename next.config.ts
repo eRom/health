@@ -28,7 +28,6 @@ const withSerwist = withSerwistInit({
 const nextConfig: NextConfig = {
   compress: true,
   poweredByHeader: false,
-  swcMinify: true,
   experimental: {
     optimizePackageImports: ["lucide-react", "@radix-ui/react-slot"],
   },
@@ -64,8 +63,5 @@ export default withSentryConfig(
       disable: true,
     },
     disableLogger: true,
-    // Optimize for modern browsers
-    transpileClientSDK: false,
-    hideSourceMaps: true,
   }
 );
