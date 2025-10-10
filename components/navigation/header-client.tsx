@@ -91,7 +91,7 @@ export function HeaderClient({ isAdmin, initialSession }: HeaderClientProps) {
 
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-3">
-          <Logo className="h-8 w-8 text-primary" />
+          <Logo className="h-8 w-8 text-primary hidden md:block" />
           <span className="text-xl text-[#007FFF] font-semibold tracking-tight hidden md:block">
             Health In Cloud
           </span>
@@ -115,7 +115,7 @@ export function HeaderClient({ isAdmin, initialSession }: HeaderClientProps) {
                       {t("navigation.exercises")}
                     </NavigationMenuTrigger>
                     <NavigationMenuContent>
-                      <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2">
+                      <ul className="grid w-[250px] gap-3 p-4 md:w-[250px] md:grid-cols-1">
                         <li>
                           <NavigationMenuLink asChild>
                             <Link
