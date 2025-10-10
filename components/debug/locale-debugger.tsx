@@ -14,9 +14,14 @@ export function LocaleDebugger() {
   const pathname = usePathname()
   const router = useRouter()
   const [isVisible, setIsVisible] = useState(false)
+  const [currentUrl, setCurrentUrl] = useState("");
 
   useEffect(() => {
-    debugLocale('COMPONENT_RENDER', locale, pathname)
+    debugLocale("COMPONENT_RENDER", locale, pathname);
+    // Set URL only on client side to avoid hydration mismatch
+    if (typeof window !== "undefined") {
+      setCurrentUrl(window.location.href);
+    }
   }, [locale, pathname])
 
   // Ne s'affiche qu'en développement
@@ -37,16 +42,22 @@ export function LocaleDebugger() {
         onClick={() => setIsVisible(!isVisible)}
         className="bg-blue-600 text-white px-3 py-2 rounded text-sm font-mono shadow-lg"
       >
-        Locale Debug {isVisible ? '▼' : '▲'}
+        Locale Debug {isVisible ? "▼" : "▲"}
       </button>
-      
+
       {isVisible && (
         <div className="absolute bottom-12 right-0 bg-white border rounded-lg shadow-lg p-4 min-w-64">
           <div className="space-y-2 text-sm font-mono">
-            <div><strong>Locale:</strong> {locale}</div>
-            <div><strong>Pathname:</strong> {pathname}</div>
-            <div><strong>Full URL:</strong> {window.location.href}</div>
-            
+            <div>
+              <strong>Locale:</strong> {locale}
+            </div>
+            <div>
+              <strong>Pathname:</strong> {pathname}
+            </div>
+            <div>
+              <strong>Full URL:</strong> {currentUrl || "Loading..."}
+            </div>
+
             <div className="border-t pt-2 mt-2">
               <div className="font-semibold mb-2">Test Redirects:</div>
               {testRedirects.map(({ label, path }) => (
@@ -59,17 +70,18 @@ export function LocaleDebugger() {
                 </button>
               ))}
             </div>
-            
+
             <div className="border-t pt-2 mt-2">
               <button
                 onClick={() => {
-                  console.log('Current locale state:', {
+                  console.log("Current locale state:", {
                     locale,
                     pathname,
-                    url: window.location.href,
-                    cookies: document.cookie,
-                    timestamp: new Date().toISOString()
-                  })
+                    url: currentUrl,
+                    cookies:
+                      typeof document !== "undefined" ? document.cookie : "",
+                    timestamp: new Date().toISOString(),
+                  });
                 }}
                 className="w-full bg-gray-100 hover:bg-gray-200 px-2 py-1 rounded"
               >
@@ -80,5 +92,5 @@ export function LocaleDebugger() {
         </div>
       )}
     </div>
-  )
+  );
 }

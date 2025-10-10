@@ -15,6 +15,7 @@ type SessionResponse = {
     user?: {
       id: string;
       emailVerified?: boolean | null;
+      healthDataConsentGrantedAt?: string | null;
     };
   } | null;
 };
@@ -138,6 +139,57 @@ export default async function middleware(request: NextRequest) {
         } catch (error) {
           console.error(
             "[MIDDLEWARE DEBUG] Error checking email verification:",
+            error
+          );
+          // Continue to allow access if check fails
+        }
+      }
+
+      // Check health data consent for protected routes (except consent page itself)
+      if (!pathname.includes("/consent")) {
+        try {
+          const session = await fetchSession(request);
+
+          console.log("[MIDDLEWARE DEBUG] Session for consent check:", {
+            hasSession: !!session,
+            hasUser: !!session?.user,
+            userId: session?.user?.id,
+            healthDataConsentGrantedAt:
+              session?.user?.healthDataConsentGrantedAt,
+            pathname,
+          });
+
+          if (session?.user) {
+            // Check consent directly from database since session callback doesn't work
+            const { PrismaClient } = await import("@prisma/client");
+            const prisma = new PrismaClient();
+
+            try {
+              const user = await prisma.user.findUnique({
+                where: { id: session.user.id },
+                select: { healthDataConsentGrantedAt: true },
+              });
+
+              console.log("[MIDDLEWARE DEBUG] Database consent check:", {
+                userId: session.user.id,
+                healthDataConsentGrantedAt: user?.healthDataConsentGrantedAt,
+                pathname,
+              });
+
+              if (!user?.healthDataConsentGrantedAt) {
+                console.log(
+                  "[MIDDLEWARE DEBUG] Health data consent not granted, redirecting to consent page"
+                );
+                const consentUrl = new URL(`/${locale}/consent`, request.url);
+                return NextResponse.redirect(consentUrl);
+              }
+            } finally {
+              await prisma.$disconnect();
+            }
+          }
+        } catch (error) {
+          console.error(
+            "[MIDDLEWARE DEBUG] Error checking health data consent:",
             error
           );
           // Continue to allow access if check fails

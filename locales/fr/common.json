@@ -97,8 +97,21 @@
     "consent": {
       "label": "J'accepte que mes données de santé (résultats d'exercices, progrès de rééducation, performances cognitives) soient collectées et traitées dans le cadre de mon suivi personnalisé.",
       "required": "Vous devez accepter le traitement de vos données de santé pour créer un compte.",
-      "learnMore": "En savoir plus"
+      "learnMore": "En savoir plus",
+      "title": "Consentement requis",
+      "subtitle": "Pour utiliser Health In Cloud, vous devez accepter le traitement de vos données de santé",
+      "cardTitle": "Traitement des données de santé",
+      "cardDescription": "Nous collectons et traitons vos données de santé pour vous offrir un suivi personnalisé et améliorer votre rééducation.",
+      "helpTitle": "Vos données sont utilisées pour :",
+      "helpItem1": "Suivre votre progression thérapeutique",
+      "helpItem2": "Personnaliser vos exercices de rééducation",
+      "helpItem3": "Fournir des retours adaptés à vos performances",
+      "helpItem4": "Générer des rapports pour votre équipe soignante",
+      "accept": "J'accepte",
+      "decline": "Refuser"
     },
+    "continueWithGoogle": "Continuer avec Google",
+    "orSeparator": "ou",
     "userMenu": {
       "myProfile": "Mon profil",
       "administration": "Administration"
@@ -789,5 +802,6 @@
       "thanks": "Merci"
     },
     "copyright": "© 2025 {appTitle}. Tous droits réservés."
-  }
+  },
+  "loading": "Chargement..."
 }

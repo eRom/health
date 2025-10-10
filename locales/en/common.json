@@ -97,8 +97,21 @@
     "consent": {
       "label": "I accept that my health data (exercise results, rehabilitation progress, cognitive performance) be collected and processed as part of my personalized follow-up.",
       "required": "You must accept the processing of your health data to create an account.",
-      "learnMore": "Learn more"
+      "learnMore": "Learn more",
+      "title": "Consent Required",
+      "subtitle": "To use Health In Cloud, you must accept the processing of your health data",
+      "cardTitle": "Health Data Processing",
+      "cardDescription": "We collect and process your health data to provide you with personalized tracking and improve your rehabilitation.",
+      "helpTitle": "Your data is used to:",
+      "helpItem1": "Track your therapeutic progress",
+      "helpItem2": "Personalize your rehabilitation exercises",
+      "helpItem3": "Provide feedback adapted to your performance",
+      "helpItem4": "Generate reports for your care team",
+      "accept": "I Accept",
+      "decline": "Decline"
     },
+    "continueWithGoogle": "Continue with Google",
+    "orSeparator": "or",
     "userMenu": {
       "myProfile": "My Profile",
       "administration": "Administration"
@@ -789,5 +802,6 @@
       "thanks": "Thank You"
     },
     "copyright": "© 2025 {appTitle}. All rights reserved."
-  }
+  },
+  "loading": "Loading..."
 }

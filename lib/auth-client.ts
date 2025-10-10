@@ -2,25 +2,27 @@
 
 import { createAuthClient } from "better-auth/react"
 
-const resolveBaseURL = () => {
-  if (typeof window !== 'undefined' && window.location.origin) {
-    return window.location.origin
-  }
-
+// Use environment variables for consistent SSR/client rendering
+const getBaseURL = () => {
   if (process.env.NEXT_PUBLIC_APP_URL) {
-    return process.env.NEXT_PUBLIC_APP_URL
+    return process.env.NEXT_PUBLIC_APP_URL;
   }
 
   if (process.env.VERCEL_URL) {
-    return `https://${process.env.VERCEL_URL}`
+    return `https://${process.env.VERCEL_URL}`;
   }
 
-  return "http://localhost:3000"
+  // For development, use localhost with the correct port
+  if (process.env.NODE_ENV === "development") {
+    return "http://localhost:3001"; // Match the port from terminal output
+  }
+
+  return "http://localhost:3000";
 }
 
 export const authClient = createAuthClient({
-  baseURL: resolveBaseURL(),
+  baseURL: getBaseURL(),
   fetchOptions: {
     credentials: "include", // Important for cookies with Cloudflare
   },
-})
+});

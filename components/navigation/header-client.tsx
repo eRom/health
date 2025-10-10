@@ -91,8 +91,8 @@ export function HeaderClient({ isAdmin, initialSession }: HeaderClientProps) {
 
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-3">
-          <Logo className="h-8 w-8 text-primary hidden md:block" />
-          <span className="text-xl text-[#007FFF] font-semibold tracking-tight hidden md:block">
+          <Logo className="h-8 w-8 text-primary" />
+          <span className="text-xl text-[#007FFF] font-semibold tracking-tight">
             Health In Cloud
           </span>
         </Link>

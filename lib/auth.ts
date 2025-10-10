@@ -110,6 +110,17 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
+  socialProviders: {
+    google: {
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      redirectURI: `${baseURL}/api/auth/callback/google`,
+    },
+  },
+  accountLinking: {
+    enabled: true,
+    trustedProviders: ["google"],
+  },
   emailVerification: {
     enabled: true,
     sendOnSignUp: true,
@@ -117,8 +128,8 @@ export const auth = betterAuth({
       user,
       token,
     }: {
-      user: { email: string; locale?: string | null }
-      token: string
+      user: { email: string; locale?: string | null };
+      token: string;
     }) => {
       const { sendVerificationEmail } = await import("./email/send");
       const userLocale = (user as { locale?: string | null })?.locale ?? "fr";
@@ -131,8 +142,8 @@ export const auth = betterAuth({
       user,
       token,
     }: {
-      user: { email: string; locale?: string | null }
-      token: string
+      user: { email: string; locale?: string | null };
+      token: string;
     }) => {
       const { sendPasswordResetEmail } = await import("./email/send");
       const userLocale = (user as { locale?: string | null })?.locale ?? "fr";
@@ -148,6 +159,18 @@ export const auth = betterAuth({
     },
     cookieName: "better-auth.session_token",
     expiresIn: 60 * 60 * 24 * 7, // 7 days
+    callbacks: {
+      session: async ({ session, user }) => {
+        // Include healthDataConsentGrantedAt in session
+        return {
+          ...session,
+          user: {
+            ...session.user,
+            healthDataConsentGrantedAt: user.healthDataConsentGrantedAt,
+          },
+        };
+      },
+    },
   },
   ...(advancedConfig ? { advanced: advancedConfig } : {}),
 });
