@@ -86,7 +86,7 @@ export function HeaderClient({ isAdmin, initialSession }: HeaderClientProps) {
         {/* Mobile menu */}
         <MobileNav
           isAuthenticated={!!session?.user}
-          userName={session?.user?.name}
+          userName={session?.user?.name ?? undefined}
         />
 
         {/* Logo */}
