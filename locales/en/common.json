@@ -700,6 +700,37 @@
       "button": "Read my story"
     }
   },
+  "admin": {
+    "title": "Administration",
+    "users": {
+      "title": "Member Management",
+      "table": {
+        "email": "Email",
+        "role": "Role",
+        "createdAt": "Created",
+        "emailVerified": "Email Verified",
+        "consent": "GDPR Consent",
+        "exercises": "Exercises",
+        "actions": "Actions"
+      },
+      "consent": {
+        "granted": "Granted",
+        "notGranted": "Not Granted",
+        "grantedAt": "on {date}"
+      },
+      "delete": {
+        "button": "Delete",
+        "confirm": "Confirm Deletion",
+        "message": "Are you sure you want to delete {email}? All their data will be permanently deleted.",
+        "cancel": "Cancel",
+        "success": "User deleted"
+      },
+      "role": {
+        "ADMIN": "Administrator",
+        "USER": "User"
+      }
+    }
+  },
   "errors": {
     "notFound": {
       "title": "Page Not Found",

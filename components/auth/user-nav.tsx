@@ -1,5 +1,6 @@
 'use client'
 
+import { AdminLink } from "@/components/admin/admin-link";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -15,7 +16,12 @@ import { authClient } from "@/lib/auth-client";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
-export function UserNav({ user }: { user: { name: string; email: string } }) {
+interface UserNavProps {
+  user: { name: string; email: string };
+  isAdmin?: boolean;
+}
+
+export function UserNav({ user, isAdmin = false }: UserNavProps) {
   const t = useTranslations();
   const router = useRouter();
   const [isSignOutOpen, setIsSignOutOpen] = useState(false);
@@ -27,6 +33,8 @@ export function UserNav({ user }: { user: { name: string; email: string } }) {
 
   return (
     <div className="flex items-center gap-4">
+      <AdminLink isAdmin={isAdmin} />
+
       <Link
         href="/profile"
         className="text-sm transition-colors hover:text-primary cursor-pointer"

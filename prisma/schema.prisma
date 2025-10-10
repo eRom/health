@@ -23,10 +23,16 @@ model User {
   passwordResetRequestCount     Int               @default(0)
   passwordResetRequestResetAt   DateTime?
   healthDataConsentGrantedAt   DateTime?
+  role                          UserRole          @default(USER)
   accounts                      Account[]
   sessions                      Session[]
   exerciseAttempts              ExerciseAttempt[]
   consentHistory                ConsentHistory[]
+}
+
+enum UserRole {
+  USER
+  ADMIN
 }
 
 model Account {

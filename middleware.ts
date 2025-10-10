@@ -4,6 +4,7 @@ import { routing } from "./i18n/routing";
 import {
   debugLocale,
   extractLocaleFromPath,
+  isAdminRoute,
   isProtectedRoute,
 } from "./lib/locale-utils";
 
@@ -12,6 +13,7 @@ const intlMiddleware = createMiddleware(routing);
 type SessionResponse = {
   session?: {
     user?: {
+      id: string;
       emailVerified?: boolean | null;
     };
   } | null;
@@ -30,7 +32,10 @@ async function fetchSession(request: NextRequest) {
     });
 
     if (!response.ok) {
-      console.error("[MIDDLEWARE DEBUG] Session fetch failed:", response.status);
+      console.error(
+        "[MIDDLEWARE DEBUG] Session fetch failed:",
+        response.status
+      );
       return null;
     }
 
@@ -66,12 +71,12 @@ export default async function middleware(request: NextRequest) {
       sessionToken: !!sessionToken,
       secureSessionLower: !!secureSessionLower,
       secureSessionUpper: !!secureSessionUpper,
-      allCookies: request.cookies.getAll().map(c => c.name)
+      allCookies: request.cookies.getAll().map((c) => c.name),
     });
 
     if (!sessionToken && !secureSessionLower && !secureSessionUpper) {
       console.log("[MIDDLEWARE DEBUG] No session found, redirecting to login");
-      
+
       // ✅ CORRECTIF : Redirection avec locale préservée et paramètres de requête
       const loginUrl = new URL(`/${locale}/auth/login`, request.url);
 
@@ -83,9 +88,36 @@ export default async function middleware(request: NextRequest) {
       debugLocale("REDIRECT_TO_LOGIN", locale, loginUrl.pathname);
       return NextResponse.redirect(loginUrl);
     } else {
-      console.log(
-        "[MIDDLEWARE DEBUG] Session found, checking email verification"
-      );
+      console.log("[MIDDLEWARE DEBUG] Session found, checking permissions");
+
+      // Check admin routes - simplified check without Prisma
+      if (isAdminRoute(pathname)) {
+        try {
+          const session = await fetchSession(request);
+
+          if (!session?.user) {
+            console.log(
+              "[MIDDLEWARE DEBUG] No session for admin route, redirecting to login"
+            );
+            const loginUrl = new URL(`/${locale}/auth/login`, request.url);
+            return NextResponse.redirect(loginUrl);
+          }
+
+          // For now, allow access and let the layout handle the admin check
+          // This avoids Prisma Client issues in Edge Runtime
+          console.log(
+            "[MIDDLEWARE DEBUG] Session found for admin route, allowing access"
+          );
+        } catch (error) {
+          console.error(
+            "[MIDDLEWARE DEBUG] Error checking admin permissions:",
+            error
+          );
+          // Redirect to dashboard on error
+          const dashboardUrl = new URL(`/${locale}/dashboard`, request.url);
+          return NextResponse.redirect(dashboardUrl);
+        }
+      }
 
       // Check if user's email is verified for exercise routes
       if (

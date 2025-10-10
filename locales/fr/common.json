@@ -700,6 +700,37 @@
       "button": "Lire mon histoire"
     }
   },
+  "admin": {
+    "title": "Administration",
+    "users": {
+      "title": "Gestion des membres",
+      "table": {
+        "email": "Email",
+        "role": "Rôle",
+        "createdAt": "Créé le",
+        "emailVerified": "Email vérifié",
+        "consent": "Consentement RGPD",
+        "exercises": "Exercices",
+        "actions": "Actions"
+      },
+      "consent": {
+        "granted": "Accordé",
+        "notGranted": "Non accordé",
+        "grantedAt": "le {date}"
+      },
+      "delete": {
+        "button": "Supprimer",
+        "confirm": "Confirmer la suppression",
+        "message": "Êtes-vous sûr de vouloir supprimer {email} ? Toutes ses données seront définitivement supprimées.",
+        "cancel": "Annuler",
+        "success": "Utilisateur supprimé"
+      },
+      "role": {
+        "ADMIN": "Administrateur",
+        "USER": "Utilisateur"
+      }
+    }
+  },
   "errors": {
     "notFound": {
       "title": "Page introuvable",
