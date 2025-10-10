@@ -37,7 +37,52 @@ const nextConfig: NextConfig = {
   headers: async () => {
     return [
       {
-        source: "/(.*)",
+        source: "/api/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "no-store",
+          },
+        ],
+      },
+      {
+        source: "/_next/static/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      {
+        source: "/_next/image/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      {
+        source: "/fonts/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      {
+        source: "/icons/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      {
+        source: "/:path*(css|js|gif|jpe?g|svg|png|mp4|webm|ogg|webp|ico)",
         headers: [
           {
             key: "Cache-Control",

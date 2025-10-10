@@ -1,7 +1,7 @@
-'use client'
+"use client";
 
 import { Footer } from "@/components/navigation/footer";
-import { Header } from "@/components/navigation/header";
+import { HeaderClient } from "@/components/navigation/header-client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "@/i18n/routing";
@@ -14,14 +14,13 @@ interface ErrorPageProps {
 }
 
 export default function ErrorPage({ error, reset }: ErrorPageProps) {
-  // Log error to console in development
   useEffect(() => {
     console.error("Application error:", error);
   }, [error]);
 
   return (
     <div className="flex min-h-screen flex-col">
-      <Header />
+      <HeaderClient isAdmin={false} initialSession={null} />
       
       <main className="flex-1 pt-20">
         <div className="container mx-auto px-4 py-16">

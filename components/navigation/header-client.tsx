@@ -16,15 +16,69 @@ import { Link } from "@/i18n/routing";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
 import { Logo } from "../ui/logo";
+
+type SessionPayload = {
+  session: {
+    id: string;
+    token: string;
+    userId: string;
+    expiresAt: string;
+    createdAt?: string;
+    updatedAt?: string;
+  };
+  user: {
+    id: string;
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+    locale?: string | null;
+    role?: string | null;
+  };
+} | null;
 
 interface HeaderClientProps {
   isAdmin: boolean;
+  initialSession: SessionPayload;
 }
 
-export function HeaderClient({ isAdmin }: HeaderClientProps) {
+export function HeaderClient({ isAdmin, initialSession }: HeaderClientProps) {
   const t = useTranslations();
-  const { data: session } = authClient.useSession();
+  const { data: liveSession } = authClient.useSession();
+  const [hasHydrated, setHasHydrated] = useState(false);
+
+  useEffect(() => {
+    setHasHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (!initialSession) {
+      return;
+    }
+
+    const sessionAtom = authClient.$store?.atoms?.session;
+
+    if (!sessionAtom) {
+      return;
+    }
+
+    const currentValue = sessionAtom.get();
+
+    if (!currentValue?.data) {
+      sessionAtom.set({
+        ...currentValue,
+        data: initialSession,
+        error: null,
+        isPending: false,
+        isRefetching: false,
+      });
+    }
+  }, [initialSession]);
+
+  const session = hasHydrated
+    ? liveSession ?? initialSession ?? null
+    : initialSession ?? null;
 
   return (
     <header className="fixed left-0 right-0 top-0 z-50 border-b bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
@@ -152,4 +206,3 @@ export function HeaderClient({ isAdmin }: HeaderClientProps) {
     </header>
   );
 }
-
