@@ -15,13 +15,5 @@ export default async function AdminLayout({
     redirect(`/${locale}/dashboard`)
   }
   
-  return (
-    <div className="container py-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold">Administration</h1>
-        <p className="text-muted-foreground">Gestion des membres</p>
-      </div>
-      {children}
-    </div>
-  )
+  return <div className="container py-8">{children}</div>;
 }
