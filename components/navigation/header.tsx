@@ -4,7 +4,7 @@ import { headers } from "next/headers";
 import { HeaderClient } from "./header-client";
 
 export async function Header() {
-  const incomingHeaders = headers();
+  const incomingHeaders = await headers();
   const session = await auth
     .api.getSession({ headers: incomingHeaders })
     .catch(() => null);

@@ -24,9 +24,9 @@ type SessionPayload = {
     id: string;
     token: string;
     userId: string;
-    expiresAt: string;
-    createdAt?: string;
-    updatedAt?: string;
+    expiresAt: string | Date;
+    createdAt?: string | Date;
+    updatedAt?: string | Date;
   };
   user: {
     id: string;
