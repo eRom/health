@@ -28,3 +28,4 @@ export async function isAdmin(userId: string): Promise<boolean> {
   })
   return user?.role === 'ADMIN'
 }
+

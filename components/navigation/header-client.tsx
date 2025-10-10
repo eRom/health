@@ -149,3 +149,4 @@ export function HeaderClient({ isAdmin }: HeaderClientProps) {
     </header>
   );
 }
+

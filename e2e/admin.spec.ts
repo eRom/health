@@ -79,3 +79,4 @@ test.describe('Admin Interface', () => {
     await expect(adminRow.locator('button[aria-label*="Supprimer"]')).not.toBeVisible()
   })
 })
+

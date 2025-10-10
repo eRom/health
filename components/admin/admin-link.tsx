@@ -23,3 +23,4 @@ export function AdminLink({ isAdmin }: AdminLinkProps) {
     </Link>
   )
 }
+
