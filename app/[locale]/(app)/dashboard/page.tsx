@@ -68,7 +68,7 @@ export default async function DashboardPage({
         </Button>
       </div>
 
-      <div className="space-y-8">
+      <div className="flex flex-col gap-4">
         {/* Stats Cards */}
         <StatsCards
           stats={stats}
