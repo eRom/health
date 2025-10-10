@@ -26,7 +26,7 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 interface UserNavProps {
-  user: { name: string; email: string };
+  user: { name?: string | null; email?: string | null };
   isAdmin?: boolean;
 }
 
@@ -41,7 +41,8 @@ export function UserNav({ user, isAdmin = false }: UserNavProps) {
   }
 
   // Générer les initiales à partir du nom
-  const getInitials = (name: string) => {
+  const getInitials = (name: string | null | undefined) => {
+    if (!name) return "U";
     return name
       .split(" ")
       .map((word) => word.charAt(0))
@@ -65,9 +66,11 @@ export function UserNav({ user, isAdmin = false }: UserNavProps) {
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">{user.name}</p>
+            <p className="text-sm font-medium leading-none">
+              {user.name || "Utilisateur"}
+            </p>
             <p className="text-xs leading-none text-muted-foreground">
-              {user.email}
+              {user.email || ""}
             </p>
           </div>
         </DropdownMenuLabel>
