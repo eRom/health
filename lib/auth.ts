@@ -159,18 +159,6 @@ export const auth = betterAuth({
     },
     cookieName: "better-auth.session_token",
     expiresIn: 60 * 60 * 24 * 7, // 7 days
-    callbacks: {
-      session: async ({ session, user }) => {
-        // Include healthDataConsentGrantedAt in session
-        return {
-          ...session,
-          user: {
-            ...session.user,
-            healthDataConsentGrantedAt: user.healthDataConsentGrantedAt,
-          },
-        };
-      },
-    },
   },
   ...(advancedConfig ? { advanced: advancedConfig } : {}),
 });

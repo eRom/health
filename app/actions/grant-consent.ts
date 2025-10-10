@@ -16,8 +16,13 @@ export async function grantConsent() {
     }
 
     // Vérifier si le consentement n'a pas déjà été accordé
-    if (session.user.healthDataConsentGrantedAt) {
-      throw new Error("Consentement déjà accordé")
+    const existingUser = await prisma.user.findUnique({
+      where: { id: session.user.id },
+      select: { healthDataConsentGrantedAt: true },
+    });
+
+    if (existingUser?.healthDataConsentGrantedAt) {
+      throw new Error("Consentement déjà accordé");
     }
 
     // Capturer les informations de requête
