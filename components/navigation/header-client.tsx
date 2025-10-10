@@ -5,12 +5,12 @@ import { LanguageSwitcher } from "@/components/navigation/language-switcher";
 import { MobileNav } from "@/components/navigation/mobile-nav";
 import { Button } from "@/components/ui/button";
 import {
-    NavigationMenu,
-    NavigationMenuContent,
-    NavigationMenuItem,
-    NavigationMenuLink,
-    NavigationMenuList,
-    NavigationMenuTrigger,
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { Link } from "@/i18n/routing";
 import { authClient } from "@/lib/auth-client";
@@ -19,12 +19,12 @@ import { useTranslations } from "next-intl";
 import { Logo } from "../ui/logo";
 
 interface HeaderClientProps {
-  isAdmin: boolean
+  isAdmin: boolean;
 }
 
 export function HeaderClient({ isAdmin }: HeaderClientProps) {
-  const t = useTranslations()
-  const { data: session } = authClient.useSession()
+  const t = useTranslations();
+  const { data: session } = authClient.useSession();
 
   return (
     <header className="fixed left-0 right-0 top-0 z-50 border-b bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
@@ -38,6 +38,9 @@ export function HeaderClient({ isAdmin }: HeaderClientProps) {
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-3">
           <Logo className="h-8 w-8 text-primary" />
+          <span className="text-xl text-[#007FFF] font-semibold tracking-tight hidden md:block">
+            Health In Cloud
+          </span>
         </Link>
 
         {/* Desktop navigation */}
