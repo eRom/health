@@ -101,6 +101,27 @@ export default async function ProfilePage({
           </CardContent>
         </Card>
 
+        {/* Préférences */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Préférences</CardTitle>
+            <CardDescription>Personnalisez votre expérience</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <LocalePreference currentLocale={userLocale} />
+
+            <div className="border-t pt-6">
+              <ThemePreference />
+            </div>
+
+            <div className="border-t pt-6">
+              <NotificationPreference
+                currentEmailNotifications={emailNotifications}
+              />
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Sécurité */}
         <Card>
           <CardHeader>
@@ -126,27 +147,6 @@ export default async function ProfilePage({
               <ActiveSessions
                 sessions={sessions}
                 currentSessionId={session!.session.id}
-              />
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Préférences */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Préférences</CardTitle>
-            <CardDescription>Personnalisez votre expérience</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <LocalePreference currentLocale={userLocale} />
-
-            <div className="border-t pt-6">
-              <ThemePreference />
-            </div>
-
-            <div className="border-t pt-6">
-              <NotificationPreference
-                currentEmailNotifications={emailNotifications}
               />
             </div>
           </CardContent>
