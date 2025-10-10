@@ -98,6 +98,10 @@
       "label": "J'accepte que mes données de santé (résultats d'exercices, progrès de rééducation, performances cognitives) soient collectées et traitées dans le cadre de mon suivi personnalisé.",
       "required": "Vous devez accepter le traitement de vos données de santé pour créer un compte.",
       "learnMore": "En savoir plus"
+    },
+    "userMenu": {
+      "myProfile": "Mon profil",
+      "administration": "Administration"
     }
   },
   "dashboard": {

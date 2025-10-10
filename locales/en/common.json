@@ -98,6 +98,10 @@
       "label": "I accept that my health data (exercise results, rehabilitation progress, cognitive performance) be collected and processed as part of my personalized follow-up.",
       "required": "You must accept the processing of your health data to create an account.",
       "learnMore": "Learn more"
+    },
+    "userMenu": {
+      "myProfile": "My Profile",
+      "administration": "Administration"
     }
   },
   "dashboard": {
