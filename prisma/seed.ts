@@ -1,16 +1,17 @@
 import { PrismaClient } from "@prisma/client";
+import { logger } from "../lib/logger";
 
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log("🌱 Starting database seeding...");
+  logger.info("🌱 Starting database seeding...");
 
   // 1. Create demo user using BetterAuth's default hashing
   // First, delete existing user if exists
   await prisma.user.deleteMany({
     where: { email: "romain.ecarnot@gmail.com" },
   });
-  console.log("🗑️  Deleted existing user");
+  logger.info("🗑️  Deleted existing user");
 
   // Create user directly in database with BetterAuth's expected format
   // BetterAuth uses a specific password hash format
@@ -35,13 +36,13 @@ async function main() {
     },
   });
 
-  console.log(`✅ User created: ${user.email}`);
+  logger.info("✅ User created", { email: user.email });
 
   // 2. Delete existing attempts for clean slate
   await prisma.exerciseAttempt.deleteMany({
     where: { userId: user.id },
   });
-  console.log("🗑️  Deleted existing exercise attempts");
+  logger.info("🗑️  Deleted existing exercise attempts");
 
   // 3. Generate fake exercise attempts (120 days of data for "Tout" and "3 mois")
   const exercisesData = [
@@ -163,10 +164,13 @@ async function main() {
     data: attempts,
   });
 
-  console.log(`✅ Created ${createdAttempts.count} exercise attempts`);
-  console.log(
-    `📊 Date range: ${attempts[attempts.length - 1].completedAt.toLocaleDateString()} - ${attempts[0].completedAt.toLocaleDateString()}`
-  );
+  logger.info("✅ Created exercise attempts", {
+    count: createdAttempts.count,
+    dateRange: {
+      start: attempts[attempts.length - 1].completedAt.toISOString(),
+      end: attempts[0].completedAt.toISOString(),
+    },
+  });
 
   // Stats breakdown
   const easyCount = attempts.filter((a) => a.data.difficulty === "easy").length;
@@ -175,16 +179,20 @@ async function main() {
   ).length;
   const hardCount = attempts.filter((a) => a.data.difficulty === "hard").length;
 
-  console.log(`📈 Difficulty breakdown:`);
-  console.log(
-    `   Easy: ${easyCount} (${((easyCount / attempts.length) * 100).toFixed(1)}%)`
-  );
-  console.log(
-    `   Medium: ${mediumCount} (${((mediumCount / attempts.length) * 100).toFixed(1)}%)`
-  );
-  console.log(
-    `   Hard: ${hardCount} (${((hardCount / attempts.length) * 100).toFixed(1)}%)`
-  );
+  logger.info("📈 Difficulty breakdown", {
+    easy: {
+      count: easyCount,
+      ratio: Number(((easyCount / attempts.length) * 100).toFixed(1)),
+    },
+    medium: {
+      count: mediumCount,
+      ratio: Number(((mediumCount / attempts.length) * 100).toFixed(1)),
+    },
+    hard: {
+      count: hardCount,
+      ratio: Number(((hardCount / attempts.length) * 100).toFixed(1)),
+    },
+  });
 
   // Type breakdown
   const neuroCount = attempts.filter((a) => a.data.type === "neuro").length;
@@ -192,29 +200,35 @@ async function main() {
   const kineCount = attempts.filter((a) => a.data.type === "kine").length;
   const ergoCount = attempts.filter((a) => a.data.type === "ergo").length;
 
-  console.log(`📊 Type breakdown:`);
-  console.log(
-    `   Neuro: ${neuroCount} (${((neuroCount / attempts.length) * 100).toFixed(1)}%)`
-  );
-  console.log(
-    `   Ortho: ${orthoCount} (${((orthoCount / attempts.length) * 100).toFixed(1)}%)`
-  );
-  console.log(
-    `   Kine: ${kineCount} (${((kineCount / attempts.length) * 100).toFixed(1)}%)`
-  );
-  console.log(
-    `   Ergo: ${ergoCount} (${((ergoCount / attempts.length) * 100).toFixed(1)}%)`
-  );
+  logger.info("📊 Type breakdown", {
+    neuro: {
+      count: neuroCount,
+      ratio: Number(((neuroCount / attempts.length) * 100).toFixed(1)),
+    },
+    ortho: {
+      count: orthoCount,
+      ratio: Number(((orthoCount / attempts.length) * 100).toFixed(1)),
+    },
+    kine: {
+      count: kineCount,
+      ratio: Number(((kineCount / attempts.length) * 100).toFixed(1)),
+    },
+    ergo: {
+      count: ergoCount,
+      ratio: Number(((ergoCount / attempts.length) * 100).toFixed(1)),
+    },
+  });
 
-  console.log("\n🎉 Seeding completed successfully!");
-  console.log("\n📝 Demo credentials:");
-  console.log("   Email: romain.ecarnot@gmail.com");
-  console.log("   Password: mprnantes");
+  logger.info("🎉 Seeding completed successfully!");
+  logger.info("📝 Demo credentials", {
+    email: "romain.ecarnot@gmail.com",
+    password: "mprnantes",
+  });
 }
 
 main()
   .catch((e) => {
-    console.error("❌ Seeding failed:", e);
+    logger.error(e, "❌ Seeding failed");
     process.exit(1);
   })
   .finally(async () => {

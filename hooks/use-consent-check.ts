@@ -2,6 +2,7 @@
 
 import { useRouter } from '@/i18n/routing'
 import { useEffect } from 'react'
+import { logger } from '@/lib/logger'
 
 export function useConsentCheck() {
   const router = useRouter()
@@ -25,7 +26,7 @@ export function useConsentCheck() {
           }
         }
       } catch (error) {
-        console.error('Error checking consent:', error)
+        logger.error(error, 'Error checking consent')
         // Don't redirect on error to avoid infinite loops
       }
     }

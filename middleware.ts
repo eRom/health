@@ -7,6 +7,7 @@ import {
   isAdminRoute,
   isProtectedRoute,
 } from "./lib/locale-utils";
+import { logger } from "./lib/logger";
 
 const intlMiddleware = createMiddleware(routing);
 
@@ -33,17 +34,16 @@ async function fetchSession(request: NextRequest) {
     });
 
     if (!response.ok) {
-      console.error(
-        "[MIDDLEWARE DEBUG] Session fetch failed:",
-        response.status
-      );
+      logger.warn("[MIDDLEWARE] Session fetch failed", {
+        status: response.status,
+      });
       return null;
     }
 
     const data = (await response.json()) as SessionResponse;
     return data.session ?? null;
   } catch (error) {
-    console.error("[MIDDLEWARE DEBUG] Error fetching session:", error);
+    logger.error(error, "[MIDDLEWARE] Error fetching session");
     return null;
   }
 }
@@ -66,7 +66,7 @@ export default async function middleware(request: NextRequest) {
       "__Secure-better-auth.session_token"
     );
 
-    console.log("[MIDDLEWARE DEBUG] Checking session cookies:", {
+    logger.debug("[MIDDLEWARE] Checking session cookies", {
       pathname,
       locale,
       sessionToken: !!sessionToken,
@@ -76,7 +76,10 @@ export default async function middleware(request: NextRequest) {
     });
 
     if (!sessionToken && !secureSessionLower && !secureSessionUpper) {
-      console.log("[MIDDLEWARE DEBUG] No session found, redirecting to login");
+      logger.debug("[MIDDLEWARE] No session found, redirecting to login", {
+        pathname,
+        locale,
+      });
 
       // ✅ CORRECTIF : Redirection avec locale préservée et paramètres de requête
       const loginUrl = new URL(`/${locale}/auth/login`, request.url);
@@ -89,7 +92,10 @@ export default async function middleware(request: NextRequest) {
       debugLocale("REDIRECT_TO_LOGIN", locale, loginUrl.pathname);
       return NextResponse.redirect(loginUrl);
     } else {
-      console.log("[MIDDLEWARE DEBUG] Session found, checking permissions");
+      logger.debug("[MIDDLEWARE] Session found, checking permissions", {
+        pathname,
+        locale,
+      });
 
       // Check admin routes - simplified check without Prisma
       if (isAdminRoute(pathname)) {
@@ -97,22 +103,18 @@ export default async function middleware(request: NextRequest) {
           const session = await fetchSession(request);
 
           if (!session?.user) {
-            console.log(
-              "[MIDDLEWARE DEBUG] No session for admin route, redirecting to login"
+            logger.debug(
+              "[MIDDLEWARE] No session for admin route, redirecting to login",
+              { pathname, locale }
             );
             const loginUrl = new URL(`/${locale}/auth/login`, request.url);
             return NextResponse.redirect(loginUrl);
           }
 
-          // For now, allow access and let the layout handle the admin check
-          // This avoids Prisma Client issues in Edge Runtime
-          console.log(
-            "[MIDDLEWARE DEBUG] Session found for admin route, allowing access"
-          );
         } catch (error) {
-          console.error(
-            "[MIDDLEWARE DEBUG] Error checking admin permissions:",
-            error
+          logger.error(
+            error,
+            "[MIDDLEWARE] Error checking admin permissions"
           );
           // Redirect to dashboard on error
           const dashboardUrl = new URL(`/${locale}/dashboard`, request.url);
@@ -130,16 +132,17 @@ export default async function middleware(request: NextRequest) {
           const session = await fetchSession(request);
 
           if (session?.user && !session.user.emailVerified) {
-            console.log(
-              "[MIDDLEWARE DEBUG] Email not verified, redirecting to dashboard with banner"
+            logger.info(
+              "[MIDDLEWARE] Email not verified, redirecting to dashboard",
+              { userId: session.user.id }
             );
             const dashboardUrl = new URL(`/${locale}/dashboard`, request.url);
             return NextResponse.redirect(dashboardUrl);
           }
         } catch (error) {
-          console.error(
-            "[MIDDLEWARE DEBUG] Error checking email verification:",
-            error
+          logger.error(
+            error,
+            "[MIDDLEWARE] Error checking email verification"
           );
           // Continue to allow access if check fails
         }
@@ -169,8 +172,9 @@ export default async function middleware(request: NextRequest) {
               const consentData = await consentResponse.json();
 
               if (!consentData.hasConsent) {
-                console.log(
-                  "[MIDDLEWARE DEBUG] Health data consent not granted, redirecting to consent page"
+                logger.info(
+                  "[MIDDLEWARE] Consent not granted, redirecting",
+                  { userId: session.user.id }
                 );
                 const consentUrl = new URL(`/${locale}/consent`, request.url);
                 return NextResponse.redirect(consentUrl);
@@ -178,7 +182,7 @@ export default async function middleware(request: NextRequest) {
             }
           }
         } catch (error) {
-          console.error("[MIDDLEWARE DEBUG] Error checking session:", error);
+          logger.error(error, "[MIDDLEWARE] Error checking session");
           // Continue to allow access if check fails
         }
       }

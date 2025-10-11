@@ -2,6 +2,7 @@
 
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import { logger } from '@/lib/logger'
 import { headers } from 'next/headers'
 import { z } from 'zod'
 
@@ -34,7 +35,7 @@ export async function updateName(data: { name: string }) {
     if (error instanceof z.ZodError) {
       return { success: false, error: error.issues[0]?.message || 'Validation échouée' }
     }
-    console.error('[UPDATE_NAME] Error:', error)
+    logger.error(error, '[UPDATE_NAME] Error')
     return { success: false, error: 'Erreur lors de la mise à jour' }
   }
 }

@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { authClient } from "@/lib/auth-client"
+import { logger } from "@/lib/logger"
 import { useTranslations } from "next-intl"
 import { useState } from "react"
 
@@ -28,7 +29,7 @@ export function GoogleButton({
         provider: "google",
       })
     } catch (error) {
-      console.error("Google sign in error:", error)
+      logger.error(error, "Google sign in error")
     } finally {
       setIsLoading(false)
     }

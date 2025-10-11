@@ -3,6 +3,7 @@
 import { useRouter } from '@/i18n/routing'
 import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
+import { logger } from '@/lib/logger'
 
 interface ConsentGuardProps {
   children: React.ReactNode
@@ -31,7 +32,7 @@ export function ConsentGuard({ children }: ConsentGuardProps) {
           }
         }
       } catch (error) {
-        console.error('Error checking consent:', error)
+        logger.error(error, 'Error checking consent in guard')
       } finally {
         setIsChecking(false)
       }

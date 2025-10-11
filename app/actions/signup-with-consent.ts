@@ -2,6 +2,7 @@
 
 import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
+import { logger } from "@/lib/logger"
 import { SignupSchema } from "@/lib/schemas/auth"
 import { headers } from "next/headers"
 
@@ -60,7 +61,7 @@ export async function signUpWithConsent(data: {
 
     return { success: true, user: result.user }
   } catch (error) {
-    console.error("Erreur lors de l'inscription avec consentement:", error)
+    logger.error(error, "Erreur lors de l'inscription avec consentement")
     throw new Error("Erreur lors de la création du compte")
   }
 }

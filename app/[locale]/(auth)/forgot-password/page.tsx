@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input'
 import { Link } from "@/i18n/routing";
 import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
+import { logger } from '@/lib/logger'
 
 export default function ForgotPasswordPage() {
   const t = useTranslations()
@@ -93,7 +94,7 @@ export default function ForgotPasswordPage() {
         setCooldownMessage(`Vous pourrez renvoyer un email dans ${data.cooldown}s`)
       }
     } catch (error) {
-      console.error('[FORGOT_PASSWORD] Error:', error)
+      logger.error(error, '[FORGOT_PASSWORD] Error')
       setError('Erreur lors de l\'envoi de l\'email de réinitialisation')
     } finally {
       setIsLoading(false)

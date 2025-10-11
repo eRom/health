@@ -3,6 +3,7 @@
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import { authClient } from "@/lib/auth-client"
+import { logger } from "@/lib/logger"
 import { Mail } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { useState } from "react"
@@ -38,7 +39,7 @@ export function EmailVerificationBanner({
         text: t("successMessage"),
       })
     } catch (error) {
-      console.error("[RESEND_VERIFICATION] Error:", error)
+      logger.error(error, "[RESEND_VERIFICATION] Error")
       setMessage({
         type: "error",
         text: t("errorMessage"),

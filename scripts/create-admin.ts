@@ -1,4 +1,5 @@
 import { prisma } from '../lib/prisma'
+import { logger } from '../lib/logger'
 
 async function main() {
   const adminEmail = 'admin@healthincloud.app'
@@ -14,15 +15,14 @@ async function main() {
     },
   })
   
-  console.log('Admin created/updated:', admin.email)
+  logger.info('Admin created/updated', { email: admin.email })
 }
 
 main()
   .catch((e) => {
-    console.error(e)
+    logger.error(e, 'Failed to create admin')
     process.exit(1)
   })
   .finally(async () => {
     await prisma.$disconnect()
   })
-

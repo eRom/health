@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { Download, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import { logger } from '@/lib/logger'
 
 interface BeforeInstallPromptEvent extends Event {
   readonly platforms: string[]
@@ -41,9 +42,9 @@ export function PWAInstallPrompt() {
         const daysSinceDismissal =
           (Date.now() - dismissedTimestamp) / (1000 * 60 * 60 * 24);
         if (daysSinceDismissal < 7) {
-          console.log(
-            `PWA prompt dismissed ${daysSinceDismissal.toFixed(1)} days ago, not showing`
-          );
+          logger.debug('PWA prompt recently dismissed, skipping display', {
+            daysSinceDismissal: Number(daysSinceDismissal.toFixed(1)),
+          });
           return; // Don't show the prompt if dismissed within 7 days
         }
       }
@@ -83,9 +84,9 @@ export function PWAInstallPrompt() {
     const { outcome } = await deferredPrompt.userChoice;
 
     if (outcome === "accepted") {
-      console.log("PWA installation accepted");
+      logger.info('PWA installation accepted')
     } else {
-      console.log("PWA installation dismissed");
+      logger.info('PWA installation dismissed')
     }
 
     setDeferredPrompt(null);
@@ -97,11 +98,7 @@ export function PWAInstallPrompt() {
     // Store dismissal timestamp in localStorage to not show again for 7 days
     const timestamp = Date.now().toString();
     localStorage.setItem("pwa-install-dismissed", timestamp);
-    console.log("PWA prompt dismissed, saved timestamp:", timestamp);
-    console.log(
-      "localStorage value after save:",
-      localStorage.getItem("pwa-install-dismissed")
-    );
+    logger.debug('PWA prompt dismissed', { timestamp })
   };
 
   // Don't show if already installed or dismissed

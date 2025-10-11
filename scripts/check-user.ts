@@ -1,4 +1,5 @@
 import { prisma } from '../lib/prisma'
+import { logger } from '../lib/logger'
 
 async function main() {
   const user = await prisma.user.findUnique({
@@ -14,18 +15,17 @@ async function main() {
   })
   
   if (user) {
-    console.log('User found:', user)
+    logger.info('User found', { user })
   } else {
-    console.log('User not found')
+    logger.info('User not found')
   }
 }
 
 main()
   .catch((e) => {
-    console.error(e)
+    logger.error(e, 'Error checking user')
     process.exit(1)
   })
   .finally(async () => {
     await prisma.$disconnect()
   })
-

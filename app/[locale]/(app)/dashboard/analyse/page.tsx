@@ -15,6 +15,7 @@ import { EmptyState } from '@/components/ui/empty-state'
 import { BarChart3 } from 'lucide-react'
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
+import { logger } from '@/lib/logger'
 
 export default function AnalysePage() {
   const t = useTranslations('analyse')
@@ -47,13 +48,7 @@ export default function AnalysePage() {
         })
         setData(result)
       } catch (error) {
-        console.error('Error loading analysis data:', error)
-        // Log full error details
-        if (error instanceof Error) {
-          console.error('Error name:', error.name)
-          console.error('Error message:', error.message)
-          console.error('Error stack:', error.stack)
-        }
+        logger.error(error, 'Error loading analysis data')
       } finally {
         setLoading(false)
         setIsRefreshing(false)

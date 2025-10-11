@@ -1,6 +1,8 @@
 import sharp from 'sharp'
 import { readFileSync } from 'fs'
 
+import { logger } from '../lib/logger'
+
 async function generateIcons() {
   const logoSvg = readFileSync('public/logo.svg')
 
@@ -13,7 +15,7 @@ async function generateIcons() {
     .png()
     .toFile('public/icon-512.png')
 
-  console.log('✅ Generated icon-512.png (512x512 maskable)')
+  logger.info('✅ Generated icon-512.png (512x512 maskable)')
 
   // Generate 512x512 with safe zone for maskable (add padding)
   await sharp(logoSvg)
@@ -26,12 +28,15 @@ async function generateIcons() {
       bottom: 51,
       left: 51,
       right: 51,
-      background: { r: 45, g: 166, b: 178, alpha: 1 }, // theme color
+      background: { r: 45, g: 166, b: 178, alpha: 1 },
     })
     .png()
     .toFile('public/icon-512-maskable.png')
 
-  console.log('✅ Generated icon-512-maskable.png (512x512 with safe zone)')
+  logger.info('✅ Generated icon-512-maskable.png (512x512 with safe zone)')
 }
 
-generateIcons().catch(console.error)
+generateIcons().catch((error) => {
+  logger.error(error, 'Failed to generate PWA icons')
+  process.exit(1)
+})

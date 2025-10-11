@@ -5,11 +5,12 @@
  */
 
 import { PrismaClient } from "@prisma/client";
+import { logger } from "../lib/logger";
 
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log("🔍 Searching for ExerciseAttempt records with difficulty='all'...");
+  logger.info("🔍 Searching for ExerciseAttempt records with difficulty='all'...");
 
   // Find all attempts where data.difficulty = "all"
   const attempts = await prisma.exerciseAttempt.findMany({
@@ -21,10 +22,10 @@ async function main() {
     },
   });
 
-  console.log(`✅ Found ${attempts.length} records to update`);
+  logger.info("✅ Found records to update", { count: attempts.length });
 
   if (attempts.length === 0) {
-    console.log("✨ No records to update. Migration complete!");
+    logger.info("✨ No records to update. Migration complete!");
     return;
   }
 
@@ -44,16 +45,23 @@ async function main() {
 
     updated++;
     if (updated % 10 === 0) {
-      console.log(`⏳ Updated ${updated}/${attempts.length} records...`);
+      logger.info("⏳ Migration progress", {
+        updated,
+        total: attempts.length,
+      });
     }
   }
 
-  console.log(`✅ Migration complete! Updated ${updated} records from difficulty='all' to 'easy'`);
+  logger.info("✅ Migration complete!", {
+    updated,
+    from: 'all',
+    to: 'easy',
+  });
 }
 
 main()
   .catch((e) => {
-    console.error("❌ Migration failed:", e);
+    logger.error(e, "❌ Migration failed");
     process.exit(1);
   })
   .finally(async () => {

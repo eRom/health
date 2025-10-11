@@ -2,6 +2,7 @@
 
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import { logger } from '@/lib/logger'
 import { headers } from 'next/headers'
 
 export async function deleteAccount() {
@@ -33,18 +34,19 @@ export async function deleteAccount() {
         userLocale
       );
     } catch (emailError) {
-      console.error("[ACCOUNT_DELETION] Email error:", emailError);
+    logger.error(emailError, "[ACCOUNT_DELETION] Email error");
       // Don't fail the deletion if email fails
     }
 
-    // Log deletion for audit trail (console log will go to Sentry in production)
-    console.log(
-      `[ACCOUNT_DELETION] User deleted: ${userId} at ${new Date().toISOString()}`
-    );
+    // Log deletion for audit trail
+    logger.info("[ACCOUNT_DELETION] User deleted", {
+      userId,
+      timestamp: new Date().toISOString(),
+    });
 
     return { success: true };
   } catch (error) {
-    console.error('[ACCOUNT_DELETION] Error:', error)
+    logger.error(error, '[ACCOUNT_DELETION] Error')
     return { success: false, error: 'Erreur lors de la suppression du compte' }
   }
 }

@@ -2,6 +2,7 @@
 
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import { logger } from '@/lib/logger'
 import { SubmitExerciseAttemptSchema } from '@/lib/schemas/exercise'
 import { revalidatePath } from 'next/cache'
 import { headers } from 'next/headers'
@@ -45,7 +46,7 @@ export async function submitExerciseAttempt(input: unknown) {
       attemptId: attempt.id,
     }
   } catch (error) {
-    console.error('Error submitting exercise attempt:', error)
+    logger.error(error, 'Error submitting exercise attempt')
 
     return {
       success: false,

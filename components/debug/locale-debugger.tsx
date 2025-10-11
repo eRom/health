@@ -2,6 +2,7 @@
 
 import { usePathname, useRouter } from '@/i18n/routing'
 import { debugLocale } from '@/lib/locale-utils'
+import { logger } from '@/lib/logger'
 import { useLocale } from 'next-intl'
 import { useEffect, useState } from 'react'
 
@@ -74,7 +75,7 @@ export function LocaleDebugger() {
             <div className="border-t pt-2 mt-2">
               <button
                 onClick={() => {
-                  console.log("Current locale state:", {
+                  logger.debug("Current locale state", {
                     locale,
                     pathname,
                     url: currentUrl,

@@ -2,6 +2,7 @@
 
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import { logger } from '@/lib/logger'
 import bcrypt from "bcryptjs";
 import { headers } from 'next/headers'
 import { z } from "zod";
@@ -80,16 +81,17 @@ export async function changePassword(data: {
     });
 
     // Log password change for audit
-    console.log(
-      `[PASSWORD_CHANGE] User ${session.user.id} changed password at ${new Date().toISOString()}`
-    );
+    logger.info('[PASSWORD_CHANGE] Password updated', {
+      userId: session.user.id,
+      timestamp: new Date().toISOString(),
+    });
 
     return { success: true };
   } catch (error) {
     if (error instanceof z.ZodError) {
       return { success: false, error: error.issues[0]?.message || 'Validation échouée' }
     }
-    console.error('[CHANGE_PASSWORD] Error:', error)
+    logger.error(error, '[CHANGE_PASSWORD] Error')
     return { success: false, error: 'Erreur lors du changement de mot de passe' }
   }
 }

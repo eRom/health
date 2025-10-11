@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getExercises } from '@/lib/exercises'
+import { logger } from '@/lib/logger'
 
 export async function GET(request: NextRequest) {
   try {
@@ -15,7 +16,7 @@ export async function GET(request: NextRequest) {
       exercises,
     })
   } catch (error) {
-    console.error('Error loading neuro exercises:', error)
+    logger.error(error, 'Error loading neuro exercises')
     return NextResponse.json(
       {
         success: false,

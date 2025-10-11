@@ -2,6 +2,7 @@
 
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import { logger } from '@/lib/logger'
 import { headers } from 'next/headers'
 import { z } from 'zod'
 
@@ -34,11 +35,14 @@ export async function updatePreferences(data: {
       data: validated,
     })
 
-    console.log(`[Preferences] User ${session.user.id} updated preferences:`, validated)
+    logger.info('[Preferences] Updated', {
+      userId: session.user.id,
+      preferences: validated,
+    })
 
     return { success: true }
   } catch (error) {
-    console.error('[Preferences] Error updating preferences:', error)
+    logger.error(error, '[Preferences] Error updating preferences')
     return {
       success: false,
       error: error instanceof Error ? error.message : 'Erreur lors de la mise à jour',

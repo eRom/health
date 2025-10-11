@@ -2,6 +2,7 @@
 
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import { logger } from '@/lib/logger'
 import { headers } from 'next/headers'
 
 export async function revokeSession(sessionId: string) {
@@ -39,11 +40,15 @@ export async function revokeSession(sessionId: string) {
     })
 
     // Log revocation for audit
-    console.log(`[SESSION_REVOKE] User ${session.user.id} revoked session ${sessionId} at ${new Date().toISOString()}`)
+    logger.info('[SESSION_REVOKE] Session revoked', {
+      userId: session.user.id,
+      sessionId,
+      timestamp: new Date().toISOString(),
+    })
 
     return { success: true }
   } catch (error) {
-    console.error('[REVOKE_SESSION] Error:', error)
+    logger.error(error, '[REVOKE_SESSION] Error')
     return { success: false, error: 'Erreur lors de la révocation de la session' }
   }
 }
@@ -70,11 +75,15 @@ export async function revokeAllOtherSessions() {
     })
 
     // Log bulk revocation for audit
-    console.log(`[SESSION_REVOKE_ALL] User ${session.user.id} revoked ${result.count} sessions at ${new Date().toISOString()}`)
+    logger.info('[SESSION_REVOKE_ALL] Sessions revoked', {
+      userId: session.user.id,
+      revokedCount: result.count,
+      timestamp: new Date().toISOString(),
+    })
 
     return { success: true, count: result.count }
   } catch (error) {
-    console.error('[REVOKE_ALL_SESSIONS] Error:', error)
+    logger.error(error, '[REVOKE_ALL_SESSIONS] Error')
     return { success: false, error: 'Erreur lors de la révocation des sessions' }
   }
 }

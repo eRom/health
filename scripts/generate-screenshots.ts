@@ -1,6 +1,8 @@
 import sharp from 'sharp'
 import { readFileSync } from 'fs'
 
+import { logger } from '../lib/logger'
+
 async function generateScreenshots() {
   const logoSvg = readFileSync('public/logo.svg')
 
@@ -33,7 +35,10 @@ async function generateScreenshots() {
     .png()
     .toFile('public/screenshots/mobile-1.png')
 
-  console.log('✅ Generated mobile-1.png (1080x1920)')
+  logger.info('Generated mobile-1 screenshot', {
+    file: 'public/screenshots/mobile-1.png',
+    dimensions: '1080x1920',
+  })
 
   // Screenshot 2: App interface mockup
   await sharp({
@@ -74,7 +79,13 @@ async function generateScreenshots() {
     .png()
     .toFile('public/screenshots/mobile-2.png')
 
-  console.log('✅ Generated mobile-2.png (1080x1920)')
+  logger.info('Generated mobile-2 screenshot', {
+    file: 'public/screenshots/mobile-2.png',
+    dimensions: '1080x1920',
+  })
 }
 
-generateScreenshots().catch(console.error)
+generateScreenshots().catch((error) => {
+  logger.error(error, 'Failed to generate screenshots')
+  process.exit(1)
+})

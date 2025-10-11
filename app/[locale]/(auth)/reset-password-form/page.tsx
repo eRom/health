@@ -23,6 +23,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useTranslations } from "next-intl"
 import { useSearchParams } from "next/navigation"
 import { useState } from "react"
+import { logger } from '@/lib/logger'
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
@@ -102,7 +103,7 @@ export default function ResetPasswordFormPage() {
         router.push("/dashboard")
       }, 2000)
     } catch (error) {
-      console.error("[RESET_PASSWORD_FORM] Error:", error)
+      logger.error(error, "[RESET_PASSWORD_FORM] Error")
       setError(t("resetPassword.errorMessage"))
     } finally {
       setIsLoading(false)

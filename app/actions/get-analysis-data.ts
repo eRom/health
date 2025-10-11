@@ -2,6 +2,7 @@
 
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import { logger } from '@/lib/logger'
 import { headers } from 'next/headers'
 import { getExercises } from '@/lib/exercises'
 
@@ -122,7 +123,7 @@ export async function getAnalysisData(
 
   // Debug: Log catalogue info
   if (process.env.NODE_ENV === 'development') {
-    console.log('[getAnalysisData] Catalogue loaded:', {
+    logger.debug('[getAnalysisData] Catalogue loaded', {
       neuro: neuroExercises.length,
       ortho: orthoExercises.length,
       kine: kineExercises.length,
@@ -164,11 +165,11 @@ export async function getAnalysisData(
 
   // Debug: Log query results
   if (process.env.NODE_ENV === 'development') {
-    console.log('[getAnalysisData] Filter:', JSON.stringify(filters))
-    console.log('[getAnalysisData] Where clause:', JSON.stringify(whereClause, null, 2))
-    console.log('[getAnalysisData] Attempts found:', attempts.length)
+    logger.debug('[getAnalysisData] Filter', { filters })
+    logger.debug('[getAnalysisData] Where clause', { whereClause })
+    logger.debug('[getAnalysisData] Attempts found', { count: attempts.length })
     if (attempts.length > 0) {
-      console.log('[getAnalysisData] Sample attempt:', JSON.stringify(attempts[0], null, 2))
+      logger.debug('[getAnalysisData] Sample attempt', { attempt: attempts[0] })
     }
   }
 

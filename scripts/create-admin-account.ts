@@ -1,4 +1,5 @@
 import { prisma } from '../lib/prisma'
+import { logger } from '../lib/logger'
 
 async function main() {
   // Créer un compte admin avec un mot de passe connu
@@ -15,16 +16,15 @@ async function main() {
     },
   })
   
-  console.log('Admin created/updated:', admin.email)
-  console.log('You can now sign up with this email and it will be promoted to ADMIN')
+  logger.info('Admin created/updated', { email: admin.email })
+  logger.info('You can now sign up with this email and it will be promoted to ADMIN')
 }
 
 main()
   .catch((e) => {
-    console.error(e)
+    logger.error(e, 'Failed to create admin account')
     process.exit(1)
   })
   .finally(async () => {
     await prisma.$disconnect()
   })
-

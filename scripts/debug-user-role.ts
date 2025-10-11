@@ -1,4 +1,5 @@
 import { prisma } from '../lib/prisma'
+import { logger } from '../lib/logger'
 
 async function main() {
   // Vérifier le rôle de l'utilisateur connecté
@@ -16,16 +17,15 @@ async function main() {
     }
   })
   
-  console.log('User found:', user)
-  console.log('Is admin?', user?.role === 'ADMIN')
+  logger.info('User found', { user })
+  logger.info('Is admin?', { isAdmin: user?.role === 'ADMIN' })
 }
 
 main()
   .catch((e) => {
-    console.error(e)
+    logger.error(e, 'Failed to debug user role')
     process.exit(1)
   })
   .finally(async () => {
     await prisma.$disconnect()
   })
-

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { authClient } from '@/lib/auth-client'
+import { logger } from '@/lib/logger'
 
 /**
  * Composant de débogage pour les cookies et la session Better Auth
@@ -19,7 +20,10 @@ export function AuthDebugger() {
     setCookies(document.cookie)
 
     // Récupérer la session
-    authClient.getSession().then(setSession).catch(console.error)
+    authClient
+      .getSession()
+      .then(setSession)
+      .catch((error) => logger.error(error, '[AUTH DEBUG] getSession failed'))
   }, [])
 
   // Ne s'affiche qu'en développement
@@ -32,22 +36,22 @@ export function AuthDebugger() {
       const newSession = await authClient.getSession()
       setSession(newSession)
       setCookies(document.cookie)
-      console.log('[AUTH DEBUG] Session refreshed:', newSession)
+      logger.debug('[AUTH DEBUG] Session refreshed', { session: newSession })
     } catch (error) {
-      console.error('[AUTH DEBUG] Error refreshing session:', error)
+      logger.error(error, '[AUTH DEBUG] Error refreshing session')
     }
   }
 
   const testLogin = async () => {
     try {
-      console.log('[AUTH DEBUG] Testing login...')
+      logger.debug('[AUTH DEBUG] Testing login')
       const response = await authClient.signIn.email({
         email: 'test@example.com',
         password: 'testpassword'
       })
-      console.log('[AUTH DEBUG] Test login response:', response)
+      logger.debug('[AUTH DEBUG] Test login response', { response })
     } catch (error) {
-      console.error('[AUTH DEBUG] Test login error:', error)
+      logger.error(error, '[AUTH DEBUG] Test login error')
     }
   }
 
@@ -95,7 +99,7 @@ export function AuthDebugger() {
             <div>
               <button
                 onClick={() => {
-                  console.log('Current auth state:', {
+                  logger.debug('Current auth state', {
                     session,
                     cookies: document.cookie,
                     timestamp: new Date().toISOString()

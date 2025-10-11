@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Link, useRouter } from "@/i18n/routing";
 import { authClient } from "@/lib/auth-client";
+import { logger } from "@/lib/logger";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { GoogleButton } from "./google-button";
@@ -30,19 +31,15 @@ export function LoginForm() {
         password,
       });
 
-      console.log("[LOGIN DEBUG] Response:", response);
-
       if (response.error) {
         setError(response.error.message || "Email ou mot de passe incorrect");
         return;
       }
 
-      console.log("[LOGIN DEBUG] Login successful, redirecting to dashboard");
-      
       // ✅ CORRECTIF : Utiliser le router Next-Intl pour préserver la locale
       router.push("/dashboard");
     } catch (error) {
-      console.error("[LOGIN DEBUG] Login error:", error);
+      logger.error(error, "[LOGIN DEBUG] Login error");
       setError("Email ou mot de passe incorrect");
     } finally {
       setIsLoading(false);

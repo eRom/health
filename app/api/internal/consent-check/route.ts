@@ -1,5 +1,6 @@
 import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
+import { logger } from "@/lib/logger"
 import { headers } from "next/headers"
 import { NextResponse } from "next/server"
 
@@ -26,7 +27,7 @@ export async function GET() {
       userId: session.user.id 
     })
   } catch (error) {
-    console.error("Error checking consent:", error)
+    logger.error(error, "Error checking consent")
     return NextResponse.json(
       { hasConsent: false, error: "Internal server error" },
       { status: 500 }

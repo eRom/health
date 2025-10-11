@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { EmptyState } from '@/components/ui/empty-state'
 import { Filter } from 'lucide-react'
+import { logger } from '@/lib/logger'
 import {
   Select,
   SelectContent,
@@ -44,7 +45,7 @@ export default function OrthoPage() {
         const data = await response.json()
         setExercises(data.exercises || [])
       } catch (error) {
-        console.error('Error loading exercises:', error)
+        logger.error(error, 'Error loading ortho exercises')
       } finally {
         setLoading(false)
       }

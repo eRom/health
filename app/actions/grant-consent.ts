@@ -2,6 +2,7 @@
 
 import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
+import { logger } from "@/lib/logger"
 import { headers } from "next/headers"
 
 export async function grantConsent() {
@@ -49,7 +50,7 @@ export async function grantConsent() {
 
     return { success: true }
   } catch (error) {
-    console.error("Erreur lors de l'octroi du consentement:", error)
+    logger.error(error, "Erreur lors de l'octroi du consentement")
     throw new Error(
       error instanceof Error ? error.message : "Erreur lors de l'octroi du consentement"
     )

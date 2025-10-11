@@ -25,6 +25,7 @@ import {
   getDifficultyColor,
   getDifficultyLabel,
 } from "@/lib/constants/exercise";
+import { logger } from "@/lib/logger";
 
 // Types d'exercices neuropsychologiques
 const exerciseTypes = [
@@ -49,7 +50,7 @@ export default function NeuroPage() {
         const data = await response.json()
         setExercises(data.exercises || [])
       } catch (error) {
-        console.error('Error loading exercises:', error)
+        logger.error(error, 'Error loading neuro exercises')
       } finally {
         setLoading(false)
       }

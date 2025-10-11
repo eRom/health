@@ -1,6 +1,8 @@
-const sharp = require('sharp');
+import sharp from 'sharp'
 
-(async () => {
+import { logger } from '../lib/logger'
+
+async function generateOgImage() {
   const svgImage = `
   <svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
     <!-- Fond dégradé -->
@@ -29,11 +31,16 @@ const sharp = require('sharp');
       Plateforme de rééducation MPR
     </text>
   </svg>
-  `;
+  `
 
   await sharp(Buffer.from(svgImage))
     .png()
-    .toFile('./public/og-image.png');
+    .toFile('./public/og-image.png')
 
-  console.log('✓ og-image.png créé (1200x630)');
-})();
+  logger.info('✓ og-image.png créé (1200x630)')
+}
+
+generateOgImage().catch((error) => {
+  logger.error(error, 'Failed to generate OG image')
+  process.exit(1)
+})
