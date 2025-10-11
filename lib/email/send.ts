@@ -5,6 +5,7 @@ import { ResetPassword } from '@/emails/templates/ResetPassword'
 import { VerifyEmail } from '@/emails/templates/VerifyEmail'
 import { render } from '@react-email/render'
 import { FROM_EMAIL, resend } from './resend'
+import { logger } from '@/lib/logger'
 
 export async function sendVerificationEmail(
   email: string,
@@ -29,25 +30,63 @@ export async function sendVerificationEmail(
     })
 
     if (error) {
-      console.error('[EMAIL_VERIFICATION] Error:', error)
+      logger.error(error, '[EMAIL_VERIFICATION] Error sending email')
       return { success: false, error: error.message }
     }
 
-    console.log('[EMAIL_VERIFICATION] Sent:', data?.id)
+    logger.info('[EMAIL_VERIFICATION] Email sent', {
+      messageId: data?.id,
+      email,
+    })
     return { success: true, messageId: data?.id }
   } catch (error) {
-    console.error('[EMAIL_VERIFICATION] Error:', error)
+    logger.error(error, '[EMAIL_VERIFICATION] Unexpected error')
     return { success: false, error: 'Failed to send verification email' }
   }
+}
+
+type PasswordResetEmailOptions = {
+  email: string
+  token: string
+  tokenId?: string
+  locale?: string
 }
 
 export async function sendPasswordResetEmail(
   email: string,
   token: string,
-  locale: string = 'fr'
+  locale?: string,
+): Promise<{ success: boolean; messageId?: string; error?: string }>
+export async function sendPasswordResetEmail(
+  options: PasswordResetEmailOptions,
+): Promise<{ success: boolean; messageId?: string; error?: string }>
+export async function sendPasswordResetEmail(
+  emailOrOptions: string | PasswordResetEmailOptions,
+  tokenOrLocale?: string,
+  maybeLocale?: string,
 ) {
+  const { email, token, tokenId, locale } =
+    typeof emailOrOptions === 'string'
+      ? {
+          email: emailOrOptions,
+          token: tokenOrLocale ?? '',
+          tokenId: undefined,
+          locale: maybeLocale ?? 'fr',
+        }
+      : {
+          email: emailOrOptions.email,
+          token: emailOrOptions.token,
+          tokenId: emailOrOptions.tokenId,
+          locale: emailOrOptions.locale ?? 'fr',
+        }
+
   try {
-    const resetUrl = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/${locale}/reset-password?token=${token}`
+    const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+    const params = new URLSearchParams({ token })
+    if (tokenId) {
+      params.append('tokenId', tokenId)
+    }
+    const resetUrl = `${appUrl}/${locale}/reset-password?${params.toString()}`
     
     const htmlContent = await render(ResetPassword({ 
       resetUrl, 
@@ -64,14 +103,18 @@ export async function sendPasswordResetEmail(
     })
 
     if (error) {
-      console.error('[PASSWORD_RESET] Error:', error)
+      logger.error(error, '[PASSWORD_RESET] Error sending email')
       return { success: false, error: error.message }
     }
 
-    console.log('[PASSWORD_RESET] Sent:', data?.id)
+    logger.info('[PASSWORD_RESET] Email sent', {
+      messageId: data?.id,
+      email,
+      tokenId,
+    })
     return { success: true, messageId: data?.id }
   } catch (error) {
-    console.error('[PASSWORD_RESET] Error:', error)
+    logger.error(error, '[PASSWORD_RESET] Unexpected error')
     return { success: false, error: 'Failed to send password reset email' }
   }
 }
@@ -97,14 +140,17 @@ export async function sendAccountDeletedEmail(
     })
 
     if (error) {
-      console.error('[ACCOUNT_DELETED] Error:', error)
+      logger.error(error, '[ACCOUNT_DELETED] Error sending email')
       return { success: false, error: error.message }
     }
 
-    console.log('[ACCOUNT_DELETED] Sent:', data?.id)
+    logger.info('[ACCOUNT_DELETED] Email sent', {
+      messageId: data?.id,
+      email,
+    })
     return { success: true, messageId: data?.id }
   } catch (error) {
-    console.error('[ACCOUNT_DELETED] Error:', error)
+    logger.error(error, '[ACCOUNT_DELETED] Unexpected error')
     return { success: false, error: 'Failed to send account deleted email' }
   }
 }

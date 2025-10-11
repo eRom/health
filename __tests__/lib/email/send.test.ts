@@ -1,5 +1,6 @@
 import { resend } from '@/lib/email/resend'
 import { sendAccountDeletedEmail, sendPasswordResetEmail, sendVerificationEmail } from '@/lib/email/send'
+import { render } from '@react-email/render'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 // Mock Resend
@@ -77,6 +78,23 @@ describe('Email sending functions', () => {
         subject: 'Réinitialisez votre mot de passe - Health In Cloud',
         html: '<html>Mocked email HTML</html>',
       })
+    })
+
+    it('should include tokenId in reset URL when provided', async () => {
+      const mockResponse = { id: 'email-999' }
+      vi.mocked(resend.emails.send).mockResolvedValue({ data: mockResponse, error: null })
+
+      await sendPasswordResetEmail({
+        email: 'test@example.com',
+        token: 'token-123',
+        tokenId: 'token-id-abc',
+      })
+
+      expect(render).toHaveBeenCalled()
+      const [[reactElement]] = vi.mocked(render).mock.calls
+
+      expect(reactElement.props.resetUrl).toContain('token=token-123')
+      expect(reactElement.props.resetUrl).toContain('tokenId=token-id-abc')
     })
   })
 

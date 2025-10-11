@@ -76,6 +76,11 @@ model Verification {
   value      String
   expiresAt  DateTime
   identifier String
+  tokenId       String?   @unique
+  ipAddress     String?
+  userAgent     String?
+  attempts      Int       @default(0)
+  lastAttemptAt DateTime?
 
   @@unique([identifier, value])
   @@index([identifier])

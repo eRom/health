@@ -18,7 +18,6 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { authClient } from "@/lib/auth-client"
 import { Link, useRouter } from "@/i18n/routing"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useTranslations } from "next-intl"
@@ -46,6 +45,7 @@ export default function ResetPasswordFormPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const token = searchParams.get("token")
+  const tokenId = searchParams.get("tokenId")
   
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
@@ -64,16 +64,36 @@ export default function ResetPasswordFormPage() {
       setError(t("resetPassword.noTokenDescription"))
       return
     }
+    if (!tokenId) {
+      setError(t("resetPassword.invalidTokenMessage"))
+      return
+    }
 
     setIsLoading(true)
     setError("")
     setSuccess(false)
 
     try {
-      await authClient.resetPassword({
-        newPassword: data.password,
-        token,
+      const response = await fetch("/api/auth/reset-password", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          token,
+          tokenId,
+          newPassword: data.password,
+        }),
       })
+
+      if (!response.ok) {
+        const payload = await response.json().catch(() => null)
+        setError(
+          payload?.error?.message ??
+            t("resetPassword.errorMessage"),
+        )
+        return
+      }
 
       setSuccess(true)
       form.reset()
@@ -98,6 +118,30 @@ export default function ResetPasswordFormPage() {
               <CardTitle>{t("resetPassword.noToken")}</CardTitle>
               <CardDescription>
                 {t("resetPassword.noTokenDescription")}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button asChild className="w-full">
+                <Link href="/forgot-password">
+                  {t("dialogForgotPassword.signIn")}
+                </Link>
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    )
+  }
+
+  if (!tokenId) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-md w-full">
+          <Card>
+            <CardHeader>
+              <CardTitle>{t("resetPassword.invalidToken")}</CardTitle>
+              <CardDescription>
+                {t("resetPassword.invalidTokenMessage")}
               </CardDescription>
             </CardHeader>
             <CardContent>

@@ -1,6 +1,21 @@
 import { sendPasswordResetEmail } from '@/lib/email/send'
+import { logger } from '@/lib/logger'
 import { prisma } from '@/lib/prisma'
+import { createPasswordResetToken } from '@/lib/security/password-reset'
 import { NextRequest, NextResponse } from 'next/server'
+
+const maskEmail = (value: string) => {
+  const [user, domain] = value.split('@')
+  if (!user || !domain) {
+    return value
+  }
+
+  if (user.length <= 2) {
+    return `${user[0] ?? '*'}*@${domain}`
+  }
+
+  return `${user[0]}${'*'.repeat(Math.max(user.length - 2, 1))}${user[user.length - 1]}@${domain}`
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -74,24 +89,15 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Invalidate old tokens for this email
-    await prisma.verification.deleteMany({
-      where: {
-        identifier: email,
-      },
-    })
+    const headersList = request.headers
+    const forwardedFor = headersList.get('x-forwarded-for')
+    const ipAddress = forwardedFor?.split(',')[0]?.trim() ?? headersList.get('x-real-ip') ?? null
+    const userAgent = headersList.get('user-agent') ?? null
 
-    // Generate new verification token
-    const token = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
-    const expiresAt = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
-
-    // Store verification token
-    await prisma.verification.create({
-      data: {
-        identifier: email,
-        value: token,
-        expiresAt,
-      },
+    const { token, tokenId, expiresAt } = await createPasswordResetToken({
+      email,
+      ipAddress,
+      userAgent,
     })
 
     // Update user rate limiting fields
@@ -106,24 +112,38 @@ export async function POST(request: NextRequest) {
     })
 
     // Send password reset email
-    const emailResult = await sendPasswordResetEmail(email, token, user.locale || 'fr')
+    const emailResult = await sendPasswordResetEmail({
+      email,
+      token,
+      tokenId,
+      locale: user.locale || 'fr',
+    })
 
     if (!emailResult.success) {
-      console.error('[FORGET_PASSWORD] Email error:', emailResult.error)
+      logger.error(
+        emailResult.error instanceof Error ? emailResult.error : new Error(String(emailResult.error)),
+        '[FORGET_PASSWORD] Email error',
+        { email: maskEmail(email) },
+      )
       return NextResponse.json(
         { error: { message: 'Failed to send email' } },
         { status: 500 }
       )
     }
 
-    console.log(`[FORGET_PASSWORD] Email sent to ${email}. Request count: ${newCount}/3`)
+    logger.info('[FORGET_PASSWORD] Reset email dispatched', {
+      email: maskEmail(email),
+      tokenId,
+      expiresAt: expiresAt.toISOString(),
+      requestCount: newCount,
+    })
 
     return NextResponse.json({ 
       success: true,
       cooldown: 60 // 60 seconds cooldown for frontend
     })
   } catch (error) {
-    console.error('[FORGET_PASSWORD] Error:', error)
+    logger.error(error, '[FORGET_PASSWORD] Unexpected error')
     return NextResponse.json(
       { error: { message: 'Internal server error' } },
       { status: 500 }

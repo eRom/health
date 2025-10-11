@@ -8,21 +8,23 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Link } from "@/i18n/routing"
-import { prisma } from "@/lib/prisma"
+import { validatePasswordResetToken } from "@/lib/security/password-reset"
 import { CheckCircle, Clock, XCircle } from "lucide-react"
 import { getTranslations } from "next-intl/server"
 import { Suspense } from "react"
 
 interface ResetPasswordPageProps {
   params: Promise<{ locale: string }>
-  searchParams: Promise<{ token?: string }>
+  searchParams: Promise<{ token?: string; tokenId?: string }>
 }
 
 async function ResetPasswordContent({
   token,
+  tokenId,
   locale,
 }: {
   token?: string
+  tokenId?: string
   locale: string
 }) {
   const t = await getTranslations({ locale, namespace: "auth" })
@@ -50,117 +52,71 @@ async function ResetPasswordContent({
     )
   }
 
-  try {
-    // Find verification token
-    const verification = await prisma.verification.findFirst({
-      where: {
-        value: token,
-        expiresAt: {
-          gt: new Date(),
-        },
-      },
-    })
+  const validation = await validatePasswordResetToken({
+    tokenId,
+    token,
+  })
 
-    if (!verification) {
-      return (
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <XCircle className="h-5 w-5 text-destructive" />
-              {t("resetPassword.invalidToken")}
-            </CardTitle>
-            <CardDescription>
-              {t("resetPassword.invalidTokenDescription")}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Alert variant="destructive">
-              <AlertDescription>
-                {t("resetPassword.invalidTokenMessage")}
-              </AlertDescription>
-            </Alert>
-          </CardContent>
-        </Card>
-      )
-    }
-
-    // Find user by email
-    const user = await prisma.user.findUnique({
-      where: { email: verification.identifier },
-    })
-
-    if (!user) {
-      return (
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <XCircle className="h-5 w-5 text-destructive" />
-              {t("resetPassword.userNotFound")}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Alert variant="destructive">
-              <AlertDescription>
-                {t("resetPassword.userNotFoundMessage")}
-              </AlertDescription>
-            </Alert>
-          </CardContent>
-        </Card>
-      )
-    }
-
-    return (
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <CheckCircle className="h-5 w-5 text-green-500" />
-            {t("resetPassword.validToken")}
-          </CardTitle>
-          <CardDescription>
-            {t("resetPassword.validTokenDescription")}
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <Alert>
-            <CheckCircle className="h-4 w-4" />
-            <AlertDescription>
-              {t("resetPassword.validTokenMessage")}
-            </AlertDescription>
-          </Alert>
-          <Button asChild className="w-full">
-            <Link
-              href={{
-                pathname: "/reset-password-form",
-                query: { token },
-              }}
-              locale={locale}
-            >
-              {t("resetPassword.createNewPassword")}
-            </Link>
-          </Button>
-        </CardContent>
-      </Card>
-    )
-  } catch (error) {
-    console.error('[RESET_PASSWORD] Error:', error)
+  if (validation.status !== "valid") {
     return (
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <XCircle className="h-5 w-5 text-destructive" />
-            {t("resetPassword.error")}
+            {t("resetPassword.invalidToken")}
           </CardTitle>
+          <CardDescription>
+            {t("resetPassword.invalidTokenDescription")}
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <Alert variant="destructive">
             <AlertDescription>
-              {t("resetPassword.errorMessage")}
+              {t("resetPassword.invalidTokenMessage")}
             </AlertDescription>
           </Alert>
         </CardContent>
       </Card>
     )
   }
+
+  const { record } = validation
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          <CheckCircle className="h-5 w-5 text-green-500" />
+          {t("resetPassword.validToken")}
+        </CardTitle>
+        <CardDescription>
+          {t("resetPassword.validTokenDescription")}
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <Alert>
+          <CheckCircle className="h-4 w-4" />
+          <AlertDescription>
+            {t("resetPassword.validTokenMessage")}
+          </AlertDescription>
+        </Alert>
+        <Button asChild className="w-full">
+          <Link
+            href={{
+              pathname: "/reset-password-form",
+              query: {
+                token,
+                tokenId: record.tokenId ?? undefined,
+              },
+            }}
+            locale={locale}
+          >
+            {t("resetPassword.createNewPassword")}
+          </Link>
+        </Button>
+      </CardContent>
+    </Card>
+  )
 }
 
 export default async function ResetPasswordPage({
@@ -168,7 +124,7 @@ export default async function ResetPasswordPage({
   searchParams,
 }: ResetPasswordPageProps) {
   const { locale } = await params
-  const { token } = await searchParams
+  const { token, tokenId } = await searchParams
   const t = await getTranslations({ locale, namespace: "auth" })
 
   return (
@@ -190,9 +146,8 @@ export default async function ResetPasswordPage({
             </CardHeader>
           </Card>
         }>
-          <ResetPasswordContent token={token} locale={locale} />
+          <ResetPasswordContent token={token} tokenId={tokenId} locale={locale} />
         </Suspense>
       </div>
     </div>
   )
-}
