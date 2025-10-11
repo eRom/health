@@ -1,5 +1,7 @@
+import { getBadges } from "@/app/actions/get-badges";
 import { getDashboardStats } from "@/app/actions/get-dashboard-stats";
 import { EmailVerificationBanner } from "@/components/auth/EmailVerificationBanner";
+import { BadgeSummary } from "@/components/badges/badge-summary";
 import { RecentExercisesList } from "@/components/dashboard/recent-exercises-list";
 import { StatsCards } from "@/components/dashboard/stats-cards";
 import { Button } from "@/components/ui/button";
@@ -42,7 +44,8 @@ export default async function DashboardPage({
   const userName = ensuredSession.user.name?.split(" ")[0] || "Marie";
 
   // Fetch dashboard data
-  const { stats, recentExercises } = await getDashboardStats();
+  const [{ stats, recentExercises }, { badges, stats: badgeStats }] =
+    await Promise.all([getDashboardStats(), getBadges()]);
 
   return (
     <div className="container py-8">
@@ -79,6 +82,9 @@ export default async function DashboardPage({
             streak: t("stats.streak"),
           }}
         />
+
+        {/* Badge Summary */}
+        <BadgeSummary badges={badges} stats={badgeStats} />
 
         {/* Recent Exercises */}
         <RecentExercisesList

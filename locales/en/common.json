@@ -13,6 +13,7 @@
     "ergo": "Occupational Therapy",
     "profile": "Profile",
     "healthcare": "My Patients",
+    "badges": "Badges",
     "back": "Back"
   },
   "auth": {
@@ -849,5 +850,115 @@
     },
     "copyright": "© 2025 {appTitle}. All rights reserved."
   },
-  "loading": "Loading..."
+  "loading": "Loading...",
+  "badges": {
+    "title": "My Badges",
+    "earned": "Badge earned",
+    "locked": "Badge locked",
+    "earnedOn": "Earned on {date}",
+    "progress": "Progress",
+    "nextBadge": "Next badge",
+    "progressText": "Only {count} more to get...",
+    "overview": "Overview",
+    "earnedBadges": "Earned badges",
+    "lockedBadges": "Badges to unlock",
+    "welcomeBadges": "Welcome badges",
+    "firstExerciseBadges": "First exercise",
+    "streakBadges": "Consecutive streak",
+    "volumeBadges": "Exercise volume",
+    "stats": {
+      "earned": "Badges earned",
+      "available": "Badges available",
+      "completed": "Completed",
+      "next": "Next"
+    },
+    "definitions": {
+      "WELCOME": {
+        "name": "Welcome to the adventure!",
+        "description": "You've taken the first step towards your recovery",
+        "message": "🎉 Welcome to Health In Cloud! Your recovery journey starts now. Every small step counts!"
+      },
+      "FIRST_EXERCISE": {
+        "name": "First Seed Planted",
+        "description": "You've completed your very first exercise!",
+        "message": "🌱 Congratulations! You've just planted the first seed of your recovery. This seed will grow with every exercise!"
+      },
+      "STREAK_3": {
+        "name": "First Spark",
+        "description": "3 consecutive days",
+        "message": "🔥 First spark ignited! Consistency is starting to pay off."
+      },
+      "STREAK_7": {
+        "name": "Electrifying",
+        "description": "7 consecutive days (1 week)",
+        "message": "⚡ A full week! You're on the right track."
+      },
+      "STREAK_14": {
+        "name": "Diamond",
+        "description": "14 consecutive days (2 weeks)",
+        "message": "💎 Two weeks of regularity! Your determination is admirable."
+      },
+      "STREAK_30": {
+        "name": "Champion",
+        "description": "30 consecutive days (1 month)",
+        "message": "🏆 A full month! You're a true rehabilitation champion."
+      },
+      "STREAK_60": {
+        "name": "Legendary",
+        "description": "60 consecutive days (2 months)",
+        "message": "👑 Two months of consistency! You join the legends."
+      },
+      "STREAK_100": {
+        "name": "Absolute Master",
+        "description": "100 consecutive days",
+        "message": "🌟 100 days! You've become a master of rehabilitation."
+      },
+      "VOLUME_10": {
+        "name": "First Steps",
+        "description": "10 exercises completed",
+        "message": "🎯 Your first steps are taken! Keep up this momentum."
+      },
+      "VOLUME_25": {
+        "name": "Takeoff",
+        "description": "25 exercises completed",
+        "message": "🚀 You're taking off! Your brain is already thanking you."
+      },
+      "VOLUME_50": {
+        "name": "Rising Star",
+        "description": "50 exercises completed",
+        "message": "⭐ You're shining brighter and brighter! Your commitment is remarkable."
+      },
+      "VOLUME_100": {
+        "name": "Soldier",
+        "description": "100 exercises completed",
+        "message": "🎖️ One hundred exercises! You have the discipline of a soldier."
+      },
+      "VOLUME_250": {
+        "name": "Expert",
+        "description": "250 exercises completed",
+        "message": "🏅 You've become an expert! Your skills are refining."
+      },
+      "VOLUME_500": {
+        "name": "Grand Master",
+        "description": "500 exercises completed",
+        "message": "🥇 Grand Master confirmed! Your dedication is exemplary."
+      },
+      "VOLUME_1000": {
+        "name": "Eternal Diamond",
+        "description": "1000 exercises completed",
+        "message": "♦️ One thousand exercises! You're a living legend of rehabilitation."
+      }
+    },
+    "notifications": {
+      "newBadge": "🎉 New Badge!",
+      "viewBadges": "View my badges",
+      "next": "Next",
+      "close": "Close"
+    },
+    "emptyState": {
+      "title": "Start your journey!",
+      "description": "Complete your first exercise to unlock your first badges.",
+      "startExercises": "Start exercises"
+    }
+  }
 }

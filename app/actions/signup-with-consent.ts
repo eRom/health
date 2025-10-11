@@ -1,8 +1,9 @@
 "use server"
 
 import { auth } from "@/lib/auth"
-import { prisma } from "@/lib/prisma"
-import { logger } from "@/lib/logger"
+import { checkAndAwardWelcomeBadge } from "@/lib/badges";
+import { logger } from "@/lib/logger";
+import { prisma } from "@/lib/prisma";
 import { SignupSchema } from "@/lib/schemas/auth"
 import { headers } from "next/headers"
 
@@ -32,16 +33,17 @@ export async function signUpWithConsent(data: {
         email: data.email,
         password: data.password,
       },
-    })
+    });
 
     if (!result.user) {
-      throw new Error("Erreur lors de la création du compte")
+      throw new Error("Erreur lors de la création du compte");
     }
 
     // Enregistrer le consentement dans ConsentHistory
-    const headersList = await headers()
-    const ipAddress = headersList.get("x-forwarded-for") || headersList.get("x-real-ip")
-    const userAgent = headersList.get("user-agent")
+    const headersList = await headers();
+    const ipAddress =
+      headersList.get("x-forwarded-for") || headersList.get("x-real-ip");
+    const userAgent = headersList.get("user-agent");
 
     await prisma.consentHistory.create({
       data: {
@@ -51,15 +53,18 @@ export async function signUpWithConsent(data: {
         ipAddress: ipAddress,
         userAgent: userAgent,
       },
-    })
+    });
 
     // Mettre à jour le champ de référence rapide
     await prisma.user.update({
       where: { id: result.user.id },
       data: { healthDataConsentGrantedAt: new Date() },
-    })
+    });
 
-    return { success: true, user: result.user }
+    // Attribuer le badge de bienvenue
+    await checkAndAwardWelcomeBadge(result.user.id);
+
+    return { success: true, user: result.user };
   } catch (error) {
     logger.error(error, "Erreur lors de l'inscription avec consentement")
     throw new Error("Erreur lors de la création du compte")

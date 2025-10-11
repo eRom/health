@@ -13,6 +13,7 @@
     "ergo": "Ergothérapie",
     "profile": "Profil",
     "healthcare": "Mes patients",
+    "badges": "Badges",
     "back": "Retour"
   },
   "auth": {
@@ -849,5 +850,115 @@
     },
     "copyright": "© 2025 {appTitle}. Tous droits réservés."
   },
-  "loading": "Chargement..."
+  "loading": "Chargement...",
+  "badges": {
+    "title": "Mes Badges",
+    "earned": "Badge obtenu",
+    "locked": "Badge verrouillé",
+    "earnedOn": "Obtenu le {date}",
+    "progress": "Progression",
+    "nextBadge": "Prochain badge",
+    "progressText": "Plus que {count} pour obtenir...",
+    "overview": "Vue d'ensemble",
+    "earnedBadges": "Badges obtenus",
+    "lockedBadges": "Badges à débloquer",
+    "welcomeBadges": "Badges de bienvenue",
+    "firstExerciseBadges": "Premier exercice",
+    "streakBadges": "Série consécutive",
+    "volumeBadges": "Volume d'exercices",
+    "stats": {
+      "earned": "Badges obtenus",
+      "available": "Badges disponibles",
+      "completed": "Complété",
+      "next": "Prochains"
+    },
+    "definitions": {
+      "WELCOME": {
+        "name": "Bienvenue dans l'aventure !",
+        "description": "Tu as franchi le premier pas vers ta récupération",
+        "message": "🎉 Bienvenue dans Health In Cloud ! Ton parcours de récupération commence maintenant. Chaque petit pas compte !"
+      },
+      "FIRST_EXERCISE": {
+        "name": "Première Graine Plantée",
+        "description": "Tu as complété ton tout premier exercice !",
+        "message": "🌱 Félicitations ! Tu viens de planter la première graine de ta récupération. Cette graine va grandir avec chaque exercice !"
+      },
+      "STREAK_3": {
+        "name": "Première Étincelle",
+        "description": "3 jours consécutifs",
+        "message": "🔥 Première étincelle allumée ! La constance commence à payer."
+      },
+      "STREAK_7": {
+        "name": "Électrisant",
+        "description": "7 jours consécutifs (1 semaine)",
+        "message": "⚡ Une semaine complète ! Tu es sur la bonne voie."
+      },
+      "STREAK_14": {
+        "name": "Diamant",
+        "description": "14 jours consécutifs (2 semaines)",
+        "message": "💎 Deux semaines de régularité ! Ta détermination est admirable."
+      },
+      "STREAK_30": {
+        "name": "Champion",
+        "description": "30 jours consécutifs (1 mois)",
+        "message": "🏆 Un mois complet ! Tu es un vrai champion de la rééducation."
+      },
+      "STREAK_60": {
+        "name": "Légendaire",
+        "description": "60 jours consécutifs (2 mois)",
+        "message": "👑 Deux mois de constance ! Tu rejoins les légendes."
+      },
+      "STREAK_100": {
+        "name": "Maître Absolu",
+        "description": "100 jours consécutifs",
+        "message": "🌟 100 jours ! Tu es devenu un maître de la rééducation."
+      },
+      "VOLUME_10": {
+        "name": "Premier Pas",
+        "description": "10 exercices complétés",
+        "message": "🎯 Tes premiers pas sont franchis ! Continue sur cette lancée."
+      },
+      "VOLUME_25": {
+        "name": "Décollage",
+        "description": "25 exercices complétés",
+        "message": "🚀 Tu décolles ! Ton cerveau te remercie déjà."
+      },
+      "VOLUME_50": {
+        "name": "Étoile Montante",
+        "description": "50 exercices complétés",
+        "message": "⭐ Tu brilles de plus en plus ! Ton engagement est remarquable."
+      },
+      "VOLUME_100": {
+        "name": "Soldat",
+        "description": "100 exercices complétés",
+        "message": "🎖️ Cent exercices ! Tu as la discipline d'un soldat."
+      },
+      "VOLUME_250": {
+        "name": "Expert",
+        "description": "250 exercices complétés",
+        "message": "🏅 Tu es devenu un expert ! Ton savoir-faire s'affine."
+      },
+      "VOLUME_500": {
+        "name": "Grand Maître",
+        "description": "500 exercices complétés",
+        "message": "🥇 Grand Maître confirmé ! Ton dévouement est exemplaire."
+      },
+      "VOLUME_1000": {
+        "name": "Diamant Éternel",
+        "description": "1000 exercices complétés",
+        "message": "♦️ Mille exercices ! Tu es une légende vivante de la rééducation."
+      }
+    },
+    "notifications": {
+      "newBadge": "🎉 Nouveau Badge !",
+      "viewBadges": "Voir mes badges",
+      "next": "Suivant",
+      "close": "Fermer"
+    },
+    "emptyState": {
+      "title": "Commencez votre parcours !",
+      "description": "Complétez votre premier exercice pour débloquer vos premiers badges.",
+      "startExercises": "Commencer les exercices"
+    }
+  }
 }

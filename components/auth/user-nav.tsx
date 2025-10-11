@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Link, useRouter } from "@/i18n/routing";
 import { authClient } from "@/lib/auth-client";
-import { Shield, User, Users } from "lucide-react";
+import { Shield, Trophy, User, Users } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
@@ -86,6 +86,14 @@ export function UserNav({
             <span>{t("auth.userMenu.myProfile")}</span>
           </Link>
         </DropdownMenuItem>
+        {!isHealthcareProvider && (
+          <DropdownMenuItem asChild>
+            <Link href="/badges" className="cursor-pointer">
+              <Trophy className="mr-2 h-4 w-4" />
+              <span>Mes badges</span>
+            </Link>
+          </DropdownMenuItem>
+        )}
         {isHealthcareProvider && (
           <DropdownMenuItem asChild>
             <Link href="/healthcare" className="cursor-pointer">

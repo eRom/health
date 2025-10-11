@@ -31,6 +31,8 @@ model User {
   patientAssociations           PatientProviderAssociation[] @relation("PatientAssociations")
   providerAssociations          PatientProviderAssociation[] @relation("ProviderAssociations")
   sentMessages                  ProviderPatientMessage[] @relation("SentMessages")
+  badges                        UserBadge[]
+  streakData                    StreakData?
 }
 
 enum UserRole {
@@ -163,4 +165,47 @@ model ProviderPatientMessage {
   
   @@index([associationId, createdAt])
   @@index([senderId])
+}
+
+enum BadgeType {
+  WELCOME           // Badge d'inscription
+  FIRST_EXERCISE    // Premier exercice complété
+  STREAK_3          // 3 jours consécutifs
+  STREAK_7          // 7 jours consécutifs
+  STREAK_14         // 14 jours consécutifs
+  STREAK_30         // 30 jours consécutifs
+  STREAK_60         // 60 jours consécutifs
+  STREAK_100        // 100 jours consécutifs
+  VOLUME_10         // 10 exercices
+  VOLUME_25         // 25 exercices
+  VOLUME_50         // 50 exercices
+  VOLUME_100        // 100 exercices
+  VOLUME_250        // 250 exercices
+  VOLUME_500        // 500 exercices
+  VOLUME_1000       // 1000 exercices
+}
+
+model UserBadge {
+  id          String    @id @default(cuid())
+  userId      String
+  badgeType   BadgeType
+  earnedAt    DateTime  @default(now())
+  
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@unique([userId, badgeType])
+  @@index([userId, earnedAt])
+}
+
+model StreakData {
+  id                    String   @id @default(cuid())
+  userId                String   @unique
+  currentStreak         Int      @default(0)
+  longestStreak         Int      @default(0)
+  lastExerciseDate      DateTime?
+  lastBreakDate         DateTime?
+  
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@index([userId])
 }
