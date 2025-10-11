@@ -43,6 +43,7 @@ export default async function ProfilePage({
       createdAt: true,
       locale: true,
       emailNotifications: true,
+      role: true,
     },
   });
 
@@ -102,6 +103,9 @@ export default async function ProfilePage({
           </CardContent>
         </Card>
 
+        {/* Mon soignant - seulement pour les patients */}
+        {userData?.role !== "HEALTHCARE_PROVIDER" && <MyProviderSection />}
+
         {/* Préférences */}
         <Card>
           <CardHeader>
@@ -122,9 +126,6 @@ export default async function ProfilePage({
             </div>
           </CardContent>
         </Card>
-
-        {/* Mon soignant */}
-        <MyProviderSection />
 
         {/* Sécurité */}
         <Card>

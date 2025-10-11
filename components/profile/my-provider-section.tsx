@@ -4,44 +4,45 @@ import { acceptProviderInvitation } from '@/app/actions/patient/accept-provider-
 import { declineProviderInvitation } from '@/app/actions/patient/decline-provider-invitation'
 import { getMyProvider } from '@/app/actions/patient/get-my-provider'
 import { AssociationStatusBadge } from '@/components/healthcare/association-status-badge'
+import { PatientMessagingCard } from "@/components/patient/patient-messaging-card";
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import {
-    AlertCircle,
-    CheckCircle,
-    Clock,
-    Mail,
-    MessageSquare,
-    Users,
-    XCircle
-} from 'lucide-react'
+  AlertCircle,
+  CheckCircle,
+  Clock,
+  MessageSquare,
+  Reply,
+  Users,
+  XCircle,
+} from "lucide-react";
 import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 
 interface ProviderInfo {
-  id: string
+  id: string;
   provider: {
-    id: string
-    name: string
-    email: string
-    createdAt: Date
-  }
-  status: 'PENDING' | 'ACCEPTED' | 'DECLINED' | 'CANCELLED'
-  createdAt: Date
-  acceptedAt?: Date | null
-  invitationSentAt?: Date | null
+    id: string;
+    name: string;
+    createdAt: Date;
+  };
+  status: "PENDING" | "ACCEPTED" | "DECLINED" | "CANCELLED";
+  createdAt: Date;
+  acceptedAt?: Date | null;
+  invitationSentAt?: Date | null;
   stats: {
-    unreadMessages: number
-    totalMessages: number
-  }
+    unreadMessages: number;
+    totalMessages: number;
+  };
 }
 
 export function MyProviderSection() {
   const [providerInfo, setProviderInfo] = useState<ProviderInfo | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [isProcessing, setIsProcessing] = useState(false)
+  const [showMessages, setShowMessages] = useState(false);
 
   const loadProviderInfo = async () => {
     try {
@@ -181,58 +182,74 @@ export function MyProviderSection() {
             <AssociationStatusBadge status={providerInfo.status} />
           </div>
 
-          <div className="grid gap-3 md:grid-cols-2">
-            <div className="flex items-center gap-2">
-              <Mail className="h-4 w-4 text-muted-foreground" />
-              <span className="text-sm">{providerInfo.provider.email}</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Clock className="h-4 w-4 text-muted-foreground" />
-              <span className="text-sm">
-                Membre depuis {formatDate(providerInfo.provider.createdAt)}
-              </span>
-            </div>
+          <div className="flex items-center gap-2">
+            <Clock className="h-4 w-4 text-muted-foreground" />
+            <span className="text-sm">
+              Membre depuis {formatDate(providerInfo.provider.createdAt)}
+            </span>
           </div>
         </div>
 
         {/* Messages */}
         {providerInfo.stats.totalMessages > 0 && (
-          <div className="flex items-center gap-2 p-3 bg-muted rounded-lg">
-            <MessageSquare className="h-4 w-4 text-muted-foreground" />
-            <span className="text-sm">
-              {providerInfo.stats.totalMessages} message{providerInfo.stats.totalMessages > 1 ? 's' : ''} échangé{providerInfo.stats.totalMessages > 1 ? 's' : ''}
-            </span>
-            {providerInfo.stats.unreadMessages > 0 && (
-              <Badge variant="destructive" className="text-xs">
-                {providerInfo.stats.unreadMessages} non lu{providerInfo.stats.unreadMessages > 1 ? 's' : ''}
-              </Badge>
+          <div className="space-y-3">
+            <div className="flex items-center gap-2 p-3 bg-muted rounded-lg">
+              <MessageSquare className="h-4 w-4 text-muted-foreground" />
+              <span className="text-sm">
+                {providerInfo.stats.totalMessages} message
+                {providerInfo.stats.totalMessages > 1 ? "s" : ""} échangé
+                {providerInfo.stats.totalMessages > 1 ? "s" : ""}
+              </span>
+              {providerInfo.stats.unreadMessages > 0 && (
+                <Badge variant="destructive" className="text-xs">
+                  {providerInfo.stats.unreadMessages} non lu
+                  {providerInfo.stats.unreadMessages > 1 ? "s" : ""}
+                </Badge>
+              )}
+            </div>
+
+            {providerInfo.status === "ACCEPTED" && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowMessages(!showMessages)}
+                className="w-full"
+              >
+                <Reply className="h-4 w-4 mr-2" />
+                {showMessages
+                  ? "Masquer les messages"
+                  : "Répondre aux messages"}
+              </Button>
             )}
           </div>
         )}
 
         {/* Actions selon le statut */}
-        {providerInfo.status === 'PENDING' && (
+        {providerInfo.status === "PENDING" && (
           <Alert>
             <AlertCircle className="h-4 w-4" />
             <AlertDescription>
               <div className="space-y-3">
                 <p>
-                  <strong>{providerInfo.provider.name}</strong> souhaite vous accompagner dans votre rééducation.
+                  <strong>{providerInfo.provider.name}</strong> souhaite vous
+                  accompagner dans votre rééducation.
                 </p>
                 <p className="text-sm">
-                  Vous pouvez accepter ou refuser cette invitation. Si vous acceptez, votre soignant pourra suivre votre progression et échanger des messages avec vous.
+                  Vous pouvez accepter ou refuser cette invitation. Si vous
+                  acceptez, votre soignant pourra suivre votre progression et
+                  échanger des messages avec vous.
                 </p>
                 <div className="flex gap-2">
-                  <Button 
-                    size="sm" 
+                  <Button
+                    size="sm"
                     onClick={handleAcceptInvitation}
                     disabled={isProcessing}
                   >
                     <CheckCircle className="h-4 w-4 mr-2" />
                     Accepter
                   </Button>
-                  <Button 
-                    size="sm" 
+                  <Button
+                    size="sm"
                     variant="outline"
                     onClick={handleDeclineInvitation}
                     disabled={isProcessing}
@@ -246,38 +263,52 @@ export function MyProviderSection() {
           </Alert>
         )}
 
-        {providerInfo.status === 'ACCEPTED' && (
+        {providerInfo.status === "ACCEPTED" && (
           <div className="space-y-3">
             <div className="flex items-center gap-2 text-green-600">
               <CheckCircle className="h-4 w-4" />
               <span className="text-sm font-medium">
-                Association acceptée le {providerInfo.acceptedAt && formatDate(providerInfo.acceptedAt)}
+                Association acceptée le{" "}
+                {providerInfo.acceptedAt && formatDate(providerInfo.acceptedAt)}
               </span>
             </div>
             <p className="text-sm text-muted-foreground">
-              Votre soignant peut maintenant suivre votre progression et vous accompagner dans votre rééducation.
+              Votre soignant peut maintenant suivre votre progression et vous
+              accompagner dans votre rééducation.
             </p>
           </div>
         )}
 
-        {providerInfo.status === 'DECLINED' && (
+        {providerInfo.status === "DECLINED" && (
           <Alert variant="destructive">
             <XCircle className="h-4 w-4" />
             <AlertDescription>
-              Vous avez refusé l&apos;invitation de {providerInfo.provider.name}.
+              Vous avez refusé l&apos;invitation de {providerInfo.provider.name}
+              .
             </AlertDescription>
           </Alert>
         )}
 
-        {providerInfo.status === 'CANCELLED' && (
+        {providerInfo.status === "CANCELLED" && (
           <Alert variant="destructive">
             <XCircle className="h-4 w-4" />
             <AlertDescription>
-              L&apos;association avec {providerInfo.provider.name} a été annulée.
+              L&apos;association avec {providerInfo.provider.name} a été
+              annulée.
             </AlertDescription>
           </Alert>
         )}
       </CardContent>
+
+      {/* Interface de messagerie */}
+      {showMessages && providerInfo.status === "ACCEPTED" && (
+        <div className="mt-4">
+          <PatientMessagingCard
+            associationId={providerInfo.id}
+            providerName={providerInfo.provider.name}
+          />
+        </div>
+      )}
     </Card>
-  )
+  );
 }

@@ -5,13 +5,13 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Link } from '@/i18n/routing'
 import {
-    Activity,
-    Clock,
-    MessageSquare,
-    Plus,
-    TrendingUp,
-    Users
-} from 'lucide-react'
+  Activity,
+  Clock,
+  MessageSquare,
+  Plus,
+  TrendingUp,
+  Users,
+} from "lucide-react";
 import type { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 
@@ -73,7 +73,7 @@ export default async function HealthcarePage() {
       </div>
 
       {/* Statistiques globales */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 pb-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Patients</CardTitle>
@@ -89,7 +89,9 @@ export default async function HealthcarePage() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Invitations en attente</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Invitations en attente
+            </CardTitle>
             <Clock className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -102,7 +104,9 @@ export default async function HealthcarePage() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Exercices totaux</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Exercices totaux
+            </CardTitle>
             <Activity className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -134,7 +138,9 @@ export default async function HealthcarePage() {
             <div className="flex items-center gap-2">
               <MessageSquare className="h-5 w-5 text-orange-600" />
               <span className="font-medium text-orange-800 dark:text-orange-200">
-                {totalUnreadMessages} message{totalUnreadMessages > 1 ? 's' : ''} non lu{totalUnreadMessages > 1 ? 's' : ''}
+                {totalUnreadMessages} message
+                {totalUnreadMessages > 1 ? "s" : ""} non lu
+                {totalUnreadMessages > 1 ? "s" : ""}
               </span>
             </div>
             <p className="text-sm text-orange-700 dark:text-orange-300 mt-1">
@@ -150,9 +156,12 @@ export default async function HealthcarePage() {
           <CardContent className="pt-6">
             <div className="text-center py-12">
               <Users className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-              <h3 className="text-lg font-semibold mb-2">Aucun patient associé</h3>
+              <h3 className="text-lg font-semibold mb-2">
+                Aucun patient associé
+              </h3>
               <p className="text-muted-foreground mb-6">
-                Commencez par inviter vos premiers patients pour suivre leur progression
+                Commencez par inviter vos premiers patients pour suivre leur
+                progression
               </p>
               <Button asChild>
                 <Link href="/healthcare/invite">
@@ -172,7 +181,11 @@ export default async function HealthcarePage() {
                 <PatientStatsCard
                   key={patient.id}
                   patient={patient}
-                  href={patient.status === 'ACCEPTED' ? `/healthcare/patients/${patient.patientId}` : undefined}
+                  href={
+                    patient.status === "ACCEPTED"
+                      ? `/healthcare/patients/${patient.patientId}`
+                      : undefined
+                  }
                 />
               ))}
             </div>
@@ -185,5 +198,5 @@ export default async function HealthcarePage() {
         </div>
       )}
     </div>
-  )
+  );
 }

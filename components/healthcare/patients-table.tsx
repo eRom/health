@@ -233,9 +233,9 @@ export function PatientsTable({ patients }: PatientsTableProps) {
           <Select
             value={`${sortBy}-${sortOrder}`}
             onValueChange={(value) => {
-              const [field, order] = value.split('-')
-              setSortBy(field)
-              setSortOrder(order as 'asc' | 'desc')
+              const [field, order] = value.split("-");
+              setSortBy(field);
+              setSortOrder(order as "asc" | "desc");
             }}
           >
             <SelectTrigger className="w-[200px]">
@@ -244,11 +244,21 @@ export function PatientsTable({ patients }: PatientsTableProps) {
             <SelectContent>
               <SelectItem value="name-asc">Nom (A-Z)</SelectItem>
               <SelectItem value="name-desc">Nom (Z-A)</SelectItem>
-              <SelectItem value="lastActivity-desc">Dernière activité (récent)</SelectItem>
-              <SelectItem value="lastActivity-asc">Dernière activité (ancien)</SelectItem>
-              <SelectItem value="totalAttempts-desc">Exercices (plus)</SelectItem>
-              <SelectItem value="totalAttempts-asc">Exercices (moins)</SelectItem>
-              <SelectItem value="averageScore-desc">Score (plus haut)</SelectItem>
+              <SelectItem value="lastActivity-desc">
+                Dernière activité (récent)
+              </SelectItem>
+              <SelectItem value="lastActivity-asc">
+                Dernière activité (ancien)
+              </SelectItem>
+              <SelectItem value="totalAttempts-desc">
+                Exercices (plus)
+              </SelectItem>
+              <SelectItem value="totalAttempts-asc">
+                Exercices (moins)
+              </SelectItem>
+              <SelectItem value="averageScore-desc">
+                Score (plus haut)
+              </SelectItem>
               <SelectItem value="averageScore-asc">Score (plus bas)</SelectItem>
             </SelectContent>
           </Select>
@@ -260,30 +270,34 @@ export function PatientsTable({ patients }: PatientsTableProps) {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead 
+              <TableHead
                 className="cursor-pointer hover:bg-muted/50"
-                onClick={() => handleSort('name')}
+                onClick={() => handleSort("name")}
               >
-                Patient {sortBy === 'name' && (sortOrder === 'asc' ? '↑' : '↓')}
+                Patient {sortBy === "name" && (sortOrder === "asc" ? "↑" : "↓")}
               </TableHead>
               <TableHead>Statut</TableHead>
-              <TableHead 
+              <TableHead
                 className="cursor-pointer hover:bg-muted/50"
-                onClick={() => handleSort('lastActivity')}
+                onClick={() => handleSort("lastActivity")}
               >
-                Dernière activité {sortBy === 'lastActivity' && (sortOrder === 'asc' ? '↑' : '↓')}
+                Dernière activité{" "}
+                {sortBy === "lastActivity" && (sortOrder === "asc" ? "↑" : "↓")}
               </TableHead>
-              <TableHead 
+              <TableHead
                 className="cursor-pointer hover:bg-muted/50"
-                onClick={() => handleSort('totalAttempts')}
+                onClick={() => handleSort("totalAttempts")}
               >
-                Exercices {sortBy === 'totalAttempts' && (sortOrder === 'asc' ? '↑' : '↓')}
+                Exercices{" "}
+                {sortBy === "totalAttempts" &&
+                  (sortOrder === "asc" ? "↑" : "↓")}
               </TableHead>
-              <TableHead 
+              <TableHead
                 className="cursor-pointer hover:bg-muted/50"
-                onClick={() => handleSort('averageScore')}
+                onClick={() => handleSort("averageScore")}
               >
-                Score moyen {sortBy === 'averageScore' && (sortOrder === 'asc' ? '↑' : '↓')}
+                Score moyen{" "}
+                {sortBy === "averageScore" && (sortOrder === "asc" ? "↑" : "↓")}
               </TableHead>
               <TableHead>Messages</TableHead>
               <TableHead className="text-right">Actions</TableHead>
@@ -304,7 +318,7 @@ export function PatientsTable({ patients }: PatientsTableProps) {
                   <AssociationStatusBadge status={patient.status} />
                 </TableCell>
                 <TableCell>
-                  {patient.status === 'ACCEPTED' ? (
+                  {patient.status === "ACCEPTED" ? (
                     <div className="flex items-center gap-2">
                       <Clock className="h-4 w-4 text-muted-foreground" />
                       <span className="text-sm">
@@ -316,20 +330,24 @@ export function PatientsTable({ patients }: PatientsTableProps) {
                   )}
                 </TableCell>
                 <TableCell>
-                  {patient.status === 'ACCEPTED' ? (
+                  {patient.status === "ACCEPTED" ? (
                     <div className="flex items-center gap-2">
                       <Activity className="h-4 w-4 text-muted-foreground" />
-                      <span className="font-medium">{patient.stats.totalAttempts}</span>
+                      <span className="font-medium">
+                        {patient.stats.totalAttempts}
+                      </span>
                     </div>
                   ) : (
                     <span className="text-muted-foreground text-sm">-</span>
                   )}
                 </TableCell>
                 <TableCell>
-                  {patient.status === 'ACCEPTED' ? (
+                  {patient.status === "ACCEPTED" ? (
                     <div className="flex items-center gap-2">
                       {getTrendIcon(patient.stats.averageScore)}
-                      <span className={`font-medium ${getScoreColor(patient.stats.averageScore)}`}>
+                      <span
+                        className={`font-medium ${getScoreColor(patient.stats.averageScore)}`}
+                      >
                         {patient.stats.averageScore.toFixed(1)}%
                       </span>
                     </div>
@@ -338,7 +356,7 @@ export function PatientsTable({ patients }: PatientsTableProps) {
                   )}
                 </TableCell>
                 <TableCell>
-                  {patient.status === 'ACCEPTED' ? (
+                  {patient.status === "ACCEPTED" ? (
                     <div className="flex items-center gap-2">
                       <MessageSquare className="h-4 w-4 text-muted-foreground" />
                       <span className="text-sm">
@@ -356,26 +374,34 @@ export function PatientsTable({ patients }: PatientsTableProps) {
                 </TableCell>
                 <TableCell className="text-right">
                   <div className="flex items-center justify-end gap-2">
-                    {patient.status === 'ACCEPTED' && (
+                    {patient.status === "ACCEPTED" && (
                       <>
                         <Button
                           variant="outline"
                           size="sm"
-                          onClick={() => router.push(`/healthcare/patients/${patient.patientId}`)}
+                          onClick={() =>
+                            router.push(
+                              `/fr/healthcare/patients/${patient.patientId}`
+                            )
+                          }
                         >
                           <Eye className="h-4 w-4" />
                         </Button>
                         <Button
                           variant="outline"
                           size="sm"
-                          onClick={() => router.push(`/healthcare/patients/${patient.patientId}?tab=messages`)}
+                          onClick={() =>
+                            router.push(
+                              `/fr/healthcare/patients/${patient.patientId}?tab=messages`
+                            )
+                          }
                         >
                           <MessageSquare className="h-4 w-4" />
                         </Button>
                       </>
                     )}
-                    
-                    {patient.status === 'PENDING' && (
+
+                    {patient.status === "PENDING" && (
                       <AlertDialog>
                         <AlertDialogTrigger asChild>
                           <Button
@@ -388,16 +414,24 @@ export function PatientsTable({ patients }: PatientsTableProps) {
                         </AlertDialogTrigger>
                         <AlertDialogContent>
                           <AlertDialogHeader>
-                            <AlertDialogTitle>Annuler l&apos;invitation</AlertDialogTitle>
+                            <AlertDialogTitle>
+                              Annuler l&apos;invitation
+                            </AlertDialogTitle>
                             <AlertDialogDescription>
-                              Êtes-vous sûr de vouloir annuler l&apos;invitation pour {patient.patientName} ?
-                              Cette action ne peut pas être annulée.
+                              Êtes-vous sûr de vouloir annuler l&apos;invitation
+                              pour {patient.patientName} ? Cette action ne peut
+                              pas être annulée.
                             </AlertDialogDescription>
                           </AlertDialogHeader>
                           <AlertDialogFooter>
                             <AlertDialogCancel>Annuler</AlertDialogCancel>
                             <AlertDialogAction
-                              onClick={() => handleCancelInvitation(patient.id, patient.patientName)}
+                              onClick={() =>
+                                handleCancelInvitation(
+                                  patient.id,
+                                  patient.patientName
+                                )
+                              }
                               className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                             >
                               Annuler l&apos;invitation
@@ -406,8 +440,8 @@ export function PatientsTable({ patients }: PatientsTableProps) {
                         </AlertDialogContent>
                       </AlertDialog>
                     )}
-                    
-                    {patient.status === 'ACCEPTED' && (
+
+                    {patient.status === "ACCEPTED" && (
                       <AlertDialog>
                         <AlertDialogTrigger asChild>
                           <Button
@@ -420,16 +454,25 @@ export function PatientsTable({ patients }: PatientsTableProps) {
                         </AlertDialogTrigger>
                         <AlertDialogContent>
                           <AlertDialogHeader>
-                            <AlertDialogTitle>Retirer le patient</AlertDialogTitle>
+                            <AlertDialogTitle>
+                              Retirer le patient
+                            </AlertDialogTitle>
                             <AlertDialogDescription>
-                              Êtes-vous sûr de vouloir retirer {patient.patientName} de vos patients ?
-                              Vous ne pourrez plus suivre sa progression ni échanger des messages avec lui.
+                              Êtes-vous sûr de vouloir retirer{" "}
+                              {patient.patientName} de vos patients ? Vous ne
+                              pourrez plus suivre sa progression ni échanger des
+                              messages avec lui.
                             </AlertDialogDescription>
                           </AlertDialogHeader>
                           <AlertDialogFooter>
                             <AlertDialogCancel>Annuler</AlertDialogCancel>
                             <AlertDialogAction
-                              onClick={() => handleRemovePatient(patient.id, patient.patientName)}
+                              onClick={() =>
+                                handleRemovePatient(
+                                  patient.id,
+                                  patient.patientName
+                                )
+                              }
                               className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                             >
                               Retirer le patient
@@ -448,10 +491,12 @@ export function PatientsTable({ patients }: PatientsTableProps) {
 
       {/* Compteur de résultats */}
       <div className="text-sm text-muted-foreground">
-        {filteredAndSortedPatients.length} patient{filteredAndSortedPatients.length > 1 ? 's' : ''} trouvé{filteredAndSortedPatients.length > 1 ? 's' : ''}
+        {filteredAndSortedPatients.length} patient
+        {filteredAndSortedPatients.length > 1 ? "s" : ""} trouvé
+        {filteredAndSortedPatients.length > 1 ? "s" : ""}
         {searchTerm && ` pour "${searchTerm}"`}
-        {statusFilter !== 'all' && ` avec le statut "${statusFilter}"`}
+        {statusFilter !== "all" && ` avec le statut "${statusFilter}"`}
       </div>
     </div>
-  )
+  );
 }

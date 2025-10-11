@@ -17,36 +17,35 @@ export async function getMyProvider() {
     const association = await prisma.patientProviderAssociation.findFirst({
       where: {
         patientId: session.user.id,
-        status: { in: ['PENDING', 'ACCEPTED'] }
+        status: { in: ["PENDING", "ACCEPTED"] },
       },
       include: {
         provider: {
           select: {
             id: true,
             name: true,
-            email: true,
-            createdAt: true
-          }
+            createdAt: true,
+          },
         },
         messages: {
           where: {
             read: false,
-            senderId: { not: session.user.id } // Messages non lus du soignant
+            senderId: { not: session.user.id }, // Messages non lus du soignant
           },
           select: {
-            id: true
-          }
+            id: true,
+          },
         },
         _count: {
           select: {
-            messages: true
-          }
-        }
+            messages: true,
+          },
+        },
       },
       orderBy: {
-        createdAt: 'desc'
-      }
-    })
+        createdAt: "desc",
+      },
+    });
     
     if (!association) {
       return null
