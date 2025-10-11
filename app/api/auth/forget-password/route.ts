@@ -120,8 +120,13 @@ export async function POST(request: NextRequest) {
     })
 
     if (!emailResult.success) {
+      const errorMessage =
+        typeof emailResult.error === 'string' && emailResult.error.length > 0
+          ? emailResult.error
+          : 'Email dispatch failed'
+
       logger.error(
-        emailResult.error instanceof Error ? emailResult.error : new Error(String(emailResult.error)),
+        new Error(errorMessage),
         '[FORGET_PASSWORD] Email error',
         { email: maskEmail(email) },
       )
