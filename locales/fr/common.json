@@ -12,6 +12,7 @@
     "kine": "Kinésithérapie",
     "ergo": "Ergothérapie",
     "profile": "Profil",
+    "healthcare": "Mes patients",
     "back": "Retour"
   },
   "auth": {
@@ -114,6 +115,7 @@
     "orSeparator": "ou",
     "userMenu": {
       "myProfile": "Mon profil",
+      "myPatients": "Mes patients",
       "administration": "Administration"
     }
   },
@@ -717,6 +719,49 @@
       "button": "Lire mon histoire"
     }
   },
+  "healthcare": {
+    "title": "Mes patients",
+    "invite": "Inviter un patient",
+    "patients": {
+      "title": "Patients",
+      "noPatients": "Aucun patient associé",
+      "status": {
+        "pending": "En attente",
+        "accepted": "Accepté",
+        "declined": "Refusé",
+        "cancelled": "Annulé"
+      }
+    },
+    "invitation": {
+      "title": "Inviter un patient",
+      "emailLabel": "Email du patient",
+      "messageLabel": "Message personnalisé (optionnel)",
+      "send": "Envoyer l'invitation",
+      "success": "Invitation envoyée",
+      "error": "Erreur lors de l'envoi"
+    },
+    "messages": {
+      "title": "Messages",
+      "send": "Envoyer",
+      "placeholder": "Votre message...",
+      "noMessages": "Aucun message"
+    },
+    "stats": {
+      "totalPatients": "Patients",
+      "activePatients": "Actifs",
+      "pendingInvitations": "Invitations en attente",
+      "averageAdherence": "Adhésion moyenne"
+    }
+  },
+  "profile": {
+    "myProvider": {
+      "title": "Mon soignant",
+      "noProvider": "Aucun soignant associé",
+      "pendingInvitation": "Invitation en attente",
+      "accept": "Accepter",
+      "decline": "Refuser"
+    }
+  },
   "admin": {
     "title": "Administration",
     "users": {
@@ -744,7 +789,8 @@
       },
       "role": {
         "ADMIN": "Administrateur",
-        "USER": "Utilisateur"
+        "USER": "Utilisateur",
+        "HEALTHCARE_PROVIDER": "Soignant"
       }
     }
   },

@@ -5,6 +5,7 @@ import {
   debugLocale,
   extractLocaleFromPath,
   isAdminRoute,
+  isHealthcareRoute,
   isProtectedRoute,
 } from "./lib/locale-utils";
 import { logger } from "./lib/logger";
@@ -110,17 +111,41 @@ export default async function middleware(request: NextRequest) {
             const loginUrl = new URL(`/${locale}/auth/login`, request.url);
             return NextResponse.redirect(loginUrl);
           }
+        } catch (error) {
+          logger.error(error, "[MIDDLEWARE] Error checking admin permissions");
+          // Redirect to dashboard on error
+          const dashboardUrl = new URL(`/${locale}/dashboard`, request.url);
+          return NextResponse.redirect(dashboardUrl);
+        }
+      }
 
+      // Check healthcare routes - simplified check without Prisma
+      if (isHealthcareRoute(pathname)) {
+        try {
+          const session = await fetchSession(request);
+
+          if (!session?.user) {
+            logger.debug(
+              "[MIDDLEWARE] No session for healthcare route, redirecting to login",
+              { pathname, locale }
+            );
+            const loginUrl = new URL(`/${locale}/auth/login`, request.url);
+            return NextResponse.redirect(loginUrl);
+          }
         } catch (error) {
           logger.error(
             error,
-            "[MIDDLEWARE] Error checking admin permissions"
+            "[MIDDLEWARE] Error checking healthcare permissions"
           );
           // Redirect to dashboard on error
           const dashboardUrl = new URL(`/${locale}/dashboard`, request.url);
           return NextResponse.redirect(dashboardUrl);
         }
       }
+
+      // Redirect healthcare providers away from dashboard to their dedicated interface
+      // Note: This check is disabled in middleware as we don't have access to user role
+      // The redirect will be handled in the dashboard page component instead
 
       // Check if user's email is verified for exercise routes
       if (
@@ -140,10 +165,7 @@ export default async function middleware(request: NextRequest) {
             return NextResponse.redirect(dashboardUrl);
           }
         } catch (error) {
-          logger.error(
-            error,
-            "[MIDDLEWARE] Error checking email verification"
-          );
+          logger.error(error, "[MIDDLEWARE] Error checking email verification");
           // Continue to allow access if check fails
         }
       }
@@ -172,10 +194,9 @@ export default async function middleware(request: NextRequest) {
               const consentData = await consentResponse.json();
 
               if (!consentData.hasConsent) {
-                logger.info(
-                  "[MIDDLEWARE] Consent not granted, redirecting",
-                  { userId: session.user.id }
-                );
+                logger.info("[MIDDLEWARE] Consent not granted, redirecting", {
+                  userId: session.user.id,
+                });
                 const consentUrl = new URL(`/${locale}/consent`, request.url);
                 return NextResponse.redirect(consentUrl);
               }

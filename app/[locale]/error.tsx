@@ -5,9 +5,9 @@ import { HeaderClient } from "@/components/navigation/header-client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "@/i18n/routing";
+import { logger } from "@/lib/logger";
 import { Home, Mail, RefreshCw } from "lucide-react";
 import { useEffect } from "react";
-import { logger } from "@/lib/logger";
 
 interface ErrorPageProps {
   error: Error & { digest?: string };
@@ -21,8 +21,12 @@ export default function ErrorPage({ error, reset }: ErrorPageProps) {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <HeaderClient isAdmin={false} initialSession={null} />
-      
+      <HeaderClient
+        isAdmin={false}
+        isHealthcareProvider={false}
+        initialSession={null}
+      />
+
       <main className="flex-1 pt-20">
         <div className="container mx-auto px-4 py-16">
           <div className="mx-auto max-w-2xl text-center">
@@ -40,15 +44,18 @@ export default function ErrorPage({ error, reset }: ErrorPageProps) {
                   Erreur du serveur
                 </CardTitle>
                 <CardDescription className="text-lg">
-                  Une erreur inattendue s&apos;est produite. Notre équipe a été notifiée et travaille à résoudre le problème.
+                  Une erreur inattendue s&apos;est produite. Notre équipe a été
+                  notifiée et travaille à résoudre le problème.
                 </CardDescription>
               </CardHeader>
-              
+
               <CardContent className="space-y-6">
                 {/* Error Details (Development only) */}
                 {process.env.NODE_ENV === "development" && (
                   <div className="rounded-lg bg-muted p-4 text-left">
-                    <h3 className="mb-2 font-semibold">Error Details (Development):</h3>
+                    <h3 className="mb-2 font-semibold">
+                      Error Details (Development):
+                    </h3>
                     <pre className="text-sm text-muted-foreground">
                       {error.message}
                       {error.digest && `\nDigest: ${error.digest}`}
@@ -83,14 +90,14 @@ export default function ErrorPage({ error, reset }: ErrorPageProps) {
                     <RefreshCw className="mr-2 h-4 w-4" />
                     Actualiser
                   </Button>
-                  
+
                   <Button variant="outline" size="lg" asChild>
                     <Link href="/">
                       <Home className="mr-2 h-4 w-4" />
                       Retour à l&apos;accueil
                     </Link>
                   </Button>
-                  
+
                   <Button variant="outline" size="lg" asChild>
                     <Link href="/about">
                       <Mail className="mr-2 h-4 w-4" />
@@ -104,12 +111,9 @@ export default function ErrorPage({ error, reset }: ErrorPageProps) {
             {/* Additional Help */}
             <div className="text-sm text-muted-foreground">
               <p>
-                Si le problème persiste, notre équipe technique a été automatiquement notifiée.
-                Vous pouvez également{" "}
-                <Link 
-                  href="/about" 
-                  className="text-primary hover:underline"
-                >
+                Si le problème persiste, notre équipe technique a été
+                automatiquement notifiée. Vous pouvez également{" "}
+                <Link href="/about" className="text-primary hover:underline">
                   nous contacter directement
                 </Link>
                 .
@@ -118,7 +122,7 @@ export default function ErrorPage({ error, reset }: ErrorPageProps) {
           </div>
         </div>
       </main>
-      
+
       <Footer />
     </div>
   );

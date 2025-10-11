@@ -3,6 +3,7 @@ import { ChangePasswordDialog } from "@/components/profile/change-password-dialo
 import { DeleteAccountDialog } from "@/components/profile/delete-account-dialog";
 import { EditNameForm } from "@/components/profile/edit-name-form";
 import { LocalePreference } from "@/components/profile/locale-preference";
+import { MyProviderSection } from "@/components/profile/my-provider-section";
 import { NotificationPreference } from "@/components/profile/notification-preference";
 import { SecurityInfo } from "@/components/profile/security-info";
 import { ThemePreference } from "@/components/profile/theme-preference";
@@ -121,6 +122,9 @@ export default async function ProfilePage({
             </div>
           </CardContent>
         </Card>
+
+        {/* Mon soignant */}
+        <MyProviderSection />
 
         {/* Sécurité */}
         <Card>

@@ -1,19 +1,19 @@
 'use client'
 
-import { deleteUser } from '@/app/actions/admin/delete-user'
+import { deleteUser } from "@/app/actions/admin/delete-user";
 import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-} from '@/components/ui/alert-dialog'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -23,42 +23,42 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from '@/components/ui/table'
-import { Shield, Trash2, User } from 'lucide-react'
-import { useRouter } from 'next/navigation'
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Shield, Trash2, User, Users } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
-import { toast } from 'sonner'
+import { toast } from "sonner";
 
 type User = {
-  id: string
-  email: string
-  role: 'USER' | 'ADMIN'
-  createdAt: Date
-  emailVerified: boolean
-  healthDataConsentGrantedAt: Date | null
+  id: string;
+  email: string;
+  role: "USER" | "ADMIN" | "HEALTHCARE_PROVIDER";
+  createdAt: Date;
+  emailVerified: boolean;
+  healthDataConsentGrantedAt: Date | null;
   _count: {
-    exerciseAttempts: number
-    sessions: number
-  }
+    exerciseAttempts: number;
+    sessions: number;
+  };
   consentHistory: Array<{
-    consentType: string
-    granted: boolean
-    grantedAt: Date
-  }>
-}
+    consentType: string;
+    granted: boolean;
+    grantedAt: Date;
+  }>;
+};
 
 interface UsersTableProps {
-  users: User[]
+  users: User[];
 }
 
 export function UsersTable({ users }: UsersTableProps) {
-  const [deletingUserId, setDeletingUserId] = useState<string | null>(null)
+  const [deletingUserId, setDeletingUserId] = useState<string | null>(null);
   const [searchEmail, setSearchEmail] = useState("");
   const [emailVerifiedFilter, setEmailVerifiedFilter] = useState<string>("all");
   const [sortBy, setSortBy] = useState<string>("createdAt");
@@ -293,12 +293,28 @@ export function UsersTable({ users }: UsersTableProps) {
                   <TableCell className="font-medium">{user.email}</TableCell>
                   <TableCell>
                     <Badge
-                      variant={user.role === "ADMIN" ? "default" : "secondary"}
+                      variant={
+                        user.role === "ADMIN"
+                          ? "default"
+                          : user.role === "HEALTHCARE_PROVIDER"
+                            ? "outline"
+                            : "secondary"
+                      }
+                      className={
+                        user.role === "HEALTHCARE_PROVIDER"
+                          ? "bg-orange-600 text-white"
+                          : ""
+                      }
                     >
                       {user.role === "ADMIN" ? (
                         <>
                           <Shield className="mr-1 h-3 w-3" />
                           Administrateur
+                        </>
+                      ) : user.role === "HEALTHCARE_PROVIDER" ? (
+                        <>
+                          <Users className="mr-1 h-3 w-3" />
+                          Soignant
                         </>
                       ) : (
                         <>
@@ -327,11 +343,12 @@ export function UsersTable({ users }: UsersTableProps) {
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
                         <Button
-                          variant="destructive"
+                          variant="ghost"
+                          className="hover:bg-destructive/10"
                           size="sm"
                           disabled={deletingUserId === user.id}
                         >
-                          <Trash2 className="h-4 w-4" />
+                          <Trash2 className="h-4 w-4 text-destructive" />
                         </Button>
                       </AlertDialogTrigger>
                       <AlertDialogContent>

@@ -21,16 +21,21 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Link, useRouter } from "@/i18n/routing";
 import { authClient } from "@/lib/auth-client";
-import { Shield, User } from "lucide-react";
+import { Shield, User, Users } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 interface UserNavProps {
   user: { name?: string | null; email?: string | null };
   isAdmin?: boolean;
+  isHealthcareProvider?: boolean;
 }
 
-export function UserNav({ user, isAdmin = false }: UserNavProps) {
+export function UserNav({
+  user,
+  isAdmin = false,
+  isHealthcareProvider = false,
+}: UserNavProps) {
   const t = useTranslations();
   const router = useRouter();
   const [isSignOutOpen, setIsSignOutOpen] = useState(false);
@@ -81,6 +86,14 @@ export function UserNav({ user, isAdmin = false }: UserNavProps) {
             <span>{t("auth.userMenu.myProfile")}</span>
           </Link>
         </DropdownMenuItem>
+        {isHealthcareProvider && (
+          <DropdownMenuItem asChild>
+            <Link href="/healthcare" className="cursor-pointer">
+              <Users className="mr-2 h-4 w-4" />
+              <span>{t("auth.userMenu.myPatients")}</span>
+            </Link>
+          </DropdownMenuItem>
+        )}
         {isAdmin && (
           <DropdownMenuItem asChild>
             <Link href="/admin/users" className="cursor-pointer">

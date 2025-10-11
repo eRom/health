@@ -46,18 +46,27 @@ export function isProtectedRoute(pathname: string): boolean {
     "/ortho",
     "/profile",
     "/admin",
+    "/healthcare",
   ];
-  const pathWithoutLocale = pathname.replace(/^\/(fr|en)/, '') || '/'
-  
-  return protectedRoutes.some(route => pathWithoutLocale.startsWith(route))
+  const pathWithoutLocale = pathname.replace(/^\/(fr|en)/, "") || "/";
+
+  return protectedRoutes.some((route) => pathWithoutLocale.startsWith(route));
 }
 
 /**
  * Vérifie si une route nécessite des droits d'administrateur
  */
 export function isAdminRoute(pathname: string): boolean {
-  const pathWithoutLocale = pathname.replace(/^\/(fr|en)/, '') || '/'
-  return pathWithoutLocale.startsWith('/admin')
+  const pathWithoutLocale = pathname.replace(/^\/(fr|en)/, "") || "/";
+  return pathWithoutLocale.startsWith("/admin");
+}
+
+/**
+ * Vérifie si une route nécessite des droits de soignant ou d'administrateur
+ */
+export function isHealthcareRoute(pathname: string): boolean {
+  const pathWithoutLocale = pathname.replace(/^\/(fr|en)/, "") || "/";
+  return pathWithoutLocale.startsWith("/healthcare");
 }
 
 /**

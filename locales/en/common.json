@@ -12,6 +12,7 @@
     "kine": "Physiotherapy",
     "ergo": "Occupational Therapy",
     "profile": "Profile",
+    "healthcare": "My Patients",
     "back": "Back"
   },
   "auth": {
@@ -114,6 +115,7 @@
     "orSeparator": "or",
     "userMenu": {
       "myProfile": "My Profile",
+      "myPatients": "My Patients",
       "administration": "Administration"
     }
   },
@@ -717,6 +719,49 @@
       "button": "Read my story"
     }
   },
+  "healthcare": {
+    "title": "My Patients",
+    "invite": "Invite Patient",
+    "patients": {
+      "title": "Patients",
+      "noPatients": "No associated patients",
+      "status": {
+        "pending": "Pending",
+        "accepted": "Accepted",
+        "declined": "Declined",
+        "cancelled": "Cancelled"
+      }
+    },
+    "invitation": {
+      "title": "Invite Patient",
+      "emailLabel": "Patient Email",
+      "messageLabel": "Personal Message (optional)",
+      "send": "Send Invitation",
+      "success": "Invitation Sent",
+      "error": "Error sending invitation"
+    },
+    "messages": {
+      "title": "Messages",
+      "send": "Send",
+      "placeholder": "Your message...",
+      "noMessages": "No messages"
+    },
+    "stats": {
+      "totalPatients": "Patients",
+      "activePatients": "Active",
+      "pendingInvitations": "Pending Invitations",
+      "averageAdherence": "Average Adherence"
+    }
+  },
+  "profile": {
+    "myProvider": {
+      "title": "My Healthcare Provider",
+      "noProvider": "No associated healthcare provider",
+      "pendingInvitation": "Pending invitation",
+      "accept": "Accept",
+      "decline": "Decline"
+    }
+  },
   "admin": {
     "title": "Administration",
     "users": {
@@ -744,7 +789,8 @@
       },
       "role": {
         "ADMIN": "Administrator",
-        "USER": "User"
+        "USER": "User",
+        "HEALTHCARE_PROVIDER": "Healthcare Provider"
       }
     }
   },

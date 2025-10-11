@@ -28,3 +28,26 @@ export async function checkIsAdmin(
     return false
   }
 }
+
+export async function checkIsHealthcareProvider(
+  sessionOverride?: SessionPayload | null
+): Promise<boolean> {
+  try {
+    const session =
+      sessionOverride ??
+      (await auth.api.getSession({ headers: await headers() }));
+
+    if (!session?.user?.id) {
+      return false;
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { id: session.user.id },
+      select: { role: true },
+    });
+
+    return user?.role === "HEALTHCARE_PROVIDER";
+  } catch {
+    return false;
+  }
+}

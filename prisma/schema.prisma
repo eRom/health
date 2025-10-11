@@ -28,11 +28,15 @@ model User {
   sessions                      Session[]
   exerciseAttempts              ExerciseAttempt[]
   consentHistory                ConsentHistory[]
+  patientAssociations           PatientProviderAssociation[] @relation("PatientAssociations")
+  providerAssociations          PatientProviderAssociation[] @relation("ProviderAssociations")
+  sentMessages                  ProviderPatientMessage[] @relation("SentMessages")
 }
 
 enum UserRole {
   USER
   ADMIN
+  HEALTHCARE_PROVIDER
 }
 
 model Account {
@@ -117,4 +121,46 @@ model ConsentHistory {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, grantedAt])
+}
+
+model PatientProviderAssociation {
+  id                  String   @id @default(cuid())
+  patientId           String
+  providerId          String
+  status              AssociationStatus @default(PENDING)
+  invitationToken     String?  @unique
+  invitationSentAt    DateTime?
+  acceptedAt          DateTime?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  
+  patient             User @relation("PatientAssociations", fields: [patientId], references: [id], onDelete: Cascade)
+  provider            User @relation("ProviderAssociations", fields: [providerId], references: [id], onDelete: Cascade)
+  messages            ProviderPatientMessage[]
+  
+  @@unique([patientId, providerId])
+  @@index([providerId, status])
+  @@index([invitationToken])
+}
+
+enum AssociationStatus {
+  PENDING
+  ACCEPTED
+  DECLINED
+  CANCELLED
+}
+
+model ProviderPatientMessage {
+  id              String   @id @default(cuid())
+  associationId   String
+  senderId        String
+  content         String
+  read            Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  
+  association     PatientProviderAssociation @relation(fields: [associationId], references: [id], onDelete: Cascade)
+  sender          User @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
+  
+  @@index([associationId, createdAt])
+  @@index([senderId])
 }

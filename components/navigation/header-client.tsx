@@ -40,10 +40,15 @@ type SessionPayload = {
 
 interface HeaderClientProps {
   isAdmin: boolean;
+  isHealthcareProvider: boolean;
   initialSession: SessionPayload;
 }
 
-export function HeaderClient({ isAdmin, initialSession }: HeaderClientProps) {
+export function HeaderClient({
+  isAdmin,
+  isHealthcareProvider,
+  initialSession,
+}: HeaderClientProps) {
   const t = useTranslations();
   const { data: liveSession } = authClient.useSession();
   const [hasHydrated, setHasHydrated] = useState(false);
@@ -77,8 +82,8 @@ export function HeaderClient({ isAdmin, initialSession }: HeaderClientProps) {
   }, [initialSession]);
 
   const session = hasHydrated
-    ? liveSession ?? initialSession ?? null
-    : initialSession ?? null;
+    ? (liveSession ?? initialSession ?? null)
+    : (initialSession ?? null);
 
   return (
     <header className="fixed left-0 right-0 top-0 z-50 border-b bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
@@ -101,12 +106,23 @@ export function HeaderClient({ isAdmin, initialSession }: HeaderClientProps) {
         <nav className="hidden items-center gap-6 md:flex">
           {session?.user && (
             <>
-              <Link
-                href="/dashboard"
-                className="text-sm font-medium transition-colors hover:text-primary"
-              >
-                {t("navigation.dashboard")}
-              </Link>
+              {!isHealthcareProvider && (
+                <Link
+                  href="/dashboard"
+                  className="text-sm font-medium transition-colors hover:text-primary"
+                >
+                  {t("navigation.dashboard")}
+                </Link>
+              )}
+
+              {(isHealthcareProvider || isAdmin) && (
+                <Link
+                  href="/healthcare"
+                  className="text-sm font-medium transition-colors hover:text-primary"
+                >
+                  {t("navigation.healthcare")}
+                </Link>
+              )}
 
               <NavigationMenu>
                 <NavigationMenuList>
@@ -195,7 +211,11 @@ export function HeaderClient({ isAdmin, initialSession }: HeaderClientProps) {
           <LanguageSwitcher />
 
           {session?.user ? (
-            <UserNav user={session.user} isAdmin={isAdmin} />
+            <UserNav
+              user={session.user}
+              isAdmin={isAdmin}
+              isHealthcareProvider={isHealthcareProvider}
+            />
           ) : (
             <Button asChild variant="default" size="sm">
               <Link href="/auth/login">{t("auth.signIn")}</Link>
