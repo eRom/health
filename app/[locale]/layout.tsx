@@ -1,7 +1,7 @@
+import { ThemeStyleScript } from "@/app/theme-style-script";
 import { AuthDebugger } from "@/components/debug/auth-debugger";
 import { LocaleDebugger } from "@/components/debug/locale-debugger";
 import { ThemeProvider } from "@/components/providers/theme-provider";
-import { ThemeStyleScript } from "@/app/theme-style-script";
 import { PWAInstallPrompt } from "@/components/pwa/pwa-install-prompt";
 import { ServiceWorkerRegistration } from "@/components/pwa/service-worker-registration";
 import { Toaster } from "@/components/ui/sonner";
@@ -164,6 +164,16 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Fira+Code:wght@300..700&family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..800&family=Merriweather:wght@300;400;700;900&family=Merriweather+Sans:wght@300..800&family=Source+Code+Pro:wght@200..900&family=Source+Serif+4:opsz,wght@8..60,200..900&display=swap"
+          rel="stylesheet"
+        />
         <ThemeStyleScript />
         <script
           type="application/ld+json"
@@ -172,7 +182,7 @@ export default async function LocaleLayout({
           }}
         />
       </head>
-      <body className="antialiased">
+      <body className="antialiased font-sans">
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider
             attribute="class"
