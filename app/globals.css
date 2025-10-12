@@ -723,3 +723,117 @@ a {
   --shadow-xl: 3px 3px 0px 0px hsl(206.1538 28.0576% 27.2549% / 1.00), 3px 8px 10px -1px hsl(206.1538 28.0576% 27.2549% / 1.00);
   --shadow-2xl: 3px 3px 0px 0px hsl(206.1538 28.0576% 27.2549% / 2.50);
 }
+
+/* ============================================
+   THEME SYSTEM: Health In Cloud Style
+   ============================================ */
+
+/* Health In Cloud Style - Light Mode */
+:root[data-style="healthincloud"] {
+  --background: oklch(0.9853 0.0051 228.8180);
+  --foreground: oklch(0.2586 0.0207 264.1164);
+  --card: oklch(1.0000 0 0);
+  --card-foreground: oklch(0.2586 0.0207 264.1164);
+  --popover: oklch(1.0000 0 0);
+  --popover-foreground: oklch(0.2586 0.0207 264.1164);
+  --primary: oklch(0.5279 0.2008 293.6777);
+  --primary-foreground: oklch(1.0000 0 0);
+  --secondary: oklch(0.8978 0.0422 325.9224);
+  --secondary-foreground: oklch(0.3603 0.0676 326.8646);
+  --muted: oklch(0.9583 0.0077 314.7882);
+  --muted-foreground: oklch(0.5404 0.0257 264.3337);
+  --accent: oklch(0.8479 0.0542 300.4590);
+  --accent-foreground: oklch(0.3017 0.1256 292.4889);
+  --destructive: oklch(0.6295 0.1785 23.7701);
+  --destructive-foreground: oklch(1.0000 0 0);
+  --border: oklch(0.9149 0.0147 308.2818);
+  --input: oklch(0.9598 0.0036 308.4186);
+  --ring: oklch(0.5279 0.2008 293.6777);
+  --chart-1: oklch(0.5279 0.2008 293.6777);
+  --chart-2: oklch(0.7064 0.1864 327.3246);
+  --chart-3: oklch(0.7059 0.0851 231.4346);
+  --chart-4: oklch(0.7662 0.1373 152.7230);
+  --chart-5: oklch(0.8367 0.0986 83.8408);
+  --sidebar: oklch(0.9721 0.0087 308.3611);
+  --sidebar-foreground: oklch(0.2586 0.0207 264.1164);
+  --sidebar-primary: oklch(0.4448 0.2122 289.9993);
+  --sidebar-primary-foreground: oklch(1.0000 0 0);
+  --sidebar-accent: oklch(0.7966 0.0734 299.9937);
+  --sidebar-accent-foreground: oklch(0.2628 0.1051 293.0527);
+  --sidebar-border: oklch(0.9149 0.0147 308.2818);
+  --sidebar-ring: oklch(0.4448 0.2122 289.9993);
+  --font-sans: 'Inter', sans-serif;
+  --font-serif: 'Playfair Display', serif;
+  --font-mono: 'Fira Code', monospace;
+  --radius: 0.75rem;
+  --shadow-x: 0rem;
+  --shadow-y: 0.25rem;
+  --shadow-blur: 0.5rem;
+  --shadow-spread: -0.125rem;
+  --shadow-opacity: 0.08;
+  --shadow-color: hsl(270, 20%, 50%);
+  --shadow-2xs: 0rem 0.25rem 0.5rem -0.125rem hsl(270 20% 50% / 0.04);
+  --shadow-xs: 0rem 0.25rem 0.5rem -0.125rem hsl(270 20% 50% / 0.04);
+  --shadow-sm: 0rem 0.25rem 0.5rem -0.125rem hsl(270 20% 50% / 0.08), 0rem 1px 2px -1.125px hsl(270 20% 50% / 0.08);
+  --shadow: 0rem 0.25rem 0.5rem -0.125rem hsl(270 20% 50% / 0.08), 0rem 1px 2px -1.125px hsl(270 20% 50% / 0.08);
+  --shadow-md: 0rem 0.25rem 0.5rem -0.125rem hsl(270 20% 50% / 0.08), 0rem 2px 4px -1.125px hsl(270 20% 50% / 0.08);
+  --shadow-lg: 0rem 0.25rem 0.5rem -0.125rem hsl(270 20% 50% / 0.08), 0rem 4px 6px -1.125px hsl(270 20% 50% / 0.08);
+  --shadow-xl: 0rem 0.25rem 0.5rem -0.125rem hsl(270 20% 50% / 0.08), 0rem 8px 10px -1.125px hsl(270 20% 50% / 0.08);
+  --shadow-2xl: 0rem 0.25rem 0.5rem -0.125rem hsl(270 20% 50% / 0.20);
+  --tracking-normal: 0em;
+  --spacing: 0.25rem;
+}
+
+/* Health In Cloud Style - Dark Mode */
+:root[data-style="healthincloud"].dark {
+  --background: oklch(0.1990 0.0319 306.6383);
+  --foreground: oklch(0.9239 0.0043 228.8114);
+  --card: oklch(0.2499 0.0377 306.7510);
+  --card-foreground: oklch(0.9239 0.0043 228.8114);
+  --popover: oklch(0.2499 0.0377 306.7510);
+  --popover-foreground: oklch(0.9239 0.0043 228.8114);
+  --primary: oklch(0.4569 0.1735 293.6963);
+  --primary-foreground: oklch(1.0000 0 0);
+  --secondary: oklch(0.3603 0.0802 327.0793);
+  --secondary-foreground: oklch(0.8462 0.0089 228.8884);
+  --muted: oklch(0.3082 0.0303 314.3473);
+  --muted-foreground: oklch(0.6854 0.0185 229.1283);
+  --accent: oklch(0.3632 0.0908 297.0341);
+  --accent-foreground: oklch(0.8479 0.0542 300.4590);
+  --destructive: oklch(0.5594 0.1900 25.8625);
+  --destructive-foreground: oklch(1.0000 0 0);
+  --border: oklch(0.3006 0.0386 307.0200);
+  --input: oklch(0.3006 0.0386 307.0200);
+  --ring: oklch(0.4569 0.1735 293.6963);
+  --chart-1: oklch(0.4569 0.1735 293.6963);
+  --chart-2: oklch(0.5877 0.1813 327.5782);
+  --chart-3: oklch(0.6242 0.0859 232.1578);
+  --chart-4: oklch(0.6874 0.1383 151.9428);
+  --chart-5: oklch(0.7413 0.1212 82.1342);
+  --sidebar: oklch(0.1793 0.0262 306.8050);
+  --sidebar-foreground: oklch(0.9239 0.0043 228.8114);
+  --sidebar-primary: oklch(0.3800 0.1533 292.9288);
+  --sidebar-primary-foreground: oklch(1.0000 0 0);
+  --sidebar-accent: oklch(0.3229 0.0781 297.2054);
+  --sidebar-accent-foreground: oklch(0.7966 0.0734 299.9937);
+  --sidebar-border: oklch(0.2820 0.0353 307.0571);
+  --sidebar-ring: oklch(0.3800 0.1533 292.9288);
+  --font-sans: 'Inter', sans-serif;
+  --font-serif: 'Playfair Display', serif;
+  --font-mono: 'Fira Code', monospace;
+  --radius: 0.75rem;
+  --shadow-x: 0rem;
+  --shadow-y: 0.5rem;
+  --shadow-blur: 0.75rem;
+  --shadow-spread: -0.25rem;
+  --shadow-opacity: 0.4;
+  --shadow-color: hsl(270, 20%, 0%);
+  --shadow-2xs: 0rem 0.5rem 0.75rem -0.25rem hsl(270 20% 0% / 0.20);
+  --shadow-xs: 0rem 0.5rem 0.75rem -0.25rem hsl(270 20% 0% / 0.20);
+  --shadow-sm: 0rem 0.5rem 0.75rem -0.25rem hsl(270 20% 0% / 0.40), 0rem 1px 2px -1.25px hsl(270 20% 0% / 0.40);
+  --shadow: 0rem 0.5rem 0.75rem -0.25rem hsl(270 20% 0% / 0.40), 0rem 1px 2px -1.25px hsl(270 20% 0% / 0.40);
+  --shadow-md: 0rem 0.5rem 0.75rem -0.25rem hsl(270 20% 0% / 0.40), 0rem 2px 4px -1.25px hsl(270 20% 0% / 0.40);
+  --shadow-lg: 0rem 0.5rem 0.75rem -0.25rem hsl(270 20% 0% / 0.40), 0rem 4px 6px -1.25px hsl(270 20% 0% / 0.40);
+  --shadow-xl: 0rem 0.5rem 0.75rem -0.25rem hsl(270 20% 0% / 0.40), 0rem 8px 10px -1.25px hsl(270 20% 0% / 0.40);
+  --shadow-2xl: 0rem 0.5rem 0.75rem -0.25rem hsl(270 20% 0% / 1.00);
+}

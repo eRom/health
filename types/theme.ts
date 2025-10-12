@@ -12,6 +12,7 @@ export const THEME_STYLES = [
   "perpetuity",
   "notebook",
   "bubblegum",
+  "healthincloud",
 ] as const;
 
 export type ThemeStyle = (typeof THEME_STYLES)[number]

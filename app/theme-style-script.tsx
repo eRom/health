@@ -15,7 +15,7 @@ export function ThemeStyleScript() {
       try {
         const storageKey = 'health-theme-style';
         const defaultStyle = 'default';
-        const validStyles = ['default', 'amber', 'perpetuity', 'notebook', 'bubblegum'];
+        const validStyles = ['default', 'amber', 'perpetuity', 'notebook', 'bubblegum', 'healthincloud'];
 
         const stored = localStorage.getItem(storageKey);
         const style = stored && validStyles.includes(stored) ? stored : defaultStyle;

@@ -10,7 +10,7 @@ const preferencesSchema = z.object({
   locale: z.enum(["fr", "en"]).optional(),
   theme: z.enum(["light", "dark", "system"]).optional(),
   themeStyle: z
-    .enum(["default", "amber", "perpetuity", "notebook", "bubblegum"])
+    .enum(["default", "amber", "perpetuity", "notebook", "bubblegum", "healthincloud"])
     .optional(),
   emailNotifications: z.boolean().optional(),
 });
@@ -18,7 +18,7 @@ const preferencesSchema = z.object({
 export async function updatePreferences(data: {
   locale?: "fr" | "en";
   theme?: "light" | "dark" | "system";
-  themeStyle?: "default" | "amber" | "perpetuity" | "notebook" | "bubblegum";
+  themeStyle?: "default" | "amber" | "perpetuity" | "notebook" | "bubblegum" | "healthincloud";
   emailNotifications?: boolean;
 }) {
   try {

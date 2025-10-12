@@ -61,6 +61,16 @@ export const THEME_STYLES_CONFIG: ThemeStyleConfig[] = [
       dark: ["#FF4081", "#2C1810", "#1A0E0A", "#3D2317"],
     },
   },
+  {
+    value: "healthincloud",
+    label: "Health In Cloud",
+    description:
+      "Design professionnel santé avec polices Inter/Playfair, palette violette/rose et ombres élégantes",
+    colors: {
+      light: ["#7B3FF2", "#F5E6FF", "#E5D3F5", "#D4ADFC"],
+      dark: ["#6D2FD9", "#33204D", "#2D1A42", "#4A316B"],
+    },
+  },
 ];
 
 export const DEFAULT_THEME_STYLE = "default";
