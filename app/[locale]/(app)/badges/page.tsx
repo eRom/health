@@ -58,13 +58,17 @@ async function BadgesContent() {
               <div className="text-3xl font-bold text-yellow-600">
                 {stats.totalEarned}
               </div>
-              <div className="text-sm text-muted-foreground">Badges obtenus</div>
+              <div className="text-sm text-muted-foreground">
+                Badges obtenus
+              </div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-blue-600">
                 {stats.totalAvailable}
               </div>
-              <div className="text-sm text-muted-foreground">Badges disponibles</div>
+              <div className="text-sm text-muted-foreground">
+                Badges disponibles
+              </div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-green-600">
@@ -97,7 +101,9 @@ async function BadgesContent() {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {badges.map((badge) => (
-              <BadgeCard key={badge.id} badge={badge} />
+              <Link key={badge.id} href={`/badges/${badge.id}`}>
+                <BadgeCard badge={badge} />
+              </Link>
             ))}
           </div>
         </div>
@@ -118,7 +124,10 @@ async function BadgesContent() {
               <h3 className="text-lg font-medium">🎉 Badges de bienvenue</h3>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {badgesByCategory.welcome.map((definition) => (
-                  <LockedBadgeCard key={definition.type} definition={definition} />
+                  <LockedBadgeCard
+                    key={definition.type}
+                    definition={definition}
+                  />
                 ))}
               </div>
             </div>
@@ -130,7 +139,10 @@ async function BadgesContent() {
               <h3 className="text-lg font-medium">🌱 Premier exercice</h3>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {badgesByCategory.first.map((definition) => (
-                  <LockedBadgeCard key={definition.type} definition={definition} />
+                  <LockedBadgeCard
+                    key={definition.type}
+                    definition={definition}
+                  />
                 ))}
               </div>
             </div>
@@ -142,7 +154,10 @@ async function BadgesContent() {
               <h3 className="text-lg font-medium">🔥 Série consécutive</h3>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {badgesByCategory.streak.map((definition) => (
-                  <LockedBadgeCard key={definition.type} definition={definition} />
+                  <LockedBadgeCard
+                    key={definition.type}
+                    definition={definition}
+                  />
                 ))}
               </div>
             </div>
@@ -151,10 +166,15 @@ async function BadgesContent() {
           {/* Volume Badges */}
           {badgesByCategory.volume.length > 0 && (
             <div className="space-y-3">
-              <h3 className="text-lg font-medium">📊 Volume d&apos;exercices</h3>
+              <h3 className="text-lg font-medium">
+                📊 Volume d&apos;exercices
+              </h3>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {badgesByCategory.volume.map((definition) => (
-                  <LockedBadgeCard key={definition.type} definition={definition} />
+                  <LockedBadgeCard
+                    key={definition.type}
+                    definition={definition}
+                  />
                 ))}
               </div>
             </div>
@@ -167,9 +187,12 @@ async function BadgesContent() {
         <Card>
           <CardContent className="text-center py-12">
             <div className="text-6xl mb-4">🎯</div>
-            <h3 className="text-xl font-semibold mb-2">Commencez votre parcours !</h3>
+            <h3 className="text-xl font-semibold mb-2">
+              Commencez votre parcours !
+            </h3>
             <p className="text-muted-foreground mb-4">
-              Complétez votre premier exercice pour débloquer vos premiers badges.
+              Complétez votre premier exercice pour débloquer vos premiers
+              badges.
             </p>
             <Link href="/neuro" className="inline-block">
               <Badge variant="default" className="text-sm px-4 py-2">
@@ -180,7 +203,7 @@ async function BadgesContent() {
         </Card>
       )}
     </div>
-  )
+  );
 }
 
 function BadgesSkeleton() {

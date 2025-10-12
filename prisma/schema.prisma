@@ -33,6 +33,7 @@ model User {
   sentMessages                  ProviderPatientMessage[] @relation("SentMessages")
   badges                        UserBadge[]
   streakData                    StreakData?
+  badgeShares                   BadgeShare[]
 }
 
 enum UserRole {
@@ -208,4 +209,17 @@ model StreakData {
   user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   
   @@index([userId])
+}
+
+model BadgeShare {
+  id          String    @id @default(cuid())
+  userId      String
+  badgeType   BadgeType
+  platform    String?   // 'copy', 'native-share', 'download', etc.
+  sharedAt    DateTime  @default(now())
+  
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@index([userId, sharedAt])
+  @@index([badgeType, sharedAt])
 }

@@ -17,24 +17,28 @@ export function BadgeCard({ badge, className }: BadgeCardProps) {
   const { definition, earnedAt } = badge
 
   return (
-    <Card className={cn(
-      "relative overflow-hidden transition-all duration-200 hover:shadow-lg hover:scale-105",
-      "bg-gradient-to-br from-yellow-50 to-orange-50 border-yellow-200",
-      className
-    )}>
+    <Card
+      className={cn(
+        "relative overflow-hidden transition-all duration-200 hover:shadow-lg hover:scale-105",
+        "bg-gradient-to-br from-yellow-50 to-orange-50 border-yellow-200",
+        className
+      )}
+    >
       <CardContent className="p-4 text-center">
         <div className="text-4xl mb-2">{definition.emoji}</div>
         <h3 className="font-semibold text-sm mb-1">{definition.name}</h3>
-        <p className="text-xs text-muted-foreground mb-2">{definition.description}</p>
+        <p className="text-xs text-muted-foreground mb-2">
+          {definition.description}
+        </p>
         <Badge variant="secondary" className="text-xs">
-          Obtenu le {earnedAt.toLocaleDateString('fr-FR')}
+          Obtenu le {earnedAt.toLocaleDateString("fr-FR")}
         </Badge>
       </CardContent>
-      
+
       {/* Shine effect */}
       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
     </Card>
-  )
+  );
 }
 
 export function LockedBadgeCard({ definition, className }: LockedBadgeCardProps) {

@@ -52,6 +52,27 @@ async function fetchSession(request: NextRequest) {
 export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  // Handle badge URLs without locale - redirect to French by default
+  if (
+    pathname.startsWith("/badges/") &&
+    !pathname.startsWith("/fr/badges/") &&
+    !pathname.startsWith("/en/badges/")
+  ) {
+    const badgeId = pathname.split("/badges/")[1];
+    if (badgeId) {
+      const redirectUrl = new URL(`/fr/badges/${badgeId}`, request.url);
+      // Preserve query parameters
+      if (request.nextUrl.search) {
+        redirectUrl.search = request.nextUrl.search;
+      }
+      logger.debug("[MIDDLEWARE] Redirecting badge URL to French locale", {
+        originalPath: pathname,
+        redirectPath: redirectUrl.pathname,
+      });
+      return NextResponse.redirect(redirectUrl);
+    }
+  }
+
   // ✅ CORRECTIF : Utilisation des utilitaires pour une gestion cohérente
   const locale = extractLocaleFromPath(pathname);
   debugLocale("MIDDLEWARE", locale, pathname);
@@ -215,5 +236,5 @@ export default async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/", "/(fr|en)/:path*"],
+  matcher: ["/", "/(fr|en)/:path*", "/badges/:path*"],
 };

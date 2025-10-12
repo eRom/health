@@ -872,6 +872,30 @@
       "completed": "Completed",
       "next": "Next"
     },
+    "share": {
+      "title": "Share my badge",
+      "description": "Share your achievement with your loved ones",
+      "selectFormat": "Choose a format",
+      "formats": {
+        "facebook": "Facebook",
+        "whatsapp": "WhatsApp",
+        "instagram": "Instagram",
+        "instagramStory": "Instagram (Story)",
+        "facebookStory": "Facebook (Story)",
+        "twitter": "Twitter/X"
+      },
+      "actions": {
+        "share": "Share",
+        "download": "Download",
+        "copyLink": "Copy link"
+      },
+      "success": {
+        "shared": "Badge shared successfully!",
+        "copied": "Link copied to clipboard",
+        "downloaded": "Image downloaded"
+      },
+      "shareText": "I just earned the {badgeName} badge on Health In Cloud! 🎉 #HealthInCloud #Rehabilitation #Badges"
+    },
     "definitions": {
       "WELCOME": {
         "name": "Welcome to the adventure!",

@@ -39,14 +39,24 @@
 ### 2. PARTAGE SOCIAL AVEC GÉNÉRATION D'IMAGES
 
 #### 2.1 Génération d'images dynamiques
-- **Technologie** : Canvas API ou SVG-to-PNG
+- **Technologie** : Next.js 15 ImageResponse API
 - **Composants** :
   - Badge obtenu (emoji + nom)
   - Message de félicitations
   - Logo Health In Cloud
-  - Fond dégradé personnalisé
+  - Fond dégradé
   - Date d'obtention
-- **Formats** : PNG (1080x1080) pour Instagram, PNG (1200x630) pour Facebook/Twitter
+- **Formats** : 
+  - Meta (Facebook/Instagram)
+    - universal: { width: 1200, height: 630 }
+    - instagram: { width: 1080, height: 1080 }
+    instagramPortrait: { width: 1080, height: 1350 }
+  - X (Twitter)
+    - twitter: { width: 1200, height: 628 }
+  - LinkedIn
+    - linkedin: { width: 1200, height: 627 }
+  - Stories universelles
+    - story: { width: 1080, height: 1920 }
 
 #### 2.2 Intégration réseaux sociaux
 - **Plateformes** : Facebook, Twitter, Instagram, LinkedIn
@@ -58,10 +68,7 @@
 
 #### 2.3 Personnalisation
 - **Options** :
-  - Choix du template de fond
-  - Personnalisation du message
   - Ajout de texte libre
-  - Sélection de la langue (FR/EN)
 
 ### 3. PAUSES MÉDICALES DÉCLARÉES
 

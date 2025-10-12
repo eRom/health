@@ -872,6 +872,30 @@
       "completed": "Complété",
       "next": "Prochains"
     },
+    "share": {
+      "title": "Partager mon badge",
+      "description": "Partage ta réussite avec tes proches",
+      "selectFormat": "Choisir un format",
+      "formats": {
+        "facebook": "Facebook",
+        "whatsapp": "WhatsApp",
+        "instagram": "Instagram",
+        "instagramStory": "Instagram (Story)",
+        "facebookStory": "Facebook (Story)",
+        "twitter": "Twitter/X"
+      },
+      "actions": {
+        "share": "Partager",
+        "download": "Télécharger",
+        "copyLink": "Copier le lien"
+      },
+      "success": {
+        "shared": "Badge partagé avec succès !",
+        "copied": "Lien copié dans le presse-papier",
+        "downloaded": "Image téléchargée"
+      },
+      "shareText": "Je viens d'obtenir le badge {badgeName} sur Health In Cloud ! 🎉 #HealthInCloud #Rééducation #Badges"
+    },
     "definitions": {
       "WELCOME": {
         "name": "Bienvenue dans l'aventure !",

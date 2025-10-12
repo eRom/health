@@ -1,49 +1,60 @@
-import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
-import type { UserBadgeWithProgress } from '@/lib/types/badge'
-import { cn } from '@/lib/utils'
-import { useEffect, useState } from 'react'
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import type { UserBadgeWithProgress } from "@/lib/types/badge";
+import { cn } from "@/lib/utils";
+import { useEffect, useState } from "react";
+import { BadgeShareButton } from "./badge-share-button";
 
 interface BadgeNotificationProps {
-  badges: UserBadgeWithProgress[]
-  onClose: () => void
-  onViewBadges?: () => void
+  badges: UserBadgeWithProgress[];
+  onClose: () => void;
+  onViewBadges?: () => void;
 }
 
-export function BadgeNotification({ badges, onClose, onViewBadges }: BadgeNotificationProps) {
-  const [isOpen, setIsOpen] = useState(false)
-  const [currentBadgeIndex, setCurrentBadgeIndex] = useState(0)
+export function BadgeNotification({
+  badges,
+  onClose,
+  onViewBadges,
+}: BadgeNotificationProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [currentBadgeIndex, setCurrentBadgeIndex] = useState(0);
 
   useEffect(() => {
     if (badges.length > 0) {
-      setIsOpen(true)
+      setIsOpen(true);
     }
-  }, [badges])
+  }, [badges]);
 
-  const currentBadge = badges[currentBadgeIndex]
-  const hasNextBadge = currentBadgeIndex < badges.length - 1
+  const currentBadge = badges[currentBadgeIndex];
+  const hasNextBadge = currentBadgeIndex < badges.length - 1;
 
   const handleNext = () => {
     if (hasNextBadge) {
-      setCurrentBadgeIndex(currentBadgeIndex + 1)
+      setCurrentBadgeIndex(currentBadgeIndex + 1);
     } else {
-      handleClose()
+      handleClose();
     }
-  }
+  };
 
   const handleClose = () => {
-    setIsOpen(false)
-    setCurrentBadgeIndex(0)
-    onClose()
-  }
+    setIsOpen(false);
+    setCurrentBadgeIndex(0);
+    onClose();
+  };
 
   const handleViewBadges = () => {
-    handleClose()
-    onViewBadges?.()
-  }
+    handleClose();
+    onViewBadges?.();
+  };
 
-  if (!currentBadge) return null
+  if (!currentBadge) return null;
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
@@ -51,7 +62,7 @@ export function BadgeNotification({ badges, onClose, onViewBadges }: BadgeNotifi
         <DialogHeader>
           <DialogTitle className="text-center">🎉 Nouveau Badge !</DialogTitle>
         </DialogHeader>
-        
+
         <div className="space-y-4">
           {/* Confetti animation */}
           <div className="relative overflow-hidden">
@@ -67,12 +78,12 @@ export function BadgeNotification({ badges, onClose, onViewBadges }: BadgeNotifi
                     left: `${Math.random() * 100}%`,
                     top: `${Math.random() * 100}%`,
                     animationDelay: `${Math.random() * 2}s`,
-                    animationDuration: `${1 + Math.random() * 2}s`
+                    animationDuration: `${1 + Math.random() * 2}s`,
                   }}
                 />
               ))}
             </div>
-            
+
             {/* Badge display */}
             <Card className="relative z-10 bg-gradient-to-br from-yellow-50 to-orange-50 border-yellow-200">
               <CardContent className="p-6 text-center">
@@ -86,7 +97,7 @@ export function BadgeNotification({ badges, onClose, onViewBadges }: BadgeNotifi
                   {currentBadge.definition.message}
                 </p>
                 <div className="text-sm text-muted-foreground">
-                  Obtenu le {currentBadge.earnedAt.toLocaleDateString('fr-FR')}
+                  Obtenu le {currentBadge.earnedAt.toLocaleDateString("fr-FR")}
                 </div>
               </CardContent>
             </Card>
@@ -100,20 +111,27 @@ export function BadgeNotification({ badges, onClose, onViewBadges }: BadgeNotifi
           )}
 
           {/* Actions */}
-          <div className="flex gap-2">
-            {onViewBadges && (
-              <Button variant="outline" onClick={handleViewBadges} className="flex-1">
-                Voir mes badges
+          <DialogFooter className="flex-col sm:flex-row gap-2">
+            <div className="flex gap-2 w-full">
+              <BadgeShareButton badge={currentBadge} disabled={true} />
+              {onViewBadges && (
+                <Button
+                  variant="outline"
+                  onClick={handleViewBadges}
+                  className="flex-1"
+                >
+                  Voir mes badges
+                </Button>
+              )}
+              <Button onClick={handleNext} className="flex-1">
+                {hasNextBadge ? "Suivant" : "Fermer"}
               </Button>
-            )}
-            <Button onClick={handleNext} className="flex-1">
-              {hasNextBadge ? 'Suivant' : 'Fermer'}
-            </Button>
-          </div>
+            </div>
+          </DialogFooter>
         </div>
       </DialogContent>
     </Dialog>
-  )
+  );
 }
 
 // CSS animations for confetti
@@ -132,11 +150,11 @@ const confettiStyles = `
 .confetti {
   animation: confetti-fall 3s linear infinite;
 }
-`
+`;
 
 // Inject styles
-if (typeof document !== 'undefined') {
-  const styleSheet = document.createElement('style')
-  styleSheet.textContent = confettiStyles
-  document.head.appendChild(styleSheet)
+if (typeof document !== "undefined") {
+  const styleSheet = document.createElement("style");
+  styleSheet.textContent = confettiStyles;
+  document.head.appendChild(styleSheet);
 }
