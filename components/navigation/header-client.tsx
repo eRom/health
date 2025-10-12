@@ -97,7 +97,7 @@ export function HeaderClient({
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-3">
           <Logo className="h-8 w-8 text-primary" />
-          <span className="text-xl text-[#007FFF] font-semibold tracking-tight">
+          <span className="text-xl text-primary font-semibold tracking-tight">
             Health In Cloud
           </span>
         </Link>
@@ -205,7 +205,6 @@ export function HeaderClient({
                   </NavigationMenuItem>
                 </NavigationMenuList>
               </NavigationMenu>
-
             </>
           )}
 
