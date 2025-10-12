@@ -9,12 +9,14 @@ import { z } from 'zod'
 const preferencesSchema = z.object({
   locale: z.enum(['fr', 'en']).optional(),
   theme: z.enum(['light', 'dark', 'system']).optional(),
+  themeStyle: z.enum(['default', 'amber', 'perpetuity', 'notebook']).optional(),
   emailNotifications: z.boolean().optional(),
 })
 
 export async function updatePreferences(data: {
   locale?: 'fr' | 'en'
   theme?: 'light' | 'dark' | 'system'
+  themeStyle?: 'default' | 'amber' | 'perpetuity' | 'notebook'
   emailNotifications?: boolean
 }) {
   try {

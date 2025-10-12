@@ -7,6 +7,7 @@ import { MyProviderSection } from "@/components/profile/my-provider-section";
 import { NotificationPreference } from "@/components/profile/notification-preference";
 import { SecurityInfo } from "@/components/profile/security-info";
 import { ThemePreference } from "@/components/profile/theme-preference";
+import { ThemeStyleSelector } from "@/components/profile/theme-style-selector";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import {
   Card,
@@ -42,6 +43,7 @@ export default async function ProfilePage({
     select: {
       createdAt: true,
       locale: true,
+      themeStyle: true,
       emailNotifications: true,
       role: true,
     },
@@ -49,6 +51,7 @@ export default async function ProfilePage({
 
   const createdAt = userData?.createdAt || new Date();
   const userLocale = userData?.locale || "fr";
+  const userThemeStyle = userData?.themeStyle || "default";
   const emailNotifications = userData?.emailNotifications ?? true;
 
   // Fetch user account (for provider info)
@@ -117,6 +120,10 @@ export default async function ProfilePage({
 
             <div className="border-t pt-6">
               <ThemePreference />
+            </div>
+
+            <div className="border-t pt-6">
+              <ThemeStyleSelector initialStyle={userThemeStyle as "default" | "amber" | "perpetuity"} />
             </div>
 
             <div className="border-t pt-6">

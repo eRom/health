@@ -1,6 +1,7 @@
 import { AuthDebugger } from "@/components/debug/auth-debugger";
 import { LocaleDebugger } from "@/components/debug/locale-debugger";
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import { ThemeStyleScript } from "@/app/theme-style-script";
 import { PWAInstallPrompt } from "@/components/pwa/pwa-install-prompt";
 import { ServiceWorkerRegistration } from "@/components/pwa/service-worker-registration";
 import { Toaster } from "@/components/ui/sonner";
@@ -163,6 +164,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
+        <ThemeStyleScript />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

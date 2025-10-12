@@ -18,6 +18,7 @@ model User {
   image                         String?
   locale                        String?           @default("fr")
   theme                         String?           @default("system")
+  themeStyle                    String?           @default("default")
   emailNotifications            Boolean           @default(true)
   lastPasswordResetRequestAt    DateTime?
   passwordResetRequestCount     Int               @default(0)
