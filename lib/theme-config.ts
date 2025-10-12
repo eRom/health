@@ -73,5 +73,5 @@ export const THEME_STYLES_CONFIG: ThemeStyleConfig[] = [
   },
 ];
 
-export const DEFAULT_THEME_STYLE = "default";
+export const DEFAULT_THEME_STYLE = "healthincloud";
 export const THEME_STYLE_STORAGE_KEY = "health-theme-style";
