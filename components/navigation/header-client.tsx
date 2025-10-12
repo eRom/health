@@ -214,7 +214,7 @@ export function HeaderClient({
             </>
           )}
 
-          <LanguageSwitcher />
+          {/* <LanguageSwitcher /> */}
 
           {session?.user ? (
             <UserNav

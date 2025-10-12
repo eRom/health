@@ -116,9 +116,9 @@ export default async function ProfilePage({
             <CardDescription>Personnalisez votre expérience</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
-            <LocalePreference currentLocale={userLocale} />
+            {/* <LocalePreference currentLocale={userLocale} /> */}
 
-            <div className="border-t pt-6">
+            <div className="">{/* border-t pt-6 */}
               <ThemePreference />
             </div>
 
