@@ -171,7 +171,7 @@ export default async function LocaleLayout({
           crossOrigin="anonymous"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Fira+Code:wght@300..700&family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..800&family=Merriweather:wght@300;400;700;900&family=Merriweather+Sans:wght@300..800&family=Source+Code+Pro:wght@200..900&family=Source+Serif+4:opsz,wght@8..60,200..900&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Fira+Code:wght@300..700&family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..800&family=Lora:wght@300..700&family=Merriweather:wght@300;400;700;900&family=Merriweather+Sans:wght@300..800&family=Poppins:wght@100..900&family=Source+Code+Pro:wght@200..900&family=Source+Serif+4:opsz,wght@8..60,200..900&display=swap"
           rel="stylesheet"
         />
         <ThemeStyleScript />

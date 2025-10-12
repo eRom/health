@@ -6,7 +6,13 @@
  * - Style: default | amber | perpetuity | notebook (managed by custom hook)
  */
 
-export const THEME_STYLES = ['default', 'amber', 'perpetuity', 'notebook'] as const
+export const THEME_STYLES = [
+  "default",
+  "amber",
+  "perpetuity",
+  "notebook",
+  "bubblegum",
+] as const;
 
 export type ThemeStyle = (typeof THEME_STYLES)[number]
 

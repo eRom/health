@@ -15,7 +15,7 @@ export function ThemeStyleScript() {
       try {
         const storageKey = 'health-theme-style';
         const defaultStyle = 'default';
-        const validStyles = ['default', 'amber', 'perpetuity', 'notebook'];
+        const validStyles = ['default', 'amber', 'perpetuity', 'notebook', 'bubblegum'];
 
         const stored = localStorage.getItem(storageKey);
         const style = stored && validStyles.includes(stored) ? stored : defaultStyle;
@@ -25,7 +25,7 @@ export function ThemeStyleScript() {
         // Silently fail if localStorage is not available
       }
     })();
-  `
+  `;
 
   return (
     <script

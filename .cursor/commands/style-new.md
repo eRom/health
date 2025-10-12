@@ -9,6 +9,8 @@ globs:
 ---
 
 # Ajouter un nouveau style de thème
+Attention !!! Ne me dis pas tout ce que tu vas faire, demande juste les infos obligatoires !!! 
+
 
 ## Informations requises
 
@@ -250,6 +252,17 @@ Exemple complet :
   href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Fira+Code:wght@300..700&family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..800&family=Merriweather:wght@300;400;700;900&family=Merriweather+Sans:wght@300..800&family=Source+Code+Pro:wght@200..900&family=Source+Serif+4:opsz,wght@8..60,200..900&family=Nouvelle+Police:wght@300..700&display=swap"
   rel="stylesheet"
 />
+```
+
+### 6. Mise à jour des préférences `app/actions/update-preferences.ts`
+**Action** : Ajouter le nouveau thème 
+
+```typescript
+.enum(["default", "amber", "perpetuity", "notebook", "bubblegum", "NOUVEAU_STYLE"])
+```
+
+```typescript
+themeStyle?: "default" | "amber" | "perpetuity" | "notebook" | "bubblegum" | "NOUVEAU_STYLE";
 ```
 
 ## Checklist de validation
