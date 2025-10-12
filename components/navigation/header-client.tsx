@@ -16,8 +16,8 @@ import { Link } from "@/i18n/routing";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 import { useEffect, useState } from "react";
-import { Logo } from "../ui/logo";
 
 type SessionPayload = {
   session: {
@@ -96,7 +96,13 @@ export function HeaderClient({
 
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-3">
-          <Logo className="h-8 w-8 text-primary" />
+          <Image
+            src="/logo.svg"
+            alt="Health In Cloud"
+            width={32}
+            height={32}
+            className="h-8 w-8"
+          />
           <span className="text-xl text-primary font-semibold tracking-tight">
             Health In Cloud
           </span>
