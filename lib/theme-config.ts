@@ -1,4 +1,4 @@
-import type { ThemeStyleConfig } from '@/types/theme'
+import type { ThemeStyleConfig } from "@/types/theme";
 
 /**
  * Available theme styles configuration
@@ -17,8 +17,8 @@ export const THEME_STYLES_CONFIG: ThemeStyleConfig[] = [
     description:
       "Design moderne et épuré avec polices Merriweather, ombres douces et palette équilibrée",
     colors: {
-      light: ["#7398E1", "#F5F5F5", "#E8E8E8", "#A7A9A9"],
-      dark: ["#2563EB", "#262828", "#1F2121", "#626C71"],
+      light: ["#509553", "#F5F5F5", "#E8E8E8", "#A7A9A9"],
+      dark: ["#509553", "#262828", "#1F2121", "#626C71"],
     },
   },
   {
@@ -63,5 +63,5 @@ export const THEME_STYLES_CONFIG: ThemeStyleConfig[] = [
   },
 ];
 
-export const DEFAULT_THEME_STYLE = 'default'
-export const THEME_STYLE_STORAGE_KEY = 'health-theme-style'
+export const DEFAULT_THEME_STYLE = "default";
+export const THEME_STYLE_STORAGE_KEY = "health-theme-style";
