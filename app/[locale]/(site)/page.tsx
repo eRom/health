@@ -121,6 +121,9 @@ export default async function HomePage({
               <div className="max-w-2xl space-y-4">
                 <h1 className="text-primary text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-6xl mb-2">
                   {t("hero.title")}
+                  <span className="ml-3 text-xs font-normal text-muted-foreground bg-muted/50 px-2 py-1 rounded-full border">
+                    preview
+                  </span>
                 </h1>
 
                 <p className="text-lg leading-relaxed text-muted-foreground md:text-xl">
