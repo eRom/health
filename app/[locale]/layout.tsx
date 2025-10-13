@@ -103,9 +103,6 @@ export async function generateMetadata({
       statusBarStyle: "default",
       title: "Health In Cloud",
     },
-    verification: {
-      google: "Ot7gKW0uvgQr80-r7kM8j985DTvttOkUz9glo6-gHVw",
-    },
   };
 }
 
@@ -184,6 +181,7 @@ export default async function LocaleLayout({
             __html: JSON.stringify(organizationSchema),
           }}
         />
+        <meta name="google-site-verification" content="Ot7gKW0uvgQr80-r7kM8j985DTvttOkUz9glo6-gHVw" />
       </head>
       <body className="antialiased font-sans">
         <NextIntlClientProvider messages={messages}>
