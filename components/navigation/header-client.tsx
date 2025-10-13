@@ -1,7 +1,6 @@
 'use client'
 
 import { UserNav } from "@/components/auth/user-nav";
-import { LanguageSwitcher } from "@/components/navigation/language-switcher";
 import { MobileNav } from "@/components/navigation/mobile-nav";
 import { Button } from "@/components/ui/button";
 import {

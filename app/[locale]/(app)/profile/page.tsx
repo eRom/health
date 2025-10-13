@@ -2,7 +2,6 @@ import { ActiveSessions } from "@/components/profile/active-sessions";
 import { ChangePasswordDialog } from "@/components/profile/change-password-dialog";
 import { DeleteAccountDialog } from "@/components/profile/delete-account-dialog";
 import { EditNameForm } from "@/components/profile/edit-name-form";
-import { LocalePreference } from "@/components/profile/locale-preference";
 import { MyProviderSection } from "@/components/profile/my-provider-section";
 import { NotificationPreference } from "@/components/profile/notification-preference";
 import { SecurityInfo } from "@/components/profile/security-info";
@@ -50,7 +49,6 @@ export default async function ProfilePage({
   });
 
   const createdAt = userData?.createdAt || new Date();
-  const userLocale = userData?.locale || "fr";
   const userThemeStyle = userData?.themeStyle || "default";
   const emailNotifications = userData?.emailNotifications ?? true;
 
