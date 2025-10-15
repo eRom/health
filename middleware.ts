@@ -9,6 +9,10 @@ import {
   isProtectedRoute,
 } from "./lib/locale-utils";
 import { logger } from "./lib/logger";
+import {
+  checkUserSubscription,
+  requiresSubscription,
+} from "./lib/subscription-check";
 
 const intlMiddleware = createMiddleware(routing);
 
@@ -225,6 +229,36 @@ export default async function middleware(request: NextRequest) {
           }
         } catch (error) {
           logger.error(error, "[MIDDLEWARE] Error checking session");
+          // Continue to allow access if check fails
+        }
+      }
+
+      // Check subscription for routes that require it
+      if (requiresSubscription(pathname)) {
+        try {
+          const session = await fetchSession(request);
+
+          if (session?.user) {
+            const { hasAccess } = await checkUserSubscription(session.user.id);
+
+            if (!hasAccess) {
+              logger.info(
+                "[MIDDLEWARE] No active subscription, redirecting to subscription page",
+                {
+                  userId: session.user.id,
+                  pathname,
+                }
+              );
+              const subscriptionUrl = new URL(
+                `/${locale}/subscription`,
+                request.url
+              );
+              subscriptionUrl.searchParams.set("blocked", "true");
+              return NextResponse.redirect(subscriptionUrl);
+            }
+          }
+        } catch (error) {
+          logger.error(error, "[MIDDLEWARE] Error checking subscription");
           // Continue to allow access if check fails
         }
       }

@@ -851,6 +851,103 @@
     "copyright": "© 2025 {appTitle}. All rights reserved."
   },
   "loading": "Loading...",
+  "subscription": {
+    "meta": {
+      "title": "Subscription - Health In Cloud",
+      "description": "Choose your subscription plan with 14-day free trial"
+    },
+    "page": {
+      "title": "Subscription",
+      "description": "Access all rehabilitation exercises with a flexible subscription",
+      "accessBlocked": {
+        "title": "Subscription Required",
+        "description": "This feature requires an active subscription. Start your 14-day free trial to access all rehabilitation exercises."
+      },
+      "choosePlan": "Choose your plan",
+      "choosePlanDescription": "14-day free trial for all plans",
+      "trialInfo": {
+        "title": "About the free trial",
+        "duration": "14-day full free trial",
+        "fullAccess": "Unlimited access to all exercises",
+        "noCharge": "No charge during the trial period",
+        "cancelAnytime": "Cancel anytime"
+      }
+    },
+    "success": {
+      "meta": {
+        "title": "Subscription activated - Health In Cloud",
+        "description": "Your 14-day free trial is now active"
+      },
+      "title": "Subscription activated successfully!",
+      "description": "Your 14-day free trial period starts now",
+      "nextSteps": {
+        "title": "Next steps",
+        "step1": "Explore all rehabilitation exercises without limits",
+        "step2": "Track your progress in the dashboard",
+        "step3": "Customize your preferences in your profile"
+      },
+      "reminder": {
+        "title": "Reminder:",
+        "description": "You will only be charged at the end of the 14-day trial period. You can cancel anytime from your profile."
+      },
+      "cta": {
+        "dashboard": "Go to dashboard",
+        "profile": "View my profile"
+      }
+    },
+    "card": {
+      "title": "My subscription",
+      "noSubscription": "No active subscription",
+      "noSubscriptionDescription": "Start a 14-day free trial to access all exercises",
+      "startTrial": "Start free trial",
+      "trialEndsOn": "Free trial until {date}",
+      "trialDescription": "You will only be charged at the end of the trial period",
+      "renewalDate": "Next billing",
+      "canceledWarning": "Your subscription ends on {date}",
+      "pastDueWarning": "Payment failed. Update your payment information to maintain access.",
+      "canceledOn": "Subscription canceled on {date}",
+      "manageSubscription": "Manage subscription",
+      "loading": "Loading..."
+    },
+    "status": {
+      "trialing": "Free trial",
+      "active": "Active",
+      "pastDue": "Payment overdue",
+      "canceled": "Canceled",
+      "incomplete": "Incomplete",
+      "incompleteExpired": "Expired",
+      "unpaid": "Unpaid"
+    },
+    "plan": {
+      "monthly": "Monthly plan",
+      "yearly": "Yearly plan"
+    },
+    "pricing": {
+      "monthly": {
+        "title": "Monthly",
+        "description": "Billed monthly"
+      },
+      "yearly": {
+        "title": "Yearly",
+        "description": "Billed annually",
+        "badge": "Save 20%",
+        "savings": "€15 per month (save €48 per year)"
+      },
+      "perMonth": "/ month",
+      "perYear": "/ year",
+      "trialIncluded": "14-day free trial included",
+      "selectPlan": "Choose this plan",
+      "loading": "Loading..."
+    },
+    "features": {
+      "unlimitedAccess": "Unlimited platform access",
+      "allExercises": "All rehabilitation exercises",
+      "progressTracking": "Detailed progress tracking",
+      "personalizedDashboard": "Personalized dashboard",
+      "dataExport": "Data export (PDF, CSV)",
+      "emailSupport": "Email support"
+    }
+  },
   "badges": {
     "title": "My Badges",
     "earned": "Badge earned",
