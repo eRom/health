@@ -261,6 +261,22 @@
         "quote": "I need visibility on my patients' home practice to proactively adjust my recommendations."
       }
     },
+    "subscription": {
+      "title": "Transparent, unbeatable, and reassuring pricing",
+      "subtitle": "Access the full power of Health In Cloud for autonomous, motivating rehabilitation… without breaking the bank! Our mission: make e-health accessible to everyone, without compromising on quality or security.",
+      "trial": {
+        "title": "14-day free trial",
+        "description": "Test all features, no commitment."
+      },
+      "pricing": {
+        "title": "Ultra-competitive monthly subscription",
+        "description": "From €19 per month, all included — no hidden fees.",
+        "from": "From",
+        "perMonth": "€/month"
+      },
+      "security": "Security and GDPR compliance guaranteed",
+      "cta": "View all pricing"
+    },
     "journey": {
       "title": "Your journey in 4 steps",
       "description": "Personalized support from registration to follow-up",

@@ -505,6 +505,78 @@ export default async function HomePage({
           </div>
         </section>
 
+        {/* Subscription Section */}
+        <section className="bg-gradient-to-br from-blue-50/50 via-background to-green-50/50 dark:from-blue-950/20 dark:via-background dark:to-green-950/20 py-16 md:py-24">
+          <div className="container px-4">
+            <AnimatedSection variant="fade-in">
+              <div className="mx-auto mb-12 max-w-3xl text-center">
+                <h2 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">
+                  {t("subscription.title")}
+                </h2>
+                <p className="text-lg text-muted-foreground">
+                  {t("subscription.subtitle")}
+                </p>
+              </div>
+            </AnimatedSection>
+
+            <div className="mx-auto max-w-5xl">
+              <div className="grid gap-6 md:grid-cols-2">
+                {/* Trial Card */}
+                <AnimatedSection variant="slide-right" delay={200}>
+                  <div className="rounded-xl border-2 border-blue-200 bg-blue-50/50 dark:border-blue-900 dark:bg-blue-950/20 p-8 h-full flex flex-col">
+                    <h3 className="mb-3 text-2xl font-bold text-blue-900 dark:text-blue-100">
+                      {t("subscription.trial.title")}
+                    </h3>
+                    <p className="text-blue-800 dark:text-blue-200 mb-6 flex-grow">
+                      {t("subscription.trial.description")}
+                    </p>
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-5xl font-bold text-blue-600 dark:text-blue-400">
+                        14
+                      </span>
+                      <span className="text-xl text-blue-800 dark:text-blue-200">
+                        jours gratuits
+                      </span>
+                    </div>
+                  </div>
+                </AnimatedSection>
+
+                {/* Pricing Card */}
+                <AnimatedSection variant="slide-left" delay={300}>
+                  <div className="rounded-xl border-2 border-green-200 bg-green-50/50 dark:border-green-900 dark:bg-green-950/20 p-8 h-full flex flex-col">
+                    <h3 className="mb-3 text-2xl font-bold text-green-900 dark:text-green-100">
+                      {t("subscription.pricing.title")}
+                    </h3>
+                    <p className="text-green-800 dark:text-green-200 mb-6 flex-grow">
+                      {t("subscription.pricing.description")}
+                    </p>
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-lg text-green-800 dark:text-green-200">
+                        {t("subscription.pricing.from")}
+                      </span>
+                      <span className="text-5xl font-bold text-green-600 dark:text-green-400">
+                        19
+                      </span>
+                      <span className="text-xl text-green-800 dark:text-green-200">
+                        {t("subscription.pricing.perMonth")}
+                      </span>
+                    </div>
+                  </div>
+                </AnimatedSection>
+              </div>
+
+              {/* CTA Button */}
+              <AnimatedSection variant="fade-up" delay={500}>
+                <div className="mt-8 text-center">
+                  <Button asChild size="lg" className="text-base">
+                    <Link href="/pricing">{t("subscription.cta")}</Link>
+                  </Button>
+                </div>
+              </AnimatedSection>
+            </div>
+          </div>
+        </section>
+
         {/* User Journey Section */}
         <section className="bg-[var(--color-bg-5)] py-16 md:py-24">
           <div className="container px-4">

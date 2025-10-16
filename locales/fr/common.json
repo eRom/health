@@ -261,6 +261,22 @@
         "quote": "J'ai besoin de visibilité sur la pratique à domicile de mes patients pour ajuster mes recommandations de manière proactive."
       }
     },
+    "subscription": {
+      "title": "Des tarifs transparents, imbattables et rassurants",
+      "subtitle": "Accédez à toute la puissance de Health In Cloud pour une rééducation autonome, motivante… sans vous ruiner ! Notre mission : rendre l'e-santé accessible à tous, sans compromis sur la qualité ou la sécurité.",
+      "trial": {
+        "title": "Essai gratuit 14 jours",
+        "description": "Testez toutes les fonctionnalités, sans engagement."
+      },
+      "pricing": {
+        "title": "Abonnement mensuel ultra-compétitif",
+        "description": "À partir de 19 € par mois, tout compris — aucun frais caché.",
+        "from": "Dès",
+        "perMonth": "€/mois"
+      },
+      "security": "Sécurité et conformité RGPD garanties",
+      "cta": "Voir tous les tarifs"
+    },
     "journey": {
       "title": "Votre parcours en 4 étapes",
       "description": "Un accompagnement personnalisé de l'inscription au suivi",
