@@ -1,15 +1,15 @@
 import { isRegistrationEnabled } from "@/lib/registration-lock";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const enabled = isRegistrationEnabled();
-    
+
     return NextResponse.json({
       enabled,
-      message: enabled 
-        ? "Registrations are open" 
-        : "Registrations are temporarily closed"
+      message: enabled
+        ? "Registrations are open"
+        : "Registrations are temporarily closed",
     });
   } catch (error) {
     console.error("Error checking registration status:", error);
