@@ -3,6 +3,7 @@ import { prisma } from './prisma'
 /**
  * Check if user has an active subscription
  * Returns true if:
+ * - User is ADMIN or HEALTHCARE_PROVIDER (exempted from subscription requirement)
  * - User is in trial period (TRIALING)
  * - User has active subscription (ACTIVE)
  * - User is in grace period after payment failure (PAST_DUE, within 7 days)
@@ -10,6 +11,24 @@ import { prisma } from './prisma'
 export async function hasActiveSubscription(
   userId: string
 ): Promise<boolean> {
+  // Check user role first - admins and healthcare providers have free access
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: {
+      role: true,
+    },
+  })
+
+  if (!user) {
+    return false
+  }
+
+  // Admins and healthcare providers don't need a subscription
+  if (user.role === 'ADMIN' || user.role === 'HEALTHCARE_PROVIDER') {
+    return true
+  }
+
+  // For regular users, check subscription
   const subscription = await prisma.subscription.findUnique({
     where: { userId },
     select: {
@@ -37,7 +56,7 @@ export async function hasActiveSubscription(
   if (subscription.status === 'PAST_DUE') {
     const gracePeriodEnd = new Date(subscription.currentPeriodEnd)
     gracePeriodEnd.setDate(gracePeriodEnd.getDate() + 7)
-    return new Date() < gracePeriodEnd
+    return new Date() <= gracePeriodEnd
   }
 
   return false
@@ -89,5 +108,5 @@ export async function isInGracePeriod(userId: string): Promise<boolean> {
   const gracePeriodEnd = new Date(subscription.currentPeriodEnd)
   gracePeriodEnd.setDate(gracePeriodEnd.getDate() + 7)
 
-  return new Date() < gracePeriodEnd
+  return new Date() <= gracePeriodEnd
 }

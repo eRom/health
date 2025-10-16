@@ -9,6 +9,9 @@ import { prisma } from '@/lib/prisma'
 // Mock Prisma
 vi.mock('@/lib/prisma', () => ({
   prisma: {
+    user: {
+      findUnique: vi.fn(),
+    },
     subscription: {
       findUnique: vi.fn(),
     },
@@ -23,7 +26,85 @@ describe('Subscription Helpers', () => {
   describe('hasActiveSubscription', () => {
     const userId = 'test-user-123'
 
-    it('should return false when no subscription exists', async () => {
+    // Role-based exemption tests
+    it('should return true for ADMIN users without subscription', async () => {
+      vi.mocked(prisma.user.findUnique).mockResolvedValueOnce({
+        role: 'ADMIN',
+      })
+
+      const result = await hasActiveSubscription(userId)
+
+      expect(result).toBe(true)
+      expect(prisma.user.findUnique).toHaveBeenCalledWith({
+        where: { id: userId },
+        select: { role: true },
+      })
+      // Should not check subscription for admins
+      expect(prisma.subscription.findUnique).not.toHaveBeenCalled()
+    })
+
+    it('should return true for HEALTHCARE_PROVIDER users without subscription', async () => {
+      vi.mocked(prisma.user.findUnique).mockResolvedValueOnce({
+        role: 'HEALTHCARE_PROVIDER',
+      })
+
+      const result = await hasActiveSubscription(userId)
+
+      expect(result).toBe(true)
+      expect(prisma.user.findUnique).toHaveBeenCalledWith({
+        where: { id: userId },
+        select: { role: true },
+      })
+      // Should not check subscription for healthcare providers
+      expect(prisma.subscription.findUnique).not.toHaveBeenCalled()
+    })
+
+    it('should return false when user does not exist', async () => {
+      vi.mocked(prisma.user.findUnique).mockResolvedValueOnce(null)
+
+      const result = await hasActiveSubscription(userId)
+
+      expect(result).toBe(false)
+      expect(prisma.user.findUnique).toHaveBeenCalledWith({
+        where: { id: userId },
+        select: { role: true },
+      })
+      // Should not check subscription if user doesn't exist
+      expect(prisma.subscription.findUnique).not.toHaveBeenCalled()
+    })
+
+    it('should check subscription for regular USER role', async () => {
+      vi.mocked(prisma.user.findUnique).mockResolvedValueOnce({
+        role: 'USER',
+      })
+      vi.mocked(prisma.subscription.findUnique).mockResolvedValueOnce({
+        status: 'ACTIVE',
+        currentPeriodEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+        trialEnd: null,
+      })
+
+      const result = await hasActiveSubscription(userId)
+
+      expect(result).toBe(true)
+      expect(prisma.user.findUnique).toHaveBeenCalledWith({
+        where: { id: userId },
+        select: { role: true },
+      })
+      // Should check subscription for regular users
+      expect(prisma.subscription.findUnique).toHaveBeenCalledWith({
+        where: { userId },
+        select: {
+          status: true,
+          currentPeriodEnd: true,
+          trialEnd: true,
+        },
+      })
+    })
+
+    it('should return false for USER role without subscription', async () => {
+      vi.mocked(prisma.user.findUnique).mockResolvedValueOnce({
+        role: 'USER',
+      })
       vi.mocked(prisma.subscription.findUnique).mockResolvedValueOnce(null)
 
       const result = await hasActiveSubscription(userId)
@@ -40,6 +121,7 @@ describe('Subscription Helpers', () => {
     })
 
     it('should return true for TRIALING status', async () => {
+      vi.mocked(prisma.user.findUnique).mockResolvedValueOnce({ role: 'USER' })
       vi.mocked(prisma.subscription.findUnique).mockResolvedValueOnce({
         status: 'TRIALING',
         currentPeriodEnd: new Date(),
@@ -52,6 +134,7 @@ describe('Subscription Helpers', () => {
     })
 
     it('should return true for ACTIVE status', async () => {
+      vi.mocked(prisma.user.findUnique).mockResolvedValueOnce({ role: 'USER' })
       vi.mocked(prisma.subscription.findUnique).mockResolvedValueOnce({
         status: 'ACTIVE',
         currentPeriodEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
@@ -66,6 +149,7 @@ describe('Subscription Helpers', () => {
     it('should return true for PAST_DUE within grace period', async () => {
       const currentPeriodEnd = new Date(Date.now() - 3 * 24 * 60 * 60 * 1000) // 3 days ago
 
+      vi.mocked(prisma.user.findUnique).mockResolvedValueOnce({ role: 'USER' })
       vi.mocked(prisma.subscription.findUnique).mockResolvedValueOnce({
         status: 'PAST_DUE',
         currentPeriodEnd,
@@ -80,6 +164,7 @@ describe('Subscription Helpers', () => {
     it('should return false for PAST_DUE after grace period', async () => {
       const currentPeriodEnd = new Date(Date.now() - 10 * 24 * 60 * 60 * 1000) // 10 days ago
 
+      vi.mocked(prisma.user.findUnique).mockResolvedValueOnce({ role: 'USER' })
       vi.mocked(prisma.subscription.findUnique).mockResolvedValueOnce({
         status: 'PAST_DUE',
         currentPeriodEnd,
@@ -92,6 +177,7 @@ describe('Subscription Helpers', () => {
     })
 
     it('should return false for CANCELED status', async () => {
+      vi.mocked(prisma.user.findUnique).mockResolvedValueOnce({ role: 'USER' })
       vi.mocked(prisma.subscription.findUnique).mockResolvedValueOnce({
         status: 'CANCELED',
         currentPeriodEnd: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
@@ -104,6 +190,7 @@ describe('Subscription Helpers', () => {
     })
 
     it('should return false for INCOMPLETE status', async () => {
+      vi.mocked(prisma.user.findUnique).mockResolvedValueOnce({ role: 'USER' })
       vi.mocked(prisma.subscription.findUnique).mockResolvedValueOnce({
         status: 'INCOMPLETE',
         currentPeriodEnd: new Date(),
@@ -116,6 +203,7 @@ describe('Subscription Helpers', () => {
     })
 
     it('should return false for INCOMPLETE_EXPIRED status', async () => {
+      vi.mocked(prisma.user.findUnique).mockResolvedValueOnce({ role: 'USER' })
       vi.mocked(prisma.subscription.findUnique).mockResolvedValueOnce({
         status: 'INCOMPLETE_EXPIRED',
         currentPeriodEnd: new Date(),
@@ -128,6 +216,7 @@ describe('Subscription Helpers', () => {
     })
 
     it('should return false for UNPAID status', async () => {
+      vi.mocked(prisma.user.findUnique).mockResolvedValueOnce({ role: 'USER' })
       vi.mocked(prisma.subscription.findUnique).mockResolvedValueOnce({
         status: 'UNPAID',
         currentPeriodEnd: new Date(),
@@ -142,6 +231,7 @@ describe('Subscription Helpers', () => {
     it('should handle grace period edge case at exactly 7 days', async () => {
       const currentPeriodEnd = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) // Exactly 7 days ago
 
+      vi.mocked(prisma.user.findUnique).mockResolvedValueOnce({ role: 'USER' })
       vi.mocked(prisma.subscription.findUnique).mockResolvedValueOnce({
         status: 'PAST_DUE',
         currentPeriodEnd,
@@ -349,6 +439,7 @@ describe('Subscription Helpers', () => {
 
     it('should handle transition from trial to active', async () => {
       // First call: User in trial with 1 day remaining
+      vi.mocked(prisma.user.findUnique).mockResolvedValueOnce({ role: 'USER' })
       vi.mocked(prisma.subscription.findUnique).mockResolvedValueOnce({
         status: 'TRIALING',
         currentPeriodEnd: new Date(),
@@ -359,6 +450,7 @@ describe('Subscription Helpers', () => {
       expect(hasActiveBefore).toBe(true)
 
       // Second call: Trial ended, now active
+      vi.mocked(prisma.user.findUnique).mockResolvedValueOnce({ role: 'USER' })
       vi.mocked(prisma.subscription.findUnique).mockResolvedValueOnce({
         status: 'ACTIVE',
         currentPeriodEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
@@ -371,6 +463,7 @@ describe('Subscription Helpers', () => {
 
     it('should handle payment failure scenario', async () => {
       // Active subscription
+      vi.mocked(prisma.user.findUnique).mockResolvedValueOnce({ role: 'USER' })
       vi.mocked(prisma.subscription.findUnique).mockResolvedValueOnce({
         status: 'ACTIVE',
         currentPeriodEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
@@ -382,6 +475,7 @@ describe('Subscription Helpers', () => {
 
       // Payment fails, enters PAST_DUE
       const failureDate = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000)
+      vi.mocked(prisma.user.findUnique).mockResolvedValueOnce({ role: 'USER' })
       vi.mocked(prisma.subscription.findUnique).mockResolvedValueOnce({
         status: 'PAST_DUE',
         currentPeriodEnd: failureDate,
@@ -402,6 +496,7 @@ describe('Subscription Helpers', () => {
 
       // After 10 days, subscription becomes CANCELED
       const oldFailureDate = new Date(Date.now() - 10 * 24 * 60 * 60 * 1000)
+      vi.mocked(prisma.user.findUnique).mockResolvedValueOnce({ role: 'USER' })
       vi.mocked(prisma.subscription.findUnique).mockResolvedValueOnce({
         status: 'CANCELED',
         currentPeriodEnd: oldFailureDate,
@@ -414,6 +509,7 @@ describe('Subscription Helpers', () => {
 
     it('should handle incomplete subscription that expires', async () => {
       // Incomplete subscription (checkout started but not completed)
+      vi.mocked(prisma.user.findUnique).mockResolvedValueOnce({ role: 'USER' })
       vi.mocked(prisma.subscription.findUnique).mockResolvedValueOnce({
         status: 'INCOMPLETE',
         currentPeriodEnd: new Date(),
@@ -424,6 +520,7 @@ describe('Subscription Helpers', () => {
       expect(incompleteResult).toBe(false)
 
       // Subscription expires after 23 hours
+      vi.mocked(prisma.user.findUnique).mockResolvedValueOnce({ role: 'USER' })
       vi.mocked(prisma.subscription.findUnique).mockResolvedValueOnce({
         status: 'INCOMPLETE_EXPIRED',
         currentPeriodEnd: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
