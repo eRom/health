@@ -387,6 +387,55 @@
       "emailLabel": "Email :"
     }
   },
+  "pagePricing": {
+    "metadata": {
+      "title": "Tarifs - Health In Cloud",
+      "description": "Découvrez nos formules d'abonnement avec 14 jours d'essai gratuit. Accédez à tous les exercices de rééducation."
+    },
+    "title": "Nos Tarifs",
+    "subtitle": "Choisissez la formule qui vous convient avec 14 jours d'essai gratuit",
+    "benefits": {
+      "title": "Tous les avantages inclus",
+      "item1": "Accès illimité à tous les exercices",
+      "item2": "Suivi de progression détaillé",
+      "item3": "Tableau de bord personnalisé",
+      "item4": "Export de vos données",
+      "item5": "Support par email",
+      "item6": "Mises à jour régulières"
+    },
+    "trial": {
+      "title": "Essai gratuit de 14 jours",
+      "description": "Testez toutes les fonctionnalités sans engagement",
+      "item1": "Aucune carte bancaire requise durant l'essai",
+      "item2": "Annulation possible à tout moment",
+      "item3": "Accès complet à la plateforme"
+    },
+    "cta": {
+      "title": "Prêt à commencer votre rééducation ?",
+      "description": "Créez votre compte gratuitement et profitez de 14 jours d'essai",
+      "button": "Commencer l'essai gratuit"
+    },
+    "plans": {
+      "monthly": {
+        "title": "Mensuel",
+        "description": "Parfait pour commencer",
+        "price": "19€",
+        "period": "/mois",
+        "trial": "Essai gratuit inclus",
+        "button": "Choisir le mensuel"
+      },
+      "yearly": {
+        "title": "Annuel",
+        "description": "Le meilleur rapport qualité-prix",
+        "price": "180€",
+        "period": "/an",
+        "savings": "Économisez 48€ par an",
+        "trial": "Essai gratuit inclus",
+        "button": "Choisir l'annuel",
+        "badge": "Recommandé"
+      }
+    }
+  },
   "pageGDPR": {
     "metadata": {
       "title": "RGPD - Conformité et droits",
@@ -881,6 +930,7 @@
   "footer": {
     "platform": {
       "title": "Plateforme",
+      "pricing": "Tarifs",
       "features": "Fonctionnalités",
       "dashboard": "Tableau de bord",
       "about": "À propos"

@@ -387,6 +387,55 @@
       "emailLabel": "Email:"
     }
   },
+  "pagePricing": {
+    "metadata": {
+      "title": "Pricing - Health In Cloud",
+      "description": "Discover our subscription plans with 14-day free trial. Access all rehabilitation exercises."
+    },
+    "title": "Our Pricing",
+    "subtitle": "Choose the plan that suits you with a 14-day free trial",
+    "benefits": {
+      "title": "All benefits included",
+      "item1": "Unlimited access to all exercises",
+      "item2": "Detailed progress tracking",
+      "item3": "Personalized dashboard",
+      "item4": "Export your data",
+      "item5": "Email support",
+      "item6": "Regular updates"
+    },
+    "trial": {
+      "title": "14-day free trial",
+      "description": "Test all features without commitment",
+      "item1": "No credit card required during trial",
+      "item2": "Cancel anytime",
+      "item3": "Full platform access"
+    },
+    "cta": {
+      "title": "Ready to start your rehabilitation?",
+      "description": "Create your free account and enjoy 14 days of trial",
+      "button": "Start free trial"
+    },
+    "plans": {
+      "monthly": {
+        "title": "Monthly",
+        "description": "Perfect to get started",
+        "price": "€19",
+        "period": "/month",
+        "trial": "Free trial included",
+        "button": "Choose monthly"
+      },
+      "yearly": {
+        "title": "Yearly",
+        "description": "Best value for money",
+        "price": "€180",
+        "period": "/year",
+        "savings": "Save €48 per year",
+        "trial": "Free trial included",
+        "button": "Choose yearly",
+        "badge": "Recommended"
+      }
+    }
+  },
   "pageGDPR": {
     "metadata": {
       "title": "GDPR - Compliance and Rights",
@@ -832,6 +881,7 @@
   "footer": {
     "platform": {
       "title": "Platform",
+      "pricing": "Pricing",
       "features": "Features",
       "dashboard": "Dashboard",
       "about": "About"

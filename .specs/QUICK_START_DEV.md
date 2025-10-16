@@ -12,11 +12,11 @@ Guide express pour tester le système d'abonnement en 10 minutes.
 
 ## ❌ Ce qu'il manque
 
-- [ ] Compte Stripe (gratuit)
-- [ ] Clés API Stripe
-- [ ] Produits et prix Stripe
-- [ ] Stripe CLI
-- [ ] Variables d'environnement Stripe
+- [x] Compte Stripe (gratuit)
+- [x] Clés API Stripe
+- [x] Produits et prix Stripe
+- [x] Stripe CLI
+- [x] Variables d'environnement Stripe
 
 ---
 
@@ -189,10 +189,10 @@ Cliquer **S'abonner**
 
 Si tout fonctionne:
 
-- [ ] Page de succès affichée
-- [ ] Webhooks reçus dans Stripe CLI (codes 200)
-- [ ] Accès au dashboard autorisé
-- [ ] Dans Stripe Dashboard: Abonnement visible en mode "Essai"
+- [x] Page de succès affichée
+- [x] Webhooks reçus dans Stripe CLI (codes 200)
+- [x] Accès au dashboard autorisé
+- [x] Dans Stripe Dashboard: Abonnement visible en mode "Essai"
 
 ---
 

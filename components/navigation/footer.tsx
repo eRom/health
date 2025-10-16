@@ -20,6 +20,14 @@ export function Footer() {
             <ul className="space-y-3">
               <li>
                 <Link
+                  href="/pricing"
+                  className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                >
+                  {t("platform.pricing")}
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/#fonctionnalites"
                   className="text-sm text-muted-foreground transition-colors hover:text-primary"
                 >
