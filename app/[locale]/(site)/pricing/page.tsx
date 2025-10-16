@@ -170,8 +170,8 @@ export default async function PricingPage({
             <div className="w-full max-w-4xl">
               <div className="grid gap-8 md:grid-cols-2 lg:gap-12">
                 {/* Monthly Plan - Slide from left */}
-                <AnimatedSection variant="slide-left" delay={300}>
-                  <div className="relative flex flex-col">
+                <AnimatedSection variant="slide-left" delay={300} className="h-full">
+                  <div className="relative flex h-full flex-col">
                     <div className="card-hover rounded-xl border bg-card p-6 shadow-sm h-full">
                       <div className="space-y-6">
                         <div className="space-y-2">
@@ -226,8 +226,8 @@ export default async function PricingPage({
                 </AnimatedSection>
 
                 {/* Yearly Plan - Slide from right */}
-                <AnimatedSection variant="slide-right" delay={400}>
-                  <div className="relative flex flex-col">
+                <AnimatedSection variant="slide-right" delay={400} className="h-full">
+                  <div className="relative flex h-full flex-col">
                     <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10">
                       <div className="bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium">
                         {t("plans.yearly.badge")}
