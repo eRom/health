@@ -9,7 +9,7 @@ import * as dotenv from 'dotenv'
 dotenv.config()
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2024-12-18.acacia',
+  apiVersion: '2025-09-30.clover',
 })
 
 async function testStripeConfiguration() {
@@ -41,7 +41,7 @@ async function testStripeConfiguration() {
     // 2. Vérifier la connexion à Stripe
     console.log('2️⃣  Vérification de la connexion à Stripe...')
     const account = await stripe.accounts.retrieve()
-    console.log(`✅ Connecté au compte: ${account.display_name || account.id}`)
+    console.log(`✅ Connecté au compte: ${account.business_profile?.name || account.id}`)
     console.log(`   Mode: ${account.id.includes('acct_') ? 'Test' : 'Live'}\n`)
 
     // 3. Vérifier le produit
@@ -85,7 +85,7 @@ async function testStripeConfiguration() {
     // 6. Récapitulatif
     console.log('\n📊 Récapitulatif de la configuration:')
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
-    console.log(`✅ Compte Stripe: ${account.display_name || account.id}`)
+    console.log(`✅ Compte Stripe: ${account.business_profile?.name || account.id}`)
     console.log(`✅ Produit: ${product.name}`)
     console.log(`✅ Prix mensuel: ${monthlyPrice.unit_amount! / 100} EUR/mois`)
     console.log(`✅ Prix annuel: ${yearlyPrice.unit_amount! / 100} EUR/an`)

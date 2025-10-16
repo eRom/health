@@ -4,6 +4,24 @@ import { headers } from 'next/headers'
 import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import { sendPaymentFailedEmail } from '@/lib/email'
+import { SubscriptionStatus } from '@prisma/client'
+
+// Helper to convert Stripe status to Prisma SubscriptionStatus
+function mapStripeStatusToPrisma(
+  stripeStatus: Stripe.Subscription.Status
+): SubscriptionStatus {
+  const statusMap: Record<Stripe.Subscription.Status, SubscriptionStatus> = {
+    incomplete: 'INCOMPLETE',
+    incomplete_expired: 'INCOMPLETE_EXPIRED',
+    trialing: 'TRIALING',
+    active: 'ACTIVE',
+    past_due: 'PAST_DUE',
+    canceled: 'CANCELED',
+    unpaid: 'UNPAID',
+    paused: 'CANCELED', // Stripe 'paused' maps to our CANCELED status
+  }
+  return statusMap[stripeStatus]
+}
 
 export async function POST(req: Request) {
   const body = await req.text()
@@ -101,6 +119,18 @@ async function handleSubscriptionUpdate(subscription: Stripe.Subscription) {
   const priceId = subscription.items.data[0]?.price.id
   const productId = subscription.items.data[0]?.price.product as string
 
+  // Access Stripe properties with snake_case (Stripe SDK v19)
+  const sub = subscription as unknown as {
+    id: string
+    status: Stripe.Subscription.Status
+    current_period_start: number
+    current_period_end: number
+    trial_start?: number | null
+    trial_end?: number | null
+    cancel_at_period_end: boolean
+    canceled_at?: number | null
+  }
+
   await prisma.subscription.upsert({
     where: { userId: user.id },
     create: {
@@ -109,29 +139,29 @@ async function handleSubscriptionUpdate(subscription: Stripe.Subscription) {
       stripeCustomerId: customerId,
       stripePriceId: priceId,
       stripeProductId: productId,
-      status: subscription.status.toUpperCase() as any,
-      currentPeriodStart: new Date(subscription.current_period_start * 1000),
-      currentPeriodEnd: new Date(subscription.current_period_end * 1000),
-      trialStart: subscription.trial_start
-        ? new Date(subscription.trial_start * 1000)
+      status: mapStripeStatusToPrisma(subscription.status),
+      currentPeriodStart: new Date(sub.current_period_start * 1000),
+      currentPeriodEnd: new Date(sub.current_period_end * 1000),
+      trialStart: sub.trial_start
+        ? new Date(sub.trial_start * 1000)
         : null,
-      trialEnd: subscription.trial_end
-        ? new Date(subscription.trial_end * 1000)
+      trialEnd: sub.trial_end
+        ? new Date(sub.trial_end * 1000)
         : null,
-      cancelAtPeriodEnd: subscription.cancel_at_period_end,
+      cancelAtPeriodEnd: sub.cancel_at_period_end,
     },
     update: {
       stripePriceId: priceId,
       stripeProductId: productId,
-      status: subscription.status.toUpperCase() as any,
-      currentPeriodStart: new Date(subscription.current_period_start * 1000),
-      currentPeriodEnd: new Date(subscription.current_period_end * 1000),
-      trialEnd: subscription.trial_end
-        ? new Date(subscription.trial_end * 1000)
+      status: mapStripeStatusToPrisma(subscription.status),
+      currentPeriodStart: new Date(sub.current_period_start * 1000),
+      currentPeriodEnd: new Date(sub.current_period_end * 1000),
+      trialEnd: sub.trial_end
+        ? new Date(sub.trial_end * 1000)
         : null,
-      cancelAtPeriodEnd: subscription.cancel_at_period_end,
-      canceledAt: subscription.canceled_at
-        ? new Date(subscription.canceled_at * 1000)
+      cancelAtPeriodEnd: sub.cancel_at_period_end,
+      canceledAt: sub.canceled_at
+        ? new Date(sub.canceled_at * 1000)
         : null,
     },
   })

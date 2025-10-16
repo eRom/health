@@ -32,7 +32,7 @@ export async function sendTrialEndingEmail({
 }) {
   const manageSubscriptionUrl = `${APP_URL}/${locale}/profile`
 
-  const html = render(
+  const html = await render(
     TrialEndingEmail({
       userName,
       daysLeft,
@@ -68,7 +68,7 @@ export async function sendTrialEndedEmail({
 }) {
   const subscriptionUrl = `${APP_URL}/${locale}/subscription`
 
-  const html = render(
+  const html = await render(
     TrialEndedEmail({
       userName,
       subscriptionUrl,
@@ -109,7 +109,7 @@ export async function sendRenewalReminderEmail({
 }) {
   const manageSubscriptionUrl = `${APP_URL}/${locale}/profile`
 
-  const html = render(
+  const html = await render(
     RenewalReminderEmail({
       userName,
       renewalDate,
@@ -153,7 +153,7 @@ export async function sendPaymentFailedEmail({
 }) {
   const updatePaymentUrl = `${APP_URL}/${locale}/profile`
 
-  const html = render(
+  const html = await render(
     PaymentFailedEmail({
       userName,
       amount,

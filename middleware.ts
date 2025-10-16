@@ -9,10 +9,6 @@ import {
   isProtectedRoute,
 } from "./lib/locale-utils";
 import { logger } from "./lib/logger";
-import {
-  checkUserSubscription,
-  requiresSubscription,
-} from "./lib/subscription-check";
 
 const intlMiddleware = createMiddleware(routing);
 
