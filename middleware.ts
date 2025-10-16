@@ -54,7 +54,9 @@ export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Handle Google OAuth registration lock
-  const oauthLockResponse = await handleGoogleOAuthLock(request);
+  // NOTE: Disabled to reduce middleware bundle size
+  // OAuth registration lock is now handled in Better Auth config (lib/auth.ts)
+  const oauthLockResponse = await handleGoogleOAuthLock();
   if (oauthLockResponse) {
     return oauthLockResponse;
   }
