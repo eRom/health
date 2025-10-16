@@ -170,12 +170,18 @@ export default async function PricingPage({
             <div className="w-full max-w-4xl">
               <div className="grid gap-8 md:grid-cols-2 lg:gap-12">
                 {/* Monthly Plan - Slide from left */}
-                <AnimatedSection variant="slide-left" delay={300} className="h-full">
+                <AnimatedSection
+                  variant="slide-left"
+                  delay={300}
+                  className="h-full"
+                >
                   <div className="relative flex h-full flex-col">
                     <div className="card-hover rounded-xl border bg-card p-6 shadow-sm h-full">
-                      <div className="space-y-6">
+                      <div className="flex h-full flex-col gap-6">
                         <div className="space-y-2">
-                          <h2 className="text-2xl font-bold">{t("plans.monthly.title")}</h2>
+                          <h2 className="text-2xl font-bold">
+                            {t("plans.monthly.title")}
+                          </h2>
                           <p className="text-muted-foreground">
                             {t("plans.monthly.description")}
                           </p>
@@ -183,35 +189,49 @@ export default async function PricingPage({
 
                         <div className="space-y-1">
                           <div className="flex items-baseline gap-2">
-                            <span className="text-4xl font-bold">{t("plans.monthly.price")}</span>
-                            <span className="text-muted-foreground">{t("plans.monthly.period")}</span>
+                            <span className="text-4xl font-bold">
+                              {t("plans.monthly.price")}
+                            </span>
+                            <span className="text-muted-foreground">
+                              {t("plans.monthly.period")}
+                            </span>
                           </div>
-                          <p className="text-sm text-muted-foreground">
-                            {t("plans.monthly.trial")}
-                          </p>
                         </div>
 
                         <ul className="space-y-3">
-                        
                           <li className="flex items-start gap-3">
                             <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-600 dark:text-green-500" />
-                            <span className="text-sm">{subscriptionT("features.unlimitedAccess")}</span>
+                            <span className="text-sm">
+                              {t("plans.monthly.trial")}
+                            </span>
                           </li>
                           <li className="flex items-start gap-3">
                             <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-600 dark:text-green-500" />
-                            <span className="text-sm">{subscriptionT("features.progressTracking")}</span>
+                            <span className="text-sm">
+                              {subscriptionT("features.unlimitedAccess")}
+                            </span>
                           </li>
                           <li className="flex items-start gap-3">
                             <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-600 dark:text-green-500" />
-                            <span className="text-sm">{subscriptionT("features.personalizedDashboard")}</span>
+                            <span className="text-sm">
+                              {subscriptionT("features.progressTracking")}
+                            </span>
                           </li>
                           <li className="flex items-start gap-3">
                             <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-600 dark:text-green-500" />
-                            <span className="text-sm">{subscriptionT("features.emailSupport")}</span>
+                            <span className="text-sm">
+                              {subscriptionT("features.personalizedDashboard")}
+                            </span>
+                          </li>
+                          <li className="flex items-start gap-3">
+                            <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-600 dark:text-green-500" />
+                            <span className="text-sm">
+                              {subscriptionT("features.emailSupport")}
+                            </span>
                           </li>
                         </ul>
 
-                        <div className="pt-4">
+                        <div className="mt-auto pt-4">
                           <PricingButton
                             plan="monthly"
                             className="w-full"
@@ -226,7 +246,11 @@ export default async function PricingPage({
                 </AnimatedSection>
 
                 {/* Yearly Plan - Slide from right */}
-                <AnimatedSection variant="slide-right" delay={400} className="h-full">
+                <AnimatedSection
+                  variant="slide-right"
+                  delay={400}
+                  className="h-full"
+                >
                   <div className="relative flex h-full flex-col">
                     <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10">
                       <div className="bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium">
@@ -234,47 +258,66 @@ export default async function PricingPage({
                       </div>
                     </div>
                     <div className="card-hover rounded-xl border border-primary bg-card p-6 shadow-lg h-full">
-                      <div className="space-y-6">
+                      <div className="flex h-full flex-col gap-6">
                         <div className="space-y-2">
-                          <h2 className="text-2xl font-bold">{t("plans.yearly.title")}</h2>
+                          <h2 className="text-2xl font-bold">
+                            {t("plans.yearly.title")}
+                          </h2>
                           <p className="text-muted-foreground">
                             {t("plans.yearly.description")}
                           </p>
                         </div>
 
                         <div className="space-y-1">
-                          <div className="flex items-baseline gap-2">
-                            <span className="text-4xl font-bold">{t("plans.yearly.price")}</span>
-                            <span className="text-muted-foreground">{t("plans.yearly.period")}</span>
+                          <div className="flex gap-2 items-baseline justify-between">
+                            <p>
+                              <span className="text-4xl font-bold">
+                                {t("plans.yearly.price")}
+                              </span>
+                              <span className="text-muted-foreground">
+                                {t("plans.yearly.period")}
+                              </span>
+                            </p>
+                            <p className="text-sm text-green-600 dark:text-green-500 font-medium">
+                              {t("plans.yearly.savings")}
+                            </p>
                           </div>
-                          <p className="text-sm text-green-600 dark:text-green-500 font-medium">
-                            {t("plans.yearly.savings")}
-                          </p>
-                          <p className="text-sm text-muted-foreground">
-                            {t("plans.yearly.trial")}
-                          </p>
                         </div>
 
                         <ul className="space-y-3">
                           <li className="flex items-start gap-3">
                             <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-600 dark:text-green-500" />
-                            <span className="text-sm">{subscriptionT("features.unlimitedAccess")}</span>
+                            <span className="text-sm">
+                              {t("plans.yearly.trial")}
+                            </span>
                           </li>
                           <li className="flex items-start gap-3">
                             <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-600 dark:text-green-500" />
-                            <span className="text-sm">{subscriptionT("features.progressTracking")}</span>
+                            <span className="text-sm">
+                              {subscriptionT("features.unlimitedAccess")}
+                            </span>
                           </li>
                           <li className="flex items-start gap-3">
                             <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-600 dark:text-green-500" />
-                            <span className="text-sm">{subscriptionT("features.personalizedDashboard")}</span>
+                            <span className="text-sm">
+                              {subscriptionT("features.progressTracking")}
+                            </span>
                           </li>
                           <li className="flex items-start gap-3">
                             <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-600 dark:text-green-500" />
-                            <span className="text-sm">{subscriptionT("features.emailSupport")}</span>
+                            <span className="text-sm">
+                              {subscriptionT("features.personalizedDashboard")}
+                            </span>
+                          </li>
+                          <li className="flex items-start gap-3">
+                            <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-600 dark:text-green-500" />
+                            <span className="text-sm">
+                              {subscriptionT("features.emailSupport")}
+                            </span>
                           </li>
                         </ul>
 
-                        <div className="pt-4">
+                        <div className="mt-auto pt-4">
                           <PricingButton
                             plan="yearly"
                             className="w-full"
@@ -318,7 +361,10 @@ export default async function PricingPage({
               <AnimatedSection variant="fade-up" delay={100}>
                 <div className="card-hover rounded-xl border bg-card p-6 text-center shadow-sm h-full">
                   <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10">
-                    <CheckCircle className="h-8 w-8 text-primary" aria-hidden="true" />
+                    <CheckCircle
+                      className="h-8 w-8 text-primary"
+                      aria-hidden="true"
+                    />
                   </div>
                   <h3 className="mb-2 text-lg font-semibold">
                     {t("benefits.item2")}
@@ -340,7 +386,10 @@ export default async function PricingPage({
               <AnimatedSection variant="fade-up" delay={300}>
                 <div className="card-hover rounded-xl border bg-card p-6 text-center shadow-sm h-full">
                   <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10">
-                    <CheckCircle className="h-8 w-8 text-primary" aria-hidden="true" />
+                    <CheckCircle
+                      className="h-8 w-8 text-primary"
+                      aria-hidden="true"
+                    />
                   </div>
                   <h3 className="mb-2 text-lg font-semibold">
                     {t("benefits.item4")}
@@ -387,11 +436,14 @@ export default async function PricingPage({
                       <p className="mb-8 text-lg text-blue-800 dark:text-blue-200">
                         {t("trial.description")}
                       </p>
-                      
+
                       <div className="grid gap-6 md:grid-cols-3">
                         <div className="flex flex-col items-center text-center">
                           <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900">
-                            <CheckCircle className="h-6 w-6 text-blue-600 dark:text-blue-400" aria-hidden="true" />
+                            <CheckCircle
+                              className="h-6 w-6 text-blue-600 dark:text-blue-400"
+                              aria-hidden="true"
+                            />
                           </div>
                           <p className="text-sm text-blue-800 dark:text-blue-200">
                             {t("trial.item1")}
@@ -399,7 +451,10 @@ export default async function PricingPage({
                         </div>
                         <div className="flex flex-col items-center text-center">
                           <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900">
-                            <CheckCircle className="h-6 w-6 text-blue-600 dark:text-blue-400" aria-hidden="true" />
+                            <CheckCircle
+                              className="h-6 w-6 text-blue-600 dark:text-blue-400"
+                              aria-hidden="true"
+                            />
                           </div>
                           <p className="text-sm text-blue-800 dark:text-blue-200">
                             {t("trial.item2")}
@@ -407,7 +462,10 @@ export default async function PricingPage({
                         </div>
                         <div className="flex flex-col items-center text-center">
                           <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900">
-                            <CheckCircle className="h-6 w-6 text-blue-600 dark:text-blue-400" aria-hidden="true" />
+                            <CheckCircle
+                              className="h-6 w-6 text-blue-600 dark:text-blue-400"
+                              aria-hidden="true"
+                            />
                           </div>
                           <p className="text-sm text-blue-800 dark:text-blue-200">
                             {t("trial.item3")}
