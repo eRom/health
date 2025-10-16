@@ -7,6 +7,7 @@ import { StatsCards } from "@/components/dashboard/stats-cards";
 import { Button } from "@/components/ui/button";
 import { Link, redirect } from "@/i18n/routing";
 import { auth } from "@/lib/auth";
+import { requireSubscription } from "@/lib/subscription-guard";
 import { BarChart3 } from "lucide-react";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
@@ -42,6 +43,9 @@ export default async function DashboardPage({
 
   const ensuredSession = session;
   const userName = ensuredSession.user.name?.split(" ")[0] || "Marie";
+
+  // Check subscription (will redirect if no active subscription)
+  await requireSubscription(ensuredSession.user.id, locale);
 
   // Fetch dashboard data
   const [{ stats, recentExercises }, { badges, stats: badgeStats }] =
