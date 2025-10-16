@@ -51,6 +51,12 @@ type User = {
     granted: boolean;
     grantedAt: Date;
   }>;
+  subscription: {
+    status: "TRIALING" | "ACTIVE" | "PAST_DUE" | "CANCELED" | "UNPAID" | "INCOMPLETE" | "INCOMPLETE_EXPIRED";
+    currentPeriodEnd: Date;
+    trialEnd: Date | null;
+    cancelAtPeriodEnd: boolean;
+  } | null;
 };
 
 interface UsersTableProps {
@@ -113,6 +119,98 @@ export function UsersTable({ users }: UsersTableProps) {
       status: "not-granted",
       date: null,
       color: "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300",
+    };
+  };
+
+  const getSubscriptionStatus = (user: User) => {
+    // Admins and healthcare providers are exempt
+    if (user.role === "ADMIN" || user.role === "HEALTHCARE_PROVIDER") {
+      return {
+        label: "Gratuit",
+        color: "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300",
+        details: null,
+      };
+    }
+
+    // No subscription
+    if (!user.subscription) {
+      return {
+        label: "Aucun",
+        color: "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300",
+        details: null,
+      };
+    }
+
+    const { status, trialEnd, currentPeriodEnd, cancelAtPeriodEnd } = user.subscription;
+
+    // Trial period
+    if (status === "TRIALING") {
+      const daysLeft = trialEnd
+        ? Math.ceil((new Date(trialEnd).getTime() - Date.now()) / (1000 * 60 * 60 * 24))
+        : 0;
+      return {
+        label: "Essai gratuit",
+        color: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300",
+        details: daysLeft > 0 ? `${daysLeft} jour${daysLeft > 1 ? 's' : ''} restant${daysLeft > 1 ? 's' : ''}` : "Expire bientôt",
+      };
+    }
+
+    // Active subscription
+    if (status === "ACTIVE") {
+      if (cancelAtPeriodEnd) {
+        return {
+          label: "Actif (annulation prévue)",
+          color: "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300",
+          details: `Jusqu'au ${formatDate(currentPeriodEnd)}`,
+        };
+      }
+      return {
+        label: "Actif",
+        color: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300",
+        details: `Jusqu'au ${formatDate(currentPeriodEnd)}`,
+      };
+    }
+
+    // Past due (payment failed, grace period)
+    if (status === "PAST_DUE") {
+      return {
+        label: "Impayé",
+        color: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300",
+        details: "Période de grâce",
+      };
+    }
+
+    // Canceled
+    if (status === "CANCELED") {
+      return {
+        label: "Annulé",
+        color: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300",
+        details: null,
+      };
+    }
+
+    // Unpaid (after grace period)
+    if (status === "UNPAID") {
+      return {
+        label: "Impayé",
+        color: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300",
+        details: "Accès suspendu",
+      };
+    }
+
+    // Incomplete (checkout not completed)
+    if (status === "INCOMPLETE" || status === "INCOMPLETE_EXPIRED") {
+      return {
+        label: "Incomplet",
+        color: "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300",
+        details: "Paiement non finalisé",
+      };
+    }
+
+    return {
+      label: "Inconnu",
+      color: "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300",
+      details: null,
     };
   };
 
@@ -280,6 +378,7 @@ export function UsersTable({ users }: UsersTableProps) {
                 Consentement RGPD{" "}
                 {sortBy === "consentDate" && (sortOrder === "asc" ? "↑" : "↓")}
               </TableHead>
+              <TableHead>Abonnement</TableHead>
               <TableHead>Exercices</TableHead>
               <TableHead className="text-right">Actions</TableHead>
             </TableRow>
@@ -287,6 +386,7 @@ export function UsersTable({ users }: UsersTableProps) {
           <TableBody>
             {filteredAndSortedUsers.map((user) => {
               const consent = getConsentStatus(user);
+              const subscription = getSubscriptionStatus(user);
 
               return (
                 <TableRow key={user.id}>
@@ -337,6 +437,18 @@ export function UsersTable({ users }: UsersTableProps) {
                       {consent.status === "granted" ? "Accordé" : "Non accordé"}
                       {consent.date && ` le ${consent.date}`}
                     </Badge>
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex flex-col gap-1">
+                      <Badge className={subscription.color}>
+                        {subscription.label}
+                      </Badge>
+                      {subscription.details && (
+                        <span className="text-xs text-muted-foreground">
+                          {subscription.details}
+                        </span>
+                      )}
+                    </div>
                   </TableCell>
                   <TableCell>{user._count.exerciseAttempts}</TableCell>
                   <TableCell className="text-right">
