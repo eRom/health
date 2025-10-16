@@ -9,7 +9,7 @@ import {
   isHealthcareRoute,
   isProtectedRoute,
 } from "./lib/locale-utils";
-import { logger } from "./lib/logger";
+import { middlewareLogger as logger } from "./lib/middleware-logger";
 
 const intlMiddleware = createMiddleware(routing);
 
