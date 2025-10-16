@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import { useParams, useRouter } from 'next/navigation'
+import { cn } from '@/lib/utils'
 
 interface PricingButtonProps {
   plan?: 'monthly' | 'yearly'
@@ -23,7 +24,7 @@ export function PricingButton({ children, className, size }: PricingButtonProps)
   return (
     <Button
       onClick={handleClick}
-      className={className}
+      className={cn('cursor-pointer', className)}
       size={size}
     >
       {children}
