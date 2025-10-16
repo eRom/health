@@ -20,9 +20,6 @@ const serwist = new Serwist({
   clientsClaim: true,
   navigationPreload: true,
   runtimeCaching: defaultCache,
-  // ✅ CORRECTIF : Configuration pour utiliser l'API moderne de stockage
-  cacheId: "healthincloud-v1",
-  cleanupOutdatedCaches: true,
   fallbacks: {
     entries: [
       {
