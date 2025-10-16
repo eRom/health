@@ -114,6 +114,9 @@
     },
     "continueWithGoogle": "Continue with Google",
     "orSeparator": "or",
+    "registrationClosed": "Registrations are temporarily closed",
+    "registrationClosedDescription": "You can still explore the interface. Existing users can sign in normally.",
+    "existingUsersCanLogin": "Existing users: you can sign in normally",
     "userMenu": {
       "myProfile": "My Profile",
       "myPatients": "My Patients",

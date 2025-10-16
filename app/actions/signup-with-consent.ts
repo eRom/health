@@ -1,11 +1,12 @@
 "use server"
 
-import { auth } from "@/lib/auth"
+import { auth } from "@/lib/auth";
 import { checkAndAwardWelcomeBadge } from "@/lib/badges";
 import { logger } from "@/lib/logger";
 import { prisma } from "@/lib/prisma";
-import { SignupSchema } from "@/lib/schemas/auth"
-import { headers } from "next/headers"
+import { isRegistrationEnabled } from "@/lib/registration-lock";
+import { SignupSchema } from "@/lib/schemas/auth";
+import { headers } from "next/headers";
 
 export async function signUpWithConsent(data: {
   name: string
@@ -15,14 +16,21 @@ export async function signUpWithConsent(data: {
 }) {
   // Vérifier le consentement en premier
   if (!data.healthDataConsent) {
-    throw new Error("Consentement requis pour le traitement des données de santé")
+    throw new Error(
+      "Consentement requis pour le traitement des données de santé"
+    );
+  }
+
+  // Vérifier si les inscriptions sont activées
+  if (!isRegistrationEnabled()) {
+    throw new Error("Les inscriptions sont temporairement fermées");
   }
 
   // Validation côté serveur des autres champs
-  const validationResult = SignupSchema.safeParse(data)
-  
+  const validationResult = SignupSchema.safeParse(data);
+
   if (!validationResult.success) {
-    throw new Error("Données de formulaire invalides")
+    throw new Error("Données de formulaire invalides");
   }
 
   try {
@@ -66,7 +74,7 @@ export async function signUpWithConsent(data: {
 
     return { success: true, user: result.user };
   } catch (error) {
-    logger.error(error, "Erreur lors de l'inscription avec consentement")
-    throw new Error("Erreur lors de la création du compte")
+    logger.error(error, "Erreur lors de l'inscription avec consentement");
+    throw new Error("Erreur lors de la création du compte");
   }
 }
