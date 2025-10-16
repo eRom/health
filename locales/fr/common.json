@@ -322,7 +322,7 @@
       },
       "performance": {
         "title": "Performance",
-        "description": "≥90/100 Lighthouse"
+        "description": "100/100 Lighthouse"
       }
     },
     "cta": {
