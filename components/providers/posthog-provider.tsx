@@ -35,6 +35,11 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
         opt_out_capturing_by_default: false,
         loaded: () => {
           console.log("PostHog loaded");
+          // Expose PostHog globally for testing
+          if (typeof window !== "undefined") {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            (window as any).posthog = posthog;
+          }
         },
       });
     }

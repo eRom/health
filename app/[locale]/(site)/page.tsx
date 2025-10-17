@@ -1,3 +1,4 @@
+import { PostHogTest } from "@/components/analytics/posthog-test";
 import { Footer } from "@/components/navigation/footer";
 import { Header } from "@/components/navigation/header";
 import { AnimatedSection } from "@/components/site/animated-section";
@@ -77,11 +78,7 @@ import {
   Zap,
 } from "lucide-react";
 
-export default async function HomePage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
+export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "pageHome" });
   const authT = await getTranslations({ locale, namespace: "auth" });
@@ -112,6 +109,7 @@ export default async function HomePage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
       />
+      <PostHogTest />
       <Header />
       <main className="flex-1">
         {/* Hero Section */}
@@ -135,20 +133,12 @@ export default async function HomePage({
             <AnimatedSection variant="fade-up" delay={300}>
               <div className="flex flex-col gap-4 sm:flex-row">
                 {session?.user ? (
-                  <Button
-                    asChild
-                    size="lg"
-                    className="w-full text-base sm:w-56"
-                  >
+                  <Button asChild size="lg" className="w-full text-base sm:w-56">
                     <Link href="/dashboard">{t("hero.ctaAuthenticated")}</Link>
                   </Button>
                 ) : (
                   <>
-                    <Button
-                      asChild
-                      size="lg"
-                      className="w-full text-base sm:w-56"
-                    >
+                    <Button asChild size="lg" className="w-full text-base sm:w-56">
                       <Link href="/auth/signup">{t("hero.cta")}</Link>
                     </Button>
                     <Button
@@ -164,11 +154,7 @@ export default async function HomePage({
               </div>
             </AnimatedSection>
 
-            <AnimatedSection
-              variant="fade-up"
-              delay={500}
-              className="w-full max-w-3xl mx-auto"
-            >
+            <AnimatedSection variant="fade-up" delay={500} className="w-full max-w-3xl mx-auto">
               <div className="rounded-3xl border border-primary/20 bg-card/80 p-6 shadow-xl backdrop-blur md:p-8">
                 <div className="grid gap-6 sm:grid-cols-3">
                   <div className="flex flex-col items-center text-center">
@@ -218,9 +204,7 @@ export default async function HomePage({
                 <h2 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">
                   {t("problems.title")}
                 </h2>
-                <p className="text-lg text-muted-foreground">
-                  {t("problems.description")}
-                </p>
+                <p className="text-lg text-muted-foreground">{t("problems.description")}</p>
               </div>
             </AnimatedSection>
 
@@ -252,24 +236,15 @@ export default async function HomePage({
                         </h4>
                         <ul className="space-y-2 text-sm text-primary">
                           <li className="flex items-start gap-2">
-                            <CheckCircle
-                              className="mt-0.5 h-4 w-4 shrink-0"
-                              aria-hidden="true"
-                            />
+                            <CheckCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
                             <span>{t("problems.patients.solution1")}</span>
                           </li>
                           <li className="flex items-start gap-2">
-                            <CheckCircle
-                              className="mt-0.5 h-4 w-4 shrink-0"
-                              aria-hidden="true"
-                            />
+                            <CheckCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
                             <span>{t("problems.patients.solution2")}</span>
                           </li>
                           <li className="flex items-start gap-2">
-                            <CheckCircle
-                              className="mt-0.5 h-4 w-4 shrink-0"
-                              aria-hidden="true"
-                            />
+                            <CheckCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
                             <span>{t("problems.patients.solution3")}</span>
                           </li>
                         </ul>
@@ -305,17 +280,11 @@ export default async function HomePage({
                         </h4>
                         <ul className="space-y-2 text-sm text-primary">
                           <li className="flex items-start gap-2">
-                            <CheckCircle
-                              className="mt-0.5 h-4 w-4 shrink-0"
-                              aria-hidden="true"
-                            />
+                            <CheckCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
                             <span>{t("problems.clinicians.solution1")}</span>
                           </li>
                           <li className="flex items-start gap-2">
-                            <CheckCircle
-                              className="mt-0.5 h-4 w-4 shrink-0"
-                              aria-hidden="true"
-                            />
+                            <CheckCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
                             <span>{t("problems.clinicians.solution2")}</span>
                           </li>
                         </ul>
@@ -329,19 +298,14 @@ export default async function HomePage({
         </section>
 
         {/* Features Section */}
-        <section
-          id="fonctionnalites"
-          className="bg-[var(--color-bg-2)] py-16 md:py-24"
-        >
+        <section id="fonctionnalites" className="bg-[var(--color-bg-2)] py-16 md:py-24">
           <div className="container px-4">
             <AnimatedSection variant="fade-in">
               <div className="mx-auto mb-12 max-w-3xl text-center">
                 <h2 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">
                   {t("features.title")}
                 </h2>
-                <p className="text-lg text-muted-foreground">
-                  {t("features.description")}
-                </p>
+                <p className="text-lg text-muted-foreground">{t("features.description")}</p>
               </div>
             </AnimatedSection>
 
@@ -349,10 +313,7 @@ export default async function HomePage({
               <AnimatedSection variant="fade-up" delay={0}>
                 <div className="card-hover rounded-xl border bg-card p-6 text-center shadow-sm h-full">
                   <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10">
-                    <Target
-                      className="h-8 w-8 text-primary"
-                      aria-hidden="true"
-                    />
+                    <Target className="h-8 w-8 text-primary" aria-hidden="true" />
                   </div>
                   <h2 className="mb-2 text-lg font-semibold">
                     {t("features.guidedExercises.title")}
@@ -380,10 +341,7 @@ export default async function HomePage({
               <AnimatedSection variant="fade-up" delay={200}>
                 <div className="card-hover rounded-xl border bg-card p-6 text-center shadow-sm h-full">
                   <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10">
-                    <BarChart3
-                      className="h-8 w-8 text-primary"
-                      aria-hidden="true"
-                    />
+                    <BarChart3 className="h-8 w-8 text-primary" aria-hidden="true" />
                   </div>
                   <h2 className="mb-2 text-lg font-semibold">
                     {t("features.progressTracking.title")}
@@ -397,14 +355,9 @@ export default async function HomePage({
               <AnimatedSection variant="fade-up" delay={300}>
                 <div className="card-hover rounded-xl border bg-card p-6 text-center shadow-sm h-full">
                   <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10">
-                    <Smartphone
-                      className="h-8 w-8 text-primary"
-                      aria-hidden="true"
-                    />
+                    <Smartphone className="h-8 w-8 text-primary" aria-hidden="true" />
                   </div>
-                  <h2 className="mb-2 text-lg font-semibold">
-                    {t("features.mobileFirst.title")}
-                  </h2>
+                  <h2 className="mb-2 text-lg font-semibold">{t("features.mobileFirst.title")}</h2>
                   <p className="text-sm text-muted-foreground">
                     {t("features.mobileFirst.description")}
                   </p>
@@ -416,9 +369,7 @@ export default async function HomePage({
                   <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10">
                     <Moon className="h-8 w-8 text-primary" aria-hidden="true" />
                   </div>
-                  <h2 className="mb-2 text-lg font-semibold">
-                    {t("features.darkMode.title")}
-                  </h2>
+                  <h2 className="mb-2 text-lg font-semibold">{t("features.darkMode.title")}</h2>
                   <p className="text-sm text-muted-foreground">
                     {t("features.darkMode.description")}
                   </p>
@@ -428,10 +379,7 @@ export default async function HomePage({
               <AnimatedSection variant="fade-up" delay={500}>
                 <div className="card-hover rounded-xl border bg-card p-6 text-center shadow-sm h-full">
                   <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10">
-                    <Shield
-                      className="h-8 w-8 text-primary"
-                      aria-hidden="true"
-                    />
+                    <Shield className="h-8 w-8 text-primary" aria-hidden="true" />
                   </div>
                   <h2 className="mb-2 text-lg font-semibold">
                     {t("features.gdprCompliant.title")}
@@ -453,9 +401,7 @@ export default async function HomePage({
                 <h2 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">
                   {t("testimonials.title")}
                 </h2>
-                <p className="text-lg text-muted-foreground">
-                  {t("testimonials.description")}
-                </p>
+                <p className="text-lg text-muted-foreground">{t("testimonials.description")}</p>
               </div>
             </AnimatedSection>
 
@@ -465,9 +411,7 @@ export default async function HomePage({
                 <div className="rounded-xl border bg-card p-8 shadow-sm h-full">
                   <div className="mb-6 text-center text-6xl">👩‍🦳</div>
                   <div className="mb-4">
-                    <h2 className="mb-1 text-lg font-semibold">
-                      {t("testimonials.marie.name")}
-                    </h2>
+                    <h2 className="mb-1 text-lg font-semibold">{t("testimonials.marie.name")}</h2>
                     <p className="mb-1 text-sm font-medium text-primary">
                       {t("testimonials.marie.role")}
                     </p>
@@ -513,9 +457,7 @@ export default async function HomePage({
                 <h2 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">
                   {t("subscription.title")}
                 </h2>
-                <p className="text-lg text-muted-foreground">
-                  {t("subscription.subtitle")}
-                </p>
+                <p className="text-lg text-muted-foreground">{t("subscription.subtitle")}</p>
               </div>
             </AnimatedSection>
 
@@ -585,9 +527,7 @@ export default async function HomePage({
                 <h2 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">
                   {t("journey.title")}
                 </h2>
-                <p className="text-lg text-muted-foreground">
-                  {t("journey.description")}
-                </p>
+                <p className="text-lg text-muted-foreground">{t("journey.description")}</p>
               </div>
             </AnimatedSection>
 
@@ -598,9 +538,7 @@ export default async function HomePage({
                     1
                   </div>
                   <div>
-                    <h2 className="mb-2 font-semibold">
-                      {t("journey.step1.title")}
-                    </h2>
+                    <h2 className="mb-2 font-semibold">{t("journey.step1.title")}</h2>
                     <p className="text-sm text-muted-foreground">
                       {t("journey.step1.description")}
                     </p>
@@ -614,9 +552,7 @@ export default async function HomePage({
                     2
                   </div>
                   <div>
-                    <h2 className="mb-2 font-semibold">
-                      {t("journey.step2.title")}
-                    </h2>
+                    <h2 className="mb-2 font-semibold">{t("journey.step2.title")}</h2>
                     <p className="text-sm text-muted-foreground">
                       {t("journey.step2.description")}
                     </p>
@@ -630,9 +566,7 @@ export default async function HomePage({
                     3
                   </div>
                   <div>
-                    <h2 className="mb-2 font-semibold">
-                      {t("journey.step3.title")}
-                    </h2>
+                    <h2 className="mb-2 font-semibold">{t("journey.step3.title")}</h2>
                     <p className="text-sm text-muted-foreground">
                       {t("journey.step3.description")}
                     </p>
@@ -646,9 +580,7 @@ export default async function HomePage({
                     4
                   </div>
                   <div>
-                    <h2 className="mb-2 font-semibold">
-                      {t("journey.step4.title")}
-                    </h2>
+                    <h2 className="mb-2 font-semibold">{t("journey.step4.title")}</h2>
                     <p className="text-sm text-muted-foreground">
                       {t("journey.step4.description")}
                     </p>
@@ -667,9 +599,7 @@ export default async function HomePage({
                 <h2 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">
                   {t("technology.title")}
                 </h2>
-                <p className="text-lg text-muted-foreground">
-                  {t("technology.description")}
-                </p>
+                <p className="text-lg text-muted-foreground">{t("technology.description")}</p>
               </div>
             </AnimatedSection>
 
@@ -689,9 +619,7 @@ export default async function HomePage({
               <AnimatedSection variant="fade-in" delay={100}>
                 <div className="text-center">
                   <div className="mx-auto mb-3 text-4xl">♿</div>
-                  <h3 className="mb-1 text-sm font-semibold">
-                    {t("technology.wcag.title")}
-                  </h3>
+                  <h3 className="mb-1 text-sm font-semibold">{t("technology.wcag.title")}</h3>
                   <p className="text-xs text-muted-foreground">
                     {t("technology.wcag.description")}
                   </p>
@@ -701,9 +629,7 @@ export default async function HomePage({
               <AnimatedSection variant="fade-in" delay={200}>
                 <div className="text-center">
                   <div className="mx-auto mb-3 text-4xl">📶</div>
-                  <h3 className="mb-1 text-sm font-semibold">
-                    {t("technology.offline.title")}
-                  </h3>
+                  <h3 className="mb-1 text-sm font-semibold">{t("technology.offline.title")}</h3>
                   <p className="text-xs text-muted-foreground">
                     {t("technology.offline.description")}
                   </p>
@@ -713,9 +639,7 @@ export default async function HomePage({
               <AnimatedSection variant="fade-in" delay={300}>
                 <div className="text-center">
                   <div className="mx-auto mb-3 text-4xl">🌐</div>
-                  <h3 className="mb-1 text-sm font-semibold">
-                    {t("technology.bilingual.title")}
-                  </h3>
+                  <h3 className="mb-1 text-sm font-semibold">{t("technology.bilingual.title")}</h3>
                   <p className="text-xs text-muted-foreground">
                     {t("technology.bilingual.description")}
                   </p>
@@ -725,9 +649,7 @@ export default async function HomePage({
               <AnimatedSection variant="fade-in" delay={400}>
                 <div className="text-center">
                   <div className="mx-auto mb-3 text-4xl">🔒</div>
-                  <h3 className="mb-1 text-sm font-semibold">
-                    {t("technology.gdpr.title")}
-                  </h3>
+                  <h3 className="mb-1 text-sm font-semibold">{t("technology.gdpr.title")}</h3>
                   <p className="text-xs text-muted-foreground">
                     {t("technology.gdpr.description")}
                   </p>
@@ -757,35 +679,18 @@ export default async function HomePage({
                 <h2 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">
                   {t("cta.title")}
                 </h2>
-                <p className="mb-8 text-lg text-muted-foreground">
-                  {t("cta.description")}
-                </p>
+                <p className="mb-8 text-lg text-muted-foreground">{t("cta.description")}</p>
                 <div className="flex flex-col justify-center gap-4 sm:flex-row">
                   {session?.user ? (
-                    <Button
-                      asChild
-                      size="lg"
-                      className="w-full text-base sm:w-56"
-                    >
-                      <Link href="/dashboard">
-                        {t("hero.ctaAuthenticated")}
-                      </Link>
+                    <Button asChild size="lg" className="w-full text-base sm:w-56">
+                      <Link href="/dashboard">{t("hero.ctaAuthenticated")}</Link>
                     </Button>
                   ) : (
-                    <Button
-                      asChild
-                      size="lg"
-                      className="w-full text-base sm:w-56"
-                    >
+                    <Button asChild size="lg" className="w-full text-base sm:w-56">
                       <Link href="/auth/signup">{t("cta.createAccount")}</Link>
                     </Button>
                   )}
-                  <Button
-                    asChild
-                    variant="outline"
-                    size="lg"
-                    className="w-full text-base sm:w-56"
-                  >
+                  <Button asChild variant="outline" size="lg" className="w-full text-base sm:w-56">
                     <Link href="/about">{t("cta.learnMore")}</Link>
                   </Button>
                 </div>
@@ -825,9 +730,7 @@ export default async function HomePage({
                           <path d="M21.801 10A10 10 0 1 1 17 3.335"></path>
                           <path d="m9 11 3 3L22 4"></path>
                         </svg>
-                        <span className="text-muted-foreground">
-                          {t("mobileApp.responsive")}
-                        </span>
+                        <span className="text-muted-foreground">{t("mobileApp.responsive")}</span>
                       </li>
                       <li className="flex items-start gap-3">
                         <svg
@@ -846,9 +749,7 @@ export default async function HomePage({
                           <path d="M21.801 10A10 10 0 1 1 17 3.335"></path>
                           <path d="m9 11 3 3L22 4"></path>
                         </svg>
-                        <span className="text-muted-foreground">
-                          {t("mobileApp.offlineMode")}
-                        </span>
+                        <span className="text-muted-foreground">{t("mobileApp.offlineMode")}</span>
                       </li>
                       <li className="flex items-start gap-3">
                         <svg
@@ -867,14 +768,12 @@ export default async function HomePage({
                           <path d="M21.801 10A10 10 0 1 1 17 3.335"></path>
                           <path d="m9 11 3 3L22 4"></path>
                         </svg>
-                        <span className="text-muted-foreground">
-                          {t("mobileApp.intuitive")}
-                        </span>
+                        <span className="text-muted-foreground">{t("mobileApp.intuitive")}</span>
                       </li>
                     </ul>
                     <p className="text-sm text-muted-foreground">
-                      Scannez le QR code pour accéder directement à la
-                      plateforme depuis votre mobile
+                      Scannez le QR code pour accéder directement à la plateforme depuis votre
+                      mobile
                     </p>
                   </div>
 
@@ -912,12 +811,8 @@ export default async function HomePage({
             <div className="mx-auto max-w-3xl">
               <div className="rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/5 to-primary/10 p-8 text-center shadow-lg">
                 <div className="mb-4 text-4xl">💙</div>
-                <h2 className="mb-3 text-2xl font-bold tracking-tight">
-                  {t("support.title")}
-                </h2>
-                <p className="mb-6 text-muted-foreground">
-                  {t("support.description")}
-                </p>
+                <h2 className="mb-3 text-2xl font-bold tracking-tight">{t("support.title")}</h2>
+                <p className="mb-6 text-muted-foreground">{t("support.description")}</p>
                 <Button asChild size="lg" className="gap-2">
                   <a
                     href="https://fr.tipeee.com/rebondir-apres-lavc-ma-carriere-dans-la-tech"
