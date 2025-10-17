@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unregister Service Worker</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #0a0a0a;
+      color: #fff;
+    }
+    .status {
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 8px;
+      background: #1a1a1a;
+      border: 1px solid #333;
+    }
+    .success {
+      border-color: #22c55e;
+      background: #14532d;
+    }
+    button {
+      background: #ef4444;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background: #dc2626;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔧 Service Worker Debug Tool</h1>
+  <p>Utilisez cette page pour nettoyer le Service Worker et résoudre les problèmes de cache.</p>
+
+  <button onclick="unregisterSW()">Désinstaller le Service Worker</button>
+  <button onclick="clearCaches()">Vider tous les caches</button>
+
+  <div id="status" class="status"></div>
+
+  <script>
+    const statusEl = document.getElementById('status');
+
+    async function unregisterSW() {
+      if (!('serviceWorker' in navigator)) {
+        statusEl.innerHTML = '❌ Service Workers non supportés';
+        return;
+      }
+
+      try {
+        const registrations = await navigator.serviceWorker.getRegistrations();
+
+        if (registrations.length === 0) {
+          statusEl.innerHTML = '✅ Aucun Service Worker trouvé';
+          return;
+        }
+
+        for (const registration of registrations) {
+          await registration.unregister();
+        }
+
+        statusEl.className = 'status success';
+        statusEl.innerHTML = `✅ ${registrations.length} Service Worker(s) désinstallé(s). <br><br>Rechargez la page pour finaliser.`;
+      } catch (error) {
+        statusEl.innerHTML = `❌ Erreur: ${error.message}`;
+      }
+    }
+
+    async function clearCaches() {
+      if (!('caches' in window)) {
+        statusEl.innerHTML = '❌ Cache API non supportée';
+        return;
+      }
+
+      try {
+        const cacheNames = await caches.keys();
+
+        if (cacheNames.length === 0) {
+          statusEl.innerHTML = '✅ Aucun cache trouvé';
+          return;
+        }
+
+        await Promise.all(
+          cacheNames.map(cacheName => caches.delete(cacheName))
+        );
+
+        statusEl.className = 'status success';
+        statusEl.innerHTML = `✅ ${cacheNames.length} cache(s) vidé(s): <br><code>${cacheNames.join('<br>')}</code>`;
+      } catch (error) {
+        statusEl.innerHTML = `❌ Erreur: ${error.message}`;
+      }
+    }
+
+    // Auto-check on load
+    window.addEventListener('load', async () => {
+      if ('serviceWorker' in navigator) {
+        const registrations = await navigator.serviceWorker.getRegistrations();
+        const cacheNames = await caches.keys();
+
+        statusEl.innerHTML = `
+          📊 État actuel:<br>
+          - Service Workers: ${registrations.length}<br>
+          - Caches: ${cacheNames.length}
+        `;
+      }
+    });
+  </script>
+</body>
+</html>
