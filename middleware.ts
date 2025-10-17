@@ -1,7 +1,6 @@
 import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
 import { routing } from "./i18n/routing";
-import { handleGoogleOAuthLock } from "./lib/google-oauth-lock";
 import {
   debugLocale,
   extractLocaleFromPath,
@@ -52,14 +51,6 @@ async function fetchSession(request: NextRequest) {
 
 export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-
-  // Handle Google OAuth registration lock
-  // NOTE: Disabled to reduce middleware bundle size
-  // OAuth registration lock is now handled in Better Auth config (lib/auth.ts)
-  const oauthLockResponse = await handleGoogleOAuthLock();
-  if (oauthLockResponse) {
-    return oauthLockResponse;
-  }
 
   // ✅ CORRECTIF : Gérer les requêtes OPTIONS pour éviter les erreurs 400
   if (request.method === "OPTIONS") {

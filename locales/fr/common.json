@@ -114,8 +114,6 @@
     },
     "continueWithGoogle": "Continuer avec Google",
     "orSeparator": "ou",
-    "registrationClosed": "Les inscriptions sont temporairement fermées",
-    "registrationClosedDescription": "Vous pouvez toujours explorer l'interface. Les utilisateurs existants peuvent se connecter normalement.",
     "existingUsersCanLogin": "Utilisateurs existants : vous pouvez vous connecter normalement",
     "userMenu": {
       "myProfile": "Mon profil",

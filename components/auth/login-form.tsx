@@ -48,7 +48,7 @@ export function LoginForm() {
 
   return (
     <div className="space-y-10">
-      <GoogleButton className="w-full h-12" />
+      <GoogleButton className="w-full h-12" disabled />
 
       <div className="relative">
         <div className="absolute inset-0 flex items-center">

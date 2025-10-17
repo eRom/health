@@ -8,7 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import { Link, useRouter } from "@/i18n/routing";
 import { SignupSchema } from "@/lib/schemas/auth";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { GoogleButton } from "./google-button";
 
 export function SignupForm() {
@@ -17,26 +17,6 @@ export function SignupForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [consentChecked, setConsentChecked] = useState(false);
-  const [registrationEnabled, setRegistrationEnabled] = useState(true);
-
-  // Check registration status on component mount
-  useEffect(() => {
-    const checkRegistrationStatus = async () => {
-      try {
-        const response = await fetch("/api/registration-status");
-        if (response.ok) {
-          const data = await response.json();
-          setRegistrationEnabled(data.enabled);
-        }
-      } catch (error) {
-        console.error("Failed to check registration status:", error);
-        // Default to enabled if check fails
-        setRegistrationEnabled(true);
-      }
-    };
-
-    checkRegistrationStatus();
-  }, []);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -86,15 +66,7 @@ export function SignupForm() {
 
   return (
     <div className="space-y-8">
-      {/* Message informatif si les inscriptions sont fermées */}
-      {!registrationEnabled && (
-        <div className="rounded-md bg-blue-50 p-4 text-sm text-blue-800 dark:bg-blue-950 dark:text-blue-200">
-          <div className="font-medium">{t("auth.registrationClosed")}</div>
-          <div className="mt-1">{t("auth.registrationClosedDescription")}</div>
-        </div>
-      )}
-
-      <GoogleButton className="w-full h-11" />
+      <GoogleButton className="w-full h-11" disabled />
 
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
@@ -196,7 +168,7 @@ export function SignupForm() {
           <Button
             type="submit"
             className="flex-1 h-11"
-            disabled={isLoading || !consentChecked}
+            disabled
           >
             {isLoading ? t("common.loading") : t("auth.dialogSignin.signIn")}
           </Button>

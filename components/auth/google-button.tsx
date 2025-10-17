@@ -36,7 +36,7 @@ export function GoogleButton({
 
       // Afficher l'erreur à l'utilisateur
       const errorMessage =
-        error instanceof Error ? error.message : t("auth.registrationClosed");
+        error instanceof Error ? error.message : "Authentication error";
 
       setError(errorMessage);
     } finally {

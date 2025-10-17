@@ -4,7 +4,6 @@ import { auth } from "@/lib/auth";
 import { checkAndAwardWelcomeBadge } from "@/lib/badges";
 import { logger } from "@/lib/logger";
 import { prisma } from "@/lib/prisma";
-import { isRegistrationEnabled } from "@/lib/registration-lock";
 import { SignupSchema } from "@/lib/schemas/auth";
 import { headers } from "next/headers";
 
@@ -19,11 +18,6 @@ export async function signUpWithConsent(data: {
     throw new Error(
       "Consentement requis pour le traitement des données de santé"
     );
-  }
-
-  // Vérifier si les inscriptions sont activées
-  if (!isRegistrationEnabled()) {
-    throw new Error("Les inscriptions sont temporairement fermées");
   }
 
   // Validation côté serveur des autres champs
