@@ -1,6 +1,7 @@
 'use server'
 
 import { auth } from '@/lib/auth'
+import { trackBadgeShare as trackBadgeSharePostHog } from '@/lib/analytics/track'
 import { logger } from '@/lib/logger'
 import type { SharePlatform } from '@/lib/services/badge-share'
 import { trackBadgeShare } from '@/lib/services/badge-share'
@@ -44,8 +45,19 @@ export async function trackBadgeShareAction(
       }
     }
 
-    // Track the share
+    // Track the share in database (for audit/compliance)
     await trackBadgeShare(session.user.id, badge.badgeType, platform)
+
+    // Track the share in PostHog (for analytics)
+    // Map SharePlatform to PostHog platform types
+    const postHogPlatform: 'facebook' | 'twitter' | 'whatsapp' | 'copy_link' =
+      platform === 'copy' ? 'copy_link' :
+      platform === 'facebook' ? 'facebook' :
+      platform === 'twitter' ? 'twitter' :
+      platform === 'whatsapp' ? 'whatsapp' :
+      'copy_link' // default for 'download', 'native-share', 'instagram', etc.
+
+    await trackBadgeSharePostHog(badgeId, badge.badgeType, postHogPlatform)
 
     return { success: true }
   } catch (error) {

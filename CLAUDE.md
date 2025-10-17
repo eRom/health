@@ -14,7 +14,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Prisma + Neon PostgreSQL
 - next-intl (FR/EN localization)
 - Stripe (subscription management)
-- Sentry (monitoring)
+- Sentry (error monitoring)
+- PostHog (product analytics)
 - Vitest + Playwright (testing)
 
 ## Development Commands
@@ -237,6 +238,79 @@ npx shadcn@latest add <component-name>
 **Logger:**
 - Use structured logger: [lib/logger.ts](lib/logger.ts)
 - Middleware logger: [lib/middleware-logger.ts](lib/middleware-logger.ts)
+
+**PostHog Configuration (Product Analytics):**
+- Client-side config: [lib/posthog-client.ts](lib/posthog-client.ts)
+- Server-side config: [lib/posthog.ts](lib/posthog.ts)
+- Provider: [components/providers/posthog-provider.tsx](components/providers/posthog-provider.tsx)
+- Event definitions: [lib/analytics/events.ts](lib/analytics/events.ts)
+- Property builders: [lib/analytics/properties.ts](lib/analytics/properties.ts)
+- Tracking helpers: [lib/analytics/track.ts](lib/analytics/track.ts)
+
+**Environment Variables:**
+- `NEXT_PUBLIC_POSTHOG_KEY`
+- `NEXT_PUBLIC_POSTHOG_HOST` (default: https://eu.i.posthog.com)
+- `NEXT_PUBLIC_POSTHOG_DEV_MODE` (optional: set to `true` to enable in development)
+
+**Development Mode:**
+- PostHog is **disabled by default** in development to avoid polluting analytics
+- To enable for local testing: add `NEXT_PUBLIC_POSTHOG_DEV_MODE=true` to `.env.local`
+- Console will show: `📊 PostHog: ✅ Enabled in development mode` when active
+- See [POSTHOG_SETUP.md](POSTHOG_SETUP.md) for detailed setup instructions
+
+**Usage Patterns:**
+
+*Server Actions (Recommended):*
+```typescript
+'use server'
+
+import { trackExerciseCompletion, trackSignup } from '@/lib/analytics/track'
+
+// Track exercise completion
+await trackExerciseCompletion('neuro', 'memory-game', {
+  durationSeconds: 120,
+  score: 8,
+  maxScore: 10,
+})
+
+// Track user signup
+await trackSignup('email', user.email)
+```
+
+*Client Components:*
+```typescript
+'use client'
+
+import { captureEvent } from '@/lib/posthog-client'
+
+// Track custom event
+captureEvent('button_clicked', {
+  button_name: 'Start Exercise',
+  exercise_type: 'neuro',
+})
+```
+
+**Key Features:**
+- Automatic pageview tracking via PostHogProvider
+- User identification synced with Better Auth sessions
+- Session recording (disabled by default, requires GDPR consent)
+- Type-safe event tracking with TypeScript definitions
+- Coexists with Sentry (PostHog for analytics, Sentry for errors)
+- Automatic property enrichment (locale, environment, user context)
+
+**Event Categories:**
+- `AUTH`: signup, login, logout, email verification
+- `EXERCISE`: started, completed, abandoned, failed
+- `BADGE`: unlocked, viewed, shared
+- `SUBSCRIPTION`: pricing viewed, started, completed, cancelled
+- `NAVIGATION`: page views, link clicks, CTA interactions
+- `CONSENT`: health data consent, session recording opt-in/out
+
+**GDPR Compliance:**
+- Session recording disabled by default
+- Only enabled after explicit health data consent
+- All form inputs masked automatically
+- Health data never captured in session recordings
 
 ### Progressive Web App (PWA)
 

@@ -1,6 +1,7 @@
 "use server"
 
 import { auth } from "@/lib/auth";
+import { trackSignup } from "@/lib/analytics/track";
 import { checkAndAwardWelcomeBadge } from "@/lib/badges";
 import { logger } from "@/lib/logger";
 import { prisma } from "@/lib/prisma";
@@ -65,6 +66,9 @@ export async function signUpWithConsent(data: {
 
     // Attribuer le badge de bienvenue
     await checkAndAwardWelcomeBadge(result.user.id);
+
+    // Track signup event in PostHog
+    await trackSignup('email', result.user.email);
 
     return { success: true, user: result.user };
   } catch (error) {
