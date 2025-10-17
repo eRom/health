@@ -22,7 +22,8 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
     if (!posthog) {
       posthog = new PostHog();
       posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
-        api_host: "/ingest", // Use reverse proxy in production
+        api_host:
+          process.env.NODE_ENV === "production" ? "/ingest" : process.env.NEXT_PUBLIC_POSTHOG_HOST,
         person_profiles: "identified_only", // GDPR compliance
         capture_pageview: false, // We'll handle this manually
         capture_pageleave: true,
