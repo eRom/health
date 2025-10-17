@@ -5,6 +5,8 @@ import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import { sendPaymentFailedEmail } from '@/lib/email'
 import { SubscriptionStatus } from '@prisma/client'
+import { trackUserEvent, flushPostHog } from '@/lib/posthog'
+import { logger } from '@/lib/logger'
 
 // Helper to convert Stripe status to Prisma SubscriptionStatus
 function mapStripeStatusToPrisma(
@@ -82,9 +84,13 @@ export async function POST(req: Request) {
         console.log(`Unhandled event type: ${event.type}`)
     }
 
+    // Flush PostHog events before responding to webhook
+    // Critical: ensures all events are sent before the webhook response
+    await flushPostHog()
+
     return NextResponse.json({ received: true })
   } catch (error) {
-    console.error('Error processing webhook:', error)
+    logger.error(error, 'Error processing webhook', { eventType: event.type })
     return new NextResponse('Webhook handler failed', { status: 500 })
   }
 }
@@ -105,6 +111,19 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
   // Fetch full subscription details
   const subscription = await stripe.subscriptions.retrieve(subscriptionId)
   await handleSubscriptionUpdate(subscription)
+
+  // Track subscription completion
+  const priceId = subscription.items.data[0]?.price.id
+  const planType = priceId === process.env.STRIPE_PRICE_YEARLY ? 'yearly' : 'monthly'
+  const amount = subscription.items.data[0]?.price.unit_amount || 0
+
+  await trackUserEvent(userId, 'subscription_completed', {
+    plan_type: planType,
+    plan_price: amount / 100, // Convert cents to dollars
+    plan_currency: subscription.currency,
+    subscription_id: subscription.id,
+    subscription_status: subscription.status,
+  })
 }
 
 async function handleSubscriptionUpdate(subscription: Stripe.Subscription) {
@@ -182,6 +201,12 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
       status: 'CANCELED',
       canceledAt: new Date(),
     },
+  })
+
+  // Track subscription cancellation
+  await trackUserEvent(user.id, 'subscription_cancelled', {
+    subscription_id: subscription.id,
+    subscription_status: 'canceled',
   })
 }
 

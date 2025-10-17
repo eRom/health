@@ -48,3 +48,6 @@ next-env.d.ts
 exported-assets/
 *storybook.log
 storybook-static
+
+# PostHog
+.posthog/

@@ -14,12 +14,31 @@ declare global {
 
 declare const self: ServiceWorkerGlobalScope
 
+// Filter out API routes and other non-cacheable URLs from precache manifest
+const precacheManifest = (self.__SW_MANIFEST || []).filter((entry) => {
+  const url = typeof entry === 'string' ? entry : entry.url
+
+  // Exclude API routes - they shouldn't be precached
+  if (url.includes('/api/')) return false
+
+  // Exclude robots.txt route
+  if (url.includes('robots.txt')) return false
+
+  // Only include actual static assets
+  return true
+})
+
 const serwist = new Serwist({
-  precacheEntries: self.__SW_MANIFEST,
+  precacheEntries: precacheManifest,
   skipWaiting: true,
   clientsClaim: true,
   navigationPreload: true,
   runtimeCaching: defaultCache,
+  precacheOptions: {
+    cleanupOutdatedCaches: true,
+    concurrency: 10,
+    ignoreURLParametersMatching: [/^utm_/, /^fbclid$/],
+  },
   fallbacks: {
     entries: [
       {

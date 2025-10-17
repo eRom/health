@@ -1,6 +1,7 @@
 'use server'
 
 import { auth } from "@/lib/auth";
+import { trackExerciseCompletion } from "@/lib/analytics/track";
 import {
   checkAndAwardFirstExerciseBadge,
   checkAndAwardStreakBadges,
@@ -85,7 +86,25 @@ export async function submitExerciseAttempt(input: unknown) {
       newBadges = await getNewlyEarnedBadges(session.user.id);
     }
 
-    // 5. Revalidate relevant paths
+    // 5. Track exercise completion in PostHog
+    const exerciseType = validated.exerciseSlug.includes('neuro')
+      ? 'neuro'
+      : validated.exerciseSlug.includes('ortho')
+        ? 'ortho'
+        : validated.exerciseSlug.includes('ergo')
+          ? 'ergo'
+          : 'kine';
+
+    await trackExerciseCompletion(
+      exerciseType,
+      validated.exerciseSlug,
+      {
+        durationSeconds: validated.duration,
+        score: validated.score,
+      }
+    );
+
+    // 6. Revalidate relevant paths
     revalidatePath("/dashboard");
     revalidatePath("/neuro");
     revalidatePath("/ortho");

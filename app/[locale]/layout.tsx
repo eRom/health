@@ -1,6 +1,7 @@
 import { ThemeStyleScript } from "@/app/theme-style-script";
 import { AuthDebugger } from "@/components/debug/auth-debugger";
 import { LocaleDebugger } from "@/components/debug/locale-debugger";
+import { PostHogProvider } from "@/components/providers/posthog-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { PWAInstallPrompt } from "@/components/pwa/pwa-install-prompt";
 import { ServiceWorkerRegistration } from "@/components/pwa/service-worker-registration";
@@ -193,13 +194,15 @@ export default async function LocaleLayout({
             disableTransitionOnChange={false}
             storageKey="health-theme"
           >
-            {children}
-            <Toaster />
-            <ServiceWorkerRegistration />
-            <PWAInstallPrompt />
-            <StorageMigration />
-            <LocaleDebugger />
-            <AuthDebugger />
+            <PostHogProvider>
+              {children}
+              <Toaster />
+              <ServiceWorkerRegistration />
+              <PWAInstallPrompt />
+              <StorageMigration />
+              <LocaleDebugger />
+              <AuthDebugger />
+            </PostHogProvider>
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>
