@@ -650,26 +650,36 @@
       "description": "Politique de confidentialité et protection des données personnelles de Health In Cloud. Traitement RGPD des données de santé."
     },
     "title": "Politique de Confidentialité",
-    "lastUpdated": "Dernière mise à jour : Octobre 2025",
+    "lastUpdated": "Dernière mise à jour : Janvier 2026",
     "introduction": {
       "title": "1. Introduction",
       "description": "Health In Cloud (« nous », « notre », « nos ») s'engage à protéger la confidentialité de vos données personnelles. Cette politique de confidentialité explique comment nous collectons, utilisons et protégeons vos informations."
     },
     "dataCollected": {
       "title": "2. Données Collectées",
-      "intro": "Nous collectons les données suivantes :",
-      "identification": {
-        "title": "Données d'identification :",
-        "description": "adresse email"
-      },
-      "technical": {
-        "title": "Données techniques :",
-        "description": "type de navigateur, données de connexion"
-      },
-      "usage": {
-        "title": "Données d'utilisation :",
-        "description": "interactions avec la plateforme, temps passé sur les exercices"
-      }
+      "intro": "Nous appliquons un principe de minimisation : seules les données nécessaires au service et à la conformité sont collectées.",
+      "items": [
+        {
+          "title": "Données d'identification :",
+          "description": "adresse email, prénom et nom pour créer votre compte, personnaliser l'expérience et émettre les factures."
+        },
+        {
+          "title": "Données de consentement et préférences :",
+          "description": "horodatage du consentement explicite, adresse IP, user-agent, langue, thème et préférences de notification pour prouver votre accord et configurer l'interface."
+        },
+        {
+          "title": "Données d'abonnement :",
+          "description": "identifiants Stripe client/abonnement, statut de paiement et historique des rappels. Aucun numéro de carte n'est stocké par Health In Cloud."
+        },
+        {
+          "title": "Statistiques d'exercices :",
+          "description": "scores, durées, badges et séries permettant de suivre votre progression entre deux séances. Aucun contenu libre ni note clinique n'est enregistré."
+        },
+        {
+          "title": "Échanges soignant-patient :",
+          "description": "invitations, associations et messages courts avec les professionnels autorisés qui vous accompagnent."
+        }
+      ]
     },
     "dataUsage": {
       "title": "3. Utilisation des Données",
@@ -684,54 +694,87 @@
     },
     "legalBasis": {
       "title": "4. Base Légale du Traitement",
-      "intro": "Le traitement de vos données repose sur :",
+      "intro": "Nos traitements reposent sur les fondements juridiques suivants :",
       "items": [
-        "L'exécution du contrat de service",
-        "Le respect de nos obligations légales",
-        "Notre intérêt légitime à améliorer nos services"
+        {
+          "title": "Consentement explicite :",
+          "description": "lors de l'inscription, vous devez cocher une case dédiée au traitement des données liées à votre rééducation. Ce consentement est journalisé (horodatage, IP, user-agent) et peut être retiré à tout moment via votre profil."
+        },
+        {
+          "title": "Exécution du contrat :",
+          "description": "fournir la plateforme, gérer votre abonnement, enregistrer vos exercices et assurer le support."
+        },
+        {
+          "title": "Obligations légales :",
+          "description": "émettre et conserver les factures, répondre aux demandes des autorités compétentes et prévenir la fraude."
+        },
+        {
+          "title": "Intérêt légitime :",
+          "description": "sécuriser l'application, analyser son fonctionnement et améliorer l'expérience utilisateur, sans profilage marketing. Vous pouvez vous opposer à ces traitements en nous écrivant."
+        }
       ]
     },
     "dataSharing": {
       "title": "5. Partage des Données",
-      "intro": "Vos données peuvent être partagées avec :",
+      "intro": "L'accès aux données est strictement limité aux destinataires suivants :",
       "items": [
-        "Les professionnels de santé autorisés qui vous suivent",
-        "Nos prestataires techniques (hébergement sécurisé)",
-        "Les autorités compétentes en cas d'obligation légale"
+        {
+          "name": "Vercel (hébergement et CDN, UE)",
+          "description": "héberge l'application et les déploiements en Europe.",
+          "dpaLabel": "DPA Vercel",
+          "dpaUrl": "https://vercel.com/legal/data-processing-addendum",
+          "safeguards": "Pas de transfert hors UE ; mesures de sécurité ISO 27001."
+        },
+        {
+          "name": "Neon (base de données PostgreSQL, Francfort)",
+          "description": "stocke vos données applicatives et applique le chiffrement au repos.",
+          "dpaLabel": "DPA Neon",
+          "dpaUrl": "https://neon.tech/legal/data-processing-addendum",
+          "safeguards": "Infrastructure européenne, chiffrement géré."
+        },
+        {
+          "name": "Stripe (paiements et abonnements)",
+          "description": "traite les paiements, conserve les identifiants clients/abonnements et envoie les notifications de facturation.",
+          "dpaLabel": "DPA Stripe",
+          "dpaUrl": "https://stripe.com/legal/dpa",
+          "safeguards": "Clauses Contractuelles Types (SCC) + centres de données européens ; aucune donnée de carte ne transite par Health In Cloud."
+        },
+        {
+          "name": "Resend (emails transactionnels)",
+          "description": "envoie les emails de confirmation, de rappel et les alertes de facturation.",
+          "dpaLabel": "DPA Resend",
+          "dpaUrl": "https://resend.com/legal/data-processing-addendum",
+          "safeguards": "SCC UE et option de routage européen ; seuls nom et email sont transmis."
+        },
+        {
+          "name": "Sentry (monitoring et journalisation des erreurs)",
+          "description": "collecte des traces techniques pour corriger les incidents. Les données personnelles sont pseudonymisées et les événements sont stockés dans l'Union européenne.",
+          "dpaLabel": "DPA Sentry",
+          "dpaUrl": "https://sentry.io/legal/dpa/",
+          "safeguards": "SCC intégrées + projet configuré en région EU."
+        },
+        {
+          "name": "Professionnels de santé autorisés",
+          "description": "vos cliniciens invités peuvent consulter les indicateurs nécessaires à votre suivi.",
+          "dpaLabel": "Contrat de soins",
+          "dpaUrl": "mailto:dpo@healthincloud.app?subject=Informations%20RGPD",
+          "safeguards": "Accès limité aux comptes explicitement associés."
+        }
       ],
       "noSale": "Nous ne vendons jamais vos données personnelles à des tiers."
     },
-    "paymentProcessing": {
-      "title": "5bis. Traitement des Paiements",
-      "intro": "Pour le traitement sécurisé des paiements et la gestion des abonnements, nous faisons appel à Stripe Inc. en tant que sous-traitant au sens de l'article 28 du RGPD.",
-      "subprocessor": {
-        "title": "Stripe Inc. - Sous-traitant de paiement",
-        "description": "Stripe traite vos données de paiement et d'abonnement de manière sécurisée. Stripe est certifié PCI DSS Level 1, le niveau de certification le plus strict dans l'industrie des paiements.",
-        "dataProcessed": "Données traitées par Stripe :",
-        "items": [
-          "Informations de carte bancaire (chiffrées et tokenisées)",
-          "Historique des transactions",
-          "Statut de l'abonnement",
-          "Adresse email pour les communications de facturation"
-        ],
-        "location": "Localisation des données : Union Européenne (serveurs Stripe en Irlande)",
-        "privacy": "Politique de confidentialité de Stripe : stripe.com/privacy",
-        "dpa": "Un accord de traitement des données (DPA) conforme au RGPD est en place avec Stripe."
-      },
-      "subscriptionData": {
-        "title": "Données d'abonnement",
-        "description": "Concernant votre abonnement, nous collectons et conservons :",
-        "items": [
-          "Type d'abonnement (mensuel ou annuel)",
-          "Statut de l'abonnement (essai, actif, annulé, etc.)",
-          "Date de début et de fin de période",
-          "Historique des paiements et factures"
-        ],
-        "purpose": "Ces données sont nécessaires pour la gestion contractuelle de votre abonnement et sont conservées conformément aux obligations légales de conservation des documents comptables (10 ans)."
-      }
+    "transferSafeguards": {
+      "title": "6. Garanties pour les transferts hors UE",
+      "intro": "Lorsque nos prestataires disposent d'infrastructures hors de l'Union européenne, nous appliquons les mesures suivantes :",
+      "items": [
+        "Signature d'un Data Processing Addendum (DPA) conforme à l'article 28 du RGPD avec Stripe, Resend, Sentry, Vercel et Neon.",
+        "Application des Clauses Contractuelles Types (SCC) de la Commission européenne par Stripe, Resend et Sentry pour encadrer tout transfert éventuel vers les États-Unis.",
+        "Configuration des services en région européenne lorsque cela est possible (Vercel EU, Neon Francfort, Sentry EU).",
+        "Possibilité d'obtenir une copie des garanties contractuelles en écrivant à dpo@healthincloud.app."
+      ]
     },
     "dataSecurity": {
-      "title": "6. Sécurité des Données",
+      "title": "7. Sécurité des Données",
       "intro": "Nous mettons en œuvre des mesures de sécurité techniques et organisationnelles appropriées pour protéger vos données contre tout accès non autorisé, perte, destruction ou altération :",
       "measures": [
         "Chiffrement des données en transit (HTTPS) et au repos",
@@ -740,37 +783,18 @@
         "Accès limité aux données par le personnel autorisé uniquement"
       ]
     },
-    "subscriptionTerms": {
-      "title": "6bis. Conditions d'Abonnement",
-      "intro": "En souscrivant à notre service, les conditions suivantes s'appliquent :",
-      "trial": {
-        "title": "Essai gratuit",
-        "description": "14 jours d'essai gratuit avec accès complet. Aucun prélèvement durant la période d'essai. Annulation possible à tout moment."
-      },
-      "billing": {
-        "title": "Facturation",
-        "description": "Après l'essai, facturation automatique (X€/mois ou X€/an). Notification par email 7 jours avant chaque renouvellement."
-      },
-      "cancellation": {
-        "title": "Annulation",
-        "description": "Annulation possible à tout moment depuis votre profil. L'accès reste actif jusqu'à la fin de la période payée. Aucun remboursement au prorata."
-      },
-      "withdrawal": {
-        "title": "Droit de rétractation",
-        "description": "Conformément au droit français, vous disposez d'un délai de 14 jours pour exercer votre droit de rétractation à compter de la souscription. En utilisant le service durant ce délai, vous renoncez expressément à ce droit."
-      }
-    },
     "dataRetention": {
-      "title": "7. Durée de Conservation",
-      "intro": "Vos données sont conservées :",
+      "title": "8. Durée de Conservation",
+      "intro": "Nous conservons vos données le temps strictement nécessaire :",
       "items": [
-        "Pendant la durée de votre suivi thérapeutique",
-        "20 ans après la dernière consultation (conformément à la réglementation sur les données de santé)",
-        "3 ans après la fin de la relation contractuelle pour les données non-médicales"
+        "Compte actif : conservation pendant toute la durée du service pour assurer votre suivi thérapeutique.",
+        "Compte inactif ou supprimé : suppression des données applicatives sous 30 jours, hormis les obligations légales.",
+        "Factures et données comptables : conservation 10 ans conformément au droit français.",
+        "Preuves de consentement : archivage sécurisé pendant 5 ans après la suppression du compte."
       ]
     },
     "userRights": {
-      "title": "8. Vos Droits",
+      "title": "9. Vos Droits",
       "intro": "Conformément au RGPD, vous disposez des droits suivants :",
       "access": {
         "title": "Droit d'accès :",
@@ -799,8 +823,8 @@
       "contact": "Pour exercer vos droits, contactez-nous à :"
     },
     "cookies": {
-      "title": "9. Cookies",
-      "description": "Nous utilisons des cookies strictement nécessaires au fonctionnement du service (authentification, préférences de langue). Aucun cookie de tracking ou publicitaire n'est utilisé."
+      "title": "10. Cookies",
+      "description": "Nous utilisons uniquement des cookies nécessaires (authentification, langue, préférences de thème). Aucun cookie publicitaire ni outil de suivi tiers n'est déployé."
     },
     "contact": {
       "title": "Contact",

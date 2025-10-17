@@ -33,6 +33,35 @@ export default async function PrivacyPage({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "pagePrivacy" });
 
+  type Bullet = { title: string; description: string };
+  type Processor = {
+    name: string;
+    description: string;
+    dpaLabel: string;
+    dpaUrl: string;
+    safeguards?: string;
+  };
+
+  const rawDataCollected = t.raw("dataCollected.items");
+  const dataCollectedItems = Array.isArray(rawDataCollected)
+    ? (rawDataCollected as Bullet[])
+    : [];
+
+  const rawLegalBasis = t.raw("legalBasis.items");
+  const legalBasisItems = Array.isArray(rawLegalBasis)
+    ? (rawLegalBasis as Bullet[])
+    : [];
+
+  const rawDataSharing = t.raw("dataSharing.items");
+  const dataSharingItems = Array.isArray(rawDataSharing)
+    ? (rawDataSharing as Processor[])
+    : [];
+
+  const rawTransferSafeguards = t.raw("transferSafeguards.items");
+  const transferSafeguardsItems = Array.isArray(rawTransferSafeguards)
+    ? (rawTransferSafeguards as string[])
+    : [];
+
   const schema = createWebPageSchema(
     t("title"),
     t("metadata.description"),
@@ -70,18 +99,11 @@ export default async function PrivacyPage({
                   {t("dataCollected.intro")}
                 </p>
                 <ul className="mb-4 ml-6 list-disc space-y-2 text-muted-foreground">
-                  <li>
-                    <strong>{t("dataCollected.identification.title")}</strong>{" "}
-                    {t("dataCollected.identification.description")}
-                  </li>
-                  <li>
-                    <strong>{t("dataCollected.technical.title")}</strong>{" "}
-                    {t("dataCollected.technical.description")}
-                  </li>
-                  <li>
-                    <strong>{t("dataCollected.usage.title")}</strong>{" "}
-                    {t("dataCollected.usage.description")}
-                  </li>
+                  {dataCollectedItems.map((item) => (
+                    <li key={item.title}>
+                      <strong>{item.title}</strong> {item.description}
+                    </li>
+                  ))}
                 </ul>
               </section>
 
@@ -109,11 +131,11 @@ export default async function PrivacyPage({
                   {t("legalBasis.intro")}
                 </p>
                 <ul className="mb-4 ml-6 list-disc space-y-2 text-muted-foreground">
-                  {t
-                    .raw("legalBasis.items")
-                    .map((item: string, index: number) => (
-                      <li key={index}>{item}</li>
-                    ))}
+                  {legalBasisItems.map((item) => (
+                    <li key={item.title}>
+                      <strong>{item.title}</strong> {item.description}
+                    </li>
+                  ))}
                 </ul>
               </section>
 
@@ -124,16 +146,39 @@ export default async function PrivacyPage({
                 <p className="mb-4 text-muted-foreground">
                   {t("dataSharing.intro")}
                 </p>
-                <ul className="mb-4 ml-6 list-disc space-y-2 text-muted-foreground">
-                  {t
-                    .raw("dataSharing.items")
-                    .map((item: string, index: number) => (
-                      <li key={index}>{item}</li>
-                    ))}
+                <ul className="mb-4 ml-6 list-disc space-y-3 text-muted-foreground">
+                  {dataSharingItems.map((item) => (
+                    <li key={item.name}>
+                      <strong>{item.name}</strong> {item.description}{" "}
+                      <a
+                        href={item.dpaUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-primary hover:underline"
+                      >
+                        {item.dpaLabel}
+                      </a>
+                      {item.safeguards ? ` — ${item.safeguards}` : null}
+                    </li>
+                  ))}
                 </ul>
                 <p className="mb-4 text-muted-foreground">
                   {t("dataSharing.noSale")}
                 </p>
+              </section>
+
+              <section className="mb-12">
+                <h2 className="mb-4 text-2xl font-semibold">
+                  {t("transferSafeguards.title")}
+                </h2>
+                <p className="mb-4 text-muted-foreground">
+                  {t("transferSafeguards.intro")}
+                </p>
+                <ul className="mb-4 ml-6 list-disc space-y-2 text-muted-foreground">
+                  {transferSafeguardsItems.map((item, index) => (
+                    <li key={index}>{item}</li>
+                  ))}
+                </ul>
               </section>
 
               <section className="mb-12">
