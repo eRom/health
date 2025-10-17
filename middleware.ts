@@ -63,9 +63,16 @@ export default async function middleware(request: NextRequest) {
       return NextResponse.rewrite(url);
     }
 
-    // Proxy PostHog API calls
+    // Proxy PostHog API calls (GET and POST)
     if (pathname.startsWith("/ingest/")) {
       const url = new URL(pathname.replace("/ingest/", ""), "https://eu.i.posthog.com");
+
+      // Preserve query parameters
+      if (request.nextUrl.search) {
+        url.search = request.nextUrl.search;
+      }
+
+      // Handle both GET and POST requests
       return NextResponse.rewrite(url);
     }
   }

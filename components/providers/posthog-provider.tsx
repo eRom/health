@@ -61,15 +61,18 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
 
     const identifyUser = async () => {
       try {
-        const response = await fetch("/api/auth/get-session");
-        if (response.ok) {
-          const session = await response.json();
-          if (session?.user) {
-            posthog?.identify(session.user.id, {
-              email: session.user.email,
-              name: session.user.name,
-              emailVerified: session.user.emailVerified,
-            });
+        // Only identify if we're on the same domain to avoid CORS issues
+        if (typeof window !== "undefined" && window.location.hostname === "healthincloud.app") {
+          const response = await fetch("/api/internal/session");
+          if (response.ok) {
+            const session = await response.json();
+            if (session?.user) {
+              posthog?.identify(session.user.id, {
+                email: session.user.email,
+                name: session.user.name,
+                emailVerified: session.user.emailVerified,
+              });
+            }
           }
         }
       } catch (error) {
