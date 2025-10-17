@@ -1,0 +1,10 @@
+.next
+coverage
+node_modules
+dist
+build
+playwright-report
+test-results
+public/sw.js
+public/sw.js.map
+**/generated/**

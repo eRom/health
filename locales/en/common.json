@@ -650,26 +650,36 @@
       "description": "Health In Cloud privacy policy and personal data protection. GDPR processing of health data."
     },
     "title": "Privacy Policy",
-    "lastUpdated": "Last updated: October 2025",
+    "lastUpdated": "Last updated: January 2026",
     "introduction": {
       "title": "1. Introduction",
       "description": "Health In Cloud (\"we\", \"our\", \"us\") is committed to protecting the privacy of your personal data. This privacy policy explains how we collect, use and protect your information."
     },
     "dataCollected": {
       "title": "2. Data Collected",
-      "intro": "We collect the following data:",
-      "identification": {
-        "title": "Identification data:",
-        "description": "email address"
-      },
-      "technical": {
-        "title": "Technical data:",
-        "description": "browser type, connection data"
-      },
-      "usage": {
-        "title": "Usage data:",
-        "description": "interactions with the platform, time spent on exercises"
-      }
+      "intro": "We apply a data minimisation principle: only information required to deliver the service and stay compliant is collected.",
+      "items": [
+        {
+          "title": "Identification data:",
+          "description": "email address, first and last name to create your account, personalise the experience, and issue invoices."
+        },
+        {
+          "title": "Consent and preference data:",
+          "description": "timestamped health-data consent, IP address, user-agent, language, theme, and notification preferences to evidence your agreement and configure the interface."
+        },
+        {
+          "title": "Subscription data:",
+          "description": "Stripe customer/subscription identifiers, payment status, and reminder history. Health In Cloud never stores full card details."
+        },
+        {
+          "title": "Exercise metrics:",
+          "description": "scores, durations, badges, and streaks used to monitor your progress between in-person sessions. No free-form content or clinical notes are captured."
+        },
+        {
+          "title": "Care-team interactions:",
+          "description": "invitations, associations, and short messages exchanged with authorised healthcare professionals."
+        }
+      ]
     },
     "dataUsage": {
       "title": "3. Data Usage",
@@ -684,25 +694,87 @@
     },
     "legalBasis": {
       "title": "4. Legal Basis for Processing",
-      "intro": "The processing of your data is based on:",
+      "intro": "We rely on the following legal bases:",
       "items": [
-        "Performance of the service contract",
-        "Compliance with our legal obligations",
-        "Our legitimate interest in improving our services"
+        {
+          "title": "Explicit consent:",
+          "description": "during sign-up you must tick a dedicated consent checkbox for processing rehabilitation-related data. The consent is logged (timestamp, IP, user-agent) and can be withdrawn at any time from your profile."
+        },
+        {
+          "title": "Performance of the contract:",
+          "description": "to provide the platform, manage your subscription, record exercise attempts, and deliver support."
+        },
+        {
+          "title": "Legal obligations:",
+          "description": "to issue and retain invoices, comply with lawful requests from authorities, and prevent fraud."
+        },
+        {
+          "title": "Legitimate interest:",
+          "description": "to secure the application, analyse its performance, and improve the experience without marketing profiling. You may object to these processing activities by contacting us."
+        }
       ]
     },
     "dataSharing": {
       "title": "5. Data Sharing",
-      "intro": "Your data may be shared with:",
+      "intro": "Access to your data is restricted to the recipients below:",
       "items": [
-        "Authorized healthcare professionals who follow you",
-        "Our technical service providers (secure hosting)",
-        "Competent authorities in case of legal obligation"
+        {
+          "name": "Vercel (hosting & CDN, EU)",
+          "description": "hosts the application and deployments within Europe.",
+          "dpaLabel": "Vercel DPA",
+          "dpaUrl": "https://vercel.com/legal/data-processing-addendum",
+          "safeguards": "No transfer outside the EU; ISO 27001-certified infrastructure."
+        },
+        {
+          "name": "Neon (PostgreSQL database, Frankfurt)",
+          "description": "stores application data with encryption at rest.",
+          "dpaLabel": "Neon DPA",
+          "dpaUrl": "https://neon.tech/legal/data-processing-addendum",
+          "safeguards": "European infrastructure with managed encryption."
+        },
+        {
+          "name": "Stripe (payments & subscriptions)",
+          "description": "processes payments, keeps customer/subscription identifiers, and sends billing notifications.",
+          "dpaLabel": "Stripe DPA",
+          "dpaUrl": "https://stripe.com/legal/dpa",
+          "safeguards": "EU data centres with EU Standard Contractual Clauses; Health In Cloud never handles raw card data."
+        },
+        {
+          "name": "Resend (transactional emails)",
+          "description": "delivers confirmation, reminder, and billing emails.",
+          "dpaLabel": "Resend DPA",
+          "dpaUrl": "https://resend.com/legal/data-processing-addendum",
+          "safeguards": "EU SCCs with optional EU routing; only name and email are shared."
+        },
+        {
+          "name": "Sentry (error monitoring & logging)",
+          "description": "captures technical traces to diagnose incidents. Personal data is pseudonymised and events are stored in the EU.",
+          "dpaLabel": "Sentry DPA",
+          "dpaUrl": "https://sentry.io/legal/dpa/",
+          "safeguards": "Includes EU Standard Contractual Clauses; project configured in the EU region."
+        },
+        {
+          "name": "Authorised healthcare professionals",
+          "description": "clinicians you explicitly link to your account can review the indicators needed for care.",
+          "dpaLabel": "Care contract",
+          "dpaUrl": "mailto:dpo@healthincloud.app?subject=GDPR%20information",
+          "safeguards": "Access limited to approved associations."
+        }
       ],
       "noSale": "We never sell your personal data to third parties."
     },
+    "transferSafeguards": {
+      "title": "6. Safeguards for International Transfers",
+      "intro": "When vendors operate infrastructure outside the European Union, we apply the following safeguards:",
+      "items": [
+        "Signing a GDPR-compliant Data Processing Addendum (DPA) with Stripe, Resend, Sentry, Vercel, and Neon.",
+        "Enforcing the European Commission's Standard Contractual Clauses (SCCs) through Stripe, Resend, and Sentry for any potential transfers to the United States.",
+        "Configuring services in EU regions whenever available (Vercel EU, Neon Frankfurt, Sentry EU).",
+        "Providing a copy of the contractual safeguards upon request at dpo@healthincloud.app."
+      ]
+    },
     "dataSecurity": {
-      "title": "6. Data Security",
+      "title": "7. Data Security",
       "intro": "We implement appropriate technical and organizational security measures to protect your data against unauthorized access, loss, destruction or alteration:",
       "measures": [
         "Data encryption in transit (HTTPS) and at rest",
@@ -712,16 +784,17 @@
       ]
     },
     "dataRetention": {
-      "title": "7. Data Retention",
-      "intro": "Your data is retained:",
+      "title": "8. Data Retention",
+      "intro": "We keep your data only for as long as necessary:",
       "items": [
-        "During the duration of your therapeutic follow-up",
-        "20 years after the last consultation (in accordance with health data regulations)",
-        "3 years after the end of the contractual relationship for non-medical data"
+        "Active account: retained for the duration of the service to deliver therapeutic monitoring.",
+        "Closed or inactive account: application data deleted within 30 days except where law requires longer retention.",
+        "Invoices and bookkeeping data: stored for 10 years in line with French legal obligations.",
+        "Consent evidence: archived securely for 5 years after account deletion."
       ]
     },
     "userRights": {
-      "title": "8. Your Rights",
+      "title": "9. Your Rights",
       "intro": "In accordance with GDPR, you have the following rights:",
       "access": {
         "title": "Right of access:",
@@ -750,8 +823,8 @@
       "contact": "To exercise your rights, contact us at:"
     },
     "cookies": {
-      "title": "9. Cookies",
-      "description": "We use strictly necessary cookies for the service operation (authentication, language preferences). No tracking or advertising cookies are used."
+      "title": "10. Cookies",
+      "description": "We only use strictly necessary cookies (authentication, language, theme preferences). No advertising or third-party tracking cookies are deployed."
     },
     "contact": {
       "title": "Contact",
