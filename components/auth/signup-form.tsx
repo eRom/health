@@ -66,7 +66,7 @@ export function SignupForm() {
 
   return (
     <div className="space-y-8">
-      <GoogleButton className="w-full h-11" />
+      <GoogleButton className="w-full h-11" disabled />
 
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
@@ -168,7 +168,7 @@ export function SignupForm() {
           <Button
             type="submit"
             className="flex-1 h-11"
-            disabled={isLoading || !consentChecked}
+            disabled
           >
             {isLoading ? t("common.loading") : t("auth.dialogSignin.signIn")}
           </Button>

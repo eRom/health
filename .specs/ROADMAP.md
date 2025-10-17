@@ -19,17 +19,26 @@
 **Goal**: Deliver a production-ready MVP for Nantes MPR patients and clinicians sharing the same dashboard.
 
 **Key workstreams**
-1. **Platform foundations**
+1. **Platform foundations** ✅ COMPLETED
    - Stable Next.js 15.x stack, type-safe APIs, production Neon DB, Vercel deployment, Cloudflare DNS/SSL.
    - Authentication via Better Auth (email/password + optional Google/Apple SSO), protected routes, session handling.
-2. **Experience baseline**
+2. **Experience baseline** ✅ COMPLETED
    - Public landing and thank-you pages, responsive navigation (header/footer), FR/EN localisation, dark theme default.
    - Shared dashboard shell with welcome state, starter exercise recommendations, profile editing basics.
-3. **Exercise MVP**
+3. **Exercise MVP** ✅ COMPLETED
    - Neuro: Letter span module with audio playback, configurable cadence, scoring, history stub.
    - Ortho: Diadochokinesia drills and tongue twisters with guided prompts.
-4. **Quality & compliance**
+   - Ergo: Daily activities and fine motor skills exercises.
+   - Kine: Mobility, balance, and strength exercises.
+4. **Quality & compliance** ✅ COMPLETED
    - Automated tests (unit, critical E2E), error monitoring (Sentry), analytics hooks ready, GDPR-compliant data handling outline.
+5. **Subscription System** ✅ COMPLETED (January 2025)
+   - Stripe integration for payments (checkout + customer portal).
+   - 14-day free trial with automatic billing (19€/month or 180€/year).
+   - Email notifications (trial reminders, renewal alerts, payment failures).
+   - Access protection middleware for premium content.
+   - GDPR-compliant documentation (Stripe as Article 28 subprocessor).
+   - Comprehensive tests (E2E + unit) and admin documentation.
 
 **Immediate backlog (next two sprints)**
 - Finalise footer + mobile navigation, polish landing page copy and CTAs.

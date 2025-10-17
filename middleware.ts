@@ -8,7 +8,7 @@ import {
   isHealthcareRoute,
   isProtectedRoute,
 } from "./lib/locale-utils";
-import { logger } from "./lib/logger";
+import { middlewareLogger as logger } from "./lib/middleware-logger";
 
 const intlMiddleware = createMiddleware(routing);
 
@@ -51,6 +51,25 @@ async function fetchSession(request: NextRequest) {
 
 export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  // ✅ CORRECTIF : Gérer les requêtes OPTIONS pour éviter les erreurs 400
+  if (request.method === "OPTIONS") {
+    // Pour les requêtes OPTIONS vers les locales, retourner une réponse OK
+    if (pathname === "/fr" || pathname === "/en") {
+      return new NextResponse(null, {
+        status: 200,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type, Authorization",
+          "Access-Control-Max-Age": "86400",
+        },
+      });
+    }
+
+    // Pour les autres requêtes OPTIONS, laisser passer
+    return new NextResponse(null, { status: 200 });
+  }
 
   // Handle badge URLs without locale - redirect to French by default
   if (
@@ -228,6 +247,10 @@ export default async function middleware(request: NextRequest) {
           // Continue to allow access if check fails
         }
       }
+
+      // NOTE: Subscription check moved to page-level protection
+      // The middleware cannot use Prisma on Edge Runtime
+      // Each protected page will check subscription using Server Components
     }
   }
 

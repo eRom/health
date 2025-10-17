@@ -114,6 +114,7 @@
     },
     "continueWithGoogle": "Continuer avec Google",
     "orSeparator": "ou",
+    "existingUsersCanLogin": "Utilisateurs existants : vous pouvez vous connecter normalement",
     "userMenu": {
       "myProfile": "Mon profil",
       "myPatients": "Mes patients",
@@ -261,6 +262,22 @@
         "quote": "J'ai besoin de visibilité sur la pratique à domicile de mes patients pour ajuster mes recommandations de manière proactive."
       }
     },
+    "subscription": {
+      "title": "Des tarifs transparents, imbattables et rassurants",
+      "subtitle": "Accédez à toute la puissance de Health In Cloud pour une rééducation autonome, motivante… sans vous ruiner ! Notre mission : rendre l'e-santé accessible à tous, sans compromis sur la qualité ou la sécurité.",
+      "trial": {
+        "title": "Essai gratuit 14 jours",
+        "description": "Testez toutes les fonctionnalités, sans engagement."
+      },
+      "pricing": {
+        "title": "Abonnement mensuel ultra-compétitif",
+        "description": "À partir de X € par mois, tout compris — aucun frais caché.",
+        "from": "Dès",
+        "perMonth": "€/mois"
+      },
+      "security": "Sécurité et conformité RGPD garanties",
+      "cta": "Voir tous les tarifs"
+    },
     "journey": {
       "title": "Votre parcours en 4 étapes",
       "description": "Un accompagnement personnalisé de l'inscription au suivi",
@@ -306,7 +323,7 @@
       },
       "performance": {
         "title": "Performance",
-        "description": "≥90/100 Lighthouse"
+        "description": "100/100 Lighthouse"
       }
     },
     "cta": {
@@ -385,6 +402,55 @@
       "title": "Nous Contacter",
       "intro": "Pour toute question ou suggestion, n'hésitez pas à nous contacter :",
       "emailLabel": "Email :"
+    }
+  },
+  "pagePricing": {
+    "metadata": {
+      "title": "Tarifs - Health In Cloud",
+      "description": "Découvrez nos formules d'abonnement avec 14 jours d'essai gratuit. Accédez à tous les exercices de rééducation."
+    },
+    "title": "Nos Tarifs",
+    "subtitle": "Choisissez la formule qui vous convient avec 14 jours d'essai gratuit",
+    "benefits": {
+      "title": "Tous les avantages inclus",
+      "item1": "Accès illimité à tous les exercices",
+      "item2": "Suivi de progression détaillé",
+      "item3": "Tableau de bord personnalisé",
+      "item4": "Export de vos données",
+      "item5": "Support par email",
+      "item6": "Mises à jour régulières"
+    },
+    "trial": {
+      "title": "Essai gratuit de 14 jours",
+      "description": "Testez toutes les fonctionnalités sans engagement",
+      "item1": "Aucune carte bancaire requise durant l'essai",
+      "item2": "Annulation possible à tout moment",
+      "item3": "Accès complet à la plateforme"
+    },
+    "cta": {
+      "title": "Prêt à commencer votre rééducation ?",
+      "description": "Créez votre compte gratuitement et profitez de 14 jours d'essai",
+      "button": "Commencer l'essai gratuit"
+    },
+    "plans": {
+      "monthly": {
+        "title": "Mensuel",
+        "description": "Parfait pour commencer",
+        "price": "X€",
+        "period": "/mois",
+        "trial": "Essai gratuit inclus",
+        "button": "Choisir le mensuel"
+      },
+      "yearly": {
+        "title": "Annuel",
+        "description": "Le meilleur rapport qualité-prix",
+        "price": "X€",
+        "period": "/an",
+        "savings": "Économisez X€ par an",
+        "trial": "Essai gratuit inclus",
+        "button": "Choisir l'annuel",
+        "badge": "Recommandé"
+      }
     }
   },
   "pageGDPR": {
@@ -635,6 +701,35 @@
       ],
       "noSale": "Nous ne vendons jamais vos données personnelles à des tiers."
     },
+    "paymentProcessing": {
+      "title": "5bis. Traitement des Paiements",
+      "intro": "Pour le traitement sécurisé des paiements et la gestion des abonnements, nous faisons appel à Stripe Inc. en tant que sous-traitant au sens de l'article 28 du RGPD.",
+      "subprocessor": {
+        "title": "Stripe Inc. - Sous-traitant de paiement",
+        "description": "Stripe traite vos données de paiement et d'abonnement de manière sécurisée. Stripe est certifié PCI DSS Level 1, le niveau de certification le plus strict dans l'industrie des paiements.",
+        "dataProcessed": "Données traitées par Stripe :",
+        "items": [
+          "Informations de carte bancaire (chiffrées et tokenisées)",
+          "Historique des transactions",
+          "Statut de l'abonnement",
+          "Adresse email pour les communications de facturation"
+        ],
+        "location": "Localisation des données : Union Européenne (serveurs Stripe en Irlande)",
+        "privacy": "Politique de confidentialité de Stripe : stripe.com/privacy",
+        "dpa": "Un accord de traitement des données (DPA) conforme au RGPD est en place avec Stripe."
+      },
+      "subscriptionData": {
+        "title": "Données d'abonnement",
+        "description": "Concernant votre abonnement, nous collectons et conservons :",
+        "items": [
+          "Type d'abonnement (mensuel ou annuel)",
+          "Statut de l'abonnement (essai, actif, annulé, etc.)",
+          "Date de début et de fin de période",
+          "Historique des paiements et factures"
+        ],
+        "purpose": "Ces données sont nécessaires pour la gestion contractuelle de votre abonnement et sont conservées conformément aux obligations légales de conservation des documents comptables (10 ans)."
+      }
+    },
     "dataSecurity": {
       "title": "6. Sécurité des Données",
       "intro": "Nous mettons en œuvre des mesures de sécurité techniques et organisationnelles appropriées pour protéger vos données contre tout accès non autorisé, perte, destruction ou altération :",
@@ -644,6 +739,26 @@
         "Hébergement sur des serveurs certifiés européens",
         "Accès limité aux données par le personnel autorisé uniquement"
       ]
+    },
+    "subscriptionTerms": {
+      "title": "6bis. Conditions d'Abonnement",
+      "intro": "En souscrivant à notre service, les conditions suivantes s'appliquent :",
+      "trial": {
+        "title": "Essai gratuit",
+        "description": "14 jours d'essai gratuit avec accès complet. Aucun prélèvement durant la période d'essai. Annulation possible à tout moment."
+      },
+      "billing": {
+        "title": "Facturation",
+        "description": "Après l'essai, facturation automatique (X€/mois ou X€/an). Notification par email 7 jours avant chaque renouvellement."
+      },
+      "cancellation": {
+        "title": "Annulation",
+        "description": "Annulation possible à tout moment depuis votre profil. L'accès reste actif jusqu'à la fin de la période payée. Aucun remboursement au prorata."
+      },
+      "withdrawal": {
+        "title": "Droit de rétractation",
+        "description": "Conformément au droit français, vous disposez d'un délai de 14 jours pour exercer votre droit de rétractation à compter de la souscription. En utilisant le service durant ce délai, vous renoncez expressément à ce droit."
+      }
     },
     "dataRetention": {
       "title": "7. Durée de Conservation",
@@ -832,6 +947,7 @@
   "footer": {
     "platform": {
       "title": "Plateforme",
+      "pricing": "Tarifs",
       "features": "Fonctionnalités",
       "dashboard": "Tableau de bord",
       "about": "À propos"
@@ -851,6 +967,103 @@
     "copyright": "© 2025 {appTitle}. Tous droits réservés."
   },
   "loading": "Chargement...",
+  "subscription": {
+    "meta": {
+      "title": "Abonnement - Health In Cloud",
+      "description": "Choisissez votre formule d'abonnement avec 14 jours d'essai gratuit"
+    },
+    "page": {
+      "title": "Abonnement",
+      "description": "Accédez à tous les exercices de rééducation avec un abonnement flexible",
+      "accessBlocked": {
+        "title": "Abonnement requis",
+        "description": "Cette fonctionnalité nécessite un abonnement actif. Démarrez votre essai gratuit de 14 jours pour accéder à tous les exercices de rééducation."
+      },
+      "choosePlan": "Choisissez votre formule",
+      "choosePlanDescription": "14 jours d'essai gratuit pour toutes les formules",
+      "trialInfo": {
+        "title": "À propos de l'essai gratuit",
+        "duration": "14 jours d'essai gratuit complet",
+        "fullAccess": "Accès illimité à tous les exercices",
+        "noCharge": "Aucun prélèvement durant la période d'essai",
+        "cancelAnytime": "Annulation possible à tout moment"
+      }
+    },
+    "success": {
+      "meta": {
+        "title": "Abonnement activé - Health In Cloud",
+        "description": "Votre essai gratuit de 14 jours est maintenant actif"
+      },
+      "title": "Abonnement activé avec succès !",
+      "description": "Votre période d'essai gratuit de 14 jours commence maintenant",
+      "nextSteps": {
+        "title": "Prochaines étapes",
+        "step1": "Explorez tous les exercices de rééducation sans limite",
+        "step2": "Suivez votre progression dans le tableau de bord",
+        "step3": "Personnalisez vos préférences dans votre profil"
+      },
+      "reminder": {
+        "title": "Rappel :",
+        "description": "Vous ne serez facturé qu'à la fin de la période d'essai de 14 jours. Vous pouvez annuler à tout moment depuis votre profil."
+      },
+      "cta": {
+        "dashboard": "Aller au tableau de bord",
+        "profile": "Voir mon profil"
+      }
+    },
+    "card": {
+      "title": "Mon abonnement",
+      "noSubscription": "Aucun abonnement actif",
+      "noSubscriptionDescription": "Démarrez un essai gratuit de 14 jours pour accéder à tous les exercices",
+      "startTrial": "Démarrer l'essai gratuit",
+      "trialEndsOn": "Essai gratuit jusqu'au {date}",
+      "trialDescription": "Vous ne serez facturé qu'à la fin de la période d'essai",
+      "renewalDate": "Prochaine facturation",
+      "canceledWarning": "Votre abonnement prend fin le {date}",
+      "pastDueWarning": "Le paiement a échoué. Mettez à jour vos informations de paiement pour conserver l'accès.",
+      "canceledOn": "Abonnement annulé le {date}",
+      "manageSubscription": "Gérer l'abonnement",
+      "loading": "Chargement..."
+    },
+    "status": {
+      "trialing": "Essai gratuit",
+      "active": "Actif",
+      "pastDue": "Paiement en retard",
+      "canceled": "Annulé",
+      "incomplete": "Incomplet",
+      "incompleteExpired": "Expiré",
+      "unpaid": "Impayé"
+    },
+    "plan": {
+      "monthly": "Formule mensuelle",
+      "yearly": "Formule annuelle"
+    },
+    "pricing": {
+      "monthly": {
+        "title": "Mensuel",
+        "description": "Facturation mensuelle"
+      },
+      "yearly": {
+        "title": "Annuel",
+        "description": "Facturation annuelle",
+        "badge": "Économisez 20%",
+        "savings": "X€ par mois (économie de X€ par an)"
+      },
+      "perMonth": "/ mois",
+      "perYear": "/ an",
+      "trialIncluded": "14 jours d'essai gratuit inclus",
+      "selectPlan": "Choisir cette formule",
+      "loading": "Chargement..."
+    },
+    "features": {
+      "unlimitedAccess": "Accès illimité à la plateforme",
+      "allExercises": "Tous les exercices de rééducation",
+      "progressTracking": "Suivi détaillé de progression",
+      "personalizedDashboard": "Tableau de bord personnalisé",
+      "dataExport": "Export de données (PDF, CSV)",
+      "emailSupport": "Support par email"
+    }
+  },
   "badges": {
     "title": "Mes Badges",
     "earned": "Badge obtenu",

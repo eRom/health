@@ -7,6 +7,7 @@ import { NotificationPreference } from "@/components/profile/notification-prefer
 import { SecurityInfo } from "@/components/profile/security-info";
 import { ThemePreference } from "@/components/profile/theme-preference";
 import { ThemeStyleSelector } from "@/components/profile/theme-style-selector";
+import { SubscriptionCard } from "@/components/subscription/subscription-card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import {
   Card,
@@ -19,6 +20,7 @@ import { redirect } from "@/i18n/routing";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { headers } from "next/headers";
+import { getSubscriptionStatus } from "@/app/actions/get-subscription-status";
 
 export default async function ProfilePage({
   params,
@@ -68,6 +70,9 @@ export default async function ProfilePage({
     orderBy: { updatedAt: "desc" },
   });
 
+  // Fetch subscription status
+  const subscription = await getSubscriptionStatus();
+
   const isCredentialAuth = account?.providerId === "credential";
 
   return (
@@ -106,6 +111,9 @@ export default async function ProfilePage({
 
         {/* Mon soignant - seulement pour les patients */}
         {userData?.role !== "HEALTHCARE_PROVIDER" && <MyProviderSection />}
+
+        {/* Abonnement */}
+        <SubscriptionCard subscription={subscription} />
 
         {/* Préférences */}
         <Card>

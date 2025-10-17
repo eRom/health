@@ -5,7 +5,7 @@ import { prisma } from '@/lib/prisma'
 
 export async function getUsers() {
   await requireAdmin()
-  
+
   const users = await prisma.user.findMany({
     select: {
       id: true,
@@ -28,10 +28,18 @@ export async function getUsers() {
           granted: true,
           grantedAt: true
         }
+      },
+      subscription: {
+        select: {
+          status: true,
+          currentPeriodEnd: true,
+          trialEnd: true,
+          cancelAtPeriodEnd: true
+        }
       }
     },
     orderBy: { createdAt: 'desc' }
   })
-  
+
   return users
 }
