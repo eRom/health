@@ -162,6 +162,13 @@ function MyComponent() {
 
 ### Custom Events (Server-side)
 
+**✨ Now using posthog-node for reliable server-side tracking!**
+
+Server-side events are sent directly from the server using the official PostHog Node.js SDK. This ensures:
+- ✅ Events are tracked even with ad-blockers
+- ✅ No dependency on client-side JavaScript
+- ✅ Reliable tracking from webhooks and API routes
+
 ```typescript
 'use server'
 
@@ -172,6 +179,24 @@ export async function myServerAction() {
     property1: 'value1',
     property2: 'value2',
   })
+
+  // Events are automatically batched and sent by posthog-node
+  // No need to manually flush in most cases
+}
+```
+
+**For critical paths (webhooks, process exit):**
+
+```typescript
+import { flushPostHog } from '@/lib/posthog'
+
+export async function POST(req: Request) {
+  // ... handle webhook ...
+
+  // Ensure all events are sent before responding
+  await flushPostHog()
+
+  return NextResponse.json({ success: true })
 }
 ```
 
