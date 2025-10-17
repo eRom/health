@@ -52,6 +52,24 @@ async function fetchSession(request: NextRequest) {
 export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  // PostHog reverse proxy (production only)
+  if (process.env.NODE_ENV === "production") {
+    // Proxy PostHog static assets
+    if (pathname.startsWith("/ingest/static/")) {
+      const url = new URL(
+        pathname.replace("/ingest/static/", ""),
+        "https://eu-assets.i.posthog.com"
+      );
+      return NextResponse.rewrite(url);
+    }
+
+    // Proxy PostHog API calls
+    if (pathname.startsWith("/ingest/")) {
+      const url = new URL(pathname.replace("/ingest/", ""), "https://eu.i.posthog.com");
+      return NextResponse.rewrite(url);
+    }
+  }
+
   // ✅ CORRECTIF : Gérer les requêtes OPTIONS pour éviter les erreurs 400
   if (request.method === "OPTIONS") {
     // Pour les requêtes OPTIONS vers les locales, retourner une réponse OK
@@ -100,12 +118,8 @@ export default async function middleware(request: NextRequest) {
     // Check for Better Auth session cookies
     // Better Auth uses __secure- or __Secure- prefixes in production
     const sessionToken = request.cookies.get("better-auth.session_token");
-    const secureSessionLower = request.cookies.get(
-      "__secure-better-auth.session_token"
-    );
-    const secureSessionUpper = request.cookies.get(
-      "__Secure-better-auth.session_token"
-    );
+    const secureSessionLower = request.cookies.get("__secure-better-auth.session_token");
+    const secureSessionUpper = request.cookies.get("__Secure-better-auth.session_token");
 
     logger.debug("[MIDDLEWARE] Checking session cookies", {
       pathname,
@@ -144,10 +158,10 @@ export default async function middleware(request: NextRequest) {
           const session = await fetchSession(request);
 
           if (!session?.user) {
-            logger.debug(
-              "[MIDDLEWARE] No session for admin route, redirecting to login",
-              { pathname, locale }
-            );
+            logger.debug("[MIDDLEWARE] No session for admin route, redirecting to login", {
+              pathname,
+              locale,
+            });
             const loginUrl = new URL(`/${locale}/auth/login`, request.url);
             return NextResponse.redirect(loginUrl);
           }
@@ -165,18 +179,15 @@ export default async function middleware(request: NextRequest) {
           const session = await fetchSession(request);
 
           if (!session?.user) {
-            logger.debug(
-              "[MIDDLEWARE] No session for healthcare route, redirecting to login",
-              { pathname, locale }
-            );
+            logger.debug("[MIDDLEWARE] No session for healthcare route, redirecting to login", {
+              pathname,
+              locale,
+            });
             const loginUrl = new URL(`/${locale}/auth/login`, request.url);
             return NextResponse.redirect(loginUrl);
           }
         } catch (error) {
-          logger.error(
-            error,
-            "[MIDDLEWARE] Error checking healthcare permissions"
-          );
+          logger.error(error, "[MIDDLEWARE] Error checking healthcare permissions");
           // Redirect to dashboard on error
           const dashboardUrl = new URL(`/${locale}/dashboard`, request.url);
           return NextResponse.redirect(dashboardUrl);
@@ -197,10 +208,9 @@ export default async function middleware(request: NextRequest) {
           const session = await fetchSession(request);
 
           if (session?.user && !session.user.emailVerified) {
-            logger.info(
-              "[MIDDLEWARE] Email not verified, redirecting to dashboard",
-              { userId: session.user.id }
-            );
+            logger.info("[MIDDLEWARE] Email not verified, redirecting to dashboard", {
+              userId: session.user.id,
+            });
             const dashboardUrl = new URL(`/${locale}/dashboard`, request.url);
             return NextResponse.redirect(dashboardUrl);
           }
@@ -217,10 +227,7 @@ export default async function middleware(request: NextRequest) {
 
           if (session?.user) {
             // Check consent via API route (secure but lightweight)
-            const consentCheckUrl = new URL(
-              "/api/internal/consent-check",
-              request.url
-            );
+            const consentCheckUrl = new URL("/api/internal/consent-check", request.url);
             const cookieHeader = request.headers.get("cookie") ?? "";
 
             const consentResponse = await fetch(consentCheckUrl, {

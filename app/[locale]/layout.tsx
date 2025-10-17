@@ -1,6 +1,7 @@
 import { ThemeStyleScript } from "@/app/theme-style-script";
 import { AuthDebugger } from "@/components/debug/auth-debugger";
 import { LocaleDebugger } from "@/components/debug/locale-debugger";
+import { PostHogProvider } from "@/components/providers/posthog-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { PWAInstallPrompt } from "@/components/pwa/pwa-install-prompt";
 import { ServiceWorkerRegistration } from "@/components/pwa/service-worker-registration";
@@ -166,11 +167,7 @@ export default async function LocaleLayout({
     <html lang={locale} suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
           href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Fira+Code:wght@300..700&family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..800&family=Lora:wght@300..700&family=Merriweather:wght@300;400;700;900&family=Merriweather+Sans:wght@300..800&family=Poppins:wght@100..900&family=Source+Code+Pro:wght@200..900&family=Source+Serif+4:opsz,wght@8..60,200..900&display=swap"
           rel="stylesheet"
@@ -182,7 +179,10 @@ export default async function LocaleLayout({
             __html: JSON.stringify(organizationSchema),
           }}
         />
-        <meta name="google-site-verification" content="Ot7gKW0uvgQr80-r7kM8j985DTvttOkUz9glo6-gHVw" />
+        <meta
+          name="google-site-verification"
+          content="Ot7gKW0uvgQr80-r7kM8j985DTvttOkUz9glo6-gHVw"
+        />
       </head>
       <body className="antialiased font-sans">
         <NextIntlClientProvider messages={messages}>
@@ -193,13 +193,15 @@ export default async function LocaleLayout({
             disableTransitionOnChange={false}
             storageKey="health-theme"
           >
-            {children}
-            <Toaster />
-            <ServiceWorkerRegistration />
-            <PWAInstallPrompt />
-            <StorageMigration />
-            <LocaleDebugger />
-            <AuthDebugger />
+            <PostHogProvider>
+              {children}
+              <Toaster />
+              <ServiceWorkerRegistration />
+              <PWAInstallPrompt />
+              <StorageMigration />
+              <LocaleDebugger />
+              <AuthDebugger />
+            </PostHogProvider>
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>
