@@ -28,16 +28,12 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
         capture_pageleave: true,
         disable_session_recording: false,
         mask_all_text: false,
-        mask_all_inputs: true,
-        mask_input_options: {
-          password: true,
-        },
         // EU region settings
         ui_host: "https://eu.i.posthog.com",
         // Privacy settings
         respect_dnt: true,
         opt_out_capturing_by_default: false,
-        loaded: (posthog) => {
+        loaded: () => {
           console.log("PostHog loaded");
         },
       });
