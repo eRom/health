@@ -70,7 +70,7 @@ export function PricingTable({ isAuthenticated }: PricingTableProps) {
         <CardContent className="flex-1 space-y-6">
           <div className="space-y-1">
             <div className="flex items-baseline gap-2">
-              <span className="text-4xl font-bold">19€</span>
+              <span className="text-4xl font-bold">X€</span>
               <span className="text-muted-foreground">{t('pricing.perMonth')}</span>
             </div>
             <p className="text-sm text-muted-foreground">
@@ -125,7 +125,7 @@ export function PricingTable({ isAuthenticated }: PricingTableProps) {
         <CardContent className="flex-1 space-y-6">
           <div className="space-y-1">
             <div className="flex items-baseline gap-2">
-              <span className="text-4xl font-bold">180€</span>
+              <span className="text-4xl font-bold">X€</span>
               <span className="text-muted-foreground">{t('pricing.perYear')}</span>
             </div>
             <p className="text-sm text-green-600 dark:text-green-500">

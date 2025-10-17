@@ -271,7 +271,7 @@
       },
       "pricing": {
         "title": "Abonnement mensuel ultra-compétitif",
-        "description": "À partir de 19 € par mois, tout compris — aucun frais caché.",
+        "description": "À partir de X € par mois, tout compris — aucun frais caché.",
         "from": "Dès",
         "perMonth": "€/mois"
       },
@@ -436,7 +436,7 @@
       "monthly": {
         "title": "Mensuel",
         "description": "Parfait pour commencer",
-        "price": "19€",
+        "price": "X€",
         "period": "/mois",
         "trial": "Essai gratuit inclus",
         "button": "Choisir le mensuel"
@@ -444,9 +444,9 @@
       "yearly": {
         "title": "Annuel",
         "description": "Le meilleur rapport qualité-prix",
-        "price": "180€",
+        "price": "X€",
         "period": "/an",
-        "savings": "Économisez 48€ par an",
+        "savings": "Économisez X€ par an",
         "trial": "Essai gratuit inclus",
         "button": "Choisir l'annuel",
         "badge": "Recommandé"
@@ -749,7 +749,7 @@
       },
       "billing": {
         "title": "Facturation",
-        "description": "Après l'essai, facturation automatique (19€/mois ou 180€/an). Notification par email 7 jours avant chaque renouvellement."
+        "description": "Après l'essai, facturation automatique (X€/mois ou X€/an). Notification par email 7 jours avant chaque renouvellement."
       },
       "cancellation": {
         "title": "Annulation",
@@ -1047,7 +1047,7 @@
         "title": "Annuel",
         "description": "Facturation annuelle",
         "badge": "Économisez 20%",
-        "savings": "15€ par mois (économie de 48€ par an)"
+        "savings": "X€ par mois (économie de X€ par an)"
       },
       "perMonth": "/ mois",
       "perYear": "/ an",

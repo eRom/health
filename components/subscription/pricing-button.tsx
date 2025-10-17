@@ -1,8 +1,8 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { useParams, useRouter } from 'next/navigation'
-import { cn } from '@/lib/utils'
+import { cn } from "@/lib/utils";
+import { useParams, useRouter } from "next/navigation";
 
 interface PricingButtonProps {
   plan?: 'monthly' | 'yearly'
@@ -24,10 +24,11 @@ export function PricingButton({ children, className, size }: PricingButtonProps)
   return (
     <Button
       onClick={handleClick}
-      className={cn('cursor-pointer', className)}
+      className={cn("cursor-pointer", className)}
       size={size}
+      disabled
     >
       {children}
     </Button>
-  )
+  );
 }

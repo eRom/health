@@ -555,7 +555,7 @@ export default async function HomePage({
                         {t("subscription.pricing.from")}
                       </span>
                       <span className="text-5xl font-bold text-green-600 dark:text-green-400">
-                        19
+                        X
                       </span>
                       <span className="text-xl text-green-800 dark:text-green-200">
                         {t("subscription.pricing.perMonth")}

@@ -271,7 +271,7 @@
       },
       "pricing": {
         "title": "Ultra-competitive monthly subscription",
-        "description": "From €19 per month, all included — no hidden fees.",
+        "description": "From €X per month, all included — no hidden fees.",
         "from": "From",
         "perMonth": "€/month"
       },
@@ -436,7 +436,7 @@
       "monthly": {
         "title": "Monthly",
         "description": "Perfect to get started",
-        "price": "€19",
+        "price": "€X",
         "period": "/month",
         "trial": "Free trial included",
         "button": "Choose monthly"
@@ -444,9 +444,9 @@
       "yearly": {
         "title": "Yearly",
         "description": "Best value for money",
-        "price": "€180",
+        "price": "€X",
         "period": "/year",
-        "savings": "Save €48 per year",
+        "savings": "Save €X per year",
         "trial": "Free trial included",
         "button": "Choose yearly",
         "badge": "Recommended"
@@ -998,7 +998,7 @@
         "title": "Yearly",
         "description": "Billed annually",
         "badge": "Save 20%",
-        "savings": "€15 per month (save €48 per year)"
+        "savings": "€X per month (save €X per year)"
       },
       "perMonth": "/ month",
       "perYear": "/ year",
