@@ -1,7 +1,8 @@
 {
-  "status": "init",
-  "scope": "codebase",
+  "status": "commited",
   "type": "frontend",
+  "scope": "codebase",
   "localEndpoint": "http://localhost:3000",
-  "serverPort": 58121
+  "loginUser": "romain.ecarnot@gmail.com",
+  "loginPassword": "mprnantes"
 }

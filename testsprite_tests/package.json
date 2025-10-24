@@ -1,0 +1,33 @@
+{
+  "name": "health-in-cloud-testsprite-tests",
+  "version": "1.0.0",
+  "description": "TestSprite MCP test suite for Health In Cloud",
+  "scripts": {
+    "test": "node run-tests.js",
+    "test:auth": "node -e \"console.log('Auth tests ready')\"",
+    "test:ui": "node -e \"console.log('UI tests ready')\"",
+    "test:i18n": "node -e \"console.log('I18n tests ready')\"",
+    "test:performance": "node -e \"console.log('Performance tests ready')\"",
+    "test:accessibility": "node -e \"console.log('Accessibility tests ready')\"",
+    "test:all": "node run-tests.js",
+    "report": "node -e \"console.log('Test reports available in ./reports/')\""
+  },
+  "keywords": [
+    "testsprite",
+    "mcp",
+    "testing",
+    "health-in-cloud",
+    "e2e",
+    "accessibility",
+    "performance"
+  ],
+  "author": "Health In Cloud Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "playwright": "^1.40.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

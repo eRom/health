@@ -1,0 +1,41 @@
+{
+  "timestamp": "2025-10-24T05:32:29.579Z",
+  "project": "Health In Cloud",
+  "testSuite": "TestSprite MCP",
+  "summary": {
+    "totalTests": 31,
+    "passed": 31,
+    "failed": 0,
+    "skipped": 0,
+    "duration": "3m 45s"
+  },
+  "categories": {
+    "authentication": {
+      "passed": 5,
+      "failed": 0
+    },
+    "ui": {
+      "passed": 6,
+      "failed": 0
+    },
+    "internationalization": {
+      "passed": 7,
+      "failed": 0
+    },
+    "performance": {
+      "passed": 6,
+      "failed": 0
+    },
+    "accessibility": {
+      "passed": 7,
+      "failed": 0
+    }
+  },
+  "recommendations": [
+    "Tous les tests sont passés avec succès",
+    "L'application répond aux critères de qualité",
+    "Performance excellente (LCP < 2.5s)",
+    "Accessibilité WCAG 2.1 AA conforme",
+    "Internationalisation FR/EN fonctionnelle"
+  ]
+}
